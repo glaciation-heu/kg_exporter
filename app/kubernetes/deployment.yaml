@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: kg-exporter
-        image: cemtanrikut/kg_exporter:latest
+        image: kg_exporter:latest
