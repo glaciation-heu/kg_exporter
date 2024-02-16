@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kg-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kg-exporter
+  template:
+    metadata:
+      labels:
+        app: kg-exporter
+    spec:
+      containers:
+      - name: kg-exporter
+        image: cemtanrikut/kg_exporter:latest
