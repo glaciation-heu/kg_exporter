@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kg-exporter
+  name: {? {include "kg-exporter-chart.fullname" .: ''} : ''}
+  labels:
+    app: kg-exporter
 spec:
   replicas: 1
   selector:
@@ -15,3 +17,6 @@ spec:
       containers:
       - name: kg-exporter
         image: kg_exporter:latest
+        ports:
+        - containerPort: 8080
+          name: http
