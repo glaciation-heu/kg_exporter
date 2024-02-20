@@ -13,11 +13,9 @@ class KubernetesWatcher:
 
     def watch_resources(self):
         resource_types = ['Deployment', 'StatefulSet', 'Job']
-        resource_version_mapping = {}
         for resource_type in resource_types:
             response = getattr(self.api_instance, f'list_namespaced_{resource_type.lower()}')('default')
             items = response.items
-            resource_version_mapping[resource_type] = {item.metadata.name: item.metadata.resource_version for item in items}
             for item in items:
                 logger.info(f"{resource_type} {item.metadata.name} version {item.metadata.resource_version}")
 
