@@ -27,8 +27,17 @@ class TestKubernetesWatcher(unittest.TestCase):
         with patch('kg_exporter.KubernetesWatcher.watch_resources', side_effect=KeyboardInterrupt):
             self.watcher.watch_resources()
 
+        # Create a Kubernetes watcher instance
+        watcher = KubernetesWatcher()
+
+        # Call the watch_resources method
+        watcher.watch_resources()
+
         # Add assertions based on expected behavior of the watcher
         # For example, assert that logging functions were called with expected arguments
+        mock_list_deployment.assert_called_once_with('default', watch=True)
+        mock_list_stateful_set.assert_called_once_with('default', watch=True)
+        mock_list_job.assert_called_once_with('default', watch=True)
 
     def create_mock_deployment(self, name, resource_version):
         mock_deployment = MagicMock()
