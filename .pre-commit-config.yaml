@@ -1,0 +1,6 @@
+repos:
+- repo: https://github.com/HIRO-MicroDataCenters-BV/kg_exporter
+  rev: 21.9b0
+  hooks:
+  - id: kg_exporter
+    args: [--safe]
