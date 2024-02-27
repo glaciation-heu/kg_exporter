@@ -35,9 +35,7 @@ class KubernetesWatcher:
                 logger.error(f"An error occurred: {e}")
 
 def main():
-    config.load_kube_config()
-    api_instance = client.AppsV1Api()
-    watcher = KubernetesWatcher(api_instance)
+    watcher = KubernetesWatcher()
     watcher.watch_resources()
 
 if __name__ == "__main__":
