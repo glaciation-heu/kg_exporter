@@ -6,10 +6,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class KubernetesWatcher:
-    def __init__(self):
-        # Initialize Kubernetes client
-        config.load_kube_config()
-        self.api_instance = client.AppsV1Api()
+    def __init__(self, api_instance):
+        self.api_instance = api_instance
 
     def watch_resources(self):
         resource_types = ['Deployment', 'StatefulSet', 'Job']
@@ -35,7 +33,12 @@ class KubernetesWatcher:
                 logger.error(f"An error occurred: {e}")
 
 def main():
-    watcher = KubernetesWatcher()
+    # Initialize Kubernetes client
+    config.load_kube_config()
+    api_instance = client.AppsV1Api()
+
+    # Create a Kubernetes watcher instance with the injected client
+    watcher = KubernetesWatcher(api_instance)
     watcher.watch_resources()
 
 if __name__ == "__main__":
