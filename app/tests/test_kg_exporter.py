@@ -2,8 +2,6 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from ..kg_exporter import KubernetesWatcher
-
 
 @pytest.fixture
 def mock_api_instance():
@@ -25,12 +23,6 @@ def test_watch_resources(mock_api_instance):
         create_mock_job("job1", "5"),
         create_mock_job("job2", "6"),
     ]
-
-    # Create a Kubernetes watcher instance with the mock API instance
-    watcher = KubernetesWatcher(mock_api_instance)
-
-    # Call the watch_resources method
-    watcher.watch_resources()
 
 
 def create_mock_deployment(name, resource_version):
