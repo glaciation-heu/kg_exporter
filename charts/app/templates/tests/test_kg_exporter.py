@@ -1,7 +1,8 @@
 from unittest.mock import MagicMock
 
 import pytest
-from app.templates.kg_exporter import KubernetesWatcher
+
+from ..kg_exporter import KubernetesWatcher
 
 
 @pytest.fixture
