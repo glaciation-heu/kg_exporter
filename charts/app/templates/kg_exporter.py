@@ -1,9 +1,4 @@
-import logging
 from kubernetes import client, config
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 class KubernetesWatcher:
     def __init__(self, api_instance):
@@ -15,7 +10,7 @@ class KubernetesWatcher:
             response = getattr(self.api_instance, f'list_namespaced_{resource_type.lower()}')('default')
             items = response.items
             for item in items:
-                logger.info(f"{resource_type} {item.metadata.name} version {item.metadata.resource_version}")
+                print(f"{resource_type} {item.metadata.name} version {item.metadata.resource_version}")
 
         while True:
             try:
@@ -28,9 +23,9 @@ class KubernetesWatcher:
                             resource_name = metadata.get('name')
                             resource_version = metadata.get('resourceVersion')
                             if resource_name and resource_version:
-                                logger.info(f"{event['type']} event for {resource_type} {resource_name}, version {resource_version}")
+                                print(f"{event['type']} event for {resource_type} {resource_name}, version {resource_version}")
             except Exception as e:
-                logger.error(f"An error occurred: {e}")
+                print(f"An error occurred: {e}")
 
 def main():
     # Initialize Kubernetes client
