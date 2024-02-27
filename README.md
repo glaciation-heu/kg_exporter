@@ -103,11 +103,6 @@ uvicorn app.main:app
 poetry run pytest
 ```
 
-You can test the application for multiple versions of Python. To do this, you need to install the required Python versions on your operating system, specify these versions in the tox.ini file, and then run the tests:
-```bash
-poetry run tox
-```
-
 ## Package
 To generate and publish a package on pypi.org, execute the following commands:
 ```bash
