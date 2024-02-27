@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from kg_exporter import KubernetesWatcher
+from app.templates.kg_exporter import KubernetesWatcher
 
 @pytest.fixture
 def mock_api_instance():
