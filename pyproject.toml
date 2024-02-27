@@ -3,7 +3,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "template-python"
+name = "kg_exporter"
 version = "0.0.0"
 description = "Web service template in Python for reuse."
 readme = "README.md"
