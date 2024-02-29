@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "kg_exporter"
 version = "0.0.0"
-description = "Web service template in Python for reuse."
+description = "Kubernetes watcher service."
 readme = "README.md"
 authors = ["HIRO-MicroDataCenters <all-hiro@hiro-microdatacenters.nl>"]
 license = "MIT"
