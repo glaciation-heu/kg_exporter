@@ -13,15 +13,15 @@ class NodesToRDFTransformer:
         self.sink = sink
 
     def transform(self) -> None:
-        name = self.get_id()
-        self.sink.write(name, "rdf:type", ":Node")
-        self.write_collection(name, ":has-label", '$.metadata.labels')
-        self.write_collection(name, ":has-annotation", '$.metadata.annotations')
+        node_id = self.get_node_id()
+        self.sink.write(node_id, "rdf:type", ":Node")
+        self.write_collection(node_id, ":has-label", '$.metadata.labels')
+        self.write_collection(node_id, ":has-annotation", '$.metadata.annotations')
     
-        self.write_network(name)
-        self.write_resources(name, "allocatable")
-        self.write_resources(name, "capacity")
-        self.write_conditions(name)
+        self.write_network(node_id)
+        self.write_resources(node_id, "allocatable")
+        self.write_resources(node_id, "capacity")
+        self.write_conditions(node_id)
         self.sink.flush()
 
     def write_resources(self, name: str, src: str) -> None:
@@ -91,4 +91,9 @@ class NodesToRDFTransformer:
         name = parse('$.metadata.name').find(self.source)[0].value
         uid = parse('$.metadata.uid').find(self.source)[0].value
         resource_id = f":{name}.{uid}"
+        return resource_id
+
+    def get_node_id(self) -> str:
+        name = parse('$.metadata.name').find(self.source)[0].value
+        resource_id = f":{name}"
         return resource_id

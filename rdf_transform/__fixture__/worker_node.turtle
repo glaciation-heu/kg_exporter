@@ -1,37 +1,37 @@
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf rdf:type :Node .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-test-worker01" "kubernetes.io/os:linux") .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf :has-annotation ("flannel.alpha.coreos.com/backend-data:{\"VNI\":1,\"VtepMAC\":\"de:b3:94:d0:27:9e\"}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.151" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.Network rdf:type :Network .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.Network :internal_ip "10.14.1.151" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.Network :hostname "glaciation-test-worker01" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf :has-network :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.Network .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.CPU rdf:type :CPU .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.CPU :count "4" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.Memory rdf:type :Memory .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.Memory :bytes "16283152Ki" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.Storage rdf:type :Storage .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.Storage :bytes "47266578354" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf :has-allocatable-resource (:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.CPU :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.Memory :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.allocatable.Storage) .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.CPU rdf:type :CPU .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.CPU :count "4" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.Memory rdf:type :Memory .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.Memory :bytes "16385552Ki" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.Storage rdf:type :Storage .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.Storage :bytes "51287520Ki" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf :has-capacity-resource (:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.CPU :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.Memory :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.capacity.Storage) .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.NetworkUnavailable :status "False" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.MemoryPressure rdf:type :NodeCondition .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.MemoryPressure :status "False" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.DiskPressure rdf:type :NodeCondition .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.DiskPressure :status "False" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.PIDPressure rdf:type :NodeCondition .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.PIDPressure :status "False" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.Ready rdf:type :NodeCondition .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.Ready :status "True" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.Ready :reason "KubeletReady" .
-:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf :has-condition (:glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.NetworkUnavailable :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.MemoryPressure :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.DiskPressure :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.PIDPressure :glaciation-test-worker01.bdbde1cb-8a2d-4907-af95-b6834c29a9bf.NodeCondition.Ready) .
+:glaciation-test-worker01 rdf:type :Node .
+:glaciation-test-worker01 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-test-worker01" "kubernetes.io/os:linux") .
+:glaciation-test-worker01 :has-annotation ("flannel.alpha.coreos.com/backend-data:{\"VNI\":1,\"VtepMAC\":\"de:b3:94:d0:27:9e\"}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.151" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-test-worker01.Network rdf:type :Network .
+:glaciation-test-worker01.Network :internal_ip "10.14.1.151" .
+:glaciation-test-worker01.Network :hostname "glaciation-test-worker01" .
+:glaciation-test-worker01 :has-network :glaciation-test-worker01.Network .
+:glaciation-test-worker01.allocatable.CPU rdf:type :CPU .
+:glaciation-test-worker01.allocatable.CPU :count "4" .
+:glaciation-test-worker01.allocatable.Memory rdf:type :Memory .
+:glaciation-test-worker01.allocatable.Memory :bytes "16283152Ki" .
+:glaciation-test-worker01.allocatable.Storage rdf:type :Storage .
+:glaciation-test-worker01.allocatable.Storage :bytes "47266578354" .
+:glaciation-test-worker01 :has-allocatable-resource (:glaciation-test-worker01.allocatable.CPU :glaciation-test-worker01.allocatable.Memory :glaciation-test-worker01.allocatable.Storage) .
+:glaciation-test-worker01.capacity.CPU rdf:type :CPU .
+:glaciation-test-worker01.capacity.CPU :count "4" .
+:glaciation-test-worker01.capacity.Memory rdf:type :Memory .
+:glaciation-test-worker01.capacity.Memory :bytes "16385552Ki" .
+:glaciation-test-worker01.capacity.Storage rdf:type :Storage .
+:glaciation-test-worker01.capacity.Storage :bytes "51287520Ki" .
+:glaciation-test-worker01 :has-capacity-resource (:glaciation-test-worker01.capacity.CPU :glaciation-test-worker01.capacity.Memory :glaciation-test-worker01.capacity.Storage) .
+:glaciation-test-worker01.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-test-worker01.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-test-worker01.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-test-worker01.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-test-worker01.NodeCondition.MemoryPressure :status "False" .
+:glaciation-test-worker01.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-test-worker01.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-test-worker01.NodeCondition.DiskPressure :status "False" .
+:glaciation-test-worker01.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-test-worker01.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-test-worker01.NodeCondition.PIDPressure :status "False" .
+:glaciation-test-worker01.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-test-worker01.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-test-worker01.NodeCondition.Ready :status "True" .
+:glaciation-test-worker01.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-test-worker01 :has-condition (:glaciation-test-worker01.NodeCondition.NetworkUnavailable :glaciation-test-worker01.NodeCondition.MemoryPressure :glaciation-test-worker01.NodeCondition.DiskPressure :glaciation-test-worker01.NodeCondition.PIDPressure :glaciation-test-worker01.NodeCondition.Ready) .
