@@ -88,17 +88,8 @@ poetry install --no-root --with dev,test
 poetry run pre-commit install
 ```
 
-4. Launch the project:
-```bash
-poetry run uvicorn app.main:app [--reload]
-```
-or do it in two steps:
-```bash
-poetry shell
-uvicorn app.main:app
-```
 
-5. Running tests:
+4. Running tests:
 ```bash
 poetry run pytest
 ```
@@ -153,12 +144,6 @@ helm upgrade --install <release_name> <repo_name>/<chart_name>
 
 https://helm.sh/ru/docs/
 
-## OpenaAPI schema
-To manually generate the OpenAPI schema, execute the command:
-```bash
-poetry run python ./tools/extract_openapi.py app.main:app --app-dir . --out openapi.yaml --app_version <version>
-```
-
 ## Release
 To create a release, add a tag in GIT with the format a.a.a, where 'a' is an integer.
 The release version for branches, pull requests, and other tags will be generated based on the last tag of the form a.a.a.
@@ -173,8 +158,6 @@ strategy:
   matrix:
     python-version: ["3.10", "3.11", "3.12"]
 ```
-
-The process of building and publishing differs for web services and libraries.
 
 Clone this repository:
 ```bash
