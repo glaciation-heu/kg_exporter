@@ -193,7 +193,7 @@ python kg_exporter.py
 ### Helm Chart Deployment
 Navigate to the helm-chart directory:
 ```bash
-cd app/templates
+cd charts/app
 ```
 Customize the chart values in values.yaml as needed.
 
