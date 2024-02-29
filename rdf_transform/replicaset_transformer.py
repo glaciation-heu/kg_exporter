@@ -32,7 +32,10 @@ class ReplicaSetToRDFTransformer:
         return resource_id
 
     def write_references(self, node_id: str) -> None:
-        for reference_match in parse("$.metadata.ownerReferences").find(self.source)[0].value:
+        references_match = parse("$.metadata.ownerReferences").find(self.source)
+        if len(references_match) == 0:
+            return
+        for reference_match in references_match[0].value:
             reference = self.get_reference_id(reference_match)
             self.sink.write(reference, ":refers-to", node_id)
 
