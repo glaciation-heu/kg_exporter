@@ -10,7 +10,8 @@ class PodTransformerTest(TestCase):
         self.maxDiff = None
 
     def test_transform(self):
-        self.transform("pod")
+        self.transform("pod1")
+        # self.transform("pod2")
 
     def transform(self, file_id: str) -> None:
         node_json = self.load_json(file_id)
