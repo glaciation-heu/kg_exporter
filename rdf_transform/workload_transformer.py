@@ -17,8 +17,8 @@ class WorkloadToRDFTransformer:
         self.sink.write(name, "rdf:type", ":Workload")
         self.write_tuple(name, "rdf:subClassOf", f'$.kind')
 
-        self.write_collection(name, ":label", '$.metadata.labels')
-        self.write_collection(name, ":annotation", '$.metadata.annotations')
+        self.write_collection(name, ":has-label", '$.metadata.labels')
+        self.write_collection(name, ":has-annotation", '$.metadata.annotations')
     
         self.sink.flush()
 
@@ -28,7 +28,10 @@ class WorkloadToRDFTransformer:
 
     def write_collection(self, name: str, property: str, query: str) -> None:
         subjects = []
-        for label, value in parse(query).find(self.source)[0].value.items():
+        found = parse(query).find(self.source)
+        if len(found) == 0:
+            return
+        for label, value in found[0].value.items():
             subjects.append(self.escape(f"{label}:{value}"))
         collection_subject = " ".join(subjects)
         self.sink.write(name, property, f"({collection_subject})")

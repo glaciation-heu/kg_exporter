@@ -1,4 +1,4 @@
 :coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb rdf:type :Workload .
 :coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb rdf:subClassOf "Deployment" .
-:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb :label ("k8s-app:kube-dns") .
-:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb :annotation ("deployment.kubernetes.io/revision:1") .
+:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb :has-label ("k8s-app:kube-dns") .
+:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb :has-annotation ("deployment.kubernetes.io/revision:1") .

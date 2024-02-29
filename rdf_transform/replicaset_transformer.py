@@ -38,7 +38,10 @@ class ReplicaSetToRDFTransformer:
 
     def write_collection(self, name: str, property: str, query: str) -> None:
         subjects = []
-        for label, value in parse(query).find(self.source)[0].value.items():
+        found = parse(query).find(self.source)
+        if len(found) == 0:
+            return
+        for label, value in found[0].value.items():
             subjects.append(self.escape(f"{label}:{value}"))
         collection_subject = " ".join(subjects)
         self.sink.write(name, property, f"({collection_subject})")
