@@ -34,7 +34,7 @@ class ReplicaSetToRDFTransformer:
     def write_references(self, node_id: str) -> None:
         for reference_match in parse("$.metadata.ownerReferences").find(self.source)[0].value:
             reference = self.get_reference_id(reference_match)
-            self.sink.write(reference, ":refersTo", node_id)
+            self.sink.write(reference, ":refers-to", node_id)
 
     def write_collection(self, name: str, property: str, query: str) -> None:
         subjects = []
