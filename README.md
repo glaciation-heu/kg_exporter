@@ -163,6 +163,23 @@ Clone this repository:
 ```bash
 git clone https://github.com/your-username/kubernetes-watcher.git
 ```
+### Initial Setup
+Create the branch kg_exporter and use it as a Github page https://pages.github.com/.
+Set up secrets at https://github.com/<workspace>/<project>/settings/secrets/actions :
+
+1. DOCKER_IMAGE_NAME - The name of the Docker image for uploading to the repository.
+2. DOCKER_USERNAME - The username for the Docker repository on https://hub.docker.com/.
+3. DOCKER_PASSWORD - The password for the Docker repository.
+4. AWS_ACCESS_KEY_ID - AWS Secret Access Key ID.
+   https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
+5. AWS_SECRET_ACCESS_KEY - AWS Secret Access Key
+6. AWS_REGION - AWS region. https://aws.amazon.com/about-aws/global-infrastructure/regions_az/.
+7. EKS_CLUSTER_ROLE_ARN - The IAM role's ARN in AWS, providing permissions for managing an AMAZON EKS
+   Kubernetes Cluster.
+8. EKS_CLUSTER_NAME - Amazon EKS Kubernetes cluster name.
+9. EKS_CLUSTER_NAMESPACE - Amazon EKS Kubernetes cluster namespace.
+10. HELM_REPO_URL - https://<workspace>.github.io/<project>/.
+
 
 ### Usage
 Initialize Kubernetes configuration:
