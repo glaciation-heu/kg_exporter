@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from jsonpath_ng.ext import parse
 from rdf_transform.transformer_base import TransformerBase
 from rdf_transform.tuple_writer import TupleWriter
+import re
 
 class PodToRDFTransformer(TransformerBase):
     sink: TupleWriter
@@ -40,6 +41,7 @@ class PodToRDFTransformer(TransformerBase):
             container_id = container_match.get("containerID")
             if not container_id:
                 continue
+            container_id = self.normalize_container_id(container_id)
             name = container_match.get("name")
             restart_count = container_match.get("restartCount")        
             container_ids.append(container_id)
@@ -54,6 +56,10 @@ class PodToRDFTransformer(TransformerBase):
 
         container_ids = " ".join(container_ids)
         self.sink.add_tuple(pod_id, ":has-container", f"({container_ids})")
+
+    def normalize_container_id(self, container_id: str) -> str:
+        container_id = re.sub("[:/]+", "-", container_id)
+        return f":{container_id}"
 
     def write_resources(self, container_id: str, container_spec_property: str, container_name: str) -> None:
         resource_spec_matches = parse(f"{container_spec_property}[?name='{container_name}'].resources").find(self.source)
@@ -73,7 +79,7 @@ class PodToRDFTransformer(TransformerBase):
             self.write_tuple_from(state_struct, container_id, ":finished-at", "$.finishedAt")        
             self.write_tuple_from(state_struct, container_id, ":reason", "$.reason")        
 
-    def get_state_struct(self, state: Any) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    def get_state_struct(self, state: Dict[str, Any]) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
         possible_statues = ["waiting", "running", "terminated"]
         for status in possible_statues:
             status_struct = state.get(status)
@@ -81,9 +87,6 @@ class PodToRDFTransformer(TransformerBase):
                 return status_struct, status
         return None, None
     
-    def matches_container_id(self, status_struct: Any, container_id: str) -> None:
-        return status_struct.get("containerID") == container_id
-
     def write_network(self, pod_id: str) -> None:
         self.write_tuple(pod_id, ":host-ip", "$.status.hostIP")
         self.write_tuple(pod_id, ":pod-ip", "$.status.podIP")
