@@ -1,3 +1,8 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba rdf:type :Workload .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba rdf:subClassOf "DaemonSet" .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba :has-label ("application-name:directpv.min.io" "application-type:CSIDriver" "directpv.min.io/created-by:kubectl-directpv" "directpv.min.io/version:v1beta1") .

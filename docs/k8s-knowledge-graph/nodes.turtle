@@ -1,3 +1,8 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 :glaciation-mast01 rdf:type :Node .
 :glaciation-mast01 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "directpv.min.io/identity:directpv-min-io" "directpv.min.io/node:glaciation-mast01" "directpv.min.io/rack:default" "directpv.min.io/region:default" "directpv.min.io/zone:default" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-mast01" "kubernetes.io/os:linux" "node-role.kubernetes.io/control-plane:" "node.kubernetes.io/exclude-from-external-load-balancers:") .
 :glaciation-mast01 :has-annotation ("csi.volume.kubernetes.io/nodeid:{directpv-min-io:glaciation-mast01}" "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:92:de:31:02:33:e5}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.2.5" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .

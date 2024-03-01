@@ -1,3 +1,8 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 :dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def rdf:type :ReplicaSet .
 :dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def :has-label ("app:dataset-app" "pod-template-hash:6bc569c49f") .
 :dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def :has-annotation ("deployment.kubernetes.io/desired-replicas:1" "deployment.kubernetes.io/max-replicas:2" "deployment.kubernetes.io/revision:1") .
