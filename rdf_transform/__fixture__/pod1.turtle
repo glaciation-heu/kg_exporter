@@ -2,6 +2,7 @@
 :coredns-787d4945fb-l85r5 :has-label ("k8s-app:kube-dns" "pod-template-hash:787d4945fb") .
 :coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 :refers-to :coredns-787d4945fb-l85r5 .
 :coredns-787d4945fb-l85r5 :runs-on :glaciation-test-master01 .
+:glaciation-test-master01 :has-pod :coredns-787d4945fb-l85r5 .
 :coredns-787d4945fb-l85r5 :qos-class "Burstable" .
 :coredns-787d4945fb-l85r5 :start-time "2024-02-13T13:53:43Z" .
 :coredns-787d4945fb-l85r5 :pod-phase "Running" .

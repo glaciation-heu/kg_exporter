@@ -1,7 +1,13 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 :dataset-pod-6bc569c49f-84mzm rdf:type :Pod .
 :dataset-pod-6bc569c49f-84mzm :has-label ("app:dataset-app" "pod-template-hash:6bc569c49f") .
 :dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def :refers-to :dataset-pod-6bc569c49f-84mzm .
 :dataset-pod-6bc569c49f-84mzm :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :dataset-pod-6bc569c49f-84mzm .
 :dataset-pod-6bc569c49f-84mzm :qos-class "BestEffort" .
 :dataset-pod-6bc569c49f-84mzm :start-time "2024-02-22T15:08:51Z" .
 :dataset-pod-6bc569c49f-84mzm :pod-phase "Running" .
@@ -16,6 +22,7 @@
 :excel-reader-pod rdf:type :Pod .
 :excel-reader-pod :has-annotation ("kubectl.kubernetes.io/last-applied-configuration:{apiVersion:v1,kind:Pod,metadata:{annotations:{},name:excel-reader-pod,namespace:default},spec:{containers:[{image:pournima2024/excel-image-name:tag,name:excel-reader-container,volumeMounts:[{mountPath:/app,name:excel-data}]}],volumes:[{hostPath:{path:/home/ubuntu/hello-python/app},name:excel-data}]}}") .
 :excel-reader-pod :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :excel-reader-pod .
 :excel-reader-pod :qos-class "BestEffort" .
 :excel-reader-pod :start-time "2024-02-08T00:27:35Z" .
 :excel-reader-pod :pod-phase "Running" .
@@ -32,6 +39,7 @@
 :controller-69774c6c6f-4f6dm :has-annotation ("created-by:kubectl-directpv") .
 :controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab :refers-to :controller-69774c6c6f-4f6dm .
 :controller-69774c6c6f-4f6dm :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :controller-69774c6c6f-4f6dm .
 :controller-69774c6c6f-4f6dm :qos-class "BestEffort" .
 :controller-69774c6c6f-4f6dm :start-time "2024-02-29T13:10:14Z" .
 :controller-69774c6c6f-4f6dm :pod-phase "Running" .
@@ -58,6 +66,7 @@
 :controller-69774c6c6f-4r49m :has-annotation ("created-by:kubectl-directpv") .
 :controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab :refers-to :controller-69774c6c6f-4r49m .
 :controller-69774c6c6f-4r49m :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :controller-69774c6c6f-4r49m .
 :controller-69774c6c6f-4r49m :qos-class "BestEffort" .
 :controller-69774c6c6f-4r49m :start-time "2024-02-29T13:10:14Z" .
 :controller-69774c6c6f-4r49m :pod-phase "Running" .
@@ -84,6 +93,7 @@
 :controller-69774c6c6f-vtxrr :has-annotation ("created-by:kubectl-directpv") .
 :controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab :refers-to :controller-69774c6c6f-vtxrr .
 :controller-69774c6c6f-vtxrr :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :controller-69774c6c6f-vtxrr .
 :controller-69774c6c6f-vtxrr :qos-class "BestEffort" .
 :controller-69774c6c6f-vtxrr :start-time "2024-02-29T13:10:14Z" .
 :controller-69774c6c6f-vtxrr :pod-phase "Running" .
@@ -110,6 +120,7 @@
 :node-server-4pr4h :has-annotation ("created-by:kubectl-directpv") .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba :refers-to :node-server-4pr4h .
 :node-server-4pr4h :runs-on :glaciation-worker02 .
+:glaciation-worker02 :has-pod :node-server-4pr4h .
 :node-server-4pr4h :qos-class "BestEffort" .
 :node-server-4pr4h :start-time "2024-02-29T13:10:14Z" .
 :node-server-4pr4h :pod-phase "Running" .
@@ -141,6 +152,7 @@
 :node-server-5gnkk :has-annotation ("created-by:kubectl-directpv") .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba :refers-to :node-server-5gnkk .
 :node-server-5gnkk :runs-on :glaciation-worker03 .
+:glaciation-worker03 :has-pod :node-server-5gnkk .
 :node-server-5gnkk :qos-class "BestEffort" .
 :node-server-5gnkk :start-time "2024-02-29T13:10:14Z" .
 :node-server-5gnkk :pod-phase "Running" .
@@ -172,6 +184,7 @@
 :node-server-6hnrx :has-annotation ("created-by:kubectl-directpv") .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba :refers-to :node-server-6hnrx .
 :node-server-6hnrx :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :node-server-6hnrx .
 :node-server-6hnrx :qos-class "BestEffort" .
 :node-server-6hnrx :start-time "2024-02-29T13:10:14Z" .
 :node-server-6hnrx :pod-phase "Running" .
@@ -203,6 +216,7 @@
 :node-server-87jqw :has-annotation ("created-by:kubectl-directpv") .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba :refers-to :node-server-87jqw .
 :node-server-87jqw :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :node-server-87jqw .
 :node-server-87jqw :qos-class "BestEffort" .
 :node-server-87jqw :start-time "2024-02-29T13:10:14Z" .
 :node-server-87jqw :pod-phase "Running" .
@@ -234,6 +248,7 @@
 :node-server-qsc78 :has-annotation ("created-by:kubectl-directpv") .
 :node-server.efbe3e4c-82e7-4104-b530-166bada1c1ba :refers-to :node-server-qsc78 .
 :node-server-qsc78 :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :node-server-qsc78 .
 :node-server-qsc78 :qos-class "BestEffort" .
 :node-server-qsc78 :start-time "2024-02-29T13:10:14Z" .
 :node-server-qsc78 :pod-phase "Running" .
@@ -264,6 +279,7 @@
 :kepler-8vv4b :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-8vv4b .
 :kepler-8vv4b :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :kepler-8vv4b .
 :kepler-8vv4b :qos-class "BestEffort" .
 :kepler-8vv4b :start-time "2024-01-22T15:37:01Z" .
 :kepler-8vv4b :pod-phase "Running" .
@@ -279,6 +295,7 @@
 :kepler-fq5jw :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-fq5jw .
 :kepler-fq5jw :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :kepler-fq5jw .
 :kepler-fq5jw :qos-class "BestEffort" .
 :kepler-fq5jw :start-time "2024-01-22T15:37:01Z" .
 :kepler-fq5jw :pod-phase "Running" .
@@ -294,6 +311,7 @@
 :kepler-glj4v :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-glj4v .
 :kepler-glj4v :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :kepler-glj4v .
 :kepler-glj4v :qos-class "BestEffort" .
 :kepler-glj4v :start-time "2024-01-22T15:37:01Z" .
 :kepler-glj4v :pod-phase "Running" .
@@ -309,6 +327,7 @@
 :kepler-m6jnl :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-m6jnl .
 :kepler-m6jnl :runs-on :glaciation-worker02 .
+:glaciation-worker02 :has-pod :kepler-m6jnl .
 :kepler-m6jnl :qos-class "BestEffort" .
 :kepler-m6jnl :start-time "2024-01-22T15:37:01Z" .
 :kepler-m6jnl :pod-phase "Running" .
@@ -324,6 +343,7 @@
 :kepler-mb4zb :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-mb4zb .
 :kepler-mb4zb :runs-on :glaciation-worker03 .
+:glaciation-worker03 :has-pod :kepler-mb4zb .
 :kepler-mb4zb :qos-class "BestEffort" .
 :kepler-mb4zb :start-time "2024-01-22T15:37:01Z" .
 :kepler-mb4zb :pod-phase "Running" .
@@ -339,6 +359,7 @@
 :kube-flannel-ds-848v8 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-848v8 .
 :kube-flannel-ds-848v8 :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :kube-flannel-ds-848v8 .
 :kube-flannel-ds-848v8 :qos-class "Burstable" .
 :kube-flannel-ds-848v8 :start-time "2023-10-20T11:01:50Z" .
 :kube-flannel-ds-848v8 :pod-phase "Running" .
@@ -371,6 +392,7 @@
 :kube-flannel-ds-fjnjm :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-fjnjm .
 :kube-flannel-ds-fjnjm :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :kube-flannel-ds-fjnjm .
 :kube-flannel-ds-fjnjm :qos-class "Burstable" .
 :kube-flannel-ds-fjnjm :start-time "2023-10-23T09:30:09Z" .
 :kube-flannel-ds-fjnjm :pod-phase "Running" .
@@ -403,6 +425,7 @@
 :kube-flannel-ds-lcwv4 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-lcwv4 .
 :kube-flannel-ds-lcwv4 :runs-on :glaciation-worker03 .
+:glaciation-worker03 :has-pod :kube-flannel-ds-lcwv4 .
 :kube-flannel-ds-lcwv4 :qos-class "Burstable" .
 :kube-flannel-ds-lcwv4 :start-time "2023-10-20T11:01:41Z" .
 :kube-flannel-ds-lcwv4 :pod-phase "Running" .
@@ -435,6 +458,7 @@
 :kube-flannel-ds-m6mgg :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-m6mgg .
 :kube-flannel-ds-m6mgg :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :kube-flannel-ds-m6mgg .
 :kube-flannel-ds-m6mgg :qos-class "Burstable" .
 :kube-flannel-ds-m6mgg :start-time "2023-10-19T23:38:59Z" .
 :kube-flannel-ds-m6mgg :pod-phase "Running" .
@@ -467,6 +491,7 @@
 :kube-flannel-ds-n9mh8 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-n9mh8 .
 :kube-flannel-ds-n9mh8 :runs-on :glaciation-worker02 .
+:glaciation-worker02 :has-pod :kube-flannel-ds-n9mh8 .
 :kube-flannel-ds-n9mh8 :qos-class "Burstable" .
 :kube-flannel-ds-n9mh8 :start-time "2023-10-20T09:38:01Z" .
 :kube-flannel-ds-n9mh8 :pod-phase "Running" .
@@ -499,6 +524,7 @@
 :coredns-5dd5756b68-5lsck :has-label ("k8s-app:kube-dns" "pod-template-hash:5dd5756b68") .
 :coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 :refers-to :coredns-5dd5756b68-5lsck .
 :coredns-5dd5756b68-5lsck :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :coredns-5dd5756b68-5lsck .
 :coredns-5dd5756b68-5lsck :qos-class "Burstable" .
 :coredns-5dd5756b68-5lsck :start-time "2023-10-19T23:39:21Z" .
 :coredns-5dd5756b68-5lsck :pod-phase "Running" .
@@ -517,6 +543,7 @@
 :coredns-5dd5756b68-n6l5x :has-label ("k8s-app:kube-dns" "pod-template-hash:5dd5756b68") .
 :coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 :refers-to :coredns-5dd5756b68-n6l5x .
 :coredns-5dd5756b68-n6l5x :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :coredns-5dd5756b68-n6l5x .
 :coredns-5dd5756b68-n6l5x :qos-class "Burstable" .
 :coredns-5dd5756b68-n6l5x :start-time "2023-10-19T23:39:21Z" .
 :coredns-5dd5756b68-n6l5x :pod-phase "Running" .
@@ -536,6 +563,7 @@
 :etcd-glaciation-mast01 :has-annotation ("kubeadm.kubernetes.io/etcd.advertise-client-urls:https://10.14.2.5:2379" "kubernetes.io/config.hash:01f03098a0f0f7d67c6537f16d2ed77f" "kubernetes.io/config.mirror:01f03098a0f0f7d67c6537f16d2ed77f" "kubernetes.io/config.seen:2023-10-19T23:22:00.603188053Z" "kubernetes.io/config.source:file") .
 :glaciation-mast01.6619e599-9171-4de9-ae0b-f349d8a92c8e :refers-to :etcd-glaciation-mast01 .
 :etcd-glaciation-mast01 :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :etcd-glaciation-mast01 .
 :etcd-glaciation-mast01 :qos-class "Burstable" .
 :etcd-glaciation-mast01 :start-time "2024-02-29T12:17:24Z" .
 :etcd-glaciation-mast01 :pod-phase "Running" .
@@ -554,6 +582,7 @@
 :kube-apiserver-glaciation-mast01 :has-annotation ("kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint:10.14.2.5:6443" "kubernetes.io/config.hash:ae8a59c6a25cbdfe17ccc2f920f05e12" "kubernetes.io/config.mirror:ae8a59c6a25cbdfe17ccc2f920f05e12" "kubernetes.io/config.seen:2023-10-19T23:22:00.603194593Z" "kubernetes.io/config.source:file") .
 :glaciation-mast01.6619e599-9171-4de9-ae0b-f349d8a92c8e :refers-to :kube-apiserver-glaciation-mast01 .
 :kube-apiserver-glaciation-mast01 :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :kube-apiserver-glaciation-mast01 .
 :kube-apiserver-glaciation-mast01 :qos-class "Burstable" .
 :kube-apiserver-glaciation-mast01 :start-time "2024-02-29T12:17:24Z" .
 :kube-apiserver-glaciation-mast01 :pod-phase "Running" .
@@ -571,6 +600,7 @@
 :kube-controller-manager-glaciation-mast01 :has-annotation ("kubernetes.io/config.hash:383513785b50d6e43014cffd710f165e" "kubernetes.io/config.mirror:383513785b50d6e43014cffd710f165e" "kubernetes.io/config.seen:2023-10-19T23:22:00.603195794Z" "kubernetes.io/config.source:file") .
 :glaciation-mast01.6619e599-9171-4de9-ae0b-f349d8a92c8e :refers-to :kube-controller-manager-glaciation-mast01 .
 :kube-controller-manager-glaciation-mast01 :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :kube-controller-manager-glaciation-mast01 .
 :kube-controller-manager-glaciation-mast01 :qos-class "Burstable" .
 :kube-controller-manager-glaciation-mast01 :start-time "2024-02-29T12:17:24Z" .
 :kube-controller-manager-glaciation-mast01 :pod-phase "Running" .
@@ -587,6 +617,7 @@
 :kube-proxy-4nhdf :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-4nhdf .
 :kube-proxy-4nhdf :runs-on :glaciation-worker03 .
+:glaciation-worker03 :has-pod :kube-proxy-4nhdf .
 :kube-proxy-4nhdf :qos-class "BestEffort" .
 :kube-proxy-4nhdf :start-time "2023-10-20T11:01:41Z" .
 :kube-proxy-4nhdf :pod-phase "Running" .
@@ -602,6 +633,7 @@
 :kube-proxy-52jvn :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-52jvn .
 :kube-proxy-52jvn :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :kube-proxy-52jvn .
 :kube-proxy-52jvn :qos-class "BestEffort" .
 :kube-proxy-52jvn :start-time "2023-10-20T11:01:50Z" .
 :kube-proxy-52jvn :pod-phase "Running" .
@@ -617,6 +649,7 @@
 :kube-proxy-74pnw :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-74pnw .
 :kube-proxy-74pnw :runs-on :glaciation-worker02 .
+:glaciation-worker02 :has-pod :kube-proxy-74pnw .
 :kube-proxy-74pnw :qos-class "BestEffort" .
 :kube-proxy-74pnw :start-time "2023-10-20T09:38:01Z" .
 :kube-proxy-74pnw :pod-phase "Running" .
@@ -632,6 +665,7 @@
 :kube-proxy-8jqgs :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-8jqgs .
 :kube-proxy-8jqgs :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :kube-proxy-8jqgs .
 :kube-proxy-8jqgs :qos-class "BestEffort" .
 :kube-proxy-8jqgs :start-time "2023-10-19T23:22:13Z" .
 :kube-proxy-8jqgs :pod-phase "Running" .
@@ -647,6 +681,7 @@
 :kube-proxy-vr7fh :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-vr7fh .
 :kube-proxy-vr7fh :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :kube-proxy-vr7fh .
 :kube-proxy-vr7fh :qos-class "BestEffort" .
 :kube-proxy-vr7fh :start-time "2023-10-23T09:30:09Z" .
 :kube-proxy-vr7fh :pod-phase "Running" .
@@ -663,6 +698,7 @@
 :kube-scheduler-glaciation-mast01 :has-annotation ("kubernetes.io/config.hash:b884ed305cac049f168ee6384558614e" "kubernetes.io/config.mirror:b884ed305cac049f168ee6384558614e" "kubernetes.io/config.seen:2023-10-19T23:21:52.417025056Z" "kubernetes.io/config.source:file") .
 :glaciation-mast01.6619e599-9171-4de9-ae0b-f349d8a92c8e :refers-to :kube-scheduler-glaciation-mast01 .
 :kube-scheduler-glaciation-mast01 :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :kube-scheduler-glaciation-mast01 .
 :kube-scheduler-glaciation-mast01 :qos-class "Burstable" .
 :kube-scheduler-glaciation-mast01 :start-time "2024-02-29T12:17:24Z" .
 :kube-scheduler-glaciation-mast01 :pod-phase "Running" .
@@ -679,6 +715,7 @@
 :console-55c68f95f6-qkhkl :has-label ("app.kubernetes.io/instance:operator-console" "app.kubernetes.io/name:operator" "pod-template-hash:55c68f95f6") .
 :console-55c68f95f6.fdfcf5b2-bd89-43d3-b1a0-50743ef1bd2e :refers-to :console-55c68f95f6-qkhkl .
 :console-55c68f95f6-qkhkl :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :console-55c68f95f6-qkhkl .
 :console-55c68f95f6-qkhkl :qos-class "Burstable" .
 :console-55c68f95f6-qkhkl :start-time "2024-02-29T10:02:49Z" .
 :console-55c68f95f6-qkhkl :pod-phase "Running" .
@@ -696,6 +733,7 @@
 :minio-operator-7779d4d76d-6tqts :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/name:operator" "operator:leader" "pod-template-hash:7779d4d76d") .
 :minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 :refers-to :minio-operator-7779d4d76d-6tqts .
 :minio-operator-7779d4d76d-6tqts :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :minio-operator-7779d4d76d-6tqts .
 :minio-operator-7779d4d76d-6tqts :qos-class "Burstable" .
 :minio-operator-7779d4d76d-6tqts :start-time "2024-02-29T10:02:49Z" .
 :minio-operator-7779d4d76d-6tqts :pod-phase "Running" .
@@ -713,6 +751,7 @@
 :minio-operator-7779d4d76d-t7crl :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/name:operator" "operator:leader" "pod-template-hash:7779d4d76d") .
 :minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 :refers-to :minio-operator-7779d4d76d-t7crl .
 :minio-operator-7779d4d76d-t7crl :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :minio-operator-7779d4d76d-t7crl .
 :minio-operator-7779d4d76d-t7crl :qos-class "Burstable" .
 :minio-operator-7779d4d76d-t7crl :start-time "2024-02-29T10:02:49Z" .
 :minio-operator-7779d4d76d-t7crl :pod-phase "Running" .
@@ -730,6 +769,7 @@
 :grafana-589c8b49d8-cb8xf :has-label ("app:grafana" "pod-template-hash:589c8b49d8") .
 :grafana-589c8b49d8.b9b0d3ec-6602-4f0b-8b26-b5f87adaa710 :refers-to :grafana-589c8b49d8-cb8xf .
 :grafana-589c8b49d8-cb8xf :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :grafana-589c8b49d8-cb8xf .
 :grafana-589c8b49d8-cb8xf :qos-class "BestEffort" .
 :grafana-589c8b49d8-cb8xf :start-time "2024-02-07T14:10:20Z" .
 :grafana-589c8b49d8-cb8xf :pod-phase "Running" .
@@ -745,6 +785,7 @@
 :idrac-exporter-d69wg :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-d69wg .
 :idrac-exporter-d69wg :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :idrac-exporter-d69wg .
 :idrac-exporter-d69wg :qos-class "BestEffort" .
 :idrac-exporter-d69wg :start-time "2024-02-28T19:49:16Z" .
 :idrac-exporter-d69wg :pod-phase "Running" .
@@ -760,6 +801,7 @@
 :idrac-exporter-drhv9 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-drhv9 .
 :idrac-exporter-drhv9 :runs-on :glaciation-worker02 .
+:glaciation-worker02 :has-pod :idrac-exporter-drhv9 .
 :idrac-exporter-drhv9 :qos-class "BestEffort" .
 :idrac-exporter-drhv9 :start-time "2024-02-28T19:49:16Z" .
 :idrac-exporter-drhv9 :pod-phase "Running" .
@@ -775,6 +817,7 @@
 :idrac-exporter-f5zw4 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-f5zw4 .
 :idrac-exporter-f5zw4 :runs-on :glaciation-worker03 .
+:glaciation-worker03 :has-pod :idrac-exporter-f5zw4 .
 :idrac-exporter-f5zw4 :qos-class "BestEffort" .
 :idrac-exporter-f5zw4 :start-time "2024-02-28T19:49:16Z" .
 :idrac-exporter-f5zw4 :pod-phase "Running" .
@@ -790,6 +833,7 @@
 :idrac-exporter-gk27h :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-gk27h .
 :idrac-exporter-gk27h :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :idrac-exporter-gk27h .
 :idrac-exporter-gk27h :qos-class "BestEffort" .
 :idrac-exporter-gk27h :start-time "2024-02-28T19:49:16Z" .
 :idrac-exporter-gk27h :pod-phase "Running" .
@@ -805,6 +849,7 @@
 :idrac-exporter-m5262 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-m5262 .
 :idrac-exporter-m5262 :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :idrac-exporter-m5262 .
 :idrac-exporter-m5262 :qos-class "BestEffort" .
 :idrac-exporter-m5262 :start-time "2024-02-28T19:49:16Z" .
 :idrac-exporter-m5262 :pod-phase "Running" .
@@ -820,6 +865,7 @@
 :node-exporter-4mdtr :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-4mdtr .
 :node-exporter-4mdtr :runs-on :glaciation-worker03 .
+:glaciation-worker03 :has-pod :node-exporter-4mdtr .
 :node-exporter-4mdtr :qos-class "Burstable" .
 :node-exporter-4mdtr :start-time "2023-10-31T15:55:33Z" .
 :node-exporter-4mdtr :pod-phase "Running" .
@@ -839,6 +885,7 @@
 :node-exporter-9jwq2 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-9jwq2 .
 :node-exporter-9jwq2 :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :node-exporter-9jwq2 .
 :node-exporter-9jwq2 :qos-class "Burstable" .
 :node-exporter-9jwq2 :start-time "2023-10-31T15:55:33Z" .
 :node-exporter-9jwq2 :pod-phase "Running" .
@@ -858,6 +905,7 @@
 :node-exporter-mrwdx :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-mrwdx .
 :node-exporter-mrwdx :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :node-exporter-mrwdx .
 :node-exporter-mrwdx :qos-class "Burstable" .
 :node-exporter-mrwdx :start-time "2023-10-31T15:55:33Z" .
 :node-exporter-mrwdx :pod-phase "Running" .
@@ -877,6 +925,7 @@
 :node-exporter-x5wqm :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-x5wqm .
 :node-exporter-x5wqm :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :node-exporter-x5wqm .
 :node-exporter-x5wqm :qos-class "Burstable" .
 :node-exporter-x5wqm :start-time "2023-10-31T15:55:33Z" .
 :node-exporter-x5wqm :pod-phase "Running" .
@@ -896,6 +945,7 @@
 :node-exporter-xj4pg :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-xj4pg .
 :node-exporter-xj4pg :runs-on :glaciation-worker02 .
+:glaciation-worker02 :has-pod :node-exporter-xj4pg .
 :node-exporter-xj4pg :qos-class "Burstable" .
 :node-exporter-xj4pg :start-time "2023-10-31T15:55:33Z" .
 :node-exporter-xj4pg :pod-phase "Running" .
@@ -915,6 +965,7 @@
 :prometheus-bfd9c6d5b-6b9xt :has-label ("app:prometheus" "pod-template-hash:bfd9c6d5b") .
 :prometheus-bfd9c6d5b.9afeeb21-54c2-46e1-ac0a-2e4fe7275661 :refers-to :prometheus-bfd9c6d5b-6b9xt .
 :prometheus-bfd9c6d5b-6b9xt :runs-on :glaciation-worker01 .
+:glaciation-worker01 :has-pod :prometheus-bfd9c6d5b-6b9xt .
 :prometheus-bfd9c6d5b-6b9xt :qos-class "BestEffort" .
 :prometheus-bfd9c6d5b-6b9xt :start-time "2024-02-28T20:00:01Z" .
 :prometheus-bfd9c6d5b-6b9xt :pod-phase "Running" .
@@ -930,6 +981,7 @@
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :has-label ("app.kubernetes.io/component:metrics" "app.kubernetes.io/instance:snmp-exporter" "app.kubernetes.io/managed-by:Helm" "app.kubernetes.io/name:prometheus-snmp-exporter" "app.kubernetes.io/part-of:prometheus-snmp-exporter" "app.kubernetes.io/version:v0.21.0" "helm.sh/chart:prometheus-snmp-exporter-1.8.1" "pod-template-hash:6789b74c5c") .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c.e3c4cfca-540d-482d-a21f-204bc65c9f16 :refers-to :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :runs-on :glaciation-mast01 .
+:glaciation-mast01 :has-pod :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :qos-class "BestEffort" .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :start-time "2023-12-08T09:30:47Z" .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :pod-phase "Running" .

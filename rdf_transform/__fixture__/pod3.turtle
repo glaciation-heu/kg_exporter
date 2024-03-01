@@ -2,6 +2,7 @@
 :kube-flannel-ds-848v8 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-848v8 .
 :kube-flannel-ds-848v8 :runs-on :glaciation-worker04 .
+:glaciation-worker04 :has-pod :kube-flannel-ds-848v8 .
 :kube-flannel-ds-848v8 :qos-class "Burstable" .
 :kube-flannel-ds-848v8 :start-time "2023-10-20T11:01:50Z" .
 :kube-flannel-ds-848v8 :pod-phase "Running" .

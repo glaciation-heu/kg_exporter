@@ -98,3 +98,4 @@ class PodToRDFTransformer(TransformerBase):
         for node_name in node_name_match:
             node_id = f":{node_name.value}"
             self.sink.add_tuple(pod_id, ":runs-on", node_id)
+            self.sink.add_tuple(node_id, ":has-pod", pod_id)
