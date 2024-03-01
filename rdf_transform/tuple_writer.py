@@ -1,6 +1,6 @@
 
 class TupleWriter:
-    def write(self, subject: str, predicate: str, object: str) -> None:
+    def add_tuple(self, subject: str, predicate: str, object: str) -> None:
         pass
 
     def flush(self) -> None:

@@ -22,7 +22,7 @@ class TransformerBase:
             return
         for reference_match in references_match[0].value:
             reference = self.get_reference_id(reference_match)
-            self.sink.write(reference, ":refers-to", node_id)
+            self.sink.add_tuple(reference, ":refers-to", node_id)
 
     def get_reference_id(self, reference: Dict[str, Any]) -> str:        
         name = reference.get('name')
@@ -32,15 +32,15 @@ class TransformerBase:
     
     def write_tuple(self, name: str, property: str, query: str) -> None:
         for match in parse(query).find(self.source):
-            self.sink.write(name, property, self.escape(f"{match.value}"))
+            self.sink.add_tuple(name, property, self.escape(f"{match.value}"))
 
     def write_tuple_from(self, source: Dict[str, Any], name: str, property: str, query: str) -> None:
         for match in parse(query).find(source):
-            self.sink.write(name, property, self.escape(f"{match.value}"))
+            self.sink.add_tuple(name, property, self.escape(f"{match.value}"))
 
     def write_tuple_list(self, name: str, property: str, query: str) -> None:
         for label, value in parse(query).find(self.source)[0].value.items():
-            self.sink.write(name, property, self.escape(f"{label}:{value}"))
+            self.sink.add_tuple(name, property, self.escape(f"{label}:{value}"))
 
     def write_collection(self, name: str, property: str, query: str) -> None:
         subjects = []
@@ -50,7 +50,7 @@ class TransformerBase:
         for label, value in found[0].value.items():
             subjects.append(self.escape(f"{label}:{value}"))
         collection_subject = " ".join(subjects)
-        self.sink.write(name, property, f"({collection_subject})")
+        self.sink.add_tuple(name, property, f"({collection_subject})")
 
     def escape(self, token: str) -> str:
         token = token.replace("\"", "\\\"")

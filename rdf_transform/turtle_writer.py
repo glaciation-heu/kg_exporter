@@ -10,7 +10,7 @@ class TurtleWriter(TupleWriter):
     def add_prefix(self, name: str, uri: str) -> None:
         self.out.write(f"PREFIX {name} {uri}\n")
     
-    def write(self, subject: str, predicate: str, object: str) -> None:
+    def add_tuple(self, subject: str, predicate: str, object: str) -> None:
         self.out.write(f"{subject} {predicate} {object} .\n")
 
     def flush(self) -> None:

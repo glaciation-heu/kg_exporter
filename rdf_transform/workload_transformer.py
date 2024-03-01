@@ -14,7 +14,7 @@ class WorkloadToRDFTransformer(TransformerBase):
 
     def transform(self) -> None:
         name = self.get_id()
-        self.sink.write(name, "rdf:type", ":Workload")
+        self.sink.add_tuple(name, "rdf:type", ":Workload")
         self.write_tuple(name, "rdf:subClassOf", f'$.kind')
 
         self.write_collection(name, ":has-label", '$.metadata.labels')

@@ -13,7 +13,7 @@ class ReplicaSetToRDFTransformer(TransformerBase):
 
     def transform(self) -> None:
         name = self.get_id()
-        self.sink.write(name, "rdf:type", ":ReplicaSet")
+        self.sink.add_tuple(name, "rdf:type", ":ReplicaSet")
         self.write_collection(name, ":has-label", '$.metadata.labels')
         self.write_collection(name, ":has-annotation", '$.metadata.annotations')
         self.write_references(name)
