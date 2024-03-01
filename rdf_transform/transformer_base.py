@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Any, Dict, List, Optional, Tuple
 from jsonpath_ng.ext import parse
 from rdf_transform.tuple_writer import TupleWriter
@@ -48,7 +49,7 @@ class TransformerBase:
         if len(found) == 0:
             return
         for label, value in found[0].value.items():
-            subjects.append(self.escape(f"{label}:{value}"))
+            subjects.append(self.escape(f"{self.normalize(label)}:{self.normalize(value)}"))
         collection_subject = " ".join(subjects)
         self.sink.add_tuple(name, property, f"({collection_subject})")
 
@@ -56,6 +57,9 @@ class TransformerBase:
         token = token.replace("\"", "\\\"")
         token = f"\"{token}\""
         return token
+    
+    def normalize(self, value: str) -> str:
+        return re.sub("[\"\n]", "", value)
 
     def get_id(self) -> str:
         name = parse('$.metadata.name').find(self.source)[0].value

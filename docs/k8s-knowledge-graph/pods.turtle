@@ -1,8 +1,3 @@
-PREFIX : <http://glaciation-project.eu/model/>
-PREFIX gla: <http://glaciation-project.eu/model/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-
 :dataset-pod-6bc569c49f-84mzm rdf:type :Pod .
 :dataset-pod-6bc569c49f-84mzm :has-label ("app:dataset-app" "pod-template-hash:6bc569c49f") .
 :dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def :refers-to :dataset-pod-6bc569c49f-84mzm .
@@ -19,8 +14,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-997332e1af95158b2b5b347c74423a1f284ed8621f13fe1e5a498c6d9f57e64b :started-at "2024-02-22T15:08:57Z" .
 :dataset-pod-6bc569c49f-84mzm :has-container (:containerd-997332e1af95158b2b5b347c74423a1f284ed8621f13fe1e5a498c6d9f57e64b) .
 :excel-reader-pod rdf:type :Pod .
-:excel-reader-pod :has-annotation ("kubectl.kubernetes.io/last-applied-configuration:{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"annotations\":{},\"name\":\"excel-reader-pod\",\"namespace\":\"default\"},\"spec\":{\"containers\":[{\"image\":\"pournima2024/excel-image-name:tag\",\"name\":\"excel-reader-container\",\"volumeMounts\":[{\"mountPath\":\"/app\",\"name\":\"excel-data\"}]}],\"volumes\":[{\"hostPath\":{\"path\":\"/home/ubuntu/hello-python/app\"},\"name\":\"excel-data\"}]}}
-") .
+:excel-reader-pod :has-annotation ("kubectl.kubernetes.io/last-applied-configuration:{apiVersion:v1,kind:Pod,metadata:{annotations:{},name:excel-reader-pod,namespace:default},spec:{containers:[{image:pournima2024/excel-image-name:tag,name:excel-reader-container,volumeMounts:[{mountPath:/app,name:excel-data}]}],volumes:[{hostPath:{path:/home/ubuntu/hello-python/app},name:excel-data}]}}") .
 :excel-reader-pod :runs-on :glaciation-mast01 .
 :excel-reader-pod :qos-class "BestEffort" .
 :excel-reader-pod :start-time "2024-02-08T00:27:35Z" .

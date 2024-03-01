@@ -1,6 +1,6 @@
 :glaciation-test-master01 rdf:type :Node .
 :glaciation-test-master01 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-test-master01" "kubernetes.io/os:linux" "node-role.kubernetes.io/control-plane:" "node.kubernetes.io/exclude-from-external-load-balancers:") .
-:glaciation-test-master01 :has-annotation ("flannel.alpha.coreos.com/backend-data:{\"VNI\":1,\"VtepMAC\":\"f6:a0:84:48:2e:9f\"}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.150" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-test-master01 :has-annotation ("flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:f6:a0:84:48:2e:9f}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.150" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
 :glaciation-test-master01.Network rdf:type :Network .
 :glaciation-test-master01.Network :internal_ip "10.14.1.150" .
 :glaciation-test-master01.Network :hostname "glaciation-test-master01" .
