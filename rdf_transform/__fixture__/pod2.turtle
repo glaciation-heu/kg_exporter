@@ -1,0 +1,6 @@
+:tenant1-pool-0-1 rdf:type :Pod .
+:tenant1-pool-0-1 :has-label ("apps.kubernetes.io/pod-index:1" "controller-revision-hash:tenant1-pool-0-6b769f799d" "statefulset.kubernetes.io/pod-name:tenant1-pool-0-1" "v1.min.io/console:tenant1-console" "v1.min.io/pool:pool-0" "v1.min.io/tenant:tenant1") .
+:tenant1-pool-0-1 :has-annotation ("min.io/revision:0") .
+:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 :refers-to :tenant1-pool-0-1 .
+:tenant1-pool-0-1 :qos-class "Burstable" .
+:tenant1-pool-0-1 :pod-phase "Pending" .
