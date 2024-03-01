@@ -1,0 +1,36 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:dataset-pod.f9b3ea3d-360e-4122-afd5-aa3950c8929b rdf:type :Workload .
+:dataset-pod.f9b3ea3d-360e-4122-afd5-aa3950c8929b rdf:subClassOf "Deployment" .
+:dataset-pod.f9b3ea3d-360e-4122-afd5-aa3950c8929b :has-annotation ("deployment.kubernetes.io/revision:1" "kubectl.kubernetes.io/last-applied-configuration:{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"dataset-pod\",\"namespace\":\"crowdbot\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"dataset-app\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"dataset-app\"}},\"spec\":{\"containers\":[{\"image\":\"nginx\",\"name\":\"dataset-container\",\"volumeMounts\":[{\"mountPath\":\"/usr/share/nginx/html/datasets\",\"name\":\"dataset-volume\"}]}],\"volumes\":[{\"hostPath\":{\"path\":\"/home/ubuntu/RGBD/crowdbot-evaluation-tools/example\",\"type\":\"Directory\"},\"name\":\"dataset-volume\"}]}}}}
+") .
+:controller.2fddc320-44e4-4e9c-952b-6efc73996fcc rdf:type :Workload .
+:controller.2fddc320-44e4-4e9c-952b-6efc73996fcc rdf:subClassOf "Deployment" .
+:controller.2fddc320-44e4-4e9c-952b-6efc73996fcc :has-label ("application-name:directpv.min.io" "application-type:CSIDriver" "directpv.min.io/created-by:kubectl-directpv" "directpv.min.io/version:v1beta1") .
+:controller.2fddc320-44e4-4e9c-952b-6efc73996fcc :has-annotation ("deployment.kubernetes.io/revision:1" "directpv.min.io/image-tag:v4.0.10" "directpv.min.io/plugin-version:v4.0.10") .
+:coredns.3c2adec9-be41-4806-8fe7-5b22585ab52a rdf:type :Workload .
+:coredns.3c2adec9-be41-4806-8fe7-5b22585ab52a rdf:subClassOf "Deployment" .
+:coredns.3c2adec9-be41-4806-8fe7-5b22585ab52a :has-label ("k8s-app:kube-dns") .
+:coredns.3c2adec9-be41-4806-8fe7-5b22585ab52a :has-annotation ("deployment.kubernetes.io/revision:1") .
+:console.c756214a-6695-48b4-baa7-48e4e95cc92b rdf:type :Workload .
+:console.c756214a-6695-48b4-baa7-48e4e95cc92b rdf:subClassOf "Deployment" .
+:console.c756214a-6695-48b4-baa7-48e4e95cc92b :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/managed-by:Helm" "app.kubernetes.io/name:operator" "app.kubernetes.io/version:v5.0.12" "helm.sh/chart:operator-5.0.12") .
+:console.c756214a-6695-48b4-baa7-48e4e95cc92b :has-annotation ("deployment.kubernetes.io/revision:1" "meta.helm.sh/release-name:operator" "meta.helm.sh/release-namespace:minio-operator") .
+:minio-operator.f3039658-4663-41d4-a362-8db42b2f89c2 rdf:type :Workload .
+:minio-operator.f3039658-4663-41d4-a362-8db42b2f89c2 rdf:subClassOf "Deployment" .
+:minio-operator.f3039658-4663-41d4-a362-8db42b2f89c2 :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/managed-by:Helm" "app.kubernetes.io/name:operator" "app.kubernetes.io/version:v5.0.12" "helm.sh/chart:operator-5.0.12") .
+:minio-operator.f3039658-4663-41d4-a362-8db42b2f89c2 :has-annotation ("deployment.kubernetes.io/revision:1" "meta.helm.sh/release-name:operator" "meta.helm.sh/release-namespace:minio-operator" "min.io/operator:v5.0.12") .
+:grafana.780e7520-5885-4630-ae69-4baed1e4e8f7 rdf:type :Workload .
+:grafana.780e7520-5885-4630-ae69-4baed1e4e8f7 rdf:subClassOf "Deployment" .
+:grafana.780e7520-5885-4630-ae69-4baed1e4e8f7 :has-annotation ("deployment.kubernetes.io/revision:1" "kubectl.kubernetes.io/last-applied-configuration:{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"grafana\",\"namespace\":\"monitoring\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"grafana\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"grafana\"}},\"spec\":{\"containers\":[{\"image\":\"grafana/grafana\",\"name\":\"grafana\",\"ports\":[{\"containerPort\":3000}]}]}}}}
+") .
+:prometheus.c0aacbac-1fd5-4ba2-b427-b6f4100f88d4 rdf:type :Workload .
+:prometheus.c0aacbac-1fd5-4ba2-b427-b6f4100f88d4 rdf:subClassOf "Deployment" .
+:prometheus.c0aacbac-1fd5-4ba2-b427-b6f4100f88d4 :has-annotation ("deployment.kubernetes.io/revision:1") .
+:snmp-exporter-prometheus-snmp-exporter.5e3984e3-37e6-4af6-927f-98ce0a666a33 rdf:type :Workload .
+:snmp-exporter-prometheus-snmp-exporter.5e3984e3-37e6-4af6-927f-98ce0a666a33 rdf:subClassOf "Deployment" .
+:snmp-exporter-prometheus-snmp-exporter.5e3984e3-37e6-4af6-927f-98ce0a666a33 :has-label ("app.kubernetes.io/component:metrics" "app.kubernetes.io/instance:snmp-exporter" "app.kubernetes.io/managed-by:Helm" "app.kubernetes.io/name:prometheus-snmp-exporter" "app.kubernetes.io/part-of:prometheus-snmp-exporter" "app.kubernetes.io/version:v0.21.0" "helm.sh/chart:prometheus-snmp-exporter-1.8.1") .
+:snmp-exporter-prometheus-snmp-exporter.5e3984e3-37e6-4af6-927f-98ce0a666a33 :has-annotation ("deployment.kubernetes.io/revision:1" "meta.helm.sh/release-name:snmp-exporter" "meta.helm.sh/release-namespace:monitoring") .

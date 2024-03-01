@@ -1,0 +1,1174 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"dataset-pod\",\"namespace\":\"crowdbot\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"dataset-app\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"dataset-app\"}},\"spec\":{\"containers\":[{\"image\":\"nginx\",\"name\":\"dataset-container\",\"volumeMounts\":[{\"mountPath\":\"/usr/share/nginx/html/datasets\",\"name\":\"dataset-volume\"}]}],\"volumes\":[{\"hostPath\":{\"path\":\"/home/ubuntu/RGBD/crowdbot-evaluation-tools/example\",\"type\":\"Directory\"},\"name\":\"dataset-volume\"}]}}}}\n"
+                },
+                "creationTimestamp": "2024-02-22T15:08:51Z",
+                "generation": 1,
+                "name": "dataset-pod",
+                "namespace": "crowdbot",
+                "resourceVersion": "18076758",
+                "uid": "f9b3ea3d-360e-4122-afd5-aa3950c8929b"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 1,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "dataset-app"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "dataset-app"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "nginx",
+                                "imagePullPolicy": "Always",
+                                "name": "dataset-container",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/usr/share/nginx/html/datasets",
+                                        "name": "dataset-volume"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/home/ubuntu/RGBD/crowdbot-evaluation-tools/example",
+                                    "type": "Directory"
+                                },
+                                "name": "dataset-volume"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2024-02-22T15:08:57Z",
+                        "lastUpdateTime": "2024-02-22T15:08:57Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-22T15:08:51Z",
+                        "lastUpdateTime": "2024-02-22T15:08:57Z",
+                        "message": "ReplicaSet \"dataset-pod-6bc569c49f\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1,
+                "updatedReplicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "directpv.min.io/image-tag": "v4.0.10",
+                    "directpv.min.io/plugin-version": "v4.0.10"
+                },
+                "creationTimestamp": "2024-02-29T13:10:14Z",
+                "generation": 1,
+                "labels": {
+                    "application-name": "directpv.min.io",
+                    "application-type": "CSIDriver",
+                    "directpv.min.io/created-by": "kubectl-directpv",
+                    "directpv.min.io/version": "v1beta1"
+                },
+                "name": "controller",
+                "namespace": "directpv",
+                "resourceVersion": "19126953",
+                "uid": "2fddc320-44e4-4e9c-952b-6efc73996fcc"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 3,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "selector.directpv.min.io": "controller-kf65u"
+                    }
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "created-by": "kubectl-directpv"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "selector.directpv.min.io": "controller-kf65u"
+                        },
+                        "name": "controller",
+                        "namespace": "directpv"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--v=3",
+                                    "--timeout=300s",
+                                    "--csi-address=$(CSI_ENDPOINT)",
+                                    "--leader-election",
+                                    "--feature-gates=Topology=true",
+                                    "--strict-topology"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "CSI_ENDPOINT",
+                                        "value": "unix:///csi/csi.sock"
+                                    }
+                                ],
+                                "image": "quay.io/minio/csi-provisioner@sha256:7b5c070ec70d30b0895d91b10c39a0e6cc81c18e0d1566c77aeff2a3587fa316",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "csi-provisioner",
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/var/log/controller-provisioner-termination-log",
+                                "terminationMessagePolicy": "FallbackToLogsOnError",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "--v=3",
+                                    "--timeout=300s",
+                                    "--csi-address=$(CSI_ENDPOINT)",
+                                    "--leader-election"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "CSI_ENDPOINT",
+                                        "value": "unix:///csi/csi.sock"
+                                    }
+                                ],
+                                "image": "quay.io/minio/csi-resizer@sha256:819f68a4daf75acec336302843f303cf360d4941249f9f5019ffbb690c8ac7c0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "csi-resizer",
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/var/log/controller-csi-resizer-termination-log",
+                                "terminationMessagePolicy": "FallbackToLogsOnError",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "controller",
+                                    "--identity=directpv-min-io",
+                                    "-v=3",
+                                    "--csi-endpoint=$(CSI_ENDPOINT)",
+                                    "--kube-node-name=$(KUBE_NODE_NAME)",
+                                    "--readiness-port=30443"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KUBE_NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "CSI_ENDPOINT",
+                                        "value": "unix:///csi/csi.sock"
+                                    }
+                                ],
+                                "image": "quay.io/minio/directpv:v4.0.10",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "controller",
+                                "ports": [
+                                    {
+                                        "containerPort": 30443,
+                                        "name": "readinessport",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9898,
+                                        "name": "healthz",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 5,
+                                    "httpGet": {
+                                        "path": "/ready",
+                                        "port": "readinessport",
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "directpv-min-io",
+                        "serviceAccountName": "directpv-min-io",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/kubelet/plugins/controller-controller",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "socket-dir"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 3,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2024-02-29T13:11:35Z",
+                        "lastUpdateTime": "2024-02-29T13:11:35Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-29T13:10:14Z",
+                        "lastUpdateTime": "2024-02-29T13:11:35Z",
+                        "message": "ReplicaSet \"controller-69774c6c6f\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 3,
+                "replicas": 3,
+                "updatedReplicas": 3
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2023-10-19T23:22:00Z",
+                "generation": 1,
+                "labels": {
+                    "k8s-app": "kube-dns"
+                },
+                "name": "coredns",
+                "namespace": "kube-system",
+                "resourceVersion": "17166478",
+                "uid": "3c2adec9-be41-4806-8fe7-5b22585ab52a"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 2,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "k8s-app": "kube-dns"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "k8s-app": "kube-dns"
+                        }
+                    },
+                    "spec": {
+                        "affinity": {
+                            "podAntiAffinity": {
+                                "preferredDuringSchedulingIgnoredDuringExecution": [
+                                    {
+                                        "podAffinityTerm": {
+                                            "labelSelector": {
+                                                "matchExpressions": [
+                                                    {
+                                                        "key": "k8s-app",
+                                                        "operator": "In",
+                                                        "values": [
+                                                            "kube-dns"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "topologyKey": "kubernetes.io/hostname"
+                                        },
+                                        "weight": 100
+                                    }
+                                ]
+                            }
+                        },
+                        "containers": [
+                            {
+                                "args": [
+                                    "-conf",
+                                    "/etc/coredns/Corefile"
+                                ],
+                                "image": "registry.k8s.io/coredns/coredns:v1.10.1",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 5,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 5
+                                },
+                                "name": "coredns",
+                                "ports": [
+                                    {
+                                        "containerPort": 53,
+                                        "name": "dns",
+                                        "protocol": "UDP"
+                                    },
+                                    {
+                                        "containerPort": 53,
+                                        "name": "dns-tcp",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9153,
+                                        "name": "metrics",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/ready",
+                                        "port": 8181,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "170Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "70Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "add": [
+                                            "NET_BIND_SERVICE"
+                                        ],
+                                        "drop": [
+                                            "all"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/coredns",
+                                        "name": "config-volume",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "Default",
+                        "nodeSelector": {
+                            "kubernetes.io/os": "linux"
+                        },
+                        "priorityClassName": "system-cluster-critical",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "coredns",
+                        "serviceAccountName": "coredns",
+                        "terminationGracePeriodSeconds": 30,
+                        "tolerations": [
+                            {
+                                "key": "CriticalAddonsOnly",
+                                "operator": "Exists"
+                            },
+                            {
+                                "effect": "NoSchedule",
+                                "key": "node-role.kubernetes.io/control-plane"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "items": [
+                                        {
+                                            "key": "Corefile",
+                                            "path": "Corefile"
+                                        }
+                                    ],
+                                    "name": "coredns"
+                                },
+                                "name": "config-volume"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 2,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2023-10-19T23:39:22Z",
+                        "lastUpdateTime": "2023-10-19T23:39:22Z",
+                        "message": "ReplicaSet \"coredns-5dd5756b68\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    },
+                    {
+                        "lastTransitionTime": "2023-10-23T15:20:24Z",
+                        "lastUpdateTime": "2023-10-23T15:20:24Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 2,
+                "replicas": 2,
+                "updatedReplicas": 2
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "operator",
+                    "meta.helm.sh/release-namespace": "minio-operator"
+                },
+                "creationTimestamp": "2024-02-29T10:02:49Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/instance": "operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "operator",
+                    "app.kubernetes.io/version": "v5.0.12",
+                    "helm.sh/chart": "operator-5.0.12"
+                },
+                "name": "console",
+                "namespace": "minio-operator",
+                "resourceVersion": "19103023",
+                "uid": "c756214a-6695-48b4-baa7-48e4e95cc92b"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 1,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "operator-console",
+                        "app.kubernetes.io/name": "operator"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/instance": "operator-console",
+                            "app.kubernetes.io/name": "operator"
+                        }
+                    },
+                    "spec": {
+                        "affinity": {
+                            "podAntiAffinity": {
+                                "requiredDuringSchedulingIgnoredDuringExecution": [
+                                    {
+                                        "labelSelector": {
+                                            "matchExpressions": [
+                                                {
+                                                    "key": "name",
+                                                    "operator": "In",
+                                                    "values": [
+                                                        "minio-operator"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "topologyKey": "kubernetes.io/hostname"
+                                    }
+                                ]
+                            }
+                        },
+                        "containers": [
+                            {
+                                "args": [
+                                    "ui",
+                                    "--certs-dir=/tmp/certs"
+                                ],
+                                "image": "quay.io/minio/operator:v5.0.12",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "operator",
+                                "ports": [
+                                    {
+                                        "containerPort": 9090,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9443,
+                                        "name": "https",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "memory": "512Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "runAsNonRoot": true,
+                                    "runAsUser": 1000
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/tmp/certs/CAs",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsNonRoot": true,
+                            "runAsUser": 1000
+                        },
+                        "serviceAccount": "console-sa",
+                        "serviceAccountName": "console-sa",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "emptyDir": {},
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2024-02-29T10:02:57Z",
+                        "lastUpdateTime": "2024-02-29T10:02:57Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-29T10:02:49Z",
+                        "lastUpdateTime": "2024-02-29T10:02:57Z",
+                        "message": "ReplicaSet \"console-55c68f95f6\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1,
+                "updatedReplicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "operator",
+                    "meta.helm.sh/release-namespace": "minio-operator",
+                    "min.io/operator": "v5.0.12"
+                },
+                "creationTimestamp": "2024-02-29T10:02:49Z",
+                "generation": 2,
+                "labels": {
+                    "app.kubernetes.io/instance": "operator",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "operator",
+                    "app.kubernetes.io/version": "v5.0.12",
+                    "helm.sh/chart": "operator-5.0.12"
+                },
+                "name": "minio-operator",
+                "namespace": "minio-operator",
+                "resourceVersion": "19103031",
+                "uid": "f3039658-4663-41d4-a362-8db42b2f89c2"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 2,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "operator",
+                        "app.kubernetes.io/name": "operator"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/instance": "operator",
+                            "app.kubernetes.io/name": "operator"
+                        }
+                    },
+                    "spec": {
+                        "affinity": {
+                            "podAntiAffinity": {
+                                "requiredDuringSchedulingIgnoredDuringExecution": [
+                                    {
+                                        "labelSelector": {
+                                            "matchExpressions": [
+                                                {
+                                                    "key": "name",
+                                                    "operator": "In",
+                                                    "values": [
+                                                        "minio-operator"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "topologyKey": "kubernetes.io/hostname"
+                                    }
+                                ]
+                            }
+                        },
+                        "containers": [
+                            {
+                                "args": [
+                                    "controller"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "OPERATOR_STS_ENABLED",
+                                        "value": "on"
+                                    }
+                                ],
+                                "image": "quay.io/minio/operator:v5.0.12",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "operator",
+                                "resources": {
+                                    "requests": {
+                                        "cpu": "200m",
+                                        "ephemeral-storage": "500Mi",
+                                        "memory": "256Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "runAsGroup": 1000,
+                                    "runAsNonRoot": true,
+                                    "runAsUser": 1000
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "fsGroup": 1000,
+                            "runAsGroup": 1000,
+                            "runAsNonRoot": true,
+                            "runAsUser": 1000
+                        },
+                        "serviceAccount": "minio-operator",
+                        "serviceAccountName": "minio-operator",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 2,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2024-02-29T10:02:59Z",
+                        "lastUpdateTime": "2024-02-29T10:02:59Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-29T10:02:49Z",
+                        "lastUpdateTime": "2024-02-29T10:02:59Z",
+                        "message": "ReplicaSet \"minio-operator-7779d4d76d\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 2,
+                "readyReplicas": 2,
+                "replicas": 2,
+                "updatedReplicas": 2
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"name\":\"grafana\",\"namespace\":\"monitoring\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"grafana\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"grafana\"}},\"spec\":{\"containers\":[{\"image\":\"grafana/grafana\",\"name\":\"grafana\",\"ports\":[{\"containerPort\":3000}]}]}}}}\n"
+                },
+                "creationTimestamp": "2024-02-07T14:10:20Z",
+                "generation": 1,
+                "name": "grafana",
+                "namespace": "monitoring",
+                "resourceVersion": "15804435",
+                "uid": "780e7520-5885-4630-ae69-4baed1e4e8f7"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 1,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "grafana"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "grafana"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "grafana/grafana",
+                                "imagePullPolicy": "Always",
+                                "name": "grafana",
+                                "ports": [
+                                    {
+                                        "containerPort": 3000,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2024-02-07T14:10:30Z",
+                        "lastUpdateTime": "2024-02-07T14:10:30Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-07T14:10:20Z",
+                        "lastUpdateTime": "2024-02-07T14:10:30Z",
+                        "message": "ReplicaSet \"grafana-589c8b49d8\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1,
+                "updatedReplicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1"
+                },
+                "creationTimestamp": "2024-02-07T14:06:52Z",
+                "generation": 1,
+                "name": "prometheus",
+                "namespace": "monitoring",
+                "resourceVersion": "19014477",
+                "uid": "c0aacbac-1fd5-4ba2-b427-b6f4100f88d4"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 1,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "prometheus"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "prometheus"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--config.file=/etc/prometheus/prometheus.yml",
+                                    "--storage.tsdb.path=/prometheus/"
+                                ],
+                                "image": "prom/prometheus",
+                                "imagePullPolicy": "Always",
+                                "name": "prometheus",
+                                "ports": [
+                                    {
+                                        "containerPort": 9090,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/prometheus/",
+                                        "name": "prometheus-config-volume"
+                                    },
+                                    {
+                                        "mountPath": "/prometheus/",
+                                        "name": "prometheus-storage-volume"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "prometheus-server-conf"
+                                },
+                                "name": "prometheus-config-volume"
+                            },
+                            {
+                                "emptyDir": {},
+                                "name": "prometheus-storage-volume"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2024-02-07T14:06:52Z",
+                        "lastUpdateTime": "2024-02-07T14:06:57Z",
+                        "message": "ReplicaSet \"prometheus-bfd9c6d5b\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-28T20:00:06Z",
+                        "lastUpdateTime": "2024-02-28T20:00:06Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1,
+                "updatedReplicas": 1
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "snmp-exporter",
+                    "meta.helm.sh/release-namespace": "monitoring"
+                },
+                "creationTimestamp": "2023-10-31T15:55:32Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "metrics",
+                    "app.kubernetes.io/instance": "snmp-exporter",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "prometheus-snmp-exporter",
+                    "app.kubernetes.io/part-of": "prometheus-snmp-exporter",
+                    "app.kubernetes.io/version": "v0.21.0",
+                    "helm.sh/chart": "prometheus-snmp-exporter-1.8.1"
+                },
+                "name": "snmp-exporter-prometheus-snmp-exporter",
+                "namespace": "monitoring",
+                "resourceVersion": "17166445",
+                "uid": "5e3984e3-37e6-4af6-927f-98ce0a666a33"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 1,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/instance": "snmp-exporter",
+                        "app.kubernetes.io/name": "prometheus-snmp-exporter"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 1,
+                        "maxUnavailable": 0
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/component": "metrics",
+                            "app.kubernetes.io/instance": "snmp-exporter",
+                            "app.kubernetes.io/managed-by": "Helm",
+                            "app.kubernetes.io/name": "prometheus-snmp-exporter",
+                            "app.kubernetes.io/part-of": "prometheus-snmp-exporter",
+                            "app.kubernetes.io/version": "v0.21.0",
+                            "helm.sh/chart": "prometheus-snmp-exporter-1.8.1"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "prom/snmp-exporter:v0.21.0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": "http",
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "snmp-exporter",
+                                "ports": [
+                                    {
+                                        "containerPort": 9116,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": "http",
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "securityContext": {
+                                    "readOnlyRootFilesystem": true,
+                                    "runAsNonRoot": true,
+                                    "runAsUser": 1000
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "snmp-exporter-prometheus-snmp-exporter",
+                        "serviceAccountName": "snmp-exporter-prometheus-snmp-exporter",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 1,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2023-10-31T15:55:32Z",
+                        "lastUpdateTime": "2023-10-31T15:55:37Z",
+                        "message": "ReplicaSet \"snmp-exporter-prometheus-snmp-exporter-6789b74c5c\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    },
+                    {
+                        "lastTransitionTime": "2024-02-16T14:32:43Z",
+                        "lastUpdateTime": "2024-02-16T14:32:43Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 1,
+                "replicas": 1,
+                "updatedReplicas": 1
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
