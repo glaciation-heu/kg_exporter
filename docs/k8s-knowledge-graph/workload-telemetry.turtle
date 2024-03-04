@@ -43,7 +43,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :workload-metric.container_blkio_device_usage_total :pod-name-label "pod" .
 :workload-metric.container_blkio_device_usage_total :device-label "device" .
 
-:workload-metrics :metrics (:workload-metric.kepler_container_package_joules_total :workload-metric.container_cpu_usage_seconds_total :workload-metric.container_cpu_system_seconds_total :container_memory_usage_bytes :container_network_transmit_bytes_total :container_blkio_device_usage_total) .
+:workload-metrics :metrics (:workload-metric.kepler_container_package_joules_total :workload-metric.container_cpu_usage_seconds_total :workload-metric.container_cpu_system_seconds_total :workload-metric.container_memory_usage_bytes :workload-metric.container_network_transmit_bytes_total :workload-metric.container_blkio_device_usage_total) .
 
 :metric-source rdf:type :DataSource .
 :metric-source :source-type "Prometheus" .
