@@ -9,15 +9,11 @@ description = "Kubernetes watcher service."
 readme = "README.md"
 authors = ["HIRO-MicroDataCenters <all-hiro@hiro-microdatacenters.nl>"]
 license = "MIT"
-repository = "https://github.com/HIRO-MicroDataCenters-BV/python-service-template"
-homepage = "https://github.com/HIRO-MicroDataCenters-BV/python-service-template"
-packages = [{include = "*", from="app"}]
+repository = "https://github.com/glaciation-heu/kg_exporter"
+homepage = "https://github.com/glaciation-heu/kg_exporter"
 
 [tool.poetry.dependencies]
 python = "^3.11.4"
-fastapi = "^0.109"
-uvicorn = "^0.26"
-classy-fastapi = "^0.6.1"
 kubernetes = "^29.0.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -33,11 +29,9 @@ types-pyyaml = "^6.0.12.12"
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4"
 pytest-mock = "^3.12.0"
-httpx = "^0.26"
 
 [tool.isort]
 # https://github.com/timothycrosley/isort/
-py_version = "312"
 line_length = 88
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
@@ -50,13 +44,11 @@ color_output = true
 
 [tool.black]
 # https://github.com/psf/black
-target-version = ["py312"]
 line-length = 88
 color = true
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = '3.12'
 pretty = true
 show_traceback = true
 color_output = true

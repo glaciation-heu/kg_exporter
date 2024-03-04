@@ -15,7 +15,7 @@ jobs:
     - name: Install Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: "3.11"
 
     - name: Install poetry
       run: pip install poetry
@@ -40,21 +40,13 @@ jobs:
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }} #dckr_pat_7MD098UMxXBaNWoe8Vvbv9AMNbY
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push docker image
       uses: docker/build-push-action@v5
       with:
         push: true
         tags: ${{ env.DOCKER_IMAGES }}
-
-    - name: Create release dir
-      run: mkdir -p ./release
-
-    - name: Package helm chart
-      run: |
-        cd ./release
-        helm package ../charts/app
 
     - name: Install dependencies
       run: |
@@ -67,18 +59,12 @@ jobs:
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
     - name: Create a github release
-      run: gh release create "${{ env.APP_VERSION }}" ./release/*
+      run: gh release create "${{ env.APP_VERSION }}"
       env:
         GH_TOKEN: ${{ github.token }}
 
-    - name: Generate index.yaml
-      run: |
-        chmod +x ./tools/helm_chart_repo.sh
-        ./tools/helm_chart_repo.sh "${{ secrets.HELM_REPO_URL }}"
-
-    - name: Publish to github pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Publish Helm charts
+      uses: stefanprodan/helm-gh-pages@master
       with:
-        github_token: ${{ github.token }}
-        publish_dir: .
-        publish_branch: gh-pages
+        token: ${{ github.token }}
+        target_dir: "./charts-repo/"

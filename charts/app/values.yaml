@@ -22,17 +22,4 @@ podSecurityContext: {}
 
 securityContext: {}
 
-service:
-  type: ClusterIP
-  port: 80
-
 resources: {}
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http

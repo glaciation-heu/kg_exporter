@@ -1,29 +1,25 @@
 # Kubernetes Watcher Service
 
-The Kubernetes Watcher Service is a Python-based service that watches and detects changes for Kubernetes resources, such as Deployments, StatefulSets, and Jobs. It is designed to generate a knowledge graph for these resources and push it to a metadata service.
+The Kubernetes Watcher Service is a Python-based service that watches and detects changes for Kubernetes resources, such as Deployments, StatefulSets, and Jobs.
 
 ## Features
 
-Watches for changes to Kubernetes resources in real-time.
+- Watches for changes to Kubernetes resources in real-time.
+- Logs information about the changes detected.
+- Supports monitoring of Deployments, StatefulSets, and Jobs.
 
-Logs information about the changes detected.
+## Usage
+Deploy the service in a Kubernetes cluster using a Helm chart. After that, detected changes in the Kubernetes cluster will be displayed in the service logs.
 
-Supports monitoring of Deployments, StatefulSets, and Jobs.
-
-Integrates with Helm for easy deployment and management.
-
-
-
-## Getting Started
+## Development
 ### Prerequisites
 
-Python 3.x
+- Python 3.11+
+- Kubernetes cluster (local or remote)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/intro/install/)
 
-Kubernetes cluster (local or remote)
-
-Helm (for Helm chart integration)
-
-### Installation
+### Installation and running
 <details>
 <summary>Install Python 3.12 if it is not available in your package manager</summary>
 
@@ -88,61 +84,28 @@ poetry install --no-root --with dev,test
 poetry run pre-commit install
 ```
 
-
 4. Running tests:
 ```bash
 poetry run pytest
 ```
 
-## Package
-To generate and publish a package on pypi.org, execute the following commands:
+5. Launch the service:
 ```bash
-poetry config pypi-token.pypi <pypi_token>
-poetry build
-poetry publish
+poetry run python app/kg_exporter.py
 ```
 
-pypi_token - API token for authentication on PyPI. https://pypi.org/help/#apitoken
-
-## Docker
-Build a docker image and run a container:
+## Manual building and deployment
+1. Build and publish a docker image:
 ```bash
 docker build . -t <image_name>:<image_tag>
-docker run <image_name>:<image_tag>
-```
-
-Upload the Docker image to the repository:
-```bash
 docker login -u <username>
 docker push <image_name>:<image_tag>
 ```
-
-https://docs.docker.com/
-
-## Helm chart
-Authenticate your Helm client in the container registry:
+2. Configure `kubectl` to connect to the Kubernetes cluster.
+3. Deploy the service to the Kubernetes cluster:
 ```bash
-helm registry login <repo_url> -u <username>
+helm upgrade --install kg-exporter ./charts/app --set image.repository=<image_name> --set image.tag=<image_tag>
 ```
-
-Create a Helm chart:
-```bash
-helm package charts/<chart_name>
-```
-
-Push the Helm chart to container registry:
-```bash
-helm push <helm_chart_package> <repo_url>
-```
-
-Deploy the Helm chart:
-```bash
-helm repo add <repo_name> <repo_url>
-helm repo update <repo_name>
-helm upgrade --install <release_name> <repo_name>/<chart_name>
-```
-
-https://helm.sh/ru/docs/
 
 ## Release
 To create a release, add a tag in GIT with the format a.a.a, where 'a' is an integer.
@@ -152,20 +115,9 @@ The release version for branches, pull requests, and other tags will be generate
 GitHub Actions triggers testing, builds, and application publishing for each release.  
 https://docs.github.com/en/actions  
 
-You can set up automatic testing in GitHub Actions for different versions of Python. To do this, you need to specify the set of versions in the .github/workflows/test_and_build.yaml file. For example:
-```yaml
-strategy:
-  matrix:
-    python-version: ["3.10", "3.11", "3.12"]
-```
-
-Clone this repository:
-```bash
-git clone https://github.com/your-username/kubernetes-watcher.git
-```
 ### Initial Setup
-Create the branch kg_exporter and use it as a Github page https://pages.github.com/.
-Set up secrets at https://github.com/<workspace>/<project>/settings/secrets/actions :
+Create the branch gh-pages and use it as a GitHub page https://pages.github.com/.  
+Set up secrets at `https://github.com/<workspace>/<project>/settings/secrets/actions`:
 
 1. DOCKER_IMAGE_NAME - The name of the Docker image for uploading to the repository.
 2. DOCKER_USERNAME - The username for the Docker repository on https://hub.docker.com/.
@@ -178,37 +130,17 @@ Set up secrets at https://github.com/<workspace>/<project>/settings/secrets/acti
    Kubernetes Cluster.
 8. EKS_CLUSTER_NAME - Amazon EKS Kubernetes cluster name.
 9. EKS_CLUSTER_NAMESPACE - Amazon EKS Kubernetes cluster namespace.
-10. HELM_REPO_URL - https://<workspace>.github.io/<project>/.
+10. HELM_REPO_URL - `https://<workspace>.github.io/<project>/`
 
-
-### Usage
-Initialize Kubernetes configuration:
-```bash
-kubectl config use-context <context-name>
-```
-Run the watcher service:
-```bash
-python kg_exporter.py
-```
-### Helm Chart Deployment
-Navigate to the helm-chart directory:
-```bash
-cd charts/app
-```
-Customize the chart values in values.yaml as needed.
-
-Deploy the Helm chart:
-```bash
-helm install kg-exporter ./kg-exporter-chart
-```
+**After execution**  
+The index.yaml file containing the list of Helm charts will be available at `https://<workspace>.github.io/<project>/charts-repo/index.yaml`. You can this URL on https://artifacthub.io/.  
+The service will be deployed in the Kubernetes cluster.
 
 ## Contributing
-
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## License
-
 [MIT](https://choosealicense.com/licenses/mit/)
