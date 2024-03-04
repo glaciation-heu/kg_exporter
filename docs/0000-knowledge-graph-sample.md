@@ -9,6 +9,6 @@ The following resources covered:
 - [workload telemetry](./k8s-knowledge-graph/workload-telemetry.turtle) ([one pod sample pic](./k8s-knowledge-graph/workload-telemetry.png))) (assumming that telemetry is not part of the knowledge)
 
 The knowledge graph is a snapshot of an entire test cluster.
-It Turtle format can be viewed using Turtle Editor/Viewer https://www.semantechs.co.uk/turtle-editor-viewer/
+It is in turtle format can be viewed using Turtle Editor/Viewer https://www.semantechs.co.uk/turtle-editor-viewer/
 
  
