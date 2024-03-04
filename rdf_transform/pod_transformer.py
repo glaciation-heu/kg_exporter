@@ -28,6 +28,7 @@ class PodToRDFTransformer(TransformerBase):
 
         self.write_containers(pod_id, "$.status.containerStatuses", "$.spec.containers")
         self.write_containers(pod_id, "$.status.initContainerStatuses", "$.spec.initContainers")
+        self.write_other_spec_properties(pod_id, "$.spec")
 
         self.sink.flush()
 
@@ -70,6 +71,12 @@ class PodToRDFTransformer(TransformerBase):
         self.write_tuple_from(resources, container_id, ":requests-memory", "$.requests.memory")
         self.write_tuple_from(resources, container_id, ":limits-cpu", "$.limits.cpu")
         self.write_tuple_from(resources, container_id, ":limits-memory", "$.limits.memory")
+
+    def write_other_spec_properties(self, container_id: str, container_spec_property: str) -> None:
+        spec_matches = parse(f"{container_spec_property}").find(self.source)
+        if len(spec_matches) == 0:
+            return
+        self.write_tuple_from(spec_matches[0].value, container_id, ":is-scheduled-by", "$.schedulerName")
 
     def write_state(self, container_id: str, state: Any) -> None:        
         state_struct, state_literal = self.get_state_struct(state)

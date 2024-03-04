@@ -4,3 +4,4 @@
 :tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 :refers-to :tenant1-pool-0-1 .
 :tenant1-pool-0-1 :qos-class "Burstable" .
 :tenant1-pool-0-1 :pod-phase "Pending" .
+:tenant1-pool-0-1 :is-scheduled-by "default-scheduler" .

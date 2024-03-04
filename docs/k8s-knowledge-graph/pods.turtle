@@ -19,6 +19,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-997332e1af95158b2b5b347c74423a1f284ed8621f13fe1e5a498c6d9f57e64b :state "running" .
 :containerd-997332e1af95158b2b5b347c74423a1f284ed8621f13fe1e5a498c6d9f57e64b :started-at "2024-02-22T15:08:57Z" .
 :dataset-pod-6bc569c49f-84mzm :has-container (:containerd-997332e1af95158b2b5b347c74423a1f284ed8621f13fe1e5a498c6d9f57e64b) .
+:dataset-pod-6bc569c49f-84mzm :is-scheduled-by "default-scheduler" .
 :excel-reader-pod rdf:type :Pod .
 :excel-reader-pod :has-annotation ("kubectl.kubernetes.io/last-applied-configuration:{apiVersion:v1,kind:Pod,metadata:{annotations:{},name:excel-reader-pod,namespace:default},spec:{containers:[{image:pournima2024/excel-image-name:tag,name:excel-reader-container,volumeMounts:[{mountPath:/app,name:excel-data}]}],volumes:[{hostPath:{path:/home/ubuntu/hello-python/app},name:excel-data}]}}") .
 :excel-reader-pod :runs-on :glaciation-mast01 .
@@ -34,6 +35,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-d7ef6b63317e06281984a8c8a5dc7fb4b1b7162ac9e9196eaf7fe357efff8a23 :state "waiting" .
 :containerd-d7ef6b63317e06281984a8c8a5dc7fb4b1b7162ac9e9196eaf7fe357efff8a23 :reason "CrashLoopBackOff" .
 :excel-reader-pod :has-container (:containerd-d7ef6b63317e06281984a8c8a5dc7fb4b1b7162ac9e9196eaf7fe357efff8a23) .
+:excel-reader-pod :is-scheduled-by "default-scheduler" .
 :controller-69774c6c6f-4f6dm rdf:type :Pod .
 :controller-69774c6c6f-4f6dm :has-label ("pod-template-hash:69774c6c6f" "selector.directpv.min.io:controller-kf65u") .
 :controller-69774c6c6f-4f6dm :has-annotation ("created-by:kubectl-directpv") .
@@ -61,6 +63,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-5a78d49b159b5ec552d21fac262a0f76a4926ac1f26b92f3d9b5141832535b59 :state "running" .
 :containerd-5a78d49b159b5ec552d21fac262a0f76a4926ac1f26b92f3d9b5141832535b59 :started-at "2024-02-29T13:10:31Z" .
 :controller-69774c6c6f-4f6dm :has-container (:containerd-dda2a925fdcaf97bd5aebc4463477b8b592f4dba6304d2684feb874d704e0a52 :containerd-438b3b185d7fb6ad3b12f4b3612e6cd46f82e337898126f8a4dff3d17f083fa2 :containerd-5a78d49b159b5ec552d21fac262a0f76a4926ac1f26b92f3d9b5141832535b59) .
+:controller-69774c6c6f-4f6dm :is-scheduled-by "default-scheduler" .
 :controller-69774c6c6f-4r49m rdf:type :Pod .
 :controller-69774c6c6f-4r49m :has-label ("pod-template-hash:69774c6c6f" "selector.directpv.min.io:controller-kf65u") .
 :controller-69774c6c6f-4r49m :has-annotation ("created-by:kubectl-directpv") .
@@ -88,6 +91,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-97e64c718bae93542be98de9312c9485fadec84e36caba7857d66c7269110568 :state "running" .
 :containerd-97e64c718bae93542be98de9312c9485fadec84e36caba7857d66c7269110568 :started-at "2024-02-29T13:10:30Z" .
 :controller-69774c6c6f-4r49m :has-container (:containerd-05b6fadeb119d79bbc10b6d8547b7ec94e2b13fdd748e87b7bf9d9e85c59e7af :containerd-d13d813cadace80e703753b8cb966e1c5f2c4e7c865add491e78b7a766722379 :containerd-97e64c718bae93542be98de9312c9485fadec84e36caba7857d66c7269110568) .
+:controller-69774c6c6f-4r49m :is-scheduled-by "default-scheduler" .
 :controller-69774c6c6f-vtxrr rdf:type :Pod .
 :controller-69774c6c6f-vtxrr :has-label ("pod-template-hash:69774c6c6f" "selector.directpv.min.io:controller-kf65u") .
 :controller-69774c6c6f-vtxrr :has-annotation ("created-by:kubectl-directpv") .
@@ -115,6 +119,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-5852d356581f3d48ec8c7f4a2e342122292e1d64ae864b4954b046f4cf854ae2 :state "running" .
 :containerd-5852d356581f3d48ec8c7f4a2e342122292e1d64ae864b4954b046f4cf854ae2 :started-at "2024-02-29T13:10:31Z" .
 :controller-69774c6c6f-vtxrr :has-container (:containerd-ba2ce3f165fa62fa8f90f648a4e70d3e5ed834dd33b3049797fa29345a396e25 :containerd-563314b84c787aec1b1fd6ff55e96ac67878635d814b90dd4af99fbbe38c83be :containerd-5852d356581f3d48ec8c7f4a2e342122292e1d64ae864b4954b046f4cf854ae2) .
+:controller-69774c6c6f-vtxrr :is-scheduled-by "default-scheduler" .
 :node-server-4pr4h rdf:type :Pod .
 :node-server-4pr4h :has-label ("controller-revision-hash:cf9f64966" "pod-template-generation:1" "selector.directpv.min.io:directpv-min-io-jfmu7" "selector.directpv.min.io.service:enabled") .
 :node-server-4pr4h :has-annotation ("created-by:kubectl-directpv") .
@@ -147,6 +152,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-9037c5a2700c71edc8e4764cfc48940661f775a64ec857bdf9d2f7713a60d933 :state "running" .
 :containerd-9037c5a2700c71edc8e4764cfc48940661f775a64ec857bdf9d2f7713a60d933 :started-at "2024-02-29T13:10:27Z" .
 :node-server-4pr4h :has-container (:containerd-b4dfe881f6270c24d04a0cb7230ddfa9416e9013495628a8d3468793709a2bc5 :containerd-27c7c334e0940715cad4d376d97bdc6fe4dd7c6a1b39fb833ad0445a97180a8c :containerd-7d1e8025bdb79c74e679bb6ea8dd153961a5c5f0dc5946afc44b648a4500d30b :containerd-9037c5a2700c71edc8e4764cfc48940661f775a64ec857bdf9d2f7713a60d933) .
+:node-server-4pr4h :is-scheduled-by "default-scheduler" .
 :node-server-5gnkk rdf:type :Pod .
 :node-server-5gnkk :has-label ("controller-revision-hash:cf9f64966" "pod-template-generation:1" "selector.directpv.min.io:directpv-min-io-jfmu7" "selector.directpv.min.io.service:enabled") .
 :node-server-5gnkk :has-annotation ("created-by:kubectl-directpv") .
@@ -179,6 +185,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-a8a5d049c71d112e7be837fef64c47ef92a8f4354927d45f173800c2cfbea501 :state "running" .
 :containerd-a8a5d049c71d112e7be837fef64c47ef92a8f4354927d45f173800c2cfbea501 :started-at "2024-02-29T13:10:27Z" .
 :node-server-5gnkk :has-container (:containerd-08af93875b65656f32277043e11f73a9d44ad0a3cb598fd04ce61b92890881dd :containerd-d930e3f451d621bed52cc6aacc36b777ec20e87d2686da2435f6a7ffc8514b36 :containerd-d3b61dc704643b76b3d8c3f920e248c4edddd8f13428256a4843c2cb431ca32e :containerd-a8a5d049c71d112e7be837fef64c47ef92a8f4354927d45f173800c2cfbea501) .
+:node-server-5gnkk :is-scheduled-by "default-scheduler" .
 :node-server-6hnrx rdf:type :Pod .
 :node-server-6hnrx :has-label ("controller-revision-hash:cf9f64966" "pod-template-generation:1" "selector.directpv.min.io:directpv-min-io-jfmu7" "selector.directpv.min.io.service:enabled") .
 :node-server-6hnrx :has-annotation ("created-by:kubectl-directpv") .
@@ -211,6 +218,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-a4ac4638d801057fa419bdf1ccc527344b328b8bf75c5c0362f7c20774697e66 :state "running" .
 :containerd-a4ac4638d801057fa419bdf1ccc527344b328b8bf75c5c0362f7c20774697e66 :started-at "2024-02-29T13:10:27Z" .
 :node-server-6hnrx :has-container (:containerd-354e8541fbae9691755609b946ac75f8d218f81128f187da3fd8a8f0c6f18a90 :containerd-5e0ebfcc2e79da8914f97834cb799f54d01484f8712dcdc82e60558c2be8705d :containerd-3231f2bed52b2dbe78eb2cf786eb5556cffed5d2bd71d84087c1c42f63c435ac :containerd-a4ac4638d801057fa419bdf1ccc527344b328b8bf75c5c0362f7c20774697e66) .
+:node-server-6hnrx :is-scheduled-by "default-scheduler" .
 :node-server-87jqw rdf:type :Pod .
 :node-server-87jqw :has-label ("controller-revision-hash:cf9f64966" "pod-template-generation:1" "selector.directpv.min.io:directpv-min-io-jfmu7" "selector.directpv.min.io.service:enabled") .
 :node-server-87jqw :has-annotation ("created-by:kubectl-directpv") .
@@ -243,6 +251,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-c0d0389ea848e15a68157ee73d87815413cfbac73fa0c258b30b2297d06c139b :state "running" .
 :containerd-c0d0389ea848e15a68157ee73d87815413cfbac73fa0c258b30b2297d06c139b :started-at "2024-02-29T13:10:28Z" .
 :node-server-87jqw :has-container (:containerd-7efcd3545e4b89db01a3903d02e1ff01aacbdbf55e0ec1956896e8f30f92a0c4 :containerd-1a8f82742bc3ea4f14ae52e6329ef17b2dacbc4fa8bc2f9a7518ee90ffa9a299 :containerd-8ff90e923d309275c9fab0ea3bff7b75443ddc142d017849c4f66cc4ce539f0a :containerd-c0d0389ea848e15a68157ee73d87815413cfbac73fa0c258b30b2297d06c139b) .
+:node-server-87jqw :is-scheduled-by "default-scheduler" .
 :node-server-qsc78 rdf:type :Pod .
 :node-server-qsc78 :has-label ("controller-revision-hash:cf9f64966" "pod-template-generation:1" "selector.directpv.min.io:directpv-min-io-jfmu7" "selector.directpv.min.io.service:enabled") .
 :node-server-qsc78 :has-annotation ("created-by:kubectl-directpv") .
@@ -275,6 +284,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-5820b39097a78e3833d59d3e1592ea0c8e8af86bc63694e3bc5c92e0059a5192 :state "running" .
 :containerd-5820b39097a78e3833d59d3e1592ea0c8e8af86bc63694e3bc5c92e0059a5192 :started-at "2024-02-29T13:10:28Z" .
 :node-server-qsc78 :has-container (:containerd-79e26c3dc3ffc7026add8067b64d25c816e1396d11868833f4cf87ddca7e9b45 :containerd-8c2358cae0d1aa31186b2ad3e05e248bf7c2c636fb9e8a199206e3bbf968d6e1 :containerd-629b6e255320c379c9e7454ffb3f6371020868b24d5200258569f983d0bf9a4b :containerd-5820b39097a78e3833d59d3e1592ea0c8e8af86bc63694e3bc5c92e0059a5192) .
+:node-server-qsc78 :is-scheduled-by "default-scheduler" .
 :kepler-8vv4b rdf:type :Pod .
 :kepler-8vv4b :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-8vv4b .
@@ -291,6 +301,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-f20986fac5a4dcd45e269145be63dc944c6a053d6d9cc7049dda92f4a0a9de8b :state "running" .
 :containerd-f20986fac5a4dcd45e269145be63dc944c6a053d6d9cc7049dda92f4a0a9de8b :started-at "2024-01-22T15:37:08Z" .
 :kepler-8vv4b :has-container (:containerd-f20986fac5a4dcd45e269145be63dc944c6a053d6d9cc7049dda92f4a0a9de8b) .
+:kepler-8vv4b :is-scheduled-by "default-scheduler" .
 :kepler-fq5jw rdf:type :Pod .
 :kepler-fq5jw :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-fq5jw .
@@ -307,6 +318,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-e3ce9a03cb7e6f537629362d09daed97238dd880db90f20a8dd826a3e91e033a :state "running" .
 :containerd-e3ce9a03cb7e6f537629362d09daed97238dd880db90f20a8dd826a3e91e033a :started-at "2024-01-22T15:37:08Z" .
 :kepler-fq5jw :has-container (:containerd-e3ce9a03cb7e6f537629362d09daed97238dd880db90f20a8dd826a3e91e033a) .
+:kepler-fq5jw :is-scheduled-by "default-scheduler" .
 :kepler-glj4v rdf:type :Pod .
 :kepler-glj4v :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-glj4v .
@@ -323,6 +335,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-5b0503d7c640db3332894c050734ebd92e19f7288b999b8fbb3b3d59210af171 :state "running" .
 :containerd-5b0503d7c640db3332894c050734ebd92e19f7288b999b8fbb3b3d59210af171 :started-at "2024-02-29T12:17:30Z" .
 :kepler-glj4v :has-container (:containerd-5b0503d7c640db3332894c050734ebd92e19f7288b999b8fbb3b3d59210af171) .
+:kepler-glj4v :is-scheduled-by "default-scheduler" .
 :kepler-m6jnl rdf:type :Pod .
 :kepler-m6jnl :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-m6jnl .
@@ -339,6 +352,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-6ef9d7ba5d9bdffcea605d12c76de635cbae407769719c08e02481b2c1f5ab3c :state "running" .
 :containerd-6ef9d7ba5d9bdffcea605d12c76de635cbae407769719c08e02481b2c1f5ab3c :started-at "2024-01-22T15:37:07Z" .
 :kepler-m6jnl :has-container (:containerd-6ef9d7ba5d9bdffcea605d12c76de635cbae407769719c08e02481b2c1f5ab3c) .
+:kepler-m6jnl :is-scheduled-by "default-scheduler" .
 :kepler-mb4zb rdf:type :Pod .
 :kepler-mb4zb :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:kepler" "controller-revision-hash:846676ddcc" "pod-template-generation:1") .
 :kepler.5b4072ab-4eb0-422d-8c4c-414c86575659 :refers-to :kepler-mb4zb .
@@ -355,6 +369,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-81b271e50c4b0aa89559440d826a4d95b0dfbb62539ac7e2c95a4369bcfca975 :state "running" .
 :containerd-81b271e50c4b0aa89559440d826a4d95b0dfbb62539ac7e2c95a4369bcfca975 :started-at "2024-01-22T15:37:08Z" .
 :kepler-mb4zb :has-container (:containerd-81b271e50c4b0aa89559440d826a4d95b0dfbb62539ac7e2c95a4369bcfca975) .
+:kepler-mb4zb :is-scheduled-by "default-scheduler" .
 :kube-flannel-ds-848v8 rdf:type :Pod .
 :kube-flannel-ds-848v8 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-848v8 .
@@ -388,6 +403,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f :finished-at "2023-12-11T11:10:15Z" .
 :containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f :reason "Completed" .
 :kube-flannel-ds-848v8 :has-container (:containerd-c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74 :containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f) .
+:kube-flannel-ds-848v8 :is-scheduled-by "default-scheduler" .
 :kube-flannel-ds-fjnjm rdf:type :Pod .
 :kube-flannel-ds-fjnjm :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-fjnjm .
@@ -421,6 +437,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-f5616dda32f4ea5731751992c8fa64aaefadca313024ddd8441cbc63863b2209 :finished-at "2023-12-11T11:10:11Z" .
 :containerd-f5616dda32f4ea5731751992c8fa64aaefadca313024ddd8441cbc63863b2209 :reason "Completed" .
 :kube-flannel-ds-fjnjm :has-container (:containerd-408ab8c82d685ceaf30e0bd14cdd9f93ab2845a7795030d29669557e2272e41c :containerd-f5616dda32f4ea5731751992c8fa64aaefadca313024ddd8441cbc63863b2209) .
+:kube-flannel-ds-fjnjm :is-scheduled-by "default-scheduler" .
 :kube-flannel-ds-lcwv4 rdf:type :Pod .
 :kube-flannel-ds-lcwv4 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-lcwv4 .
@@ -454,6 +471,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-f19e3baa67253927a1c3a4103c8172e0eb99c8eb29056c68cb18b5cda7514869 :finished-at "2023-12-11T11:10:07Z" .
 :containerd-f19e3baa67253927a1c3a4103c8172e0eb99c8eb29056c68cb18b5cda7514869 :reason "Completed" .
 :kube-flannel-ds-lcwv4 :has-container (:containerd-011ce470a8861f085d37895b6ae63bea857486523dcb428d22be8ffb56ed465b :containerd-f19e3baa67253927a1c3a4103c8172e0eb99c8eb29056c68cb18b5cda7514869) .
+:kube-flannel-ds-lcwv4 :is-scheduled-by "default-scheduler" .
 :kube-flannel-ds-m6mgg rdf:type :Pod .
 :kube-flannel-ds-m6mgg :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-m6mgg .
@@ -487,6 +505,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-dc2e1d0d7b3b1346d6c791398dcc49739d828a0afe85526fff8ea4c8668a5b7f :finished-at "2024-02-29T12:17:30Z" .
 :containerd-dc2e1d0d7b3b1346d6c791398dcc49739d828a0afe85526fff8ea4c8668a5b7f :reason "Completed" .
 :kube-flannel-ds-m6mgg :has-container (:containerd-8153c354f032f97f4783e494856e18c981403c21875d4de51054fc4b612822a4 :containerd-dc2e1d0d7b3b1346d6c791398dcc49739d828a0afe85526fff8ea4c8668a5b7f) .
+:kube-flannel-ds-m6mgg :is-scheduled-by "default-scheduler" .
 :kube-flannel-ds-n9mh8 rdf:type :Pod .
 :kube-flannel-ds-n9mh8 :has-label ("app:flannel" "controller-revision-hash:6fbbc5c975" "pod-template-generation:1" "tier:node") .
 :kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178 :refers-to :kube-flannel-ds-n9mh8 .
@@ -520,6 +539,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-cd784c60482059c2a5eea405af831977bcffd7950aad26b2145734e2b588d46e :finished-at "2023-12-11T11:09:35Z" .
 :containerd-cd784c60482059c2a5eea405af831977bcffd7950aad26b2145734e2b588d46e :reason "Completed" .
 :kube-flannel-ds-n9mh8 :has-container (:containerd-9230852bee1bdfd2ceba08b4006acdb81a872a6724c1fb1af863135b40d4da1a :containerd-cd784c60482059c2a5eea405af831977bcffd7950aad26b2145734e2b588d46e) .
+:kube-flannel-ds-n9mh8 :is-scheduled-by "default-scheduler" .
 :coredns-5dd5756b68-5lsck rdf:type :Pod .
 :coredns-5dd5756b68-5lsck :has-label ("k8s-app:kube-dns" "pod-template-hash:5dd5756b68") .
 :coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 :refers-to :coredns-5dd5756b68-5lsck .
@@ -539,6 +559,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-5ca2e473185db7f02506851a4be1088572c2ed8aaea47e222b68d71b10351f36 :requests-memory "70Mi" .
 :containerd-5ca2e473185db7f02506851a4be1088572c2ed8aaea47e222b68d71b10351f36 :limits-memory "170Mi" .
 :coredns-5dd5756b68-5lsck :has-container (:containerd-5ca2e473185db7f02506851a4be1088572c2ed8aaea47e222b68d71b10351f36) .
+:coredns-5dd5756b68-5lsck :is-scheduled-by "default-scheduler" .
 :coredns-5dd5756b68-n6l5x rdf:type :Pod .
 :coredns-5dd5756b68-n6l5x :has-label ("k8s-app:kube-dns" "pod-template-hash:5dd5756b68") .
 :coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 :refers-to :coredns-5dd5756b68-n6l5x .
@@ -558,6 +579,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-1b95b5851d200a813ea62106c9bc079338219962441497c37aa640f01e18624c :requests-memory "70Mi" .
 :containerd-1b95b5851d200a813ea62106c9bc079338219962441497c37aa640f01e18624c :limits-memory "170Mi" .
 :coredns-5dd5756b68-n6l5x :has-container (:containerd-1b95b5851d200a813ea62106c9bc079338219962441497c37aa640f01e18624c) .
+:coredns-5dd5756b68-n6l5x :is-scheduled-by "default-scheduler" .
 :etcd-glaciation-mast01 rdf:type :Pod .
 :etcd-glaciation-mast01 :has-label ("component:etcd" "tier:control-plane") .
 :etcd-glaciation-mast01 :has-annotation ("kubeadm.kubernetes.io/etcd.advertise-client-urls:https://10.14.2.5:2379" "kubernetes.io/config.hash:01f03098a0f0f7d67c6537f16d2ed77f" "kubernetes.io/config.mirror:01f03098a0f0f7d67c6537f16d2ed77f" "kubernetes.io/config.seen:2023-10-19T23:22:00.603188053Z" "kubernetes.io/config.source:file") .
@@ -577,6 +599,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-349fe85ea2a2660c49945d9d5becdebb6813f9f95cb1fd9ea7c0834d5c7b1d5b :requests-cpu "100m" .
 :containerd-349fe85ea2a2660c49945d9d5becdebb6813f9f95cb1fd9ea7c0834d5c7b1d5b :requests-memory "100Mi" .
 :etcd-glaciation-mast01 :has-container (:containerd-349fe85ea2a2660c49945d9d5becdebb6813f9f95cb1fd9ea7c0834d5c7b1d5b) .
+:etcd-glaciation-mast01 :is-scheduled-by "default-scheduler" .
 :kube-apiserver-glaciation-mast01 rdf:type :Pod .
 :kube-apiserver-glaciation-mast01 :has-label ("component:kube-apiserver" "tier:control-plane") .
 :kube-apiserver-glaciation-mast01 :has-annotation ("kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint:10.14.2.5:6443" "kubernetes.io/config.hash:ae8a59c6a25cbdfe17ccc2f920f05e12" "kubernetes.io/config.mirror:ae8a59c6a25cbdfe17ccc2f920f05e12" "kubernetes.io/config.seen:2023-10-19T23:22:00.603194593Z" "kubernetes.io/config.source:file") .
@@ -595,6 +618,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-9480ada8738006a72167d7b98ad5b5b5a8ec53a7d47635e03092c44a9cd50307 :started-at "2024-02-29T12:17:25Z" .
 :containerd-9480ada8738006a72167d7b98ad5b5b5a8ec53a7d47635e03092c44a9cd50307 :requests-cpu "250m" .
 :kube-apiserver-glaciation-mast01 :has-container (:containerd-9480ada8738006a72167d7b98ad5b5b5a8ec53a7d47635e03092c44a9cd50307) .
+:kube-apiserver-glaciation-mast01 :is-scheduled-by "default-scheduler" .
 :kube-controller-manager-glaciation-mast01 rdf:type :Pod .
 :kube-controller-manager-glaciation-mast01 :has-label ("component:kube-controller-manager" "tier:control-plane") .
 :kube-controller-manager-glaciation-mast01 :has-annotation ("kubernetes.io/config.hash:383513785b50d6e43014cffd710f165e" "kubernetes.io/config.mirror:383513785b50d6e43014cffd710f165e" "kubernetes.io/config.seen:2023-10-19T23:22:00.603195794Z" "kubernetes.io/config.source:file") .
@@ -613,6 +637,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-3301005a58e2d11ba36a1bde27eb5b58a65225441905ab1fe5054861618f689c :started-at "2024-02-29T12:17:25Z" .
 :containerd-3301005a58e2d11ba36a1bde27eb5b58a65225441905ab1fe5054861618f689c :requests-cpu "200m" .
 :kube-controller-manager-glaciation-mast01 :has-container (:containerd-3301005a58e2d11ba36a1bde27eb5b58a65225441905ab1fe5054861618f689c) .
+:kube-controller-manager-glaciation-mast01 :is-scheduled-by "default-scheduler" .
 :kube-proxy-4nhdf rdf:type :Pod .
 :kube-proxy-4nhdf :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-4nhdf .
@@ -629,6 +654,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-1303bb84af65edcfddcbc9d368c2f035389046f49b378c50337f7a4a95365824 :state "running" .
 :containerd-1303bb84af65edcfddcbc9d368c2f035389046f49b378c50337f7a4a95365824 :started-at "2023-12-11T11:10:07Z" .
 :kube-proxy-4nhdf :has-container (:containerd-1303bb84af65edcfddcbc9d368c2f035389046f49b378c50337f7a4a95365824) .
+:kube-proxy-4nhdf :is-scheduled-by "default-scheduler" .
 :kube-proxy-52jvn rdf:type :Pod .
 :kube-proxy-52jvn :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-52jvn .
@@ -645,6 +671,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-29e467e709c7bece216b68801189e9bb0e1f40b61cf935e14c2daf1dc9fa55cc :state "running" .
 :containerd-29e467e709c7bece216b68801189e9bb0e1f40b61cf935e14c2daf1dc9fa55cc :started-at "2023-12-11T11:10:14Z" .
 :kube-proxy-52jvn :has-container (:containerd-29e467e709c7bece216b68801189e9bb0e1f40b61cf935e14c2daf1dc9fa55cc) .
+:kube-proxy-52jvn :is-scheduled-by "default-scheduler" .
 :kube-proxy-74pnw rdf:type :Pod .
 :kube-proxy-74pnw :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-74pnw .
@@ -661,6 +688,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-133ef3b033677743f0100ddfe8857634a87394f91c43fae47cde704b48cdf6ed :state "running" .
 :containerd-133ef3b033677743f0100ddfe8857634a87394f91c43fae47cde704b48cdf6ed :started-at "2023-12-11T11:09:34Z" .
 :kube-proxy-74pnw :has-container (:containerd-133ef3b033677743f0100ddfe8857634a87394f91c43fae47cde704b48cdf6ed) .
+:kube-proxy-74pnw :is-scheduled-by "default-scheduler" .
 :kube-proxy-8jqgs rdf:type :Pod .
 :kube-proxy-8jqgs :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-8jqgs .
@@ -677,6 +705,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-c478833c59aef38a33a89aea7ff879e809bf8a95c3715a82d2bc500eafcdaa17 :state "running" .
 :containerd-c478833c59aef38a33a89aea7ff879e809bf8a95c3715a82d2bc500eafcdaa17 :started-at "2024-02-29T12:17:30Z" .
 :kube-proxy-8jqgs :has-container (:containerd-c478833c59aef38a33a89aea7ff879e809bf8a95c3715a82d2bc500eafcdaa17) .
+:kube-proxy-8jqgs :is-scheduled-by "default-scheduler" .
 :kube-proxy-vr7fh rdf:type :Pod .
 :kube-proxy-vr7fh :has-label ("controller-revision-hash:5cbdb8dcbd" "k8s-app:kube-proxy" "pod-template-generation:1") .
 :kube-proxy.fa2c51a8-a8cc-4d7e-802d-63660dc47c27 :refers-to :kube-proxy-vr7fh .
@@ -693,6 +722,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-0ade32b02e467c5f4c56c8eec24201e7a304eafb06290f7ff565464d46aada1b :state "running" .
 :containerd-0ade32b02e467c5f4c56c8eec24201e7a304eafb06290f7ff565464d46aada1b :started-at "2023-12-11T11:10:10Z" .
 :kube-proxy-vr7fh :has-container (:containerd-0ade32b02e467c5f4c56c8eec24201e7a304eafb06290f7ff565464d46aada1b) .
+:kube-proxy-vr7fh :is-scheduled-by "default-scheduler" .
 :kube-scheduler-glaciation-mast01 rdf:type :Pod .
 :kube-scheduler-glaciation-mast01 :has-label ("component:kube-scheduler" "tier:control-plane") .
 :kube-scheduler-glaciation-mast01 :has-annotation ("kubernetes.io/config.hash:b884ed305cac049f168ee6384558614e" "kubernetes.io/config.mirror:b884ed305cac049f168ee6384558614e" "kubernetes.io/config.seen:2023-10-19T23:21:52.417025056Z" "kubernetes.io/config.source:file") .
@@ -711,6 +741,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-48e63c5c32ac4822b5eea85889753ec3f95046c53bdeb39aabfc9f9980c17022 :started-at "2024-02-29T12:17:25Z" .
 :containerd-48e63c5c32ac4822b5eea85889753ec3f95046c53bdeb39aabfc9f9980c17022 :requests-cpu "100m" .
 :kube-scheduler-glaciation-mast01 :has-container (:containerd-48e63c5c32ac4822b5eea85889753ec3f95046c53bdeb39aabfc9f9980c17022) .
+:kube-scheduler-glaciation-mast01 :is-scheduled-by "default-scheduler" .
 :console-55c68f95f6-qkhkl rdf:type :Pod .
 :console-55c68f95f6-qkhkl :has-label ("app.kubernetes.io/instance:operator-console" "app.kubernetes.io/name:operator" "pod-template-hash:55c68f95f6") .
 :console-55c68f95f6.fdfcf5b2-bd89-43d3-b1a0-50743ef1bd2e :refers-to :console-55c68f95f6-qkhkl .
@@ -729,6 +760,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-2935c6d21aee1f6f934ef74959c465b2378e18ead165245f48c0e8da2244e59d :requests-cpu "250m" .
 :containerd-2935c6d21aee1f6f934ef74959c465b2378e18ead165245f48c0e8da2244e59d :requests-memory "512Mi" .
 :console-55c68f95f6-qkhkl :has-container (:containerd-2935c6d21aee1f6f934ef74959c465b2378e18ead165245f48c0e8da2244e59d) .
+:console-55c68f95f6-qkhkl :is-scheduled-by "default-scheduler" .
 :minio-operator-7779d4d76d-6tqts rdf:type :Pod .
 :minio-operator-7779d4d76d-6tqts :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/name:operator" "operator:leader" "pod-template-hash:7779d4d76d") .
 :minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 :refers-to :minio-operator-7779d4d76d-6tqts .
@@ -747,6 +779,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-79afb63cba5cf0d09967a8f43ad34da07a3672270583f65864f64f4f55792333 :requests-cpu "200m" .
 :containerd-79afb63cba5cf0d09967a8f43ad34da07a3672270583f65864f64f4f55792333 :requests-memory "256Mi" .
 :minio-operator-7779d4d76d-6tqts :has-container (:containerd-79afb63cba5cf0d09967a8f43ad34da07a3672270583f65864f64f4f55792333) .
+:minio-operator-7779d4d76d-6tqts :is-scheduled-by "default-scheduler" .
 :minio-operator-7779d4d76d-t7crl rdf:type :Pod .
 :minio-operator-7779d4d76d-t7crl :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/name:operator" "operator:leader" "pod-template-hash:7779d4d76d") .
 :minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 :refers-to :minio-operator-7779d4d76d-t7crl .
@@ -765,6 +798,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-27d3f123f2072eabb045b48a51f2b21b13f1b1ac6a1f05c5a6afd551ec97d600 :requests-cpu "200m" .
 :containerd-27d3f123f2072eabb045b48a51f2b21b13f1b1ac6a1f05c5a6afd551ec97d600 :requests-memory "256Mi" .
 :minio-operator-7779d4d76d-t7crl :has-container (:containerd-27d3f123f2072eabb045b48a51f2b21b13f1b1ac6a1f05c5a6afd551ec97d600) .
+:minio-operator-7779d4d76d-t7crl :is-scheduled-by "default-scheduler" .
 :grafana-589c8b49d8-cb8xf rdf:type :Pod .
 :grafana-589c8b49d8-cb8xf :has-label ("app:grafana" "pod-template-hash:589c8b49d8") .
 :grafana-589c8b49d8.b9b0d3ec-6602-4f0b-8b26-b5f87adaa710 :refers-to :grafana-589c8b49d8-cb8xf .
@@ -781,6 +815,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-56330a05d76faed0030fdbafa777fda36e418cd75f5518a9a7bb5ca1ba69c74f :state "running" .
 :containerd-56330a05d76faed0030fdbafa777fda36e418cd75f5518a9a7bb5ca1ba69c74f :started-at "2024-02-07T14:10:29Z" .
 :grafana-589c8b49d8-cb8xf :has-container (:containerd-56330a05d76faed0030fdbafa777fda36e418cd75f5518a9a7bb5ca1ba69c74f) .
+:grafana-589c8b49d8-cb8xf :is-scheduled-by "default-scheduler" .
 :idrac-exporter-d69wg rdf:type :Pod .
 :idrac-exporter-d69wg :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-d69wg .
@@ -797,6 +832,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-c2108631b18e2b7eeced432ac4366c923e90b12d3b367b2e125d4476b7272673 :state "running" .
 :containerd-c2108631b18e2b7eeced432ac4366c923e90b12d3b367b2e125d4476b7272673 :started-at "2024-02-29T12:17:42Z" .
 :idrac-exporter-d69wg :has-container (:containerd-c2108631b18e2b7eeced432ac4366c923e90b12d3b367b2e125d4476b7272673) .
+:idrac-exporter-d69wg :is-scheduled-by "default-scheduler" .
 :idrac-exporter-drhv9 rdf:type :Pod .
 :idrac-exporter-drhv9 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-drhv9 .
@@ -813,6 +849,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-4c135a16766dfb3f3c75c2ea85a71a67903c8294089b9d5db5cc503ce592fa62 :state "running" .
 :containerd-4c135a16766dfb3f3c75c2ea85a71a67903c8294089b9d5db5cc503ce592fa62 :started-at "2024-02-28T19:49:17Z" .
 :idrac-exporter-drhv9 :has-container (:containerd-4c135a16766dfb3f3c75c2ea85a71a67903c8294089b9d5db5cc503ce592fa62) .
+:idrac-exporter-drhv9 :is-scheduled-by "default-scheduler" .
 :idrac-exporter-f5zw4 rdf:type :Pod .
 :idrac-exporter-f5zw4 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-f5zw4 .
@@ -829,6 +866,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-bc6c4c87bcc0b45a8334c5149746c0ea7ef5e68c924722dff119625509612dab :state "running" .
 :containerd-bc6c4c87bcc0b45a8334c5149746c0ea7ef5e68c924722dff119625509612dab :started-at "2024-02-28T19:49:17Z" .
 :idrac-exporter-f5zw4 :has-container (:containerd-bc6c4c87bcc0b45a8334c5149746c0ea7ef5e68c924722dff119625509612dab) .
+:idrac-exporter-f5zw4 :is-scheduled-by "default-scheduler" .
 :idrac-exporter-gk27h rdf:type :Pod .
 :idrac-exporter-gk27h :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-gk27h .
@@ -845,6 +883,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-1a9cc7beaf1b1409e6f3cd351cf6f2816555707dc6eab76ef36f0ad7d7caa4ca :state "running" .
 :containerd-1a9cc7beaf1b1409e6f3cd351cf6f2816555707dc6eab76ef36f0ad7d7caa4ca :started-at "2024-02-28T19:49:17Z" .
 :idrac-exporter-gk27h :has-container (:containerd-1a9cc7beaf1b1409e6f3cd351cf6f2816555707dc6eab76ef36f0ad7d7caa4ca) .
+:idrac-exporter-gk27h :is-scheduled-by "default-scheduler" .
 :idrac-exporter-m5262 rdf:type :Pod .
 :idrac-exporter-m5262 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:idrac-exporter" "controller-revision-hash:55c69c5dc7" "name:idrac-exporter" "pod-template-generation:1") .
 :idrac-exporter.78443639-1bd3-48fd-8d3e-63369180a8f1 :refers-to :idrac-exporter-m5262 .
@@ -861,6 +900,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-5819da988a189ba35718db5af28df623d3419016ddae5dc942b6f819595ad927 :state "running" .
 :containerd-5819da988a189ba35718db5af28df623d3419016ddae5dc942b6f819595ad927 :started-at "2024-02-28T19:49:17Z" .
 :idrac-exporter-m5262 :has-container (:containerd-5819da988a189ba35718db5af28df623d3419016ddae5dc942b6f819595ad927) .
+:idrac-exporter-m5262 :is-scheduled-by "default-scheduler" .
 :node-exporter-4mdtr rdf:type :Pod .
 :node-exporter-4mdtr :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-4mdtr .
@@ -881,6 +921,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-13f0f89b6fe570ab27ec43d78bfd4095beeee8ae72e42f717d3cd6567702314d :limits-cpu "250m" .
 :containerd-13f0f89b6fe570ab27ec43d78bfd4095beeee8ae72e42f717d3cd6567702314d :limits-memory "180Mi" .
 :node-exporter-4mdtr :has-container (:containerd-13f0f89b6fe570ab27ec43d78bfd4095beeee8ae72e42f717d3cd6567702314d) .
+:node-exporter-4mdtr :is-scheduled-by "default-scheduler" .
 :node-exporter-9jwq2 rdf:type :Pod .
 :node-exporter-9jwq2 :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-9jwq2 .
@@ -901,6 +942,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-ecd5885b479734d0d7e797a5e05c896b84f727d43835e50dd2b8473fc64516fb :limits-cpu "250m" .
 :containerd-ecd5885b479734d0d7e797a5e05c896b84f727d43835e50dd2b8473fc64516fb :limits-memory "180Mi" .
 :node-exporter-9jwq2 :has-container (:containerd-ecd5885b479734d0d7e797a5e05c896b84f727d43835e50dd2b8473fc64516fb) .
+:node-exporter-9jwq2 :is-scheduled-by "default-scheduler" .
 :node-exporter-mrwdx rdf:type :Pod .
 :node-exporter-mrwdx :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-mrwdx .
@@ -921,6 +963,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-44429716114c1ef7bc06fed8622d1a14e9388c721c250117a5d3ad65da38b07a :limits-cpu "250m" .
 :containerd-44429716114c1ef7bc06fed8622d1a14e9388c721c250117a5d3ad65da38b07a :limits-memory "180Mi" .
 :node-exporter-mrwdx :has-container (:containerd-44429716114c1ef7bc06fed8622d1a14e9388c721c250117a5d3ad65da38b07a) .
+:node-exporter-mrwdx :is-scheduled-by "default-scheduler" .
 :node-exporter-x5wqm rdf:type :Pod .
 :node-exporter-x5wqm :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-x5wqm .
@@ -941,6 +984,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-e848e59b952811eeca7bc8d950142d1c792637933bd3d14121f01fad7733e450 :limits-cpu "250m" .
 :containerd-e848e59b952811eeca7bc8d950142d1c792637933bd3d14121f01fad7733e450 :limits-memory "180Mi" .
 :node-exporter-x5wqm :has-container (:containerd-e848e59b952811eeca7bc8d950142d1c792637933bd3d14121f01fad7733e450) .
+:node-exporter-x5wqm :is-scheduled-by "default-scheduler" .
 :node-exporter-xj4pg rdf:type :Pod .
 :node-exporter-xj4pg :has-label ("app.kubernetes.io/component:exporter" "app.kubernetes.io/name:node-exporter" "controller-revision-hash:669956f8f7" "pod-template-generation:1") .
 :node-exporter.3ba1d84b-de48-472a-b42f-939e251098fa :refers-to :node-exporter-xj4pg .
@@ -961,6 +1005,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-63b437e82859657f8ba35c422a32ae9156914f51237ebfb2d95d94d2a8464260 :limits-cpu "250m" .
 :containerd-63b437e82859657f8ba35c422a32ae9156914f51237ebfb2d95d94d2a8464260 :limits-memory "180Mi" .
 :node-exporter-xj4pg :has-container (:containerd-63b437e82859657f8ba35c422a32ae9156914f51237ebfb2d95d94d2a8464260) .
+:node-exporter-xj4pg :is-scheduled-by "default-scheduler" .
 :prometheus-bfd9c6d5b-6b9xt rdf:type :Pod .
 :prometheus-bfd9c6d5b-6b9xt :has-label ("app:prometheus" "pod-template-hash:bfd9c6d5b") .
 :prometheus-bfd9c6d5b.9afeeb21-54c2-46e1-ac0a-2e4fe7275661 :refers-to :prometheus-bfd9c6d5b-6b9xt .
@@ -977,6 +1022,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-64157db3fd8985809b6fd8a4aebd50d2f2da9113ef90469b803efc15907acee5 :state "running" .
 :containerd-64157db3fd8985809b6fd8a4aebd50d2f2da9113ef90469b803efc15907acee5 :started-at "2024-02-28T20:00:06Z" .
 :prometheus-bfd9c6d5b-6b9xt :has-container (:containerd-64157db3fd8985809b6fd8a4aebd50d2f2da9113ef90469b803efc15907acee5) .
+:prometheus-bfd9c6d5b-6b9xt :is-scheduled-by "default-scheduler" .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq rdf:type :Pod .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :has-label ("app.kubernetes.io/component:metrics" "app.kubernetes.io/instance:snmp-exporter" "app.kubernetes.io/managed-by:Helm" "app.kubernetes.io/name:prometheus-snmp-exporter" "app.kubernetes.io/part-of:prometheus-snmp-exporter" "app.kubernetes.io/version:v0.21.0" "helm.sh/chart:prometheus-snmp-exporter-1.8.1" "pod-template-hash:6789b74c5c") .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c.e3c4cfca-540d-482d-a21f-204bc65c9f16 :refers-to :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq .
@@ -993,3 +1039,4 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :containerd-7efabca163f508d07c1ecf730d073d5ff1c7500c79aaae0c2ea26977ed64983a :state "running" .
 :containerd-7efabca163f508d07c1ecf730d073d5ff1c7500c79aaae0c2ea26977ed64983a :started-at "2024-02-29T12:17:36Z" .
 :snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :has-container (:containerd-7efabca163f508d07c1ecf730d073d5ff1c7500c79aaae0c2ea26977ed64983a) .
+:snmp-exporter-prometheus-snmp-exporter-6789b74c5c-944vq :is-scheduled-by "default-scheduler" .

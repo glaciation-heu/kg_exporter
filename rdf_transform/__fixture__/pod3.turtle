@@ -31,3 +31,4 @@
 :containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f :finished-at "2023-12-11T11:10:15Z" .
 :containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f :reason "Completed" .
 :kube-flannel-ds-848v8 :has-container (:containerd-c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74 :containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f) .
+:kube-flannel-ds-848v8 :is-scheduled-by "default-scheduler" .
