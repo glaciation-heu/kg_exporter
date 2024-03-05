@@ -15,6 +15,8 @@ homepage = "https://github.com/glaciation-heu/kg_exporter"
 [tool.poetry.dependencies]
 python = "^3.11.4"
 kubernetes = "^29.0.0"
+jsonpath = "^0.82.2"
+jsonpath-ng = "^1.6.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6"
