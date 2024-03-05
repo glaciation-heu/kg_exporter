@@ -94,17 +94,23 @@ poetry run pytest
 poetry run python app/kg_exporter.py
 ```
 
-## Manual building and deployment
-1. Build and publish a docker image:
+## Manual build and deployment on minikube
+1. Install [minikube](https://minikube.sigs.k8s.io/docs/start/).
+2. Start minikube:
 ```bash
-docker build . -t <image_name>:<image_tag>
-docker login -u <username>
-docker push <image_name>:<image_tag>
+minikube start
 ```
-2. Configure `kubectl` to connect to the Kubernetes cluster.
-3. Deploy the service to the Kubernetes cluster:
+3. Build a docker image:
 ```bash
-helm upgrade --install kg-exporter ./charts/app --set image.repository=<image_name> --set image.tag=<image_tag>
+docker build . -t kg-exporter:latest
+```
+4. Upload the docker image to minikube:
+```bash
+minikube image load kg-exporter:latest
+```
+5. Deploy the service:
+```bash
+helm upgrade --install kg-exporter-app ./charts/app --set image.repository=kg-exporter --set image.tag=latest --version 0.1.0
 ```
 
 ## Release

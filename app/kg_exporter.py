@@ -1,3 +1,5 @@
+from typing import Any
+
 import argparse
 import logging
 import signal
@@ -17,8 +19,8 @@ class Resource(ABC):
     @abstractmethod
     def get_list(
         self,
-        namespace: str,
-        watch: bool,
+        *args: Any,
+        **kwargs: Any,
     ) -> V1DeploymentList | V1StatefulSetList | V1JobList:
         raise NotImplementedError
 
@@ -27,45 +29,24 @@ class DeploymentResource(Resource):
     def __init__(self, api: client.AppsV1Api) -> None:
         self._api = api
 
-    def get_list(
-        self,
-        namespace: str,
-        watch: bool,
-    ) -> V1DeploymentList:
-        return self._api.list_namespaced_deployment(
-            namespace=namespace,
-            watch=watch,
-        )
+    def get_list(self, *args: Any, **kwargs: Any) -> V1DeploymentList:
+        return self._api.list_namespaced_deployment(*args, **kwargs)
 
 
 class StatefulSetResource(Resource):
     def __init__(self, api: client.AppsV1Api) -> None:
         self._api = api
 
-    def get_list(
-        self,
-        namespace: str,
-        watch: bool,
-    ) -> V1StatefulSetList:
-        return self._api.list_namespaced_stateful_set(
-            namespace=namespace,
-            watch=watch,
-        )
+    def get_list(self, *args: Any, **kwargs: Any) -> V1StatefulSetList:
+        return self._api.list_namespaced_stateful_set(*args, **kwargs)
 
 
 class JobResource(Resource):
     def __init__(self, api: client.BatchV1Api) -> None:
         self._api = api
 
-    def get_list(
-        self,
-        namespace: str,
-        watch: bool,
-    ) -> V1JobList:
-        return self._api.list_namespaced_job(
-            namespace=namespace,
-            watch=watch,
-        )
+    def get_list(self, *args: Any, **kwargs: Any) -> V1JobList:
+        return self._api.list_namespaced_job(*args, **kwargs)
 
 
 class KubernetesWatcher:
