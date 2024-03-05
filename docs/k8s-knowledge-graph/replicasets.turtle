@@ -1,0 +1,37 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def rdf:type :ReplicaSet .
+:dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def :has-label ("app:dataset-app" "pod-template-hash:6bc569c49f") .
+:dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def :has-annotation ("deployment.kubernetes.io/desired-replicas:1" "deployment.kubernetes.io/max-replicas:2" "deployment.kubernetes.io/revision:1") .
+:dataset-pod.f9b3ea3d-360e-4122-afd5-aa3950c8929b :refers-to :dataset-pod-6bc569c49f.a92dce14-4b4d-49e5-86c1-17c285214def .
+:controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab rdf:type :ReplicaSet .
+:controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab :has-label ("pod-template-hash:69774c6c6f" "selector.directpv.min.io:controller-kf65u") .
+:controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab :has-annotation ("deployment.kubernetes.io/desired-replicas:3" "deployment.kubernetes.io/max-replicas:3" "deployment.kubernetes.io/revision:1" "directpv.min.io/image-tag:v4.0.10" "directpv.min.io/plugin-version:v4.0.10") .
+:controller.2fddc320-44e4-4e9c-952b-6efc73996fcc :refers-to :controller-69774c6c6f.68e440ce-7c01-4c5e-93a5-6193d82986ab .
+:coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 rdf:type :ReplicaSet .
+:coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 :has-label ("k8s-app:kube-dns" "pod-template-hash:5dd5756b68") .
+:coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 :has-annotation ("deployment.kubernetes.io/desired-replicas:2" "deployment.kubernetes.io/max-replicas:3" "deployment.kubernetes.io/revision:1") .
+:coredns.3c2adec9-be41-4806-8fe7-5b22585ab52a :refers-to :coredns-5dd5756b68.cf4f25b8-8bea-45b9-badc-9adbc7d386f3 .
+:console-55c68f95f6.fdfcf5b2-bd89-43d3-b1a0-50743ef1bd2e rdf:type :ReplicaSet .
+:console-55c68f95f6.fdfcf5b2-bd89-43d3-b1a0-50743ef1bd2e :has-label ("app.kubernetes.io/instance:operator-console" "app.kubernetes.io/name:operator" "pod-template-hash:55c68f95f6") .
+:console-55c68f95f6.fdfcf5b2-bd89-43d3-b1a0-50743ef1bd2e :has-annotation ("deployment.kubernetes.io/desired-replicas:1" "deployment.kubernetes.io/max-replicas:2" "deployment.kubernetes.io/revision:1" "meta.helm.sh/release-name:operator" "meta.helm.sh/release-namespace:minio-operator") .
+:console.c756214a-6695-48b4-baa7-48e4e95cc92b :refers-to :console-55c68f95f6.fdfcf5b2-bd89-43d3-b1a0-50743ef1bd2e .
+:minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 rdf:type :ReplicaSet .
+:minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 :has-label ("app.kubernetes.io/instance:operator" "app.kubernetes.io/name:operator" "pod-template-hash:7779d4d76d") .
+:minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 :has-annotation ("deployment.kubernetes.io/desired-replicas:2" "deployment.kubernetes.io/max-replicas:3" "deployment.kubernetes.io/revision:1" "meta.helm.sh/release-name:operator" "meta.helm.sh/release-namespace:minio-operator" "min.io/operator:v5.0.12") .
+:minio-operator.f3039658-4663-41d4-a362-8db42b2f89c2 :refers-to :minio-operator-7779d4d76d.65494ef8-dd86-4a72-95c3-7d20857ec629 .
+:grafana-589c8b49d8.b9b0d3ec-6602-4f0b-8b26-b5f87adaa710 rdf:type :ReplicaSet .
+:grafana-589c8b49d8.b9b0d3ec-6602-4f0b-8b26-b5f87adaa710 :has-label ("app:grafana" "pod-template-hash:589c8b49d8") .
+:grafana-589c8b49d8.b9b0d3ec-6602-4f0b-8b26-b5f87adaa710 :has-annotation ("deployment.kubernetes.io/desired-replicas:1" "deployment.kubernetes.io/max-replicas:2" "deployment.kubernetes.io/revision:1") .
+:grafana.780e7520-5885-4630-ae69-4baed1e4e8f7 :refers-to :grafana-589c8b49d8.b9b0d3ec-6602-4f0b-8b26-b5f87adaa710 .
+:prometheus-bfd9c6d5b.9afeeb21-54c2-46e1-ac0a-2e4fe7275661 rdf:type :ReplicaSet .
+:prometheus-bfd9c6d5b.9afeeb21-54c2-46e1-ac0a-2e4fe7275661 :has-label ("app:prometheus" "pod-template-hash:bfd9c6d5b") .
+:prometheus-bfd9c6d5b.9afeeb21-54c2-46e1-ac0a-2e4fe7275661 :has-annotation ("deployment.kubernetes.io/desired-replicas:1" "deployment.kubernetes.io/max-replicas:2" "deployment.kubernetes.io/revision:1") .
+:prometheus.c0aacbac-1fd5-4ba2-b427-b6f4100f88d4 :refers-to :prometheus-bfd9c6d5b.9afeeb21-54c2-46e1-ac0a-2e4fe7275661 .
+:snmp-exporter-prometheus-snmp-exporter-6789b74c5c.e3c4cfca-540d-482d-a21f-204bc65c9f16 rdf:type :ReplicaSet .
+:snmp-exporter-prometheus-snmp-exporter-6789b74c5c.e3c4cfca-540d-482d-a21f-204bc65c9f16 :has-label ("app.kubernetes.io/component:metrics" "app.kubernetes.io/instance:snmp-exporter" "app.kubernetes.io/managed-by:Helm" "app.kubernetes.io/name:prometheus-snmp-exporter" "app.kubernetes.io/part-of:prometheus-snmp-exporter" "app.kubernetes.io/version:v0.21.0" "helm.sh/chart:prometheus-snmp-exporter-1.8.1" "pod-template-hash:6789b74c5c") .
+:snmp-exporter-prometheus-snmp-exporter-6789b74c5c.e3c4cfca-540d-482d-a21f-204bc65c9f16 :has-annotation ("deployment.kubernetes.io/desired-replicas:1" "deployment.kubernetes.io/max-replicas:2" "deployment.kubernetes.io/revision:1" "meta.helm.sh/release-name:snmp-exporter" "meta.helm.sh/release-namespace:monitoring") .
+:snmp-exporter-prometheus-snmp-exporter.5e3984e3-37e6-4af6-927f-98ce0a666a33 :refers-to :snmp-exporter-prometheus-snmp-exporter-6789b74c5c.e3c4cfca-540d-482d-a21f-204bc65c9f16 .

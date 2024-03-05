@@ -1,0 +1,4 @@
+:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 rdf:type :Workload .
+:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 rdf:subClassOf "StatefulSet" .
+:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 :has-label ("v1.min.io/pool:pool-0" "v1.min.io/tenant:tenant1") .
+:tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd :refers-to :tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 .

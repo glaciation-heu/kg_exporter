@@ -1,0 +1,190 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:glaciation-mast01 rdf:type :Node .
+:glaciation-mast01 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "directpv.min.io/identity:directpv-min-io" "directpv.min.io/node:glaciation-mast01" "directpv.min.io/rack:default" "directpv.min.io/region:default" "directpv.min.io/zone:default" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-mast01" "kubernetes.io/os:linux" "node-role.kubernetes.io/control-plane:" "node.kubernetes.io/exclude-from-external-load-balancers:") .
+:glaciation-mast01 :has-annotation ("csi.volume.kubernetes.io/nodeid:{directpv-min-io:glaciation-mast01}" "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:92:de:31:02:33:e5}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.2.5" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-mast01.Network rdf:type :Network .
+:glaciation-mast01.Network :internal_ip "10.14.2.5" .
+:glaciation-mast01.Network :hostname "glaciation-mast01" .
+:glaciation-mast01 :has-network :glaciation-mast01.Network .
+:glaciation-mast01.allocatable.CPU rdf:type :CPU .
+:glaciation-mast01.allocatable.CPU :count "128" .
+:glaciation-mast01.allocatable.Memory rdf:type :Memory .
+:glaciation-mast01.allocatable.Memory :bytes "263490004Ki" .
+:glaciation-mast01.allocatable.Storage rdf:type :Storage .
+:glaciation-mast01.allocatable.Storage :bytes "1699178737718" .
+:glaciation-mast01 :has-allocatable-resource (:glaciation-mast01.allocatable.CPU :glaciation-mast01.allocatable.Memory :glaciation-mast01.allocatable.Storage) .
+:glaciation-mast01.capacity.CPU rdf:type :CPU .
+:glaciation-mast01.capacity.CPU :count "128" .
+:glaciation-mast01.capacity.Memory rdf:type :Memory .
+:glaciation-mast01.capacity.Memory :bytes "263592404Ki" .
+:glaciation-mast01.capacity.Storage rdf:type :Storage .
+:glaciation-mast01.capacity.Storage :bytes "1843726932Ki" .
+:glaciation-mast01 :has-capacity-resource (:glaciation-mast01.capacity.CPU :glaciation-mast01.capacity.Memory :glaciation-mast01.capacity.Storage) .
+:glaciation-mast01.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-mast01.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-mast01.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-mast01.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-mast01.NodeCondition.MemoryPressure :status "False" .
+:glaciation-mast01.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-mast01.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-mast01.NodeCondition.DiskPressure :status "False" .
+:glaciation-mast01.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-mast01.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-mast01.NodeCondition.PIDPressure :status "False" .
+:glaciation-mast01.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-mast01.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-mast01.NodeCondition.Ready :status "True" .
+:glaciation-mast01.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-mast01 :has-condition (:glaciation-mast01.NodeCondition.NetworkUnavailable :glaciation-mast01.NodeCondition.MemoryPressure :glaciation-mast01.NodeCondition.DiskPressure :glaciation-mast01.NodeCondition.PIDPressure :glaciation-mast01.NodeCondition.Ready) .
+:glaciation-worker01 rdf:type :Node .
+:glaciation-worker01 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "directpv.min.io/identity:directpv-min-io" "directpv.min.io/node:glaciation-worker01" "directpv.min.io/rack:default" "directpv.min.io/region:default" "directpv.min.io/zone:default" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-worker01" "kubernetes.io/os:linux") .
+:glaciation-worker01 :has-annotation ("csi.volume.kubernetes.io/nodeid:{directpv-min-io:glaciation-worker01}" "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:ae:27:33:36:91:5c}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.2.8" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-worker01.Network rdf:type :Network .
+:glaciation-worker01.Network :internal_ip "10.14.2.8" .
+:glaciation-worker01.Network :hostname "glaciation-worker01" .
+:glaciation-worker01 :has-network :glaciation-worker01.Network .
+:glaciation-worker01.allocatable.CPU rdf:type :CPU .
+:glaciation-worker01.allocatable.CPU :count "48" .
+:glaciation-worker01.allocatable.Memory rdf:type :Memory .
+:glaciation-worker01.allocatable.Memory :bytes "131232216Ki" .
+:glaciation-worker01.allocatable.Storage rdf:type :Storage .
+:glaciation-worker01.allocatable.Storage :bytes "1698231303429" .
+:glaciation-worker01 :has-allocatable-resource (:glaciation-worker01.allocatable.CPU :glaciation-worker01.allocatable.Memory :glaciation-worker01.allocatable.Storage) .
+:glaciation-worker01.capacity.CPU rdf:type :CPU .
+:glaciation-worker01.capacity.CPU :count "48" .
+:glaciation-worker01.capacity.Memory rdf:type :Memory .
+:glaciation-worker01.capacity.Memory :bytes "131334616Ki" .
+:glaciation-worker01.capacity.Storage rdf:type :Storage .
+:glaciation-worker01.capacity.Storage :bytes "1842698900Ki" .
+:glaciation-worker01 :has-capacity-resource (:glaciation-worker01.capacity.CPU :glaciation-worker01.capacity.Memory :glaciation-worker01.capacity.Storage) .
+:glaciation-worker01.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-worker01.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-worker01.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-worker01.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-worker01.NodeCondition.MemoryPressure :status "False" .
+:glaciation-worker01.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-worker01.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-worker01.NodeCondition.DiskPressure :status "False" .
+:glaciation-worker01.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-worker01.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-worker01.NodeCondition.PIDPressure :status "False" .
+:glaciation-worker01.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-worker01.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-worker01.NodeCondition.Ready :status "True" .
+:glaciation-worker01.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-worker01 :has-condition (:glaciation-worker01.NodeCondition.NetworkUnavailable :glaciation-worker01.NodeCondition.MemoryPressure :glaciation-worker01.NodeCondition.DiskPressure :glaciation-worker01.NodeCondition.PIDPressure :glaciation-worker01.NodeCondition.Ready) .
+:glaciation-worker02 rdf:type :Node .
+:glaciation-worker02 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "directpv.min.io/identity:directpv-min-io" "directpv.min.io/node:glaciation-worker02" "directpv.min.io/rack:default" "directpv.min.io/region:default" "directpv.min.io/zone:default" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-worker02" "kubernetes.io/os:linux") .
+:glaciation-worker02 :has-annotation ("csi.volume.kubernetes.io/nodeid:{directpv-min-io:glaciation-worker02}" "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:76:25:1c:59:e7:c6}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.2.0" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-worker02.Network rdf:type :Network .
+:glaciation-worker02.Network :internal_ip "10.14.2.0" .
+:glaciation-worker02.Network :hostname "glaciation-worker02" .
+:glaciation-worker02 :has-network :glaciation-worker02.Network .
+:glaciation-worker02.allocatable.CPU rdf:type :CPU .
+:glaciation-worker02.allocatable.CPU :count "6" .
+:glaciation-worker02.allocatable.Memory rdf:type :Memory .
+:glaciation-worker02.allocatable.Memory :bytes "16060524Ki" .
+:glaciation-worker02.allocatable.Storage rdf:type :Storage .
+:glaciation-worker02.allocatable.Storage :bytes "226751816534" .
+:glaciation-worker02 :has-allocatable-resource (:glaciation-worker02.allocatable.CPU :glaciation-worker02.allocatable.Memory :glaciation-worker02.allocatable.Storage) .
+:glaciation-worker02.capacity.CPU rdf:type :CPU .
+:glaciation-worker02.capacity.CPU :count "6" .
+:glaciation-worker02.capacity.Memory rdf:type :Memory .
+:glaciation-worker02.capacity.Memory :bytes "16162924Ki" .
+:glaciation-worker02.capacity.Storage rdf:type :Storage .
+:glaciation-worker02.capacity.Storage :bytes "246041468Ki" .
+:glaciation-worker02 :has-capacity-resource (:glaciation-worker02.capacity.CPU :glaciation-worker02.capacity.Memory :glaciation-worker02.capacity.Storage) .
+:glaciation-worker02.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-worker02.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-worker02.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-worker02.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-worker02.NodeCondition.MemoryPressure :status "False" .
+:glaciation-worker02.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-worker02.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-worker02.NodeCondition.DiskPressure :status "False" .
+:glaciation-worker02.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-worker02.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-worker02.NodeCondition.PIDPressure :status "False" .
+:glaciation-worker02.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-worker02.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-worker02.NodeCondition.Ready :status "True" .
+:glaciation-worker02.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-worker02 :has-condition (:glaciation-worker02.NodeCondition.NetworkUnavailable :glaciation-worker02.NodeCondition.MemoryPressure :glaciation-worker02.NodeCondition.DiskPressure :glaciation-worker02.NodeCondition.PIDPressure :glaciation-worker02.NodeCondition.Ready) .
+:glaciation-worker03 rdf:type :Node .
+:glaciation-worker03 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "directpv.min.io/identity:directpv-min-io" "directpv.min.io/node:glaciation-worker03" "directpv.min.io/rack:default" "directpv.min.io/region:default" "directpv.min.io/zone:default" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-worker03" "kubernetes.io/os:linux") .
+:glaciation-worker03 :has-annotation ("csi.volume.kubernetes.io/nodeid:{directpv-min-io:glaciation-worker03}" "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:26:f9:d4:34:5a:92}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.2.1" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-worker03.Network rdf:type :Network .
+:glaciation-worker03.Network :internal_ip "10.14.2.1" .
+:glaciation-worker03.Network :hostname "glaciation-worker03" .
+:glaciation-worker03 :has-network :glaciation-worker03.Network .
+:glaciation-worker03.allocatable.CPU rdf:type :CPU .
+:glaciation-worker03.allocatable.CPU :count "6" .
+:glaciation-worker03.allocatable.Memory rdf:type :Memory .
+:glaciation-worker03.allocatable.Memory :bytes "16060524Ki" .
+:glaciation-worker03.allocatable.Storage rdf:type :Storage .
+:glaciation-worker03.allocatable.Storage :bytes "226751816534" .
+:glaciation-worker03 :has-allocatable-resource (:glaciation-worker03.allocatable.CPU :glaciation-worker03.allocatable.Memory :glaciation-worker03.allocatable.Storage) .
+:glaciation-worker03.capacity.CPU rdf:type :CPU .
+:glaciation-worker03.capacity.CPU :count "6" .
+:glaciation-worker03.capacity.Memory rdf:type :Memory .
+:glaciation-worker03.capacity.Memory :bytes "16162924Ki" .
+:glaciation-worker03.capacity.Storage rdf:type :Storage .
+:glaciation-worker03.capacity.Storage :bytes "246041468Ki" .
+:glaciation-worker03 :has-capacity-resource (:glaciation-worker03.capacity.CPU :glaciation-worker03.capacity.Memory :glaciation-worker03.capacity.Storage) .
+:glaciation-worker03.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-worker03.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-worker03.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-worker03.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-worker03.NodeCondition.MemoryPressure :status "False" .
+:glaciation-worker03.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-worker03.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-worker03.NodeCondition.DiskPressure :status "False" .
+:glaciation-worker03.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-worker03.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-worker03.NodeCondition.PIDPressure :status "False" .
+:glaciation-worker03.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-worker03.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-worker03.NodeCondition.Ready :status "True" .
+:glaciation-worker03.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-worker03 :has-condition (:glaciation-worker03.NodeCondition.NetworkUnavailable :glaciation-worker03.NodeCondition.MemoryPressure :glaciation-worker03.NodeCondition.DiskPressure :glaciation-worker03.NodeCondition.PIDPressure :glaciation-worker03.NodeCondition.Ready) .
+:glaciation-worker04 rdf:type :Node .
+:glaciation-worker04 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "directpv.min.io/identity:directpv-min-io" "directpv.min.io/node:glaciation-worker04" "directpv.min.io/rack:default" "directpv.min.io/region:default" "directpv.min.io/zone:default" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-worker04" "kubernetes.io/os:linux") .
+:glaciation-worker04 :has-annotation ("csi.volume.kubernetes.io/nodeid:{directpv-min-io:glaciation-worker04}" "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:d6:21:01:83:b3:7d}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.2.2" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-worker04.Network rdf:type :Network .
+:glaciation-worker04.Network :internal_ip "10.14.2.2" .
+:glaciation-worker04.Network :hostname "glaciation-worker04" .
+:glaciation-worker04 :has-network :glaciation-worker04.Network .
+:glaciation-worker04.allocatable.CPU rdf:type :CPU .
+:glaciation-worker04.allocatable.CPU :count "6" .
+:glaciation-worker04.allocatable.Memory rdf:type :Memory .
+:glaciation-worker04.allocatable.Memory :bytes "16060520Ki" .
+:glaciation-worker04.allocatable.Storage rdf:type :Storage .
+:glaciation-worker04.allocatable.Storage :bytes "226751816534" .
+:glaciation-worker04 :has-allocatable-resource (:glaciation-worker04.allocatable.CPU :glaciation-worker04.allocatable.Memory :glaciation-worker04.allocatable.Storage) .
+:glaciation-worker04.capacity.CPU rdf:type :CPU .
+:glaciation-worker04.capacity.CPU :count "6" .
+:glaciation-worker04.capacity.Memory rdf:type :Memory .
+:glaciation-worker04.capacity.Memory :bytes "16162920Ki" .
+:glaciation-worker04.capacity.Storage rdf:type :Storage .
+:glaciation-worker04.capacity.Storage :bytes "246041468Ki" .
+:glaciation-worker04 :has-capacity-resource (:glaciation-worker04.capacity.CPU :glaciation-worker04.capacity.Memory :glaciation-worker04.capacity.Storage) .
+:glaciation-worker04.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-worker04.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-worker04.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-worker04.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-worker04.NodeCondition.MemoryPressure :status "False" .
+:glaciation-worker04.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-worker04.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-worker04.NodeCondition.DiskPressure :status "False" .
+:glaciation-worker04.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-worker04.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-worker04.NodeCondition.PIDPressure :status "False" .
+:glaciation-worker04.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-worker04.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-worker04.NodeCondition.Ready :status "True" .
+:glaciation-worker04.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-worker04 :has-condition (:glaciation-worker04.NodeCondition.NetworkUnavailable :glaciation-worker04.NodeCondition.MemoryPressure :glaciation-worker04.NodeCondition.DiskPressure :glaciation-worker04.NodeCondition.PIDPressure :glaciation-worker04.NodeCondition.Ready) .
