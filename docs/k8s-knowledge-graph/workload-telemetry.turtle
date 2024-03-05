@@ -1,0 +1,61 @@
+PREFIX : <http://glaciation-project.eu/model/>
+PREFIX gla: <http://glaciation-project.eu/model/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:telemetry rdf:type :WorkloadTelemetry .
+:telemetry :has-metrics :workload-metrics .
+:telemetry :has-logs :workload-logs .
+
+:workload-metrics rdf:type :MetricReference .
+:workload-metrics :from-source :metric-source .
+
+:workload-metric.kepler_container_package_joules_total rdf:type :Metric .
+:workload-metric.kepler_container_package_joules_total :metric-name "kepler_container_package_joules_total" .
+:workload-metric.kepler_container_package_joules_total :metric-type "Counter" .
+:workload-metric.kepler_container_package_joules_total :unit "Joules" .
+:workload-metric.kepler_container_package_joules_total :pod-name-label "pod_name" .
+
+:workload-metric.container_cpu_usage_seconds_total rdf:type :Metric .
+:workload-metric.container_cpu_usage_seconds_total :metric-name "container_cpu_usage_seconds_total" .
+:workload-metric.container_cpu_usage_seconds_total :metric-type "Counter" .
+:workload-metric.container_cpu_usage_seconds_total :unit "Seconds" .
+:workload-metric.container_cpu_usage_seconds_total :pod-name-label "pod" .
+
+:workload-metric.container_cpu_system_seconds_total rdf:type :Metric .
+:workload-metric.container_cpu_system_seconds_total :metric-name "container_cpu_system_seconds_total" .
+:workload-metric.container_cpu_system_seconds_total :metric-type "Counter" .
+:workload-metric.container_cpu_system_seconds_total :unit "Seconds" .
+:workload-metric.container_cpu_system_seconds_total :pod-name-label "pod" .
+
+:workload-metric.container_memory_usage_bytes rdf:type :Metric .
+:workload-metric.container_memory_usage_bytes :metric-name "container_memory_usage_bytes" .
+:workload-metric.container_memory_usage_bytes :metric-type "Gauge" .
+:workload-metric.container_memory_usage_bytes :unit "Bytes" .
+:workload-metric.container_memory_usage_bytes :pod-name-label "name" .
+
+:workload-metric.container_network_transmit_bytes_total rdf:type :Metric .
+:workload-metric.container_network_transmit_bytes_total :metric-name "container_network_transmit_bytes_total" .
+:workload-metric.container_network_transmit_bytes_total :metric-type "Counter" .
+:workload-metric.container_network_transmit_bytes_total :unit "Bytes" .
+:workload-metric.container_network_transmit_bytes_total :pod-name-label "pod" .
+
+:workload-metric.container_blkio_device_usage_total rdf:type :Metric .
+:workload-metric.container_blkio_device_usage_total :metric-name "container_blkio_device_usage_total" .
+:workload-metric.container_blkio_device_usage_total :metric-type "Counter" .
+:workload-metric.container_blkio_device_usage_total :pod-name-label "pod" .
+:workload-metric.container_blkio_device_usage_total :unit "Bytes" .
+:workload-metric.container_blkio_device_usage_total :device-label "device" .
+
+:workload-metrics :metrics (:workload-metric.kepler_container_package_joules_total :workload-metric.container_cpu_usage_seconds_total :workload-metric.container_cpu_system_seconds_total :workload-metric.container_memory_usage_bytes :workload-metric.container_network_transmit_bytes_total :workload-metric.container_blkio_device_usage_total) .
+
+:metric-source rdf:type :DataSource .
+:metric-source :source-type "Prometheus" .
+:metric-source :url "http://prometheus:9000" .
+
+:workload-logs rdf:type :LogReference .
+:workload-logs :from-source :log-source .
+
+:log-source rdf:type :DataSource .
+:log-source :source-type "Loki" .
+:log-source :url "http://loki:3100" .

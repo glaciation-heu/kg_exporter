@@ -1,0 +1,1223 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "DaemonSet",
+            "metadata": {
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1",
+                    "directpv.min.io/image-tag": "v4.0.10",
+                    "directpv.min.io/plugin-version": "v4.0.10"
+                },
+                "creationTimestamp": "2024-02-29T13:10:14Z",
+                "generation": 1,
+                "labels": {
+                    "application-name": "directpv.min.io",
+                    "application-type": "CSIDriver",
+                    "directpv.min.io/created-by": "kubectl-directpv",
+                    "directpv.min.io/version": "v1beta1"
+                },
+                "name": "node-server",
+                "namespace": "directpv",
+                "resourceVersion": "19126946",
+                "uid": "efbe3e4c-82e7-4104-b530-166bada1c1ba"
+            },
+            "spec": {
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "selector.directpv.min.io": "directpv-min-io-jfmu7"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "annotations": {
+                            "created-by": "kubectl-directpv"
+                        },
+                        "creationTimestamp": null,
+                        "labels": {
+                            "selector.directpv.min.io": "directpv-min-io-jfmu7",
+                            "selector.directpv.min.io.service": "enabled"
+                        },
+                        "name": "node-server",
+                        "namespace": "directpv"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--v=3",
+                                    "--csi-address=unix:///csi/csi.sock",
+                                    "--kubelet-registration-path=/var/lib/kubelet/plugins/directpv-min-io/csi.sock"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KUBE_NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "quay.io/minio/csi-node-driver-registrar@sha256:c805fdc166761218dc9478e7ac8e0ad0e42ad442269e75608823da3eb761e67e",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "node-driver-registrar",
+                                "resources": {},
+                                "terminationMessagePath": "/var/log/driver-registrar-termination-log",
+                                "terminationMessagePolicy": "FallbackToLogsOnError",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    },
+                                    {
+                                        "mountPath": "/registration",
+                                        "mountPropagation": "None",
+                                        "name": "registration-dir"
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "node-server",
+                                    "-v=3",
+                                    "--identity=directpv-min-io",
+                                    "--csi-endpoint=$(CSI_ENDPOINT)",
+                                    "--kube-node-name=$(KUBE_NODE_NAME)",
+                                    "--readiness-port=30443",
+                                    "--metrics-port=10443"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KUBE_NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "CSI_ENDPOINT",
+                                        "value": "unix:///csi/csi.sock"
+                                    }
+                                ],
+                                "image": "quay.io/minio/directpv:v4.0.10",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 5,
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": "healthz",
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "name": "node-server",
+                                "ports": [
+                                    {
+                                        "containerPort": 30443,
+                                        "name": "readinessport",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9898,
+                                        "name": "healthz",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 10443,
+                                        "name": "metrics",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 5,
+                                    "httpGet": {
+                                        "path": "/ready",
+                                        "port": "readinessport",
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/var/log/driver-termination-log",
+                                "terminationMessagePolicy": "FallbackToLogsOnError",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/kubelet/pods",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "mountpoint-dir"
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/kubelet/plugins",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "plugins-dir"
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/directpv/",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "directpv-common-root"
+                                    },
+                                    {
+                                        "mountPath": "/sys",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "sysfs"
+                                    },
+                                    {
+                                        "mountPath": "/dev",
+                                        "mountPropagation": "HostToContainer",
+                                        "name": "devfs",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/run/udev/data",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "run-udev-data-dir",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/direct-csi/",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "direct-csi-common-root"
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "node-controller",
+                                    "-v=3",
+                                    "--kube-node-name=$(KUBE_NODE_NAME)"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "KUBE_NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "quay.io/minio/directpv:v4.0.10",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "node-controller",
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/var/log/driver-termination-log",
+                                "terminationMessagePolicy": "FallbackToLogsOnError",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/kubelet/pods",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "mountpoint-dir"
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/kubelet/plugins",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "plugins-dir"
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/directpv/",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "directpv-common-root"
+                                    },
+                                    {
+                                        "mountPath": "/sys",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "sysfs"
+                                    },
+                                    {
+                                        "mountPath": "/dev",
+                                        "mountPropagation": "HostToContainer",
+                                        "name": "devfs",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/run/udev/data",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "run-udev-data-dir",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/var/lib/direct-csi/",
+                                        "mountPropagation": "Bidirectional",
+                                        "name": "direct-csi-common-root"
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "--csi-address=/csi/csi.sock",
+                                    "--health-port=9898"
+                                ],
+                                "image": "quay.io/minio/livenessprobe@sha256:f3bc9a84f149cd7362e4bd0ae8cd90b26ad020c2591bfe19e63ff97aacf806c3",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "liveness-probe",
+                                "resources": {},
+                                "terminationMessagePath": "/var/log/driver-liveness-termination-log",
+                                "terminationMessagePolicy": "FallbackToLogsOnError",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/csi",
+                                        "mountPropagation": "None",
+                                        "name": "socket-dir"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "hostPID": true,
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "directpv-min-io",
+                        "serviceAccountName": "directpv-min-io",
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/kubelet/plugins/directpv-min-io",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "socket-dir"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/kubelet/pods",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "mountpoint-dir"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/kubelet/plugins_registry",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "registration-dir"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/kubelet/plugins",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "plugins-dir"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/directpv/",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "directpv-common-root"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/sys",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "sysfs"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/dev",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "devfs"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/run/udev/data",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "run-udev-data-dir"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/var/lib/direct-csi/",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "direct-csi-common-root"
+                            }
+                        ]
+                    }
+                },
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 0,
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                }
+            },
+            "status": {
+                "currentNumberScheduled": 5,
+                "desiredNumberScheduled": 5,
+                "numberAvailable": 5,
+                "numberMisscheduled": 0,
+                "numberReady": 5,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 5
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "DaemonSet",
+            "metadata": {
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1",
+                    "meta.helm.sh/release-name": "kepler",
+                    "meta.helm.sh/release-namespace": "kepler-exporter"
+                },
+                "creationTimestamp": "2024-01-22T15:37:01Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "exporter",
+                    "app.kubernetes.io/managed-by": "Helm",
+                    "app.kubernetes.io/name": "kepler",
+                    "app.kubernetes.io/version": "release-0.7.2",
+                    "helm.sh/chart": "kepler-0.5.4"
+                },
+                "name": "kepler",
+                "namespace": "kepler-exporter",
+                "resourceVersion": "17166460",
+                "uid": "5b4072ab-4eb0-422d-8c4c-414c86575659"
+            },
+            "spec": {
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "exporter",
+                        "app.kubernetes.io/name": "kepler"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/component": "exporter",
+                            "app.kubernetes.io/name": "kepler"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "-v=$(KEPLER_LOG_LEVEL)"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_IP",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "status.hostIP"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "METRIC_PATH",
+                                        "value": "/metrics"
+                                    },
+                                    {
+                                        "name": "BIND_ADDRESS",
+                                        "value": "0.0.0.0:9102"
+                                    },
+                                    {
+                                        "name": "CGROUP_METRICS",
+                                        "value": "*"
+                                    },
+                                    {
+                                        "name": "CPU_ARCH_OVERRIDE"
+                                    },
+                                    {
+                                        "name": "ENABLE_EBPF_CGROUPID",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "ENABLE_GPU",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "ENABLE_PROCESS_METRICS",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "ENABLE_QAT",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "EXPOSE_CGROUP_METRICS",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "EXPOSE_HW_COUNTER_METRICS",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "EXPOSE_IRQ_COUNTER_METRICS",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "KEPLER_LOG_LEVEL",
+                                        "value": "1"
+                                    }
+                                ],
+                                "image": "quay.io/sustainable_computing_io/kepler:release-0.7.2",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "failureThreshold": 5,
+                                    "httpGet": {
+                                        "path": "/healthz",
+                                        "port": 9102,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "name": "kepler-exporter",
+                                "ports": [
+                                    {
+                                        "containerPort": 9102,
+                                        "hostPort": 9102,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/lib/modules",
+                                        "name": "lib-modules"
+                                    },
+                                    {
+                                        "mountPath": "/sys",
+                                        "name": "tracing"
+                                    },
+                                    {
+                                        "mountPath": "/proc",
+                                        "name": "proc"
+                                    },
+                                    {
+                                        "mountPath": "/usr/src",
+                                        "name": "usr-src"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "hostNetwork": true,
+                        "nodeSelector": {
+                            "kubernetes.io/os": "linux"
+                        },
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "kepler",
+                        "serviceAccountName": "kepler",
+                        "terminationGracePeriodSeconds": 30,
+                        "tolerations": [
+                            {
+                                "effect": "NoSchedule",
+                                "key": "node-role.kubernetes.io/control-plane"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/lib/modules",
+                                    "type": "DirectoryOrCreate"
+                                },
+                                "name": "lib-modules"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/sys",
+                                    "type": "Directory"
+                                },
+                                "name": "tracing"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/proc",
+                                    "type": "Directory"
+                                },
+                                "name": "proc"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/usr/src",
+                                    "type": "Directory"
+                                },
+                                "name": "usr-src"
+                            }
+                        ]
+                    }
+                },
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 0,
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                }
+            },
+            "status": {
+                "currentNumberScheduled": 5,
+                "desiredNumberScheduled": 5,
+                "numberAvailable": 5,
+                "numberMisscheduled": 0,
+                "numberReady": 5,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 5
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "DaemonSet",
+            "metadata": {
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"flannel\",\"k8s-app\":\"flannel\",\"tier\":\"node\"},\"name\":\"kube-flannel-ds\",\"namespace\":\"kube-flannel\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app\":\"flannel\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"flannel\",\"tier\":\"node\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"kubernetes.io/os\",\"operator\":\"In\",\"values\":[\"linux\"]}]}]}}},\"containers\":[{\"args\":[\"--ip-masq\",\"--kube-subnet-mgr\"],\"command\":[\"/opt/bin/flanneld\"],\"env\":[{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"EVENT_QUEUE_DEPTH\",\"value\":\"5000\"}],\"image\":\"docker.io/flannel/flannel:v0.22.3\",\"name\":\"kube-flannel\",\"resources\":{\"requests\":{\"cpu\":\"100m\",\"memory\":\"50Mi\"}},\"securityContext\":{\"capabilities\":{\"add\":[\"NET_ADMIN\",\"NET_RAW\"]},\"privileged\":false},\"volumeMounts\":[{\"mountPath\":\"/run/flannel\",\"name\":\"run\"},{\"mountPath\":\"/etc/kube-flannel/\",\"name\":\"flannel-cfg\"},{\"mountPath\":\"/run/xtables.lock\",\"name\":\"xtables-lock\"}]}],\"hostNetwork\":true,\"initContainers\":[{\"args\":[\"-f\",\"/flannel\",\"/opt/cni/bin/flannel\"],\"command\":[\"cp\"],\"image\":\"docker.io/flannel/flannel-cni-plugin:v1.2.0\",\"name\":\"install-cni-plugin\",\"volumeMounts\":[{\"mountPath\":\"/opt/cni/bin\",\"name\":\"cni-plugin\"}]},{\"args\":[\"-f\",\"/etc/kube-flannel/cni-conf.json\",\"/etc/cni/net.d/10-flannel.conflist\"],\"command\":[\"cp\"],\"image\":\"docker.io/flannel/flannel:v0.22.3\",\"name\":\"install-cni\",\"volumeMounts\":[{\"mountPath\":\"/etc/cni/net.d\",\"name\":\"cni\"},{\"mountPath\":\"/etc/kube-flannel/\",\"name\":\"flannel-cfg\"}]}],\"priorityClassName\":\"system-node-critical\",\"serviceAccountName\":\"flannel\",\"tolerations\":[{\"effect\":\"NoSchedule\",\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/run/flannel\"},\"name\":\"run\"},{\"hostPath\":{\"path\":\"/opt/cni/bin\"},\"name\":\"cni-plugin\"},{\"hostPath\":{\"path\":\"/etc/cni/net.d\"},\"name\":\"cni\"},{\"configMap\":{\"name\":\"kube-flannel-cfg\"},\"name\":\"flannel-cfg\"},{\"hostPath\":{\"path\":\"/run/xtables.lock\",\"type\":\"FileOrCreate\"},\"name\":\"xtables-lock\"}]}}}}\n"
+                },
+                "creationTimestamp": "2023-10-19T23:38:59Z",
+                "generation": 1,
+                "labels": {
+                    "app": "flannel",
+                    "k8s-app": "flannel",
+                    "tier": "node"
+                },
+                "name": "kube-flannel-ds",
+                "namespace": "kube-flannel",
+                "resourceVersion": "6928420",
+                "uid": "84cf7062-bb28-49c9-89b6-5bb34014f178"
+            },
+            "spec": {
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "flannel"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "flannel",
+                            "tier": "node"
+                        }
+                    },
+                    "spec": {
+                        "affinity": {
+                            "nodeAffinity": {
+                                "requiredDuringSchedulingIgnoredDuringExecution": {
+                                    "nodeSelectorTerms": [
+                                        {
+                                            "matchExpressions": [
+                                                {
+                                                    "key": "kubernetes.io/os",
+                                                    "operator": "In",
+                                                    "values": [
+                                                        "linux"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "containers": [
+                            {
+                                "args": [
+                                    "--ip-masq",
+                                    "--kube-subnet-mgr"
+                                ],
+                                "command": [
+                                    "/opt/bin/flanneld"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "POD_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.name"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "EVENT_QUEUE_DEPTH",
+                                        "value": "5000"
+                                    }
+                                ],
+                                "image": "docker.io/flannel/flannel:v0.22.3",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "kube-flannel",
+                                "resources": {
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "50Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "capabilities": {
+                                        "add": [
+                                            "NET_ADMIN",
+                                            "NET_RAW"
+                                        ]
+                                    },
+                                    "privileged": false
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/run/flannel",
+                                        "name": "run"
+                                    },
+                                    {
+                                        "mountPath": "/etc/kube-flannel/",
+                                        "name": "flannel-cfg"
+                                    },
+                                    {
+                                        "mountPath": "/run/xtables.lock",
+                                        "name": "xtables-lock"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "hostNetwork": true,
+                        "initContainers": [
+                            {
+                                "args": [
+                                    "-f",
+                                    "/flannel",
+                                    "/opt/cni/bin/flannel"
+                                ],
+                                "command": [
+                                    "cp"
+                                ],
+                                "image": "docker.io/flannel/flannel-cni-plugin:v1.2.0",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "install-cni-plugin",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/cni/bin",
+                                        "name": "cni-plugin"
+                                    }
+                                ]
+                            },
+                            {
+                                "args": [
+                                    "-f",
+                                    "/etc/kube-flannel/cni-conf.json",
+                                    "/etc/cni/net.d/10-flannel.conflist"
+                                ],
+                                "command": [
+                                    "cp"
+                                ],
+                                "image": "docker.io/flannel/flannel:v0.22.3",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "install-cni",
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/cni/net.d",
+                                        "name": "cni"
+                                    },
+                                    {
+                                        "mountPath": "/etc/kube-flannel/",
+                                        "name": "flannel-cfg"
+                                    }
+                                ]
+                            }
+                        ],
+                        "priorityClassName": "system-node-critical",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "flannel",
+                        "serviceAccountName": "flannel",
+                        "terminationGracePeriodSeconds": 30,
+                        "tolerations": [
+                            {
+                                "effect": "NoSchedule",
+                                "operator": "Exists"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/run/flannel",
+                                    "type": ""
+                                },
+                                "name": "run"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/opt/cni/bin",
+                                    "type": ""
+                                },
+                                "name": "cni-plugin"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/etc/cni/net.d",
+                                    "type": ""
+                                },
+                                "name": "cni"
+                            },
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "kube-flannel-cfg"
+                                },
+                                "name": "flannel-cfg"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/run/xtables.lock",
+                                    "type": "FileOrCreate"
+                                },
+                                "name": "xtables-lock"
+                            }
+                        ]
+                    }
+                },
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 0,
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                }
+            },
+            "status": {
+                "currentNumberScheduled": 5,
+                "desiredNumberScheduled": 5,
+                "numberAvailable": 5,
+                "numberMisscheduled": 0,
+                "numberReady": 5,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 5
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "DaemonSet",
+            "metadata": {
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1"
+                },
+                "creationTimestamp": "2023-10-19T23:22:00Z",
+                "generation": 1,
+                "labels": {
+                    "k8s-app": "kube-proxy"
+                },
+                "name": "kube-proxy",
+                "namespace": "kube-system",
+                "resourceVersion": "6928374",
+                "uid": "fa2c51a8-a8cc-4d7e-802d-63660dc47c27"
+            },
+            "spec": {
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "k8s-app": "kube-proxy"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "k8s-app": "kube-proxy"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "command": [
+                                    "/usr/local/bin/kube-proxy",
+                                    "--config=/var/lib/kube-proxy/config.conf",
+                                    "--hostname-override=$(NODE_NAME)"
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_NAME",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "spec.nodeName"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "registry.k8s.io/kube-proxy:v1.28.2",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "kube-proxy",
+                                "resources": {},
+                                "securityContext": {
+                                    "privileged": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/kube-proxy",
+                                        "name": "kube-proxy"
+                                    },
+                                    {
+                                        "mountPath": "/run/xtables.lock",
+                                        "name": "xtables-lock"
+                                    },
+                                    {
+                                        "mountPath": "/lib/modules",
+                                        "name": "lib-modules",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "hostNetwork": true,
+                        "nodeSelector": {
+                            "kubernetes.io/os": "linux"
+                        },
+                        "priorityClassName": "system-node-critical",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "serviceAccount": "kube-proxy",
+                        "serviceAccountName": "kube-proxy",
+                        "terminationGracePeriodSeconds": 30,
+                        "tolerations": [
+                            {
+                                "operator": "Exists"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "kube-proxy"
+                                },
+                                "name": "kube-proxy"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/run/xtables.lock",
+                                    "type": "FileOrCreate"
+                                },
+                                "name": "xtables-lock"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/lib/modules",
+                                    "type": ""
+                                },
+                                "name": "lib-modules"
+                            }
+                        ]
+                    }
+                },
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 0,
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                }
+            },
+            "status": {
+                "currentNumberScheduled": 5,
+                "desiredNumberScheduled": 5,
+                "numberAvailable": 5,
+                "numberMisscheduled": 0,
+                "numberReady": 5,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 5
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "DaemonSet",
+            "metadata": {
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"idrac-exporter\",\"app.kubernetes.io/component\":\"exporter\",\"app.kubernetes.io/name\":\"idrac-exporter\"},\"name\":\"idrac-exporter\",\"namespace\":\"monitoring\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"exporter\",\"app.kubernetes.io/name\":\"idrac-exporter\",\"name\":\"idrac-exporter\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"exporter\",\"app.kubernetes.io/name\":\"idrac-exporter\",\"name\":\"idrac-exporter\"}},\"spec\":{\"containers\":[{\"image\":\"mrlhansen/idrac_exporter:c9f9bfe\",\"name\":\"idrac-exporter\",\"ports\":[{\"containerPort\":9348}],\"volumeMounts\":[{\"mountPath\":\"/etc/prometheus/idrac.yml\",\"name\":\"idrac-config\",\"subPath\":\"idrac-config.yaml\"}]}],\"volumes\":[{\"configMap\":{\"name\":\"idrac-config\"},\"name\":\"idrac-config\"}]}}}}\n"
+                },
+                "creationTimestamp": "2024-02-28T19:49:16Z",
+                "generation": 1,
+                "labels": {
+                    "app": "idrac-exporter",
+                    "app.kubernetes.io/component": "exporter",
+                    "app.kubernetes.io/name": "idrac-exporter"
+                },
+                "name": "idrac-exporter",
+                "namespace": "monitoring",
+                "resourceVersion": "19013017",
+                "uid": "78443639-1bd3-48fd-8d3e-63369180a8f1"
+            },
+            "spec": {
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "exporter",
+                        "app.kubernetes.io/name": "idrac-exporter",
+                        "name": "idrac-exporter"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/component": "exporter",
+                            "app.kubernetes.io/name": "idrac-exporter",
+                            "name": "idrac-exporter"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "mrlhansen/idrac_exporter:c9f9bfe",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "idrac-exporter",
+                                "ports": [
+                                    {
+                                        "containerPort": 9348,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/prometheus/idrac.yml",
+                                        "name": "idrac-config",
+                                        "subPath": "idrac-config.yaml"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "defaultMode": 420,
+                                    "name": "idrac-config"
+                                },
+                                "name": "idrac-config"
+                            }
+                        ]
+                    }
+                },
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 0,
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                }
+            },
+            "status": {
+                "currentNumberScheduled": 5,
+                "desiredNumberScheduled": 5,
+                "numberAvailable": 5,
+                "numberMisscheduled": 0,
+                "numberReady": 5,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 5
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "DaemonSet",
+            "metadata": {
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"exporter\",\"app.kubernetes.io/name\":\"node-exporter\"},\"name\":\"node-exporter\",\"namespace\":\"monitoring\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"exporter\",\"app.kubernetes.io/name\":\"node-exporter\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"exporter\",\"app.kubernetes.io/name\":\"node-exporter\"}},\"spec\":{\"containers\":[{\"args\":[\"--path.sysfs=/host/sys\",\"--path.rootfs=/host/root\",\"--no-collector.wifi\",\"--no-collector.hwmon\",\"--collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)\",\"--collector.netclass.ignored-devices=^(veth.*)$\"],\"image\":\"prom/node-exporter\",\"name\":\"node-exporter\",\"ports\":[{\"containerPort\":9100,\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"250m\",\"memory\":\"180Mi\"},\"requests\":{\"cpu\":\"102m\",\"memory\":\"180Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/host/sys\",\"mountPropagation\":\"HostToContainer\",\"name\":\"sys\",\"readOnly\":true},{\"mountPath\":\"/host/root\",\"mountPropagation\":\"HostToContainer\",\"name\":\"root\",\"readOnly\":true}]}],\"volumes\":[{\"hostPath\":{\"path\":\"/sys\"},\"name\":\"sys\"},{\"hostPath\":{\"path\":\"/\"},\"name\":\"root\"}]}}}}\n"
+                },
+                "creationTimestamp": "2023-10-31T15:55:33Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/component": "exporter",
+                    "app.kubernetes.io/name": "node-exporter"
+                },
+                "name": "node-exporter",
+                "namespace": "monitoring",
+                "resourceVersion": "17166459",
+                "uid": "3ba1d84b-de48-472a-b42f-939e251098fa"
+            },
+            "spec": {
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app.kubernetes.io/component": "exporter",
+                        "app.kubernetes.io/name": "node-exporter"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app.kubernetes.io/component": "exporter",
+                            "app.kubernetes.io/name": "node-exporter"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--path.sysfs=/host/sys",
+                                    "--path.rootfs=/host/root",
+                                    "--no-collector.wifi",
+                                    "--no-collector.hwmon",
+                                    "--collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)",
+                                    "--collector.netclass.ignored-devices=^(veth.*)$"
+                                ],
+                                "image": "prom/node-exporter",
+                                "imagePullPolicy": "Always",
+                                "name": "node-exporter",
+                                "ports": [
+                                    {
+                                        "containerPort": 9100,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "250m",
+                                        "memory": "180Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "102m",
+                                        "memory": "180Mi"
+                                    }
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/host/sys",
+                                        "mountPropagation": "HostToContainer",
+                                        "name": "sys",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/host/root",
+                                        "mountPropagation": "HostToContainer",
+                                        "name": "root",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "hostPath": {
+                                    "path": "/sys",
+                                    "type": ""
+                                },
+                                "name": "sys"
+                            },
+                            {
+                                "hostPath": {
+                                    "path": "/",
+                                    "type": ""
+                                },
+                                "name": "root"
+                            }
+                        ]
+                    }
+                },
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "maxSurge": 0,
+                        "maxUnavailable": 1
+                    },
+                    "type": "RollingUpdate"
+                }
+            },
+            "status": {
+                "currentNumberScheduled": 5,
+                "desiredNumberScheduled": 5,
+                "numberAvailable": 5,
+                "numberMisscheduled": 0,
+                "numberReady": 5,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 5
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}
