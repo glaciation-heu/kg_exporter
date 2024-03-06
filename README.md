@@ -64,7 +64,7 @@ poetry env use ~/.pyenv/versions/3.12.1/bin/python
 
 Finally, verify that Poetry indeed is connected to the proper version:
 ```bash
-poetry enf info
+poetry env info
 ```
 </details>  
 
