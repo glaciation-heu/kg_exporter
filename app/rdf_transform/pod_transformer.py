@@ -52,8 +52,8 @@ class PodToRDFTransformer(TransformerBase):
 
             self.write_resources(container_id, container_spec_property, name)
 
-        container_ids = " ".join(container_ids)
-        self.sink.add_tuple(pod_id, ":has-container", f"({container_ids})")
+        container_ids_literal = " ".join(container_ids)
+        self.sink.add_tuple(pod_id, ":has-container", f"({container_ids_literal})")
 
     def normalize_container_id(self, container_id: str) -> str:
         container_id = re.sub("[:/]+", "-", container_id)
