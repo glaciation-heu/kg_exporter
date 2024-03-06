@@ -1,8 +1,6 @@
-import json
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List
 from jsonpath_ng.ext import parse
-from rdf_transform.tuple_writer import TupleWriter
 
 class TransformerBase:
     source: Dict[str, Any]

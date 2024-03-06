@@ -1,9 +1,8 @@
 
-import json
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 from jsonpath_ng.ext import parse
-from rdf_transform.transformer_base import TransformerBase
-from rdf_transform.tuple_writer import TupleWriter
+from app.rdf_transform.transformer_base import TransformerBase
+from app.rdf_transform.tuple_writer import TupleWriter
 import re
 
 class PodToRDFTransformer(TransformerBase):

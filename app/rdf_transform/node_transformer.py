@@ -1,9 +1,8 @@
 
-import json
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 from jsonpath_ng.ext import parse
-from rdf_transform.transformer_base import TransformerBase
-from rdf_transform.tuple_writer import TupleWriter
+from app.rdf_transform.transformer_base import TransformerBase
+from app.rdf_transform.tuple_writer import TupleWriter
 
 class NodesToRDFTransformer(TransformerBase):
     sink: TupleWriter

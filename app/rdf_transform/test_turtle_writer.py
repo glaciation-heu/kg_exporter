@@ -1,9 +1,7 @@
 
 from io import StringIO
 from unittest import TestCase
-
-from rdf_transform.node_transformer import NodesToRDFTransformer
-from rdf_transform.turtle_writer import TurtleWriter
+from app.rdf_transform.turtle_writer import TurtleWriter
 
 class TurtleWriterTest(TestCase):
     def setUp(self):        

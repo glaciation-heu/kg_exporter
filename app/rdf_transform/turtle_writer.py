@@ -1,4 +1,4 @@
-from rdf_transform.tuple_writer import TupleWriter
+from app.rdf_transform.tuple_writer import TupleWriter
 from io import IOBase
 
 class TurtleWriter(TupleWriter):
