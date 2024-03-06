@@ -1,16 +1,14 @@
 
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from jsonpath_ng.ext import parse
 from app.rdf_transform.transformer_base import TransformerBase
 from app.rdf_transform.tuple_writer import TupleWriter
 import re
 
 class PodToRDFTransformer(TransformerBase):
-    sink: TupleWriter
 
     def __init__(self, source: Dict[str, Any], sink: TupleWriter):
-        super().__init__(source)
-        self.sink = sink
+        super().__init__(source, sink)
 
     def transform(self) -> None:
         pod_id = self.get_pod_id()
@@ -32,7 +30,7 @@ class PodToRDFTransformer(TransformerBase):
         self.sink.flush()
 
     def write_containers(self, pod_id: str, status_property: str, container_spec_property: str) -> None:
-        container_ids = []
+        container_ids: List[str] = []
         
         container_status_matches = parse(status_property).find(self.source)
         if len(container_status_matches) == 0:
@@ -79,8 +77,9 @@ class PodToRDFTransformer(TransformerBase):
 
     def write_state(self, container_id: str, state: Any) -> None:        
         state_struct, state_literal = self.get_state_struct(state)
-        if state_struct:
+        if state_literal:
             self.sink.add_tuple(container_id, ":state", self.escape(state_literal))
+        if state_struct:    
             self.write_tuple_from(state_struct, container_id, ":started-at", "$.startedAt")
             self.write_tuple_from(state_struct, container_id, ":finished-at", "$.finishedAt")        
             self.write_tuple_from(state_struct, container_id, ":reason", "$.reason")        

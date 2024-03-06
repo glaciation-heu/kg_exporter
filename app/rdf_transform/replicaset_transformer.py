@@ -5,11 +5,9 @@ from app.rdf_transform.transformer_base import TransformerBase
 from app.rdf_transform.tuple_writer import TupleWriter
 
 class ReplicaSetToRDFTransformer(TransformerBase):
-    sink: TupleWriter
 
     def __init__(self, source: Dict[str, Any], sink: TupleWriter):
-        super().__init__(source)
-        self.sink = sink
+        super().__init__(source, sink)
 
     def transform(self) -> None:
         name = self.get_id()

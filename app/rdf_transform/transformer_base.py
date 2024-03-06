@@ -1,19 +1,15 @@
 import re
 from typing import Any, Dict, List
+from app.rdf_transform.tuple_writer import TupleWriter
 from jsonpath_ng.ext import parse
 
 class TransformerBase:
     source: Dict[str, Any]
+    sink: TupleWriter
 
-    def __init__(self, source: Dict[str, Any]):
+    def __init__(self, source: Dict[str, Any], sink: TupleWriter):
         self.source = source
-
-    def write_if_present(self, pod_id: str, property: str, path: str) -> None:
-        phase_match = parse(path).find(self.source)
-        if len(phase_match) == 0:
-            return
-        self.write_tuple(pod_id, property, )
-
+        self.sink = sink
 
     def write_references(self, node_id: str) -> None:
         references_match = parse("$.metadata.ownerReferences").find(self.source)
