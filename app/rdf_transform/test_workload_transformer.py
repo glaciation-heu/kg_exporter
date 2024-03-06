@@ -1,10 +1,12 @@
 from io import StringIO
+
 from app.rdf_transform.test_base import TransformBaseTest
 from app.rdf_transform.turtle_writer import TurtleWriter
 from app.rdf_transform.workload_transformer import WorkloadToRDFTransformer
 
+
 class WorkloadTransformerTest(TransformBaseTest):
-    def setUp(self):        
+    def setUp(self):
         self.maxDiff = None
 
     def test_transform(self):

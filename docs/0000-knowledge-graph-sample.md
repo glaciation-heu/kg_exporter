@@ -10,5 +10,3 @@ The following resources covered:
 
 The knowledge graph is a snapshot of an entire test cluster.
 It is in turtle format can be viewed using Turtle Editor/Viewer https://www.semantechs.co.uk/turtle-editor-viewer/
-
- 

@@ -1,11 +1,12 @@
-
 from io import StringIO
-from app.rdf_transform.test_base import TransformBaseTest
+
 from app.rdf_transform.node_transformer import NodesToRDFTransformer
+from app.rdf_transform.test_base import TransformBaseTest
 from app.rdf_transform.turtle_writer import TurtleWriter
 
+
 class NodeTransformerTest(TransformBaseTest):
-    def setUp(self):        
+    def setUp(self):
         self.maxDiff = None
 
     def test_transform(self):
