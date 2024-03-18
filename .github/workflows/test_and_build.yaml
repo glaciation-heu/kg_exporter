@@ -49,5 +49,6 @@ jobs:
     needs: [test]
     permissions:
       contents: write
+      packages: write
     secrets: inherit
     uses: ./.github/workflows/build_web.yaml
