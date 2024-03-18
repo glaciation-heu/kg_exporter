@@ -4,10 +4,9 @@ on:
   workflow_call:
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
   IMAGE_NAME: glaciation-heu/kg_exporter
+  SHORT_IMAGE_NAME: kg_exporter
 
 jobs:
   build_web:
@@ -38,7 +37,7 @@ jobs:
     - name: Make versions
       run: |
         chmod +x ./tools/version.sh
-        ./tools/version.sh "${{ github.sha }}" "${{ secrets.DOCKER_IMAGE_NAME }}"
+        ./tools/version.sh "${{ github.sha }}" "${{ env.SHORT_IMAGE_NAME }}"
         echo "APP_VERSION=$(cat "./VERSION")" >> $GITHUB_ENV
         echo "DOCKER_IMAGES=$(cat "./DOCKER_IMAGES")" >> $GITHUB_ENV
 
@@ -62,7 +61,6 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        # tags: ${{ env.DOCKER_IMAGES }}
 
     - name: Install dependencies
       run: |

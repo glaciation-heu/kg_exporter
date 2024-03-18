@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-ROOT="${GITHUB_WORKSPACE}"
+ROOT="${GITHUB_WORKSPACE:?Github workspace is not set.}"
 CHART_NAME="app"
 
 VERSION_APP_PATH="${ROOT}/VERSION"
