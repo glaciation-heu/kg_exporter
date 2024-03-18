@@ -3,12 +3,12 @@ entries:
   kg-exporter:
   - apiVersion: v2
     appVersion: 0.0.0
-    created: "2024-03-06T11:05:04.563633085Z"
+    created: "2024-03-18T09:00:58.978316227Z"
     description: Kubernetes watcher service.
-    digest: 1be82b8c59abda38cafd415ad34d4d87b02116a174e7a7f48749b05db993b204
+    digest: badb7d0b555e0c895d6162e8158201bb6a0bb06c746c96c60dda0e2234b7ba83
     name: kg-exporter
     type: application
     urls:
     - https://glaciation-heu.github.io/kg_exporter/charts-repo/kg-exporter-0.0.0.tgz
     version: 0.0.0
-generated: "2024-03-06T11:05:04.563243622Z"
+generated: "2024-03-18T09:00:58.977940951Z"
