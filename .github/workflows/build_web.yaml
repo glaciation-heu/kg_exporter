@@ -6,7 +6,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: glaciation-heu/kg_exporter
-  SHORT_IMAGE_NAME: kg_exporter
 
 jobs:
   build_web:

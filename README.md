@@ -121,26 +121,8 @@ The release version for branches, pull requests, and other tags will be generate
 GitHub Actions triggers testing, builds, and application publishing for each release.  
 https://docs.github.com/en/actions  
 
-### Initial Setup
-Create the branch gh-pages and use it as a GitHub page https://pages.github.com/.  
-Set up secrets at `https://github.com/<workspace>/<project>/settings/secrets/actions`:
-
-1. DOCKER_IMAGE_NAME - The name of the Docker image for uploading to the repository.
-2. DOCKER_USERNAME - The username for the Docker repository on https://hub.docker.com/.
-3. DOCKER_PASSWORD - The password for the Docker repository.
-4. AWS_ACCESS_KEY_ID - AWS Secret Access Key ID.
-   https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
-5. AWS_SECRET_ACCESS_KEY - AWS Secret Access Key
-6. AWS_REGION - AWS region. https://aws.amazon.com/about-aws/global-infrastructure/regions_az/.
-7. EKS_CLUSTER_ROLE_ARN - The IAM role's ARN in AWS, providing permissions for managing an AMAZON EKS
-   Kubernetes Cluster.
-8. EKS_CLUSTER_NAME - Amazon EKS Kubernetes cluster name.
-9. EKS_CLUSTER_NAMESPACE - Amazon EKS Kubernetes cluster namespace.
-10. HELM_REPO_URL - `https://<workspace>.github.io/<project>/`
-
 **After execution**  
-The index.yaml file containing the list of Helm charts will be available at `https://<workspace>.github.io/<project>/charts-repo/index.yaml`. You can this URL on https://artifacthub.io/.  
-The service will be deployed in the Kubernetes cluster.
+The index.yaml file containing the list of Helm charts will be available at `https://glaciation-heu.github.io/kg_exporter/helm-charts/index.yaml`.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first
