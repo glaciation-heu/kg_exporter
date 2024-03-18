@@ -3,6 +3,12 @@ name: Build web
 on:
   workflow_call:
 
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: glaciation-heu/kg_exporter
+
 jobs:
   build_web:
     runs-on: ubuntu-latest
@@ -36,11 +42,12 @@ jobs:
         echo "APP_VERSION=$(cat "./VERSION")" >> $GITHUB_ENV
         echo "DOCKER_IMAGES=$(cat "./DOCKER_IMAGES")" >> $GITHUB_ENV
 
-    - name: Login to Docker Hub
+    - name: Log into registry ${{ env.REGISTRY }}
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push docker image
       uses: docker/build-push-action@v5
@@ -67,4 +74,4 @@ jobs:
       uses: stefanprodan/helm-gh-pages@master
       with:
         token: ${{ github.token }}
-        target_dir: "./charts-repo/"
+        target_dir: "./helm-charts/"
