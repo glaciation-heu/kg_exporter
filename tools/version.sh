@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-ROOT="${GITHUB_WORKSPACE}"
+ROOT="${GITHUB_WORKSPACE:?Github workspace is not set.}"
 CHART_NAME="app"
 
 VERSION_APP_PATH="${ROOT}/VERSION"
@@ -112,8 +112,8 @@ patch_versions_in_project_files() {
 
   sed -i "s#repository: \"\"#repository: \"$DOCKER_IMAGE_NAME\"#" "${CHART_PATH}/values.yaml"
   sed -i "s#tag: \"\"#tag: \"$DOCKER_IMAGE_TAG\"#" "${CHART_PATH}/values.yaml"
-  sed -i "s#version: \"\"#version: \"$VERSION_CHART\"#" "${CHART_PATH}/Chart.yaml"
-  sed -i "s#appVersion: \"\"#appVersion: \"$VERSION_CHART\"#" "${CHART_PATH}/Chart.yaml"
+  sed -i "s#version: \"[0-9a-zA-Z\.-_\+]*\"#version: \"$VERSION_CHART\"#" "${CHART_PATH}/Chart.yaml"
+  sed -i "s#appVersion: \"[0-9a-zA-Z\.-_\+]*\"#appVersion: \"$VERSION_CHART\"#" "${CHART_PATH}/Chart.yaml"
 }
 
 main() {
