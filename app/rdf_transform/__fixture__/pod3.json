@@ -1,0 +1,415 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2023-10-20T11:01:49Z",
+        "generateName": "kube-flannel-ds-",
+        "labels": {
+            "app": "flannel",
+            "controller-revision-hash": "6fbbc5c975",
+            "pod-template-generation": "1",
+            "tier": "node"
+        },
+        "name": "kube-flannel-ds-848v8",
+        "namespace": "kube-flannel",
+        "ownerReferences": [
+            {
+                "apiVersion": "apps/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "DaemonSet",
+                "name": "kube-flannel-ds",
+                "uid": "84cf7062-bb28-49c9-89b6-5bb34014f178"
+            }
+        ],
+        "resourceVersion": "6928388",
+        "uid": "7920f1e5-22c7-4d85-934f-3f4cce044af4"
+    },
+    "spec": {
+        "affinity": {
+            "nodeAffinity": {
+                "requiredDuringSchedulingIgnoredDuringExecution": {
+                    "nodeSelectorTerms": [
+                        {
+                            "matchFields": [
+                                {
+                                    "key": "metadata.name",
+                                    "operator": "In",
+                                    "values": [
+                                        "glaciation-worker04"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "containers": [
+            {
+                "args": [
+                    "--ip-masq",
+                    "--kube-subnet-mgr"
+                ],
+                "command": [
+                    "/opt/bin/flanneld"
+                ],
+                "env": [
+                    {
+                        "name": "POD_NAME",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.name"
+                            }
+                        }
+                    },
+                    {
+                        "name": "POD_NAMESPACE",
+                        "valueFrom": {
+                            "fieldRef": {
+                                "apiVersion": "v1",
+                                "fieldPath": "metadata.namespace"
+                            }
+                        }
+                    },
+                    {
+                        "name": "EVENT_QUEUE_DEPTH",
+                        "value": "5000"
+                    }
+                ],
+                "image": "docker.io/flannel/flannel:v0.22.3",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "kube-flannel",
+                "resources": {
+                    "requests": {
+                        "cpu": "100m",
+                        "memory": "50Mi"
+                    }
+                },
+                "securityContext": {
+                    "capabilities": {
+                        "add": [
+                            "NET_ADMIN",
+                            "NET_RAW"
+                        ]
+                    },
+                    "privileged": false
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/run/flannel",
+                        "name": "run"
+                    },
+                    {
+                        "mountPath": "/etc/kube-flannel/",
+                        "name": "flannel-cfg"
+                    },
+                    {
+                        "mountPath": "/run/xtables.lock",
+                        "name": "xtables-lock"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-797j7",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "hostNetwork": true,
+        "initContainers": [
+            {
+                "args": [
+                    "-f",
+                    "/flannel",
+                    "/opt/cni/bin/flannel"
+                ],
+                "command": [
+                    "cp"
+                ],
+                "image": "docker.io/flannel/flannel-cni-plugin:v1.2.0",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "install-cni-plugin",
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/opt/cni/bin",
+                        "name": "cni-plugin"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-797j7",
+                        "readOnly": true
+                    }
+                ]
+            },
+            {
+                "args": [
+                    "-f",
+                    "/etc/kube-flannel/cni-conf.json",
+                    "/etc/cni/net.d/10-flannel.conflist"
+                ],
+                "command": [
+                    "cp"
+                ],
+                "image": "docker.io/flannel/flannel:v0.22.3",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "install-cni",
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/etc/cni/net.d",
+                        "name": "cni"
+                    },
+                    {
+                        "mountPath": "/etc/kube-flannel/",
+                        "name": "flannel-cfg"
+                    },
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-797j7",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "nodeName": "glaciation-worker04",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 2000001000,
+        "priorityClassName": "system-node-critical",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "flannel",
+        "serviceAccountName": "flannel",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoSchedule",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoSchedule",
+                "key": "node.kubernetes.io/disk-pressure",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoSchedule",
+                "key": "node.kubernetes.io/memory-pressure",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoSchedule",
+                "key": "node.kubernetes.io/pid-pressure",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoSchedule",
+                "key": "node.kubernetes.io/unschedulable",
+                "operator": "Exists"
+            },
+            {
+                "effect": "NoSchedule",
+                "key": "node.kubernetes.io/network-unavailable",
+                "operator": "Exists"
+            }
+        ],
+        "volumes": [
+            {
+                "hostPath": {
+                    "path": "/run/flannel",
+                    "type": ""
+                },
+                "name": "run"
+            },
+            {
+                "hostPath": {
+                    "path": "/opt/cni/bin",
+                    "type": ""
+                },
+                "name": "cni-plugin"
+            },
+            {
+                "hostPath": {
+                    "path": "/etc/cni/net.d",
+                    "type": ""
+                },
+                "name": "cni"
+            },
+            {
+                "configMap": {
+                    "defaultMode": 420,
+                    "name": "kube-flannel-cfg"
+                },
+                "name": "flannel-cfg"
+            },
+            {
+                "hostPath": {
+                    "path": "/run/xtables.lock",
+                    "type": "FileOrCreate"
+                },
+                "name": "xtables-lock"
+            },
+            {
+                "name": "kube-api-access-797j7",
+                "projected": {
+                    "defaultMode": 420,
+                    "sources": [
+                        {
+                            "serviceAccountToken": {
+                                "expirationSeconds": 3607,
+                                "path": "token"
+                            }
+                        },
+                        {
+                            "configMap": {
+                                "items": [
+                                    {
+                                        "key": "ca.crt",
+                                        "path": "ca.crt"
+                                    }
+                                ],
+                                "name": "kube-root-ca.crt"
+                            }
+                        },
+                        {
+                            "downwardAPI": {
+                                "items": [
+                                    {
+                                        "fieldRef": {
+                                            "apiVersion": "v1",
+                                            "fieldPath": "metadata.namespace"
+                                        },
+                                        "path": "namespace"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2023-10-20T11:02:00Z",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2023-12-11T11:10:17Z",
+                "status": "True",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2023-12-11T11:10:17Z",
+                "status": "True",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2023-10-20T11:01:49Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://b23fcc9919d7e58fdeb4a729ccf2363c31429e9906a836f55e7d3bf61c908cdb",
+                "image": "docker.io/flannel/flannel:v0.22.3",
+                "imageID": "docker.io/flannel/flannel@sha256:34585231b69718efc4f926ebca734659f01221554f37a925d9a1190bb16e5b91",
+                "lastState": {
+                    "terminated": {
+                        "containerID": "containerd://b516bf9221202a26438901dde36ae814743f9acad63006be2a37ab69f69b4747",
+                        "exitCode": 255,
+                        "finishedAt": "2023-12-11T11:07:10Z",
+                        "reason": "Unknown",
+                        "startedAt": "2023-10-24T11:40:54Z"
+                    }
+                },
+                "name": "kube-flannel",
+                "ready": true,
+                "restartCount": 17,
+                "started": true,
+                "state": {
+                    "running": {
+                        "startedAt": "2023-12-11T11:10:16Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.14.2.2",
+        "initContainerStatuses": [
+            {
+                "containerID": "containerd://c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74",
+                "image": "docker.io/flannel/flannel-cni-plugin:v1.2.0",
+                "imageID": "docker.io/flannel/flannel-cni-plugin@sha256:ca6779c6ad63b77af8a00151cefc08578241197b9a6fe144b0e55484bc52b852",
+                "lastState": {},
+                "name": "install-cni-plugin",
+                "ready": true,
+                "restartCount": 3,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74",
+                        "exitCode": 0,
+                        "finishedAt": "2023-12-11T11:10:14Z",
+                        "reason": "Completed",
+                        "startedAt": "2023-12-11T11:10:14Z"
+                    }
+                }
+            },
+            {
+                "containerID": "containerd://b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f",
+                "image": "docker.io/flannel/flannel:v0.22.3",
+                "imageID": "docker.io/flannel/flannel@sha256:34585231b69718efc4f926ebca734659f01221554f37a925d9a1190bb16e5b91",
+                "lastState": {},
+                "name": "install-cni",
+                "ready": true,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f",
+                        "exitCode": 0,
+                        "finishedAt": "2023-12-11T11:10:15Z",
+                        "reason": "Completed",
+                        "startedAt": "2023-12-11T11:10:15Z"
+                    }
+                }
+            }
+        ],
+        "phase": "Running",
+        "podIP": "10.14.2.2",
+        "podIPs": [
+            {
+                "ip": "10.14.2.2"
+            }
+        ],
+        "qosClass": "Burstable",
+        "startTime": "2023-10-20T11:01:50Z"
+    }
+}

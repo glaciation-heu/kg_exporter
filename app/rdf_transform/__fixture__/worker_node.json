@@ -1,0 +1,205 @@
+{
+    "apiVersion": "v1",
+    "kind": "Node",
+    "metadata": {
+        "annotations": {
+            "flannel.alpha.coreos.com/backend-data": "{\"VNI\":1,\"VtepMAC\":\"de:b3:94:d0:27:9e\"}",
+            "flannel.alpha.coreos.com/backend-type": "vxlan",
+            "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+            "flannel.alpha.coreos.com/public-ip": "10.14.1.151",
+            "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/containerd/containerd.sock",
+            "node.alpha.kubernetes.io/ttl": "0",
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+        },
+        "creationTimestamp": "2024-02-13T14:05:06Z",
+        "labels": {
+            "beta.kubernetes.io/arch": "amd64",
+            "beta.kubernetes.io/os": "linux",
+            "kubernetes.io/arch": "amd64",
+            "kubernetes.io/hostname": "glaciation-test-worker01",
+            "kubernetes.io/os": "linux"
+        },
+        "name": "glaciation-test-worker01",
+        "resourceVersion": "2219223",
+        "uid": "bdbde1cb-8a2d-4907-af95-b6834c29a9bf"
+    },
+    "spec": {
+        "podCIDR": "10.244.1.0/24",
+        "podCIDRs": [
+            "10.244.1.0/24"
+        ]
+    },
+    "status": {
+        "addresses": [
+            {
+                "address": "10.14.1.151",
+                "type": "InternalIP"
+            },
+            {
+                "address": "glaciation-test-worker01",
+                "type": "Hostname"
+            }
+        ],
+        "allocatable": {
+            "cpu": "4",
+            "ephemeral-storage": "47266578354",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "memory": "16283152Ki",
+            "pods": "110"
+        },
+        "capacity": {
+            "cpu": "4",
+            "ephemeral-storage": "51287520Ki",
+            "hugepages-1Gi": "0",
+            "hugepages-2Mi": "0",
+            "memory": "16385552Ki",
+            "pods": "110"
+        },
+        "conditions": [
+            {
+                "lastHeartbeatTime": "2024-02-13T14:05:38Z",
+                "lastTransitionTime": "2024-02-13T14:05:38Z",
+                "message": "Flannel is running on this node",
+                "reason": "FlannelIsUp",
+                "status": "False",
+                "type": "NetworkUnavailable"
+            },
+            {
+                "lastHeartbeatTime": "2024-02-27T10:36:23Z",
+                "lastTransitionTime": "2024-02-23T06:11:02Z",
+                "message": "kubelet has sufficient memory available",
+                "reason": "KubeletHasSufficientMemory",
+                "status": "False",
+                "type": "MemoryPressure"
+            },
+            {
+                "lastHeartbeatTime": "2024-02-27T10:36:23Z",
+                "lastTransitionTime": "2024-02-23T06:11:02Z",
+                "message": "kubelet has no disk pressure",
+                "reason": "KubeletHasNoDiskPressure",
+                "status": "False",
+                "type": "DiskPressure"
+            },
+            {
+                "lastHeartbeatTime": "2024-02-27T10:36:23Z",
+                "lastTransitionTime": "2024-02-23T06:11:02Z",
+                "message": "kubelet has sufficient PID available",
+                "reason": "KubeletHasSufficientPID",
+                "status": "False",
+                "type": "PIDPressure"
+            },
+            {
+                "lastHeartbeatTime": "2024-02-27T10:36:23Z",
+                "lastTransitionTime": "2024-02-23T06:11:02Z",
+                "message": "kubelet is posting ready status. AppArmor enabled",
+                "reason": "KubeletReady",
+                "status": "True",
+                "type": "Ready"
+            }
+        ],
+        "daemonEndpoints": {
+            "kubeletEndpoint": {
+                "Port": 10250
+            }
+        },
+        "images": [
+            {
+                "names": [
+                    "quay.io/cephcsi/cephcsi@sha256:5dd50ad6f3f9a1e8c8186fde0048ea241f056ca755acbeab42f5ebf723313e9c",
+                    "quay.io/cephcsi/cephcsi:v3.10.1"
+                ],
+                "sizeBytes": 746084802
+            },
+            {
+                "names": [
+                    "docker.io/rook/ceph@sha256:ab1516c0ca074253b1c59f1673f7f41adbbc7355452025d006e712824f079df0",
+                    "docker.io/rook/ceph:v1.13.4"
+                ],
+                "sizeBytes": 467372280
+            },
+            {
+                "names": [
+                    "quay.io/ceph/ceph@sha256:6176526d5ef4047f148d47c951653dcc6b0de49091fda006d3a088e7a1f404d0",
+                    "quay.io/ceph/ceph:v18.2.1"
+                ],
+                "sizeBytes": 446546877
+            },
+            {
+                "names": [
+                    "docker.io/flannel/flannel@sha256:2a2b74a762a5d99517659f940e3f2ad774de293d41fce6a78378df6fe9320173",
+                    "docker.io/flannel/flannel:v0.24.2"
+                ],
+                "sizeBytes": 29594543
+            },
+            {
+                "names": [
+                    "registry.k8s.io/sig-storage/csi-provisioner@sha256:10624570c0aceb03f55f1eb07147b0c537e4676869cca2e9bd4bab113f810ac4",
+                    "registry.k8s.io/sig-storage/csi-provisioner:v3.6.3"
+                ],
+                "sizeBytes": 28688482
+            },
+            {
+                "names": [
+                    "registry.k8s.io/sig-storage/csi-resizer@sha256:e998f22243869416f9860fc6a1fb07d4202eac8846defc1b85ebd015c1207605",
+                    "registry.k8s.io/sig-storage/csi-resizer:v1.9.2"
+                ],
+                "sizeBytes": 27017242
+            },
+            {
+                "names": [
+                    "registry.k8s.io/sig-storage/csi-snapshotter@sha256:4c5a1b57e685b2631909b958487f65af7746361346fcd82a8635bea3ef14509d",
+                    "registry.k8s.io/sig-storage/csi-snapshotter:v6.3.2"
+                ],
+                "sizeBytes": 26802941
+            },
+            {
+                "names": [
+                    "registry.k8s.io/sig-storage/csi-attacher@sha256:11b955fe4da278aa0e8ca9d6fd70758f2aec4b0c1e23168c665ca345260f1882",
+                    "registry.k8s.io/sig-storage/csi-attacher:v4.4.2"
+                ],
+                "sizeBytes": 26688379
+            },
+            {
+                "names": [
+                    "registry.k8s.io/kube-proxy@sha256:f6e0de32a002b910b9b2e0e8d769e2d7b05208240559c745ce4781082ab15f22",
+                    "registry.k8s.io/kube-proxy:v1.26.13"
+                ],
+                "sizeBytes": 23641774
+            },
+            {
+                "names": [
+                    "registry.k8s.io/sig-storage/csi-node-driver-registrar@sha256:2cddcc716c1930775228d56b0d2d339358647629701047edfdad5fcdfaf4ebcb",
+                    "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.1"
+                ],
+                "sizeBytes": 10755082
+            },
+            {
+                "names": [
+                    "docker.io/flannel/flannel-cni-plugin@sha256:743c25e5e477527d8e54faa3e5259fbbee3463a335de1690879fc74305edc79b",
+                    "docker.io/flannel/flannel-cni-plugin:v1.4.0-flannel1"
+                ],
+                "sizeBytes": 4498296
+            },
+            {
+                "names": [
+                    "registry.k8s.io/pause@sha256:3d380ca8864549e74af4b29c10f9cb0956236dfb01c40ca076fb6c37253234db",
+                    "registry.k8s.io/pause:3.6"
+                ],
+                "sizeBytes": 301773
+            }
+        ],
+        "nodeInfo": {
+            "architecture": "amd64",
+            "bootID": "d6dd4518-eff0-416d-a6aa-f1cec097e5eb",
+            "containerRuntimeVersion": "containerd://1.6.18",
+            "kernelVersion": "5.15.0-67-generic",
+            "kubeProxyVersion": "v1.26.3",
+            "kubeletVersion": "v1.26.3",
+            "machineID": "b057678a09844d90b1596c053836ab36",
+            "operatingSystem": "linux",
+            "osImage": "Ubuntu 22.04.2 LTS",
+            "systemUUID": "dd000942-702b-b9ab-71a7-ff172d755dff"
+        }
+    }
+}
