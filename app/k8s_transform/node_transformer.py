@@ -2,8 +2,8 @@ from typing import Any, Dict
 
 from jsonpath_ng.ext import parse
 
+from app.k8s_transform.transformer_base import TransformerBase
 from app.kg.knowledge_graph import KnowledgeGraph, PropertySet
-from app.rdf_transform.transformer_base import TransformerBase
 
 
 class NodesToRDFTransformer(TransformerBase):

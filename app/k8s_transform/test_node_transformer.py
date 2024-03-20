@@ -1,9 +1,9 @@
 from io import StringIO
 
+from app.k8s_transform.node_transformer import NodesToRDFTransformer
+from app.k8s_transform.test_base import TransformBaseTest
 from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
 from app.kg.turtle_serializer import TurtleSerialializer
-from app.rdf_transform.node_transformer import NodesToRDFTransformer
-from app.rdf_transform.test_base import TransformBaseTest
 
 
 class NodeTransformerTest(TransformBaseTest):

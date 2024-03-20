@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
+from app.k8s_transform.transformer_base import TransformerBase
 from app.kg.knowledge_graph import KnowledgeGraph
-from app.rdf_transform.transformer_base import TransformerBase
 
 
 class ReplicaSetToRDFTransformer(TransformerBase):
