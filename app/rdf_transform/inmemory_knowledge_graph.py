@@ -103,10 +103,10 @@ class InMemoryKnowledgeGraph(KnowledgeGraph):
     def add_relation_collection(
         self, subject_id: str, predicate: str, object_ids: Set[str]
     ) -> None:
-        node = self.get_or_add_edge(subject_id, predicate)
+        edge = self.get_or_add_edge(subject_id, predicate)
         for object_id in object_ids:
             self.get_or_add_node(object_id)
-            node.add_object_id(object_id)
+            edge.add_object_id(object_id)
 
     def get_ids(self) -> Set[str]:
         return set(self.nodes.keys())

@@ -4,6 +4,7 @@ from abc import abstractmethod
 
 PropertyValue: TypeAlias = str | int | bool | float
 PropertySet: TypeAlias = Set[PropertyValue]
+RelationSet: TypeAlias = Set[str]
 
 
 class KnowledgeGraph:

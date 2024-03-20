@@ -1,4 +1,4 @@
 :coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 rdf:type :ReplicaSet .
 :coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 :has-annotation ("deployment.kubernetes.io/desired-replicas:2" "deployment.kubernetes.io/max-replicas:3" "deployment.kubernetes.io/revision:1") .
 :coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 :has-label ("k8s-app:kube-dns" "pod-template-hash:787d4945fb") .
-:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb :refers-to (:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685) .
+:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb :refers-to :coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 .

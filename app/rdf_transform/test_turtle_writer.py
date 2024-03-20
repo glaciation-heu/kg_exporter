@@ -1,7 +1,9 @@
 from io import StringIO
 from unittest import TestCase
 
-from app.rdf_transform.turtle_writer import TurtleWriter
+from app.rdf_transform.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.rdf_transform.knowledge_graph import KnowledgeGraph
+from app.rdf_transform.turtle_serializer import TurtleSerialializer
 
 
 class TurtleWriterTest(TestCase):
@@ -10,14 +12,21 @@ class TurtleWriterTest(TestCase):
 
     def test_empty(self):
         buffer = StringIO()
-        writer = TurtleWriter(buffer)
-        writer.flush()
+        TurtleSerialializer().write(buffer, InMemoryKnowledgeGraph())
         self.assertEqual(buffer.getvalue(), "")
 
     def test_tuples(self):
         buffer = StringIO()
-        writer = TurtleWriter(buffer)
-        writer.add_tuple("one", "two", "three")
-        writer.add_tuple("four", "five", "six")
-        writer.flush()
-        self.assertEqual(buffer.getvalue(), "one two three .\nfour five six .\n")
+        TurtleSerialializer().write(buffer, self.sample_graph())
+        expected = (
+            """id1 rel3 meta .\nid1 rel1 val11 .\nid1 rel2 (val21 val22 val23) .\n"""
+        )
+        self.assertEqual(buffer.getvalue(), expected)
+
+    def sample_graph(self) -> KnowledgeGraph:
+        graph = InMemoryKnowledgeGraph()
+        graph.add_property("id1", "rel1", "val11")
+        graph.add_property_collection("id1", "rel2", {"val21", "val22"})
+        graph.add_property("id1", "rel2", "val23")
+        graph.add_meta_property("id1", "rel3", "meta")
+        return graph

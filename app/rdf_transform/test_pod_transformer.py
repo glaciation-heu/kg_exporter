@@ -1,8 +1,9 @@
 from io import StringIO
 
+from app.rdf_transform.inmemory_knowledge_graph import InMemoryKnowledgeGraph
 from app.rdf_transform.pod_transformer import PodToRDFTransformer
 from app.rdf_transform.test_base import TransformBaseTest
-from app.rdf_transform.turtle_writer import TurtleWriter
+from app.rdf_transform.turtle_serializer import TurtleSerialializer
 
 
 class PodTransformerTest(TransformBaseTest):
@@ -19,5 +20,7 @@ class PodTransformerTest(TransformBaseTest):
         node_turtle = self.load_turtle(file_id)
 
         buffer = StringIO()
-        PodToRDFTransformer(node_json, TurtleWriter(buffer)).transform()
+        graph = InMemoryKnowledgeGraph()
+        PodToRDFTransformer(node_json, graph).transform()
+        TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)

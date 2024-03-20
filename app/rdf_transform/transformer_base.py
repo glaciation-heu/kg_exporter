@@ -1,17 +1,17 @@
-from typing import Any, Dict
+from typing import Any, Dict, Set
 
 import re
 
 from jsonpath_ng.ext import parse
 
-from app.rdf_transform.tuple_writer import TupleWriter
+from app.rdf_transform.knowledge_graph import KnowledgeGraph
 
 
 class TransformerBase:
     source: Dict[str, Any]
-    sink: TupleWriter
+    sink: KnowledgeGraph
 
-    def __init__(self, source: Dict[str, Any], sink: TupleWriter):
+    def __init__(self, source: Dict[str, Any], sink: KnowledgeGraph):
         self.source = source
         self.sink = sink
 
@@ -21,7 +21,7 @@ class TransformerBase:
             return
         for reference_match in references_match[0].value:
             reference = self.get_reference_id(reference_match)
-            self.sink.add_tuple(reference, ":refers-to", node_id)
+            self.sink.add_relation(reference, ":refers-to", node_id)
 
     def get_reference_id(self, reference: Dict[str, Any]) -> str:
         name = reference.get("name")
@@ -31,29 +31,32 @@ class TransformerBase:
 
     def write_tuple(self, name: str, property: str, query: str) -> None:
         for match in parse(query).find(self.source):
-            self.sink.add_tuple(name, property, self.escape(f"{match.value}"))
+            self.sink.add_property(name, property, self.escape(f"{match.value}"))
+
+    def write_meta_tuple(self, name: str, property: str, query: str) -> None:
+        for match in parse(query).find(self.source):
+            self.sink.add_meta_property(name, property, self.escape(f"{match.value}"))
 
     def write_tuple_from(
         self, source: Dict[str, Any], name: str, property: str, query: str
     ) -> None:
         for match in parse(query).find(source):
-            self.sink.add_tuple(name, property, self.escape(f"{match.value}"))
+            self.sink.add_property(name, property, self.escape(f"{match.value}"))
 
     def write_tuple_list(self, name: str, property: str, query: str) -> None:
         for label, value in parse(query).find(self.source)[0].value.items():
-            self.sink.add_tuple(name, property, self.escape(f"{label}:{value}"))
+            self.sink.add_property(name, property, self.escape(f"{label}:{value}"))
 
     def write_collection(self, name: str, property: str, query: str) -> None:
-        subjects = []
+        subjects: Set[str | int | bool | float] = set()
         found = parse(query).find(self.source)
         if len(found) == 0:
             return
         for label, value in found[0].value.items():
-            subjects.append(
+            subjects.add(
                 self.escape(f"{self.normalize(label)}:{self.normalize(value)}")
             )
-        collection_subject = " ".join(subjects)
-        self.sink.add_tuple(name, property, f"({collection_subject})")
+        self.sink.add_property_collection(name, property, subjects)
 
     def escape(self, token: str) -> str:
         token = token.replace('"', '\\"')

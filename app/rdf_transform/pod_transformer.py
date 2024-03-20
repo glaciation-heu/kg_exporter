@@ -1,20 +1,20 @@
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 import re
 
 from jsonpath_ng.ext import parse
 
+from app.rdf_transform.knowledge_graph import KnowledgeGraph, RelationSet
 from app.rdf_transform.transformer_base import TransformerBase
-from app.rdf_transform.tuple_writer import TupleWriter
 
 
 class PodToRDFTransformer(TransformerBase):
-    def __init__(self, source: Dict[str, Any], sink: TupleWriter):
+    def __init__(self, source: Dict[str, Any], sink: KnowledgeGraph):
         super().__init__(source, sink)
 
     def transform(self) -> None:
         pod_id = self.get_pod_id()
-        self.sink.add_tuple(pod_id, "rdf:type", ":Pod")
+        self.sink.add_meta_property(pod_id, "rdf:type", ":Pod")
         self.write_collection(pod_id, ":has-label", "$.metadata.labels")
         self.write_collection(pod_id, ":has-annotation", "$.metadata.annotations")
         self.write_references(pod_id)
@@ -31,12 +31,10 @@ class PodToRDFTransformer(TransformerBase):
         )
         self.write_other_spec_properties(pod_id, "$.spec")
 
-        self.sink.flush()
-
     def write_containers(
         self, pod_id: str, status_property: str, container_spec_property: str
     ) -> None:
-        container_ids: List[str] = []
+        container_ids: RelationSet = set()
 
         container_status_matches = parse(status_property).find(self.source)
         if len(container_status_matches) == 0:
@@ -48,18 +46,17 @@ class PodToRDFTransformer(TransformerBase):
             container_id = self.normalize_container_id(container_id)
             name = container_match.get("name")
             restart_count = container_match.get("restartCount")
-            container_ids.append(container_id)
-            self.sink.add_tuple(container_id, "rdf:type", ":Container")
-            self.sink.add_tuple(container_id, ":has-name", self.escape(name))
-            self.sink.add_tuple(container_id, ":restart-count", str(restart_count))
+            container_ids.add(container_id)
+            self.sink.add_meta_property(container_id, "rdf:type", ":Container")
+            self.sink.add_property(container_id, ":has-name", self.escape(name))
+            self.sink.add_property(container_id, ":restart-count", str(restart_count))
             state = container_match.get("state")
             if state:
                 self.write_state(container_id, state)
 
             self.write_resources(container_id, container_spec_property, name)
 
-        container_ids_literal = " ".join(container_ids)
-        self.sink.add_tuple(pod_id, ":has-container", f"({container_ids_literal})")
+        self.sink.add_relation_collection(pod_id, ":has-container", container_ids)
 
     def normalize_container_id(self, container_id: str) -> str:
         container_id = re.sub("[:/]+", "-", container_id)
@@ -98,7 +95,7 @@ class PodToRDFTransformer(TransformerBase):
     def write_state(self, container_id: str, state: Any) -> None:
         state_struct, state_literal = self.get_state_struct(state)
         if state_literal:
-            self.sink.add_tuple(container_id, ":state", self.escape(state_literal))
+            self.sink.add_property(container_id, ":state", self.escape(state_literal))
         if state_struct:
             self.write_tuple_from(
                 state_struct, container_id, ":started-at", "$.startedAt"
@@ -128,5 +125,5 @@ class PodToRDFTransformer(TransformerBase):
             return
         for node_name in node_name_match:
             node_id = f":{node_name.value}"
-            self.sink.add_tuple(pod_id, ":runs-on", node_id)
-            self.sink.add_tuple(node_id, ":has-pod", pod_id)
+            self.sink.add_relation(pod_id, ":runs-on", node_id)
+            self.sink.add_relation(node_id, ":has-pod", pod_id)

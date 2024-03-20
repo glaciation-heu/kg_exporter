@@ -1,7 +1,8 @@
 from io import StringIO
 
+from app.rdf_transform.inmemory_knowledge_graph import InMemoryKnowledgeGraph
 from app.rdf_transform.test_base import TransformBaseTest
-from app.rdf_transform.turtle_writer import TurtleWriter
+from app.rdf_transform.turtle_serializer import TurtleSerialializer
 from app.rdf_transform.workload_transformer import WorkloadToRDFTransformer
 
 
@@ -18,5 +19,7 @@ class WorkloadTransformerTest(TransformBaseTest):
         node_turtle = self.load_turtle(file_id)
 
         buffer = StringIO()
-        WorkloadToRDFTransformer(node_json, TurtleWriter(buffer)).transform()
+        graph = InMemoryKnowledgeGraph()
+        WorkloadToRDFTransformer(node_json, graph).transform()
+        TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
