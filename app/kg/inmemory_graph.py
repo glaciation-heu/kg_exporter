@@ -1,6 +1,6 @@
 from typing import Any, Dict, Set
 
-from app.kg.knowledge_graph import KnowledgeGraph
+from app.kg.graph import Graph
 
 
 class GraphNode:
@@ -59,7 +59,7 @@ class GraphEdge:
         return self.objects
 
 
-class InMemoryKnowledgeGraph(KnowledgeGraph):
+class InMemoryGraph(Graph):
     nodes: Dict[str, GraphNode]
     edges: Dict[str, Dict[str, GraphEdge]]
 

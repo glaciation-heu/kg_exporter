@@ -7,7 +7,7 @@ PropertySet: TypeAlias = Set[PropertyValue]
 RelationSet: TypeAlias = Set[str]
 
 
-class KnowledgeGraph:
+class Graph:
     @abstractmethod
     def add_property(
         self, subject_id: str, predicate: str, value: str | int | float | bool

@@ -2,7 +2,7 @@ from io import StringIO
 
 from app.k8s_transform.test_base import TransformBaseTest
 from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
-from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.inmemory_graph import InMemoryGraph
 from app.kg.turtle_serializer import TurtleSerialializer
 
 
@@ -19,7 +19,7 @@ class WorkloadTransformerTest(TransformBaseTest):
         node_turtle = self.load_turtle(file_id)
 
         buffer = StringIO()
-        graph = InMemoryKnowledgeGraph()
+        graph = InMemoryGraph()
         WorkloadToRDFTransformer(node_json, graph).transform()
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)

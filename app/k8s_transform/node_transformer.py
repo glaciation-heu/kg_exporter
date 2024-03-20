@@ -3,11 +3,11 @@ from typing import Any, Dict
 from jsonpath_ng.ext import parse
 
 from app.k8s_transform.transformer_base import TransformerBase
-from app.kg.knowledge_graph import KnowledgeGraph, PropertySet
+from app.kg.graph import Graph, PropertySet
 
 
 class NodesToRDFTransformer(TransformerBase):
-    def __init__(self, source: Dict[str, Any], sink: KnowledgeGraph):
+    def __init__(self, source: Dict[str, Any], sink: Graph):
         super().__init__(source, sink)
 
     def transform(self) -> None:

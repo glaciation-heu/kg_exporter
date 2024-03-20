@@ -1,11 +1,11 @@
 from typing import Any, Dict
 
 from app.k8s_transform.transformer_base import TransformerBase
-from app.kg.knowledge_graph import KnowledgeGraph
+from app.kg.graph import Graph
 
 
 class WorkloadToRDFTransformer(TransformerBase):
-    def __init__(self, source: Dict[str, Any], sink: KnowledgeGraph):
+    def __init__(self, source: Dict[str, Any], sink: Graph):
         super().__init__(source, sink)
 
     def transform(self) -> None:

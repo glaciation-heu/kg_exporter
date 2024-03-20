@@ -1,15 +1,15 @@
 from unittest import TestCase
 
-from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.inmemory_graph import InMemoryGraph
 
 
-class InMemoryKnowledgeGraphTest(TestCase):
+class InMemoryGraphTest(TestCase):
     def test_empty(self):
-        graph = InMemoryKnowledgeGraph()
+        graph = InMemoryGraph()
         self.assertEqual(graph.get_ids(), set())
 
     def test_node(self):
-        graph = InMemoryKnowledgeGraph()
+        graph = InMemoryGraph()
         graph.add_property("id1", "rel1", "val11")
         self.assertEqual(
             graph.get_node_properties("id1"),
@@ -26,7 +26,7 @@ class InMemoryKnowledgeGraphTest(TestCase):
         self.assertEqual(graph.get_node_meta_properties("id1"), {"rel3": "meta"})
 
     def test_edge(self):
-        graph = InMemoryKnowledgeGraph()
+        graph = InMemoryGraph()
         graph.add_relation("id1", "rel1", "id2")
         self.assertEqual(graph.get_node_relations("id1"), {"rel1": {"id2"}})
         graph.add_relation("id1", "rel1", "id3")

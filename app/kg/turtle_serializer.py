@@ -1,11 +1,11 @@
 from io import IOBase
 
-from app.kg.knowledge_graph import KnowledgeGraph
-from app.kg.knowledge_graph_serializer import KnowledgeGraphSerializer
+from app.kg.graph import Graph
+from app.kg.graph_serializer import GraphSerializer
 
 
-class TurtleSerialializer(KnowledgeGraphSerializer):
-    def write(self, out: IOBase, graph: KnowledgeGraph) -> None:
+class TurtleSerialializer(GraphSerializer):
+    def write(self, out: IOBase, graph: Graph) -> None:
         for node_id in sorted(graph.get_ids()):
             meta_properties = dict(
                 sorted(graph.get_node_meta_properties(node_id).items())

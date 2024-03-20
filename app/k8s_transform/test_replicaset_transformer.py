@@ -2,7 +2,7 @@ from io import StringIO
 
 from app.k8s_transform.replicaset_transformer import ReplicaSetToRDFTransformer
 from app.k8s_transform.test_base import TransformBaseTest
-from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.inmemory_graph import InMemoryGraph
 from app.kg.turtle_serializer import TurtleSerialializer
 
 
@@ -18,7 +18,7 @@ class ReplicaSetTransformerTest(TransformBaseTest):
         node_turtle = self.load_turtle(file_id)
 
         buffer = StringIO()
-        graph = InMemoryKnowledgeGraph()
+        graph = InMemoryGraph()
         ReplicaSetToRDFTransformer(node_json, graph).transform()
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
