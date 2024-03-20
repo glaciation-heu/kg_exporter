@@ -1,8 +1,9 @@
 from io import StringIO
 
-from app.rdf_transform.replicaset_transformer import ReplicaSetToRDFTransformer
-from app.rdf_transform.test_base import TransformBaseTest
-from app.rdf_transform.turtle_writer import TurtleWriter
+from app.k8s_transform.replicaset_transformer import ReplicaSetToRDFTransformer
+from app.k8s_transform.test_base import TransformBaseTest
+from app.kg.inmemory_graph import InMemoryGraph
+from app.serialize.turtle_serializer import TurtleSerialializer
 
 
 class ReplicaSetTransformerTest(TransformBaseTest):
@@ -17,5 +18,7 @@ class ReplicaSetTransformerTest(TransformBaseTest):
         node_turtle = self.load_turtle(file_id)
 
         buffer = StringIO()
-        ReplicaSetToRDFTransformer(node_json, TurtleWriter(buffer)).transform()
+        graph = InMemoryGraph()
+        ReplicaSetToRDFTransformer(node_json, graph).transform()
+        TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)

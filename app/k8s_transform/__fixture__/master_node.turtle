@@ -1,0 +1,37 @@
+:glaciation-test-master01 rdf:type :Node .
+:glaciation-test-master01 :has-annotation ("flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:f6:a0:84:48:2e:9f}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.150" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
+:glaciation-test-master01 :has-condition (:glaciation-test-master01.NodeCondition.DiskPressure :glaciation-test-master01.NodeCondition.MemoryPressure :glaciation-test-master01.NodeCondition.NetworkUnavailable :glaciation-test-master01.NodeCondition.PIDPressure :glaciation-test-master01.NodeCondition.Ready) .
+:glaciation-test-master01 :has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-test-master01" "kubernetes.io/os:linux" "node-role.kubernetes.io/control-plane:" "node.kubernetes.io/exclude-from-external-load-balancers:") .
+:glaciation-test-master01 :has-allocatable-resource (:glaciation-test-master01.allocatable.CPU :glaciation-test-master01.allocatable.Memory :glaciation-test-master01.allocatable.Storage) .
+:glaciation-test-master01 :has-capacity-resource (:glaciation-test-master01.capacity.CPU :glaciation-test-master01.capacity.Memory :glaciation-test-master01.capacity.Storage) .
+:glaciation-test-master01 :has-network :glaciation-test-master01.Network .
+:glaciation-test-master01.Network rdf:type :Network .
+:glaciation-test-master01.Network :hostname "glaciation-test-master01" .
+:glaciation-test-master01.Network :internal_ip "10.14.1.150" .
+:glaciation-test-master01.NodeCondition.DiskPressure rdf:type :NodeCondition .
+:glaciation-test-master01.NodeCondition.DiskPressure :reason "KubeletHasNoDiskPressure" .
+:glaciation-test-master01.NodeCondition.DiskPressure :status "False" .
+:glaciation-test-master01.NodeCondition.MemoryPressure rdf:type :NodeCondition .
+:glaciation-test-master01.NodeCondition.MemoryPressure :reason "KubeletHasSufficientMemory" .
+:glaciation-test-master01.NodeCondition.MemoryPressure :status "False" .
+:glaciation-test-master01.NodeCondition.NetworkUnavailable rdf:type :NodeCondition .
+:glaciation-test-master01.NodeCondition.NetworkUnavailable :reason "FlannelIsUp" .
+:glaciation-test-master01.NodeCondition.NetworkUnavailable :status "False" .
+:glaciation-test-master01.NodeCondition.PIDPressure rdf:type :NodeCondition .
+:glaciation-test-master01.NodeCondition.PIDPressure :reason "KubeletHasSufficientPID" .
+:glaciation-test-master01.NodeCondition.PIDPressure :status "False" .
+:glaciation-test-master01.NodeCondition.Ready rdf:type :NodeCondition .
+:glaciation-test-master01.NodeCondition.Ready :reason "KubeletReady" .
+:glaciation-test-master01.NodeCondition.Ready :status "True" .
+:glaciation-test-master01.allocatable.CPU rdf:type :CPU .
+:glaciation-test-master01.allocatable.CPU :count "4" .
+:glaciation-test-master01.allocatable.Memory rdf:type :Memory .
+:glaciation-test-master01.allocatable.Memory :bytes "16283144Ki" .
+:glaciation-test-master01.allocatable.Storage rdf:type :Storage .
+:glaciation-test-master01.allocatable.Storage :bytes "47266578354" .
+:glaciation-test-master01.capacity.CPU rdf:type :CPU .
+:glaciation-test-master01.capacity.CPU :count "4" .
+:glaciation-test-master01.capacity.Memory rdf:type :Memory .
+:glaciation-test-master01.capacity.Memory :bytes "16385544Ki" .
+:glaciation-test-master01.capacity.Storage rdf:type :Storage .
+:glaciation-test-master01.capacity.Storage :bytes "51287520Ki" .
