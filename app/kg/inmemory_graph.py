@@ -1,11 +1,11 @@
 from typing import Any, Dict, Set
 
-from app.kg.graph import Graph
+from app.kg.graph import Graph, PropertySet, PropertyValue, RelationSet
 
 
 class GraphNode:
     id: str
-    properties: Dict[str, str | int | float | bool | Set[str | int | float | bool]]
+    properties: Dict[str, PropertyValue | PropertySet]
     meta_properties: Dict[str, str]
 
     def __init__(self, node_id: str):
@@ -13,7 +13,7 @@ class GraphNode:
         self.properties = {}
         self.meta_properties = {}
 
-    def add_property(self, predicate: str, value: str | int | float | bool) -> None:
+    def add_property(self, predicate: str, value: PropertyValue) -> None:
         if predicate in self.properties:
             self.add_property_collection(predicate, {value})
         else:
@@ -22,9 +22,7 @@ class GraphNode:
     def add_meta_property(self, predicate: str, value: str) -> None:
         self.meta_properties[predicate] = value
 
-    def add_property_collection(
-        self, predicate: str, values: Set[str | int | float | bool]
-    ) -> None:
+    def add_property_collection(self, predicate: str, values: PropertySet) -> None:
         if predicate in self.properties:
             existing_value = self.properties[predicate]
             if type(existing_value) is set:
@@ -82,12 +80,12 @@ class InMemoryGraph(Graph):
         return node_edges[predicate]
 
     def add_property(
-        self, subject_id: str, predicate: str, value: str | int | float | bool
+        self, subject_id: str, predicate: str, value: PropertyValue
     ) -> None:
         self.get_or_add_node(subject_id).add_property(predicate, value)
 
     def add_property_collection(
-        self, subject_id: str, predicate: str, value: Set[str | int | float | bool]
+        self, subject_id: str, predicate: str, value: PropertySet
     ) -> None:
         self.get_or_add_node(subject_id).add_property_collection(predicate, value)
 
@@ -101,7 +99,7 @@ class InMemoryGraph(Graph):
         self.get_or_add_edge(subject_id, predicate).add_object_id(object_id)
 
     def add_relation_collection(
-        self, subject_id: str, predicate: str, object_ids: Set[str]
+        self, subject_id: str, predicate: str, object_ids: RelationSet
     ) -> None:
         edge = self.get_or_add_edge(subject_id, predicate)
         for object_id in object_ids:
@@ -125,7 +123,7 @@ class InMemoryGraph(Graph):
         else:
             return {}
 
-    def get_node_relations(self, node_id: str) -> Dict[str, Set[str]]:
+    def get_node_relations(self, node_id: str) -> Dict[str, RelationSet]:
         edge_nodes = self.edges.get(node_id)
         if edge_nodes:
             return {

@@ -10,13 +10,13 @@ RelationSet: TypeAlias = Set[str]
 class Graph:
     @abstractmethod
     def add_property(
-        self, subject_id: str, predicate: str, value: str | int | float | bool
+        self, subject_id: str, predicate: str, value: PropertyValue
     ) -> None:
         pass
 
     @abstractmethod
     def add_property_collection(
-        self, subject_id: str, predicate: str, value: Set[str | int | float | bool]
+        self, subject_id: str, predicate: str, value: PropertySet
     ) -> None:
         pass
 
@@ -32,7 +32,7 @@ class Graph:
 
     @abstractmethod
     def add_relation_collection(
-        self, subject_id: str, predicate: str, object_ids: Set[str]
+        self, subject_id: str, predicate: str, object_ids: RelationSet
     ) -> None:
         pass
 
@@ -49,5 +49,5 @@ class Graph:
         pass
 
     @abstractmethod
-    def get_node_relations(self, node_id: str) -> Dict[str, Set[str]]:
+    def get_node_relations(self, node_id: str) -> Dict[str, RelationSet]:
         pass
