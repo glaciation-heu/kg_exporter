@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from io import IOBase
 
-from app.rdf_transform.knowledge_graph import KnowledgeGraph
+from app.kg.knowledge_graph import KnowledgeGraph
 
 
 class KnowledgeGraphSerializer:

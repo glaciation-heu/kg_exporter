@@ -4,7 +4,7 @@ import re
 
 from jsonpath_ng.ext import parse
 
-from app.rdf_transform.knowledge_graph import KnowledgeGraph, RelationSet
+from app.kg.knowledge_graph import KnowledgeGraph, RelationSet
 from app.rdf_transform.transformer_base import TransformerBase
 
 

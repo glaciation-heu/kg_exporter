@@ -1,7 +1,7 @@
 from io import IOBase
 
-from app.rdf_transform.knowledge_graph import KnowledgeGraph
-from app.rdf_transform.knowledge_graph_serializer import KnowledgeGraphSerializer
+from app.kg.knowledge_graph import KnowledgeGraph
+from app.kg.knowledge_graph_serializer import KnowledgeGraphSerializer
 
 
 class TurtleSerialializer(KnowledgeGraphSerializer):

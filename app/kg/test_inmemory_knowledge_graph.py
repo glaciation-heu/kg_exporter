@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from app.rdf_transform.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
 
 
 class InMemoryKnowledgeGraphTest(TestCase):

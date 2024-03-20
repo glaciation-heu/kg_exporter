@@ -1,9 +1,9 @@
 from io import StringIO
 
-from app.rdf_transform.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.turtle_serializer import TurtleSerialializer
 from app.rdf_transform.pod_transformer import PodToRDFTransformer
 from app.rdf_transform.test_base import TransformBaseTest
-from app.rdf_transform.turtle_serializer import TurtleSerialializer
 
 
 class PodTransformerTest(TransformBaseTest):

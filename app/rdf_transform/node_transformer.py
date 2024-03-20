@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from jsonpath_ng.ext import parse
 
-from app.rdf_transform.knowledge_graph import KnowledgeGraph, PropertySet
+from app.kg.knowledge_graph import KnowledgeGraph, PropertySet
 from app.rdf_transform.transformer_base import TransformerBase
 
 

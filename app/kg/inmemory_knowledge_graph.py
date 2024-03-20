@@ -1,6 +1,6 @@
 from typing import Any, Dict, Set
 
-from app.rdf_transform.knowledge_graph import KnowledgeGraph
+from app.kg.knowledge_graph import KnowledgeGraph
 
 
 class GraphNode:

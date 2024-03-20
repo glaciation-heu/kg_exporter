@@ -1,9 +1,9 @@
 from io import StringIO
 from unittest import TestCase
 
-from app.rdf_transform.inmemory_knowledge_graph import InMemoryKnowledgeGraph
-from app.rdf_transform.knowledge_graph import KnowledgeGraph
-from app.rdf_transform.turtle_serializer import TurtleSerialializer
+from app.kg.inmemory_knowledge_graph import InMemoryKnowledgeGraph
+from app.kg.knowledge_graph import KnowledgeGraph
+from app.kg.turtle_serializer import TurtleSerialializer
 
 
 class TurtleWriterTest(TestCase):
