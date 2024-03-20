@@ -3,7 +3,7 @@ from io import StringIO
 from app.k8s_transform.test_base import TransformBaseTest
 from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
 from app.kg.inmemory_graph import InMemoryGraph
-from app.kg.turtle_serializer import TurtleSerialializer
+from app.serialize.turtle_serializer import TurtleSerialializer
 
 
 class WorkloadTransformerTest(TransformBaseTest):

@@ -1,7 +1,7 @@
 from io import IOBase
 
 from app.kg.graph import Graph
-from app.kg.graph_serializer import GraphSerializer
+from app.serialize.graph_serializer import GraphSerializer
 
 
 class TurtleSerialializer(GraphSerializer):

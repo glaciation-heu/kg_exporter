@@ -3,7 +3,7 @@ from unittest import TestCase
 
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
-from app.kg.turtle_serializer import TurtleSerialializer
+from app.serialize.turtle_serializer import TurtleSerialializer
 
 
 class TurtleSerializerTest(TestCase):
