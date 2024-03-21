@@ -14,14 +14,14 @@ class PodToRDFTransformer(TransformerBase):
 
     def transform(self) -> None:
         pod_id = self.get_pod_id()
-        self.sink.add_meta_property(pod_id, "rdf:type", ":Pod")
-        self.write_collection(pod_id, ":has-label", "$.metadata.labels")
-        self.write_collection(pod_id, ":has-annotation", "$.metadata.annotations")
+        self.sink.add_meta_property(pod_id, "rdf:type", "gla:Pod")
+        self.write_collection(pod_id, "gla:has-label", "$.metadata.labels")
+        self.write_collection(pod_id, "gla:has-annotation", "$.metadata.annotations")
         self.write_references(pod_id)
         self.write_node_id_reference(pod_id)
-        self.write_tuple(pod_id, ":qos-class", "$.status.qosClass")
-        self.write_tuple(pod_id, ":start-time", "$.status.startTime")
-        self.write_tuple(pod_id, ":pod-phase", "$.status.phase")
+        self.write_tuple(pod_id, "gla:qos-class", "$.status.qosClass")
+        self.write_tuple(pod_id, "gla:start-time", "$.status.startTime")
+        self.write_tuple(pod_id, "gla:pod-phase", "$.status.phase")
 
         self.write_network(pod_id)
 
@@ -47,16 +47,18 @@ class PodToRDFTransformer(TransformerBase):
             name = container_match.get("name")
             restart_count = container_match.get("restartCount")
             container_ids.add(container_id)
-            self.sink.add_meta_property(container_id, "rdf:type", ":Container")
-            self.sink.add_property(container_id, ":has-name", self.escape(name))
-            self.sink.add_property(container_id, ":restart-count", str(restart_count))
+            self.sink.add_meta_property(container_id, "rdf:type", "gla:Container")
+            self.sink.add_property(container_id, "gla:has-name", self.escape(name))
+            self.sink.add_property(
+                container_id, "gla:restart-count", str(restart_count)
+            )
             state = container_match.get("state")
             if state:
                 self.write_state(container_id, state)
 
             self.write_resources(container_id, container_spec_property, name)
 
-        self.sink.add_relation_collection(pod_id, ":has-container", container_ids)
+        self.sink.add_relation_collection(pod_id, "gla:has-container", container_ids)
 
     def normalize_container_id(self, container_id: str) -> str:
         container_id = re.sub("[:/]+", "-", container_id)
@@ -72,14 +74,14 @@ class PodToRDFTransformer(TransformerBase):
             return
         resources = resource_spec_matches[0].value
         self.write_tuple_from(
-            resources, container_id, ":requests-cpu", "$.requests.cpu"
+            resources, container_id, "gla:requests-cpu", "$.requests.cpu"
         )
         self.write_tuple_from(
-            resources, container_id, ":requests-memory", "$.requests.memory"
+            resources, container_id, "gla:requests-memory", "$.requests.memory"
         )
         self.write_tuple_from(resources, container_id, ":limits-cpu", "$.limits.cpu")
         self.write_tuple_from(
-            resources, container_id, ":limits-memory", "$.limits.memory"
+            resources, container_id, "gla:limits-memory", "$.limits.memory"
         )
 
     def write_other_spec_properties(
@@ -89,21 +91,26 @@ class PodToRDFTransformer(TransformerBase):
         if len(spec_matches) == 0:
             return
         self.write_tuple_from(
-            spec_matches[0].value, container_id, ":is-scheduled-by", "$.schedulerName"
+            spec_matches[0].value,
+            container_id,
+            "gla:is-scheduled-by",
+            "$.schedulerName",
         )
 
     def write_state(self, container_id: str, state: Any) -> None:
         state_struct, state_literal = self.get_state_struct(state)
         if state_literal:
-            self.sink.add_property(container_id, ":state", self.escape(state_literal))
+            self.sink.add_property(
+                container_id, "gla:state", self.escape(state_literal)
+            )
         if state_struct:
             self.write_tuple_from(
-                state_struct, container_id, ":started-at", "$.startedAt"
+                state_struct, container_id, "gla:started-at", "$.startedAt"
             )
             self.write_tuple_from(
-                state_struct, container_id, ":finished-at", "$.finishedAt"
+                state_struct, container_id, "gla:finished-at", "$.finishedAt"
             )
-            self.write_tuple_from(state_struct, container_id, ":reason", "$.reason")
+            self.write_tuple_from(state_struct, container_id, "gla:reason", "$.reason")
 
     def get_state_struct(
         self, state: Dict[str, Any]
@@ -116,8 +123,8 @@ class PodToRDFTransformer(TransformerBase):
         return None, None
 
     def write_network(self, pod_id: str) -> None:
-        self.write_tuple(pod_id, ":host-ip", "$.status.hostIP")
-        self.write_tuple(pod_id, ":pod-ip", "$.status.podIP")
+        self.write_tuple(pod_id, "gla:host-ip", "$.status.hostIP")
+        self.write_tuple(pod_id, "gla:pod-ip", "$.status.podIP")
 
     def write_node_id_reference(self, pod_id: str) -> None:
         node_name_match = parse("$.spec.nodeName").find(self.source)
@@ -125,5 +132,5 @@ class PodToRDFTransformer(TransformerBase):
             return
         for node_name in node_name_match:
             node_id = f":{node_name.value}"
-            self.sink.add_relation(pod_id, ":runs-on", node_id)
-            self.sink.add_relation(node_id, ":has-pod", pod_id)
+            self.sink.add_relation(pod_id, "gla:runs-on", node_id)
+            self.sink.add_relation(node_id, "gla:has-pod", pod_id)

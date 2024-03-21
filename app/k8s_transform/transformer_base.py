@@ -21,7 +21,7 @@ class TransformerBase:
             return
         for reference_match in references_match[0].value:
             reference = self.get_reference_id(reference_match)
-            self.sink.add_relation(reference, ":refers-to", node_id)
+            self.sink.add_relation(reference, "gla:refers-to", node_id)
 
     def get_reference_id(self, reference: Dict[str, Any]) -> str:
         name = reference.get("name")
