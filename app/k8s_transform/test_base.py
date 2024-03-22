@@ -22,4 +22,4 @@ class TransformBaseTest(TestCase):
 
     def get_jsonld_config(self) -> JsonLDConfiguration:
         contexts: Dict[str, Dict[str, str]] = dict()
-        return JsonLDConfiguration(contexts, set())
+        return JsonLDConfiguration(contexts, {"gla:Pod"})

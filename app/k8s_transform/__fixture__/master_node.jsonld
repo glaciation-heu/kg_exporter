@@ -13,15 +13,6 @@
                 "volumes.kubernetes.io/controller-managed-attach-detach:true"
             ]
         },
-        "gla:has-condition": {
-            "@set": [
-                ":glaciation-test-master01.NodeCondition.DiskPressure",
-                ":glaciation-test-master01.NodeCondition.MemoryPressure",
-                ":glaciation-test-master01.NodeCondition.NetworkUnavailable",
-                ":glaciation-test-master01.NodeCondition.PIDPressure",
-                ":glaciation-test-master01.NodeCondition.Ready"
-            ]
-        },
         "gla:has-label": {
             "@set": [
                 "beta.kubernetes.io/arch:amd64",
@@ -35,84 +26,81 @@
         },
         "gla:has-allocatable-resource": {
             "@set": [
-                ":glaciation-test-master01.allocatable.CPU",
-                ":glaciation-test-master01.allocatable.Memory",
-                ":glaciation-test-master01.allocatable.Storage"
+                {
+                    "@id": ":glaciation-test-master01.allocatable.CPU",
+                    "@type": "gla:CPU",
+                    "gla:count": "4"
+                },
+                {
+                    "@id": ":glaciation-test-master01.allocatable.Memory",
+                    "@type": "gla:Memory",
+                    "gla:bytes": "16283144Ki"
+                },
+                {
+                    "@id": ":glaciation-test-master01.allocatable.Storage",
+                    "@type": "gla:Storage",
+                    "gla:bytes": "47266578354"
+                }
             ]
         },
         "gla:has-capacity-resource": {
             "@set": [
-                ":glaciation-test-master01.capacity.CPU",
-                ":glaciation-test-master01.capacity.Memory",
-                ":glaciation-test-master01.capacity.Storage"
+                {
+                    "@id": ":glaciation-test-master01.capacity.CPU",
+                    "@type": "gla:CPU",
+                    "gla:count": "4"
+                },
+                {
+                    "@id": ":glaciation-test-master01.capacity.Memory",
+                    "@type": "gla:Memory",
+                    "gla:bytes": "16385544Ki"
+                },
+                {
+                    "@id": ":glaciation-test-master01.capacity.Storage",
+                    "@type": "gla:Storage",
+                    "gla:bytes": "51287520Ki"
+                }
             ]
         },
-        "gla:has-network": ":glaciation-test-master01.Network"
-    },
-    {
-        "@id": ":glaciation-test-master01.Network",
-        "@type": ":Network",
-        "gla:hostname": "glaciation-test-master01",
-        "gla:internal_ip": "10.14.1.150"
-    },
-    {
-        "@id": ":glaciation-test-master01.NodeCondition.DiskPressure",
-        "@type": "gla:NodeCondition",
-        "gla:reason": "KubeletHasNoDiskPressure",
-        "gla:status": "False"
-    },
-    {
-        "@id": ":glaciation-test-master01.NodeCondition.MemoryPressure",
-        "@type": "gla:NodeCondition",
-        "gla:reason": "KubeletHasSufficientMemory",
-        "gla:status": "False"
-    },
-    {
-        "@id": ":glaciation-test-master01.NodeCondition.NetworkUnavailable",
-        "@type": "gla:NodeCondition",
-        "gla:reason": "FlannelIsUp",
-        "gla:status": "False"
-    },
-    {
-        "@id": ":glaciation-test-master01.NodeCondition.PIDPressure",
-        "@type": "gla:NodeCondition",
-        "gla:reason": "KubeletHasSufficientPID",
-        "gla:status": "False"
-    },
-    {
-        "@id": ":glaciation-test-master01.NodeCondition.Ready",
-        "@type": "gla:NodeCondition",
-        "gla:reason": "KubeletReady",
-        "gla:status": "True"
-    },
-    {
-        "@id": ":glaciation-test-master01.allocatable.CPU",
-        "@type": "gla:CPU",
-        "gla:count": "4"
-    },
-    {
-        "@id": ":glaciation-test-master01.allocatable.Memory",
-        "@type": "gla:Memory",
-        "gla:bytes": "16283144Ki"
-    },
-    {
-        "@id": ":glaciation-test-master01.allocatable.Storage",
-        "@type": "gla:Storage",
-        "gla:bytes": "47266578354"
-    },
-    {
-        "@id": ":glaciation-test-master01.capacity.CPU",
-        "@type": "gla:CPU",
-        "gla:count": "4"
-    },
-    {
-        "@id": ":glaciation-test-master01.capacity.Memory",
-        "@type": "gla:Memory",
-        "gla:bytes": "16385544Ki"
-    },
-    {
-        "@id": ":glaciation-test-master01.capacity.Storage",
-        "@type": "gla:Storage",
-        "gla:bytes": "51287520Ki"
+        "gla:has-condition": {
+            "@set": [
+                {
+                    "@id": ":glaciation-test-master01.NodeCondition.DiskPressure",
+                    "@type": "gla:NodeCondition",
+                    "gla:reason": "KubeletHasNoDiskPressure",
+                    "gla:status": "False"
+                },
+                {
+                    "@id": ":glaciation-test-master01.NodeCondition.MemoryPressure",
+                    "@type": "gla:NodeCondition",
+                    "gla:reason": "KubeletHasSufficientMemory",
+                    "gla:status": "False"
+                },
+                {
+                    "@id": ":glaciation-test-master01.NodeCondition.NetworkUnavailable",
+                    "@type": "gla:NodeCondition",
+                    "gla:reason": "FlannelIsUp",
+                    "gla:status": "False"
+                },
+                {
+                    "@id": ":glaciation-test-master01.NodeCondition.PIDPressure",
+                    "@type": "gla:NodeCondition",
+                    "gla:reason": "KubeletHasSufficientPID",
+                    "gla:status": "False"
+                },
+                {
+                    "@id": ":glaciation-test-master01.NodeCondition.Ready",
+                    "@type": "gla:NodeCondition",
+                    "gla:reason": "KubeletReady",
+                    "gla:status": "True"
+                }
+            ]
+        },
+        "gla:has-network": {
+            "@id": ":glaciation-test-master01.Network",
+            "@type": ":Network",
+            "gla:hostname": "glaciation-test-master01",
+            "gla:internal_ip": "10.14.1.150"
+        }
     }
 ]

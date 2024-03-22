@@ -42,10 +42,20 @@ class JsonLDSerializerTest(TestCase):
                     "MyNode2": "http://example.com/MyNode2",
                 },
             },
-            set(),
+            {":MyNode2"},
         )
         JsonLDSerialializer(configs).write(buffer, self.sample_graph())
+
         expected = [
+            {
+                "@id": "id2",
+                "@type": ":MyNode2",
+                "@context": {
+                    "prop2": "http://example.com/MyNode2/prop2",
+                    "MyNode2": "http://example.com/MyNode2",
+                },
+                "prop2": "val2",
+            },
             {
                 "@id": "id1",
                 "@type": ":MyNode",
@@ -59,15 +69,6 @@ class JsonLDSerializerTest(TestCase):
                 "rel2": {"@set": ["val21", "val22", "val23"]},
                 "connects": "id2",
             },
-            {
-                "@id": "id2",
-                "@type": ":MyNode2",
-                "@context": {
-                    "prop2": "http://example.com/MyNode2/prop2",
-                    "MyNode2": "http://example.com/MyNode2",
-                },
-                "prop2": "val2",
-            },
         ]
         self.assertEqual(buffer.getvalue(), json.dumps(expected))
 
@@ -78,11 +79,14 @@ class JsonLDSerializerTest(TestCase):
                 ":MyNode": {
                     "@vocab": "http://example.com/nodes",
                 },
-                ":MyNode2": {
+                ":Embedded": {
+                    "@vocab": "http://example.com/nodes",
+                },
+                ":Embedded2": {
                     "@vocab": "http://example.com/nodes",
                 },
             },
-            set(),
+            {":MyNode"},
         )
 
         graph = InMemoryGraph()
@@ -102,10 +106,19 @@ class JsonLDSerializerTest(TestCase):
                 "@type": ":MyNode",
                 "@context": {"@vocab": "http://example.com/nodes"},
                 "p1": "v1",
-                "includes1": "id2",
-            },
-            {"@id": "id2", "@type": ":Embedded", "p2": "v2", "includes2": "id3"},
-            {"@id": "id3", "@type": ":Embedded2", "p3": "v3"},
+                "includes1": {
+                    "@id": "id2",
+                    "@type": ":Embedded",
+                    "@context": {"@vocab": "http://example.com/nodes"},
+                    "p2": "v2",
+                    "includes2": {
+                        "@id": "id3",
+                        "@type": ":Embedded2",
+                        "@context": {"@vocab": "http://example.com/nodes"},
+                        "p3": "v3",
+                    },
+                },
+            }
         ]
         self.assertEqual(buffer.getvalue(), json.dumps(expected))
 
