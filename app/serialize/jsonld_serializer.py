@@ -28,6 +28,7 @@ class JsonLDSerialializer(GraphSerializer):
             rdf_type = meta_properties.get("rdf:type")
             if rdf_type is None:
                 raise Exception(f"Node {node_id} is expected to have a rdf:type.")
+            del meta_properties["rdf:type"]
             result_node["@type"] = rdf_type
             context = self.resolve_context(meta_properties)
             if len(context) > 0:

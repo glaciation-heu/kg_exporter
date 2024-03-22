@@ -1,4 +1,4 @@
-from typing import Any, Dict, Set
+from typing import Any, Dict, Set, Tuple
 
 import re
 
@@ -20,14 +20,16 @@ class TransformerBase:
         if len(references_match) == 0:
             return
         for reference_match in references_match[0].value:
-            reference = self.get_reference_id(reference_match)
+            reference, ref_type = self.get_reference_id(reference_match)
             self.sink.add_relation(reference, "gla:refers-to", node_id)
+            self.sink.add_meta_property(reference, "rdf:type", ref_type)
 
-    def get_reference_id(self, reference: Dict[str, Any]) -> str:
+    def get_reference_id(self, reference: Dict[str, Any]) -> Tuple[str, str]:
         name = reference.get("name")
         uid = reference.get("uid")
+        resource_type = reference["kind"]
         resource_id = f":{name}.{uid}"
-        return resource_id
+        return resource_id, resource_type
 
     def write_tuple(self, name: str, property: str, query: str) -> None:
         for match in parse(query).find(self.source):
@@ -60,7 +62,7 @@ class TransformerBase:
 
     def escape(self, token: str) -> str:
         token = token.replace('"', '\\"')
-        token = f'"{token}"'
+        token = f"{token}"
         return token
 
     def normalize(self, value: str) -> str:

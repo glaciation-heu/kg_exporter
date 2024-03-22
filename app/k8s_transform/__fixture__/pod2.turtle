@@ -4,4 +4,5 @@
 :tenant1-pool-0-1 gla:is-scheduled-by "default-scheduler" .
 :tenant1-pool-0-1 gla:pod-phase "Pending" .
 :tenant1-pool-0-1 gla:qos-class "Burstable" .
+:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 rdf:type StatefulSet .
 :tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 gla:refers-to :tenant1-pool-0-1 .

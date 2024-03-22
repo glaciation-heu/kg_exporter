@@ -1,9 +1,9 @@
 :glaciation-test-worker01 rdf:type gla:Node .
 :glaciation-test-worker01 gla:has-annotation ("flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:de:b3:94:d0:27:9e}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.151" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
-:glaciation-test-worker01 gla:has-condition (:glaciation-test-worker01.NodeCondition.DiskPressure :glaciation-test-worker01.NodeCondition.MemoryPressure :glaciation-test-worker01.NodeCondition.NetworkUnavailable :glaciation-test-worker01.NodeCondition.PIDPressure :glaciation-test-worker01.NodeCondition.Ready) .
 :glaciation-test-worker01 gla:has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-test-worker01" "kubernetes.io/os:linux") .
 :glaciation-test-worker01 gla:has-allocatable-resource (:glaciation-test-worker01.allocatable.CPU :glaciation-test-worker01.allocatable.Memory :glaciation-test-worker01.allocatable.Storage) .
 :glaciation-test-worker01 gla:has-capacity-resource (:glaciation-test-worker01.capacity.CPU :glaciation-test-worker01.capacity.Memory :glaciation-test-worker01.capacity.Storage) .
+:glaciation-test-worker01 gla:has-condition (:glaciation-test-worker01.NodeCondition.DiskPressure :glaciation-test-worker01.NodeCondition.MemoryPressure :glaciation-test-worker01.NodeCondition.NetworkUnavailable :glaciation-test-worker01.NodeCondition.PIDPressure :glaciation-test-worker01.NodeCondition.Ready) .
 :glaciation-test-worker01 gla:has-network :glaciation-test-worker01.Network .
 :glaciation-test-worker01.Network rdf:type :Network .
 :glaciation-test-worker01.Network gla:hostname "glaciation-test-worker01" .

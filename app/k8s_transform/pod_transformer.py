@@ -133,4 +133,5 @@ class PodToRDFTransformer(TransformerBase):
         for node_name in node_name_match:
             node_id = f":{node_name.value}"
             self.sink.add_relation(pod_id, "gla:runs-on", node_id)
+            self.sink.add_meta_property(node_id, "rdf:type", "gla:Node")
             self.sink.add_relation(node_id, "gla:has-pod", pod_id)

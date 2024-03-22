@@ -3,7 +3,7 @@ from typing import Any, Dict
 from jsonpath_ng.ext import parse
 
 from app.k8s_transform.transformer_base import TransformerBase
-from app.kg.graph import Graph, PropertySet
+from app.kg.graph import Graph, RelationSet
 
 
 class NodesToRDFTransformer(TransformerBase):
@@ -53,7 +53,7 @@ class NodesToRDFTransformer(TransformerBase):
         self.sink.add_relation(node_name, "gla:has-network", network_id)
 
     def write_conditions(self, node_name: str) -> None:
-        condition_ids: PropertySet = set()
+        condition_ids: RelationSet = set()
         for condition in parse("$.status.conditions").find(self.source)[0].value:
             condition_type = condition.get("type")
             if not condition_type:
@@ -65,7 +65,7 @@ class NodesToRDFTransformer(TransformerBase):
             self.sink.add_meta_property(condition_id, "rdf:type", "gla:NodeCondition")
             self.sink.add_property(condition_id, "gla:status", self.escape(status))
             self.sink.add_property(condition_id, "gla:reason", self.escape(reason))
-        self.sink.add_property_collection(node_name, "gla:has-condition", condition_ids)
+        self.sink.add_relation_collection(node_name, "gla:has-condition", condition_ids)
 
     def get_node_id(self) -> str:
         name = parse("$.metadata.name").find(self.source)[0].value

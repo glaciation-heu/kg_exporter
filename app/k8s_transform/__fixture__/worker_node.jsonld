@@ -1,0 +1,116 @@
+[
+    {
+        "@id": ":glaciation-test-worker01",
+        "@type": "gla:Node",
+        "gla:has-annotation": {
+            "@set": [
+                "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:de:b3:94:d0:27:9e}",
+                "flannel.alpha.coreos.com/backend-type:vxlan",
+                "flannel.alpha.coreos.com/kube-subnet-manager:true",
+                "flannel.alpha.coreos.com/public-ip:10.14.1.151",
+                "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock",
+                "node.alpha.kubernetes.io/ttl:0",
+                "volumes.kubernetes.io/controller-managed-attach-detach:true"
+            ]
+        },
+        "gla:has-label": {
+            "@set": [
+                "beta.kubernetes.io/arch:amd64",
+                "beta.kubernetes.io/os:linux",
+                "kubernetes.io/arch:amd64",
+                "kubernetes.io/hostname:glaciation-test-worker01",
+                "kubernetes.io/os:linux"
+            ]
+        },
+        "gla:has-allocatable-resource": {
+            "@set": [
+                ":glaciation-test-worker01.allocatable.CPU",
+                ":glaciation-test-worker01.allocatable.Memory",
+                ":glaciation-test-worker01.allocatable.Storage"
+            ]
+        },
+        "gla:has-capacity-resource": {
+            "@set": [
+                ":glaciation-test-worker01.capacity.CPU",
+                ":glaciation-test-worker01.capacity.Memory",
+                ":glaciation-test-worker01.capacity.Storage"
+            ]
+        },
+        "gla:has-condition": {
+            "@set": [
+                ":glaciation-test-worker01.NodeCondition.DiskPressure",
+                ":glaciation-test-worker01.NodeCondition.MemoryPressure",
+                ":glaciation-test-worker01.NodeCondition.NetworkUnavailable",
+                ":glaciation-test-worker01.NodeCondition.PIDPressure",
+                ":glaciation-test-worker01.NodeCondition.Ready"
+            ]
+        },
+        "gla:has-network": ":glaciation-test-worker01.Network"
+    },
+    {
+        "@id": ":glaciation-test-worker01.Network",
+        "@type": ":Network",
+        "gla:hostname": "glaciation-test-worker01",
+        "gla:internal_ip": "10.14.1.151"
+    },
+    {
+        "@id": ":glaciation-test-worker01.NodeCondition.DiskPressure",
+        "@type": "gla:NodeCondition",
+        "gla:reason": "KubeletHasNoDiskPressure",
+        "gla:status": "False"
+    },
+    {
+        "@id": ":glaciation-test-worker01.NodeCondition.MemoryPressure",
+        "@type": "gla:NodeCondition",
+        "gla:reason": "KubeletHasSufficientMemory",
+        "gla:status": "False"
+    },
+    {
+        "@id": ":glaciation-test-worker01.NodeCondition.NetworkUnavailable",
+        "@type": "gla:NodeCondition",
+        "gla:reason": "FlannelIsUp",
+        "gla:status": "False"
+    },
+    {
+        "@id": ":glaciation-test-worker01.NodeCondition.PIDPressure",
+        "@type": "gla:NodeCondition",
+        "gla:reason": "KubeletHasSufficientPID",
+        "gla:status": "False"
+    },
+    {
+        "@id": ":glaciation-test-worker01.NodeCondition.Ready",
+        "@type": "gla:NodeCondition",
+        "gla:reason": "KubeletReady",
+        "gla:status": "True"
+    },
+    {
+        "@id": ":glaciation-test-worker01.allocatable.CPU",
+        "@type": "gla:CPU",
+        "gla:count": "4"
+    },
+    {
+        "@id": ":glaciation-test-worker01.allocatable.Memory",
+        "@type": "gla:Memory",
+        "gla:bytes": "16283152Ki"
+    },
+    {
+        "@id": ":glaciation-test-worker01.allocatable.Storage",
+        "@type": "gla:Storage",
+        "gla:bytes": "47266578354"
+    },
+    {
+        "@id": ":glaciation-test-worker01.capacity.CPU",
+        "@type": "gla:CPU",
+        "gla:count": "4"
+    },
+    {
+        "@id": ":glaciation-test-worker01.capacity.Memory",
+        "@type": "gla:Memory",
+        "gla:bytes": "16385552Ki"
+    },
+    {
+        "@id": ":glaciation-test-worker01.capacity.Storage",
+        "@type": "gla:Storage",
+        "gla:bytes": "51287520Ki"
+    }
+]

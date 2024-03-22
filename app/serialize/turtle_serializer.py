@@ -16,12 +16,12 @@ class TurtleSerialializer(GraphSerializer):
             node_properties = dict(sorted(graph.get_node_properties(node_id).items()))
             for predicate, values in node_properties.items():
                 if type(values) is set:
-                    collection_subject = " ".join(sorted(values))
+                    collection_subject = " ".join(sorted([f'"{v}"' for v in values]))
                     self.add_tuple(
                         out, node_id, f"{predicate}", f"({collection_subject})"
                     )
                 else:
-                    self.add_tuple(out, node_id, f"{predicate}", values)
+                    self.add_tuple(out, node_id, f"{predicate}", f'"{values}"')
 
             node_relations = dict(sorted(graph.get_node_relations(node_id).items()))
             for predicate, values in node_relations.items():

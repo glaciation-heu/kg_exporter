@@ -10,6 +10,14 @@ class TransformBaseTest(TestCase):
         with FileIO(f"app/k8s_transform/__fixture__/{name}.turtle") as f:
             return f.readall().decode("utf-8")
 
+    def load_jsonld(self, name: str) -> str:
+        with FileIO(f"app/k8s_transform/__fixture__/{name}.jsonld") as f:
+            return json.load(f)  # type: ignore
+
     def load_json(self, name: str) -> Dict[str, Any]:
         with FileIO(f"app/k8s_transform/__fixture__/{name}.json") as f:
             return json.load(f)  # type: ignore
+
+    def get_jsonld_contexts(self) -> Dict[str, Dict[str, str]]:
+        contexts: Dict[str, Dict[str, str]] = dict()
+        return contexts
