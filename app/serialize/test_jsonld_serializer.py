@@ -4,6 +4,7 @@ from unittest import TestCase
 
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
+from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 
 
@@ -13,32 +14,37 @@ class JsonLDSerializerTest(TestCase):
 
     def test_empty(self):
         buffer = StringIO()
-        JsonLDSerialializer(dict()).write(buffer, InMemoryGraph())
+        configs = JsonLDConfiguration(dict(), set())
+        JsonLDSerialializer(configs).write(buffer, InMemoryGraph())
         self.assertEqual(buffer.getvalue(), "[]")
 
     def test_no_context(self):
         buffer = StringIO()
         graph = InMemoryGraph()
         graph.add_meta_property("id1", "rdf:type", ":MyNode")
-        JsonLDSerialializer(dict()).write(buffer, graph)
-        expected = """[{"@id": "id1", "@type": ":MyNode", "rdf:type": ":MyNode"}]"""
+        configs = JsonLDConfiguration(dict(), set())
+        JsonLDSerialializer(configs).write(buffer, graph)
+        expected = """[{"@id": "id1", "@type": ":MyNode"}]"""
         self.assertEqual(buffer.getvalue(), expected)
 
-    def test_full(self):
+    def test_two_nodes(self):
         buffer = StringIO()
-        contexts = {
-            ":MyNode": {
-                "MyNode": "http://example.com/MyNode",
-                "rel1": "http://example.com/MyNode/rel1",
-                "rel2": "http://example.com/MyNode/rel2",
-                "connects": "http://example.com/MyNode/connects",
+        configs = JsonLDConfiguration(
+            {
+                ":MyNode": {
+                    "MyNode": "http://example.com/MyNode",
+                    "rel1": "http://example.com/MyNode/rel1",
+                    "rel2": "http://example.com/MyNode/rel2",
+                    "connects": "http://example.com/MyNode/connects",
+                },
+                ":MyNode2": {
+                    "prop2": "http://example.com/MyNode2/prop2",
+                    "MyNode2": "http://example.com/MyNode2",
+                },
             },
-            ":MyNode2": {
-                "prop2": "http://example.com/MyNode2/prop2",
-                "MyNode2": "http://example.com/MyNode2",
-            },
-        }
-        JsonLDSerialializer(contexts).write(buffer, self.sample_graph())
+            set(),
+        )
+        JsonLDSerialializer(configs).write(buffer, self.sample_graph())
         expected = [
             {
                 "@id": "id1",
@@ -49,7 +55,6 @@ class JsonLDSerializerTest(TestCase):
                     "rel2": "http://example.com/MyNode/rel2",
                     "connects": "http://example.com/MyNode/connects",
                 },
-                "rdf:type": ":MyNode",
                 "rel1": "val11",
                 "rel2": {"@set": ["val21", "val22", "val23"]},
                 "connects": "id2",
@@ -62,8 +67,45 @@ class JsonLDSerializerTest(TestCase):
                     "MyNode2": "http://example.com/MyNode2",
                 },
                 "prop2": "val2",
-                "rdf:type": ":MyNode2",
             },
+        ]
+        self.assertEqual(buffer.getvalue(), json.dumps(expected))
+
+    def test_aggregates(self):
+        buffer = StringIO()
+        configs = JsonLDConfiguration(
+            {
+                ":MyNode": {
+                    "@vocab": "http://example.com/nodes",
+                },
+                ":MyNode2": {
+                    "@vocab": "http://example.com/nodes",
+                },
+            },
+            set(),
+        )
+
+        graph = InMemoryGraph()
+        graph.add_property("id1", "p1", "v1")
+        graph.add_meta_property("id1", "rdf:type", ":MyNode")
+        graph.add_relation("id1", "includes1", "id2")
+        graph.add_meta_property("id2", "rdf:type", ":Embedded")
+        graph.add_meta_property("id2", "p2", "v2")
+        graph.add_relation("id2", "includes2", "id3")
+        graph.add_meta_property("id3", "rdf:type", ":Embedded2")
+        graph.add_meta_property("id3", "p3", "v3")
+
+        JsonLDSerialializer(configs).write(buffer, graph)
+        expected = [
+            {
+                "@id": "id1",
+                "@type": ":MyNode",
+                "@context": {"@vocab": "http://example.com/nodes"},
+                "p1": "v1",
+                "includes1": "id2",
+            },
+            {"@id": "id2", "@type": ":Embedded", "p2": "v2", "includes2": "id3"},
+            {"@id": "id3", "@type": ":Embedded2", "p3": "v3"},
         ]
         self.assertEqual(buffer.getvalue(), json.dumps(expected))
 

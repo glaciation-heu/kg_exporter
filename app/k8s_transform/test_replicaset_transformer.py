@@ -35,5 +35,5 @@ class ReplicaSetTransformerTest(TransformBaseTest):
         buffer = StringIO()
         graph = InMemoryGraph()
         ReplicaSetToRDFTransformer(node_json, graph).transform()
-        JsonLDSerialializer(self.get_jsonld_contexts()).write(buffer, graph)
+        JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

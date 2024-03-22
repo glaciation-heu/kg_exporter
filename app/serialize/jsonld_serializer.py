@@ -5,20 +5,20 @@ from io import IOBase
 
 from app.kg.graph import Graph
 from app.serialize.graph_serializer import GraphSerializer
+from app.serialize.jsonld_configuration import JsonLDConfiguration
 
 
 class JsonLDSerialializer(GraphSerializer):
-    contexts: Dict[str, Dict[str, str]]
+    config: JsonLDConfiguration
 
-    def __init__(self, contexts: Dict[str, Dict[str, str]]):
-        self.contexts = contexts
-
-    def add_prefix(self, out: IOBase, name: str, uri: str) -> None:
-        out.write(f"PREFIX {name} {uri}\n")
+    def __init__(self, config: JsonLDConfiguration):
+        self.config = config
 
     def write(self, out: IOBase, graph: Graph) -> None:
         results = []
-        for node_id in sorted(graph.get_ids()):
+        node_ids = sorted(graph.get_ids())
+        while len(node_ids) > 0:
+            node_id, node_ids = node_ids[0], node_ids[1:]
             result_node: Dict[str, Any] = {}
             result_node["@id"] = node_id
 
@@ -28,9 +28,9 @@ class JsonLDSerialializer(GraphSerializer):
             rdf_type = meta_properties.get("rdf:type")
             if rdf_type is None:
                 raise Exception(f"Node {node_id} is expected to have a rdf:type.")
-            del meta_properties["rdf:type"]
             result_node["@type"] = rdf_type
             context = self.resolve_context(meta_properties)
+            del meta_properties["rdf:type"]
             if len(context) > 0:
                 result_node = {**result_node, **{"@context": context}}
 
@@ -61,4 +61,4 @@ class JsonLDSerialializer(GraphSerializer):
         rdf_type = meta_properties.get("rdf:type")
         if not rdf_type:
             return dict()
-        return self.contexts.get(rdf_type, dict())
+        return self.config.contexts.get(rdf_type, dict())

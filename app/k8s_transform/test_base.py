@@ -4,6 +4,8 @@ import json
 from io import FileIO
 from unittest import TestCase
 
+from app.serialize.jsonld_configuration import JsonLDConfiguration
+
 
 class TransformBaseTest(TestCase):
     def load_turtle(self, name: str) -> str:
@@ -18,6 +20,6 @@ class TransformBaseTest(TestCase):
         with FileIO(f"app/k8s_transform/__fixture__/{name}.json") as f:
             return json.load(f)  # type: ignore
 
-    def get_jsonld_contexts(self) -> Dict[str, Dict[str, str]]:
+    def get_jsonld_config(self) -> JsonLDConfiguration:
         contexts: Dict[str, Dict[str, str]] = dict()
-        return contexts
+        return JsonLDConfiguration(contexts, set())
