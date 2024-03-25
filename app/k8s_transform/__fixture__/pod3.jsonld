@@ -1,64 +1,66 @@
-[
-    {
-        "@id": ":kube-flannel-ds-848v8",
-        "@type": "gla:Pod",
-        "gla:has-label": {
-            "@set": [
-                "app:flannel",
-                "controller-revision-hash:6fbbc5c975",
-                "pod-template-generation:1",
-                "tier:node"
-            ]
+{
+    "@graph": [
+        {
+            "@id": ":kube-flannel-ds-848v8",
+            "@type": "gla:Pod",
+            "gla:has-label": {
+                "@set": [
+                    "app:flannel",
+                    "controller-revision-hash:6fbbc5c975",
+                    "pod-template-generation:1",
+                    "tier:node"
+                ]
+            },
+            "gla:host-ip": "10.14.2.2",
+            "gla:is-scheduled-by": "default-scheduler",
+            "gla:pod-ip": "10.14.2.2",
+            "gla:pod-phase": "Running",
+            "gla:qos-class": "Burstable",
+            "gla:start-time": "2023-10-20T11:01:50Z",
+            "gla:has-container": {
+                "@set": [
+                    {
+                        "@id": ":containerd-b23fcc9919d7e58fdeb4a729ccf2363c31429e9906a836f55e7d3bf61c908cdb",
+                        "@type": "gla:Container",
+                        "gla:has-name": "kube-flannel",
+                        "gla:requests-cpu": "100m",
+                        "gla:requests-memory": "50Mi",
+                        "gla:restart-count": "17",
+                        "gla:started-at": "2023-12-11T11:10:16Z",
+                        "gla:state": "running"
+                    },
+                    {
+                        "@id": ":containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f",
+                        "@type": "gla:Container",
+                        "gla:finished-at": "2023-12-11T11:10:15Z",
+                        "gla:has-name": "install-cni",
+                        "gla:reason": "Completed",
+                        "gla:restart-count": "0",
+                        "gla:started-at": "2023-12-11T11:10:15Z",
+                        "gla:state": "terminated"
+                    },
+                    {
+                        "@id": ":containerd-c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74",
+                        "@type": "gla:Container",
+                        "gla:finished-at": "2023-12-11T11:10:14Z",
+                        "gla:has-name": "install-cni-plugin",
+                        "gla:reason": "Completed",
+                        "gla:restart-count": "3",
+                        "gla:started-at": "2023-12-11T11:10:14Z",
+                        "gla:state": "terminated"
+                    }
+                ]
+            },
+            "gla:runs-on": {
+                "@id": ":glaciation-worker04",
+                "@type": "gla:Node",
+                "gla:has-pod": ":kube-flannel-ds-848v8"
+            }
         },
-        "gla:host-ip": "10.14.2.2",
-        "gla:is-scheduled-by": "default-scheduler",
-        "gla:pod-ip": "10.14.2.2",
-        "gla:pod-phase": "Running",
-        "gla:qos-class": "Burstable",
-        "gla:start-time": "2023-10-20T11:01:50Z",
-        "gla:has-container": {
-            "@set": [
-                {
-                    "@id": ":containerd-b23fcc9919d7e58fdeb4a729ccf2363c31429e9906a836f55e7d3bf61c908cdb",
-                    "@type": "gla:Container",
-                    "gla:has-name": "kube-flannel",
-                    "gla:requests-cpu": "100m",
-                    "gla:requests-memory": "50Mi",
-                    "gla:restart-count": "17",
-                    "gla:started-at": "2023-12-11T11:10:16Z",
-                    "gla:state": "running"
-                },
-                {
-                    "@id": ":containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f",
-                    "@type": "gla:Container",
-                    "gla:finished-at": "2023-12-11T11:10:15Z",
-                    "gla:has-name": "install-cni",
-                    "gla:reason": "Completed",
-                    "gla:restart-count": "0",
-                    "gla:started-at": "2023-12-11T11:10:15Z",
-                    "gla:state": "terminated"
-                },
-                {
-                    "@id": ":containerd-c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74",
-                    "@type": "gla:Container",
-                    "gla:finished-at": "2023-12-11T11:10:14Z",
-                    "gla:has-name": "install-cni-plugin",
-                    "gla:reason": "Completed",
-                    "gla:restart-count": "3",
-                    "gla:started-at": "2023-12-11T11:10:14Z",
-                    "gla:state": "terminated"
-                }
-            ]
-        },
-        "gla:runs-on": {
-            "@id": ":glaciation-worker04",
-            "@type": "gla:Node",
-            "gla:has-pod": ":kube-flannel-ds-848v8"
+        {
+            "@id": ":kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178",
+            "@type": "DaemonSet",
+            "gla:refers-to": ":kube-flannel-ds-848v8"
         }
-    },
-    {
-        "@id": ":kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178",
-        "@type": "DaemonSet",
-        "gla:refers-to": ":kube-flannel-ds-848v8"
-    }
-]
+    ]
+}

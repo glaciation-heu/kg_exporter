@@ -1,4 +1,4 @@
-from typing import Any, Dict, Set
+from typing import Any, Dict, List, Set
 
 import json
 from io import IOBase
@@ -15,7 +15,7 @@ class JsonLDSerialializer(GraphSerializer):
         self.config = config
 
     def write(self, out: IOBase, graph: Graph) -> None:
-        results = []
+        results: List[Dict[str, Any]] = []
         all_node_ids = graph.get_ids()
         aggregate_ids = set()
         for node_id in sorted(all_node_ids):
@@ -25,24 +25,35 @@ class JsonLDSerialializer(GraphSerializer):
                 aggregate_ids.add(node_id)
 
         queue = sorted(list(aggregate_ids))
-        while len(queue) > 0:
-            node_id, queue = queue[0], queue[1:]
-            if node_id in all_node_ids:
-                result_node = self.write_node(
-                    graph, node_id, all_node_ids, aggregate_ids
-                )
-                results.append(result_node)
-        queue = sorted(list(set(all_node_ids) - aggregate_ids))
-        while len(queue) > 0:
-            node_id, queue = queue[0], queue[1:]
-            if node_id in all_node_ids:
-                result_node = self.write_node(
-                    graph, node_id, all_node_ids, aggregate_ids
-                )
-                results.append(result_node)
+        self.write_nodes(results, graph, queue, all_node_ids, aggregate_ids)
 
-        out.write(json.dumps(results))
+        queue = sorted(list(set(all_node_ids) - aggregate_ids))
+        self.write_nodes(results, graph, queue, all_node_ids, aggregate_ids)
+
+        outcome: Dict[str, Any] = {}
+        default_context = self.config.contexts.get("__default__")
+        if default_context:
+            outcome["@context"] = default_context
+        outcome["@graph"] = results
+
+        out.write(json.dumps(outcome))
         out.flush()
+
+    def write_nodes(
+        self,
+        out_results: List[Dict[str, Any]],
+        graph: Graph,
+        queue: List[str],
+        all_node_ids: Set[str],
+        aggregate_ids: Set[str],
+    ) -> None:
+        while len(queue) > 0:
+            node_id, queue = queue[0], queue[1:]
+            if node_id in all_node_ids:
+                result_node = self.write_node(
+                    graph, node_id, all_node_ids, aggregate_ids
+                )
+                out_results.append(result_node)
 
     def write_node(
         self,

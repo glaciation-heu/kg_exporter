@@ -1,17 +1,19 @@
-[
-    {
-        "@id": ":coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb",
-        "@type": "gla:Workload",
-        "rdf:subClassOf": "gla:Deployment",
-        "gla:has-annotation": {
-            "@set": [
-                "deployment.kubernetes.io/revision:1"
-            ]
-        },
-        "gla:has-label": {
-            "@set": [
-                "k8s-app:kube-dns"
-            ]
+{
+    "@graph": [
+        {
+            "@id": ":coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb",
+            "@type": "gla:Workload",
+            "rdf:subClassOf": "gla:Deployment",
+            "gla:has-annotation": {
+                "@set": [
+                    "deployment.kubernetes.io/revision:1"
+                ]
+            },
+            "gla:has-label": {
+                "@set": [
+                    "k8s-app:kube-dns"
+                ]
+            }
         }
-    }
-]
+    ]
+}
