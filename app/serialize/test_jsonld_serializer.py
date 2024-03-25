@@ -4,6 +4,8 @@ from unittest import TestCase
 
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
+from app.kg.iri import IRI
+from app.kg.literal import Literal
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 
@@ -21,54 +23,56 @@ class JsonLDSerializerTest(TestCase):
     def test_no_context(self):
         buffer = StringIO()
         graph = InMemoryGraph()
-        graph.add_meta_property("id1", "rdf:type", ":MyNode")
+        graph.add_meta_property(
+            IRI("pref", "id1"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode")
+        )
         configs = JsonLDConfiguration(dict(), set())
         JsonLDSerialializer(configs).write(buffer, graph)
-        expected = json.dumps({"@graph": [{"@id": "id1", "@type": ":MyNode"}]})
+        expected = json.dumps({"@graph": [{"@id": "pref:id1", "@type": "pref:MyNode"}]})
         self.assertEqual(buffer.getvalue(), expected)
 
     def test_two_nodes(self):
         buffer = StringIO()
         configs = JsonLDConfiguration(
             {
-                ":MyNode": {
+                IRI("pref", "MyNode"): {
                     "MyNode": "http://example.com/MyNode",
                     "rel1": "http://example.com/MyNode/rel1",
                     "rel2": "http://example.com/MyNode/rel2",
                     "connects": "http://example.com/MyNode/connects",
                 },
-                ":MyNode2": {
+                IRI("pref", "MyNode2"): {
                     "prop2": "http://example.com/MyNode2/prop2",
                     "MyNode2": "http://example.com/MyNode2",
                 },
             },
-            {":MyNode2"},
+            {IRI("pref", "MyNode2")},
         )
         JsonLDSerialializer(configs).write(buffer, self.sample_graph())
 
         expected = {
             "@graph": [
                 {
-                    "@id": "id2",
-                    "@type": ":MyNode2",
+                    "@id": "pref:id2",
+                    "@type": "pref:MyNode2",
                     "@context": {
                         "prop2": "http://example.com/MyNode2/prop2",
                         "MyNode2": "http://example.com/MyNode2",
                     },
-                    "prop2": "val2",
+                    "pref:prop2": "val2",
                 },
                 {
-                    "@id": "id1",
-                    "@type": ":MyNode",
+                    "@id": "pref:id1",
+                    "@type": "pref:MyNode",
                     "@context": {
                         "MyNode": "http://example.com/MyNode",
                         "rel1": "http://example.com/MyNode/rel1",
                         "rel2": "http://example.com/MyNode/rel2",
                         "connects": "http://example.com/MyNode/connects",
                     },
-                    "rel1": "val11",
-                    "rel2": {"@set": ["val21", "val22", "val23"]},
-                    "connects": "id2",
+                    "pref:rel1": "val11",
+                    "pref:rel2": {"@set": ["val21", "val22", "val23"]},
+                    "pref:connects": "pref:id2",
                 },
             ]
         }
@@ -78,47 +82,61 @@ class JsonLDSerializerTest(TestCase):
         buffer = StringIO()
         configs = JsonLDConfiguration(
             {
-                ":MyNode": {
+                IRI("pref", "MyNode"): {
                     "@vocab": "http://example.com/nodes",
                 },
-                ":Embedded": {
+                IRI("pref", "Embedded"): {
                     "@vocab": "http://example.com/nodes",
                 },
-                ":Embedded2": {
+                IRI("pref", "Embedded2"): {
                     "@vocab": "http://example.com/nodes",
                 },
             },
-            {":MyNode"},
+            {IRI("pref", "MyNode")},
         )
 
         graph = InMemoryGraph()
-        graph.add_property("id1", "p1", "v1")
-        graph.add_meta_property("id1", "rdf:type", ":MyNode")
-        graph.add_relation("id1", "includes1", "id2")
-        graph.add_meta_property("id2", "rdf:type", ":Embedded")
-        graph.add_meta_property("id2", "p2", "v2")
-        graph.add_relation("id2", "includes2", "id3")
-        graph.add_meta_property("id3", "rdf:type", ":Embedded2")
-        graph.add_meta_property("id3", "p3", "v3")
+        graph.add_property(IRI("pref", "id1"), IRI("pref", "p1"), Literal("v1", "str"))
+        graph.add_meta_property(
+            IRI("pref", "id1"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode")
+        )
+        graph.add_relation(
+            IRI("pref", "id1"), IRI("pref", "includes1"), IRI("pref", "id2")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id2"), Graph.RDF_TYPE_IRI, IRI("pref", "Embedded")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id2"), IRI("pref", "p2"), Literal("v2", "str")
+        )
+        graph.add_relation(
+            IRI("pref", "id2"), IRI("pref", "includes2"), IRI("pref", "id3")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id3"), Graph.RDF_TYPE_IRI, IRI("pref", "Embedded2")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id3"), IRI("pref", "p3"), Literal("v3", "str")
+        )
 
         JsonLDSerialializer(configs).write(buffer, graph)
         expected = {
             "@graph": [
                 {
-                    "@id": "id1",
-                    "@type": ":MyNode",
+                    "@id": "pref:id1",
+                    "@type": "pref:MyNode",
                     "@context": {"@vocab": "http://example.com/nodes"},
-                    "p1": "v1",
-                    "includes1": {
-                        "@id": "id2",
-                        "@type": ":Embedded",
+                    "pref:p1": "v1",
+                    "pref:includes1": {
+                        "@id": "pref:id2",
+                        "@type": "pref:Embedded",
                         "@context": {"@vocab": "http://example.com/nodes"},
-                        "p2": "v2",
-                        "includes2": {
-                            "@id": "id3",
-                            "@type": ":Embedded2",
+                        "pref:p2": "v2",
+                        "pref:includes2": {
+                            "@id": "pref:id3",
+                            "@type": "pref:Embedded2",
                             "@context": {"@vocab": "http://example.com/nodes"},
-                            "p3": "v3",
+                            "pref:p3": "v3",
                         },
                     },
                 }
@@ -130,7 +148,7 @@ class JsonLDSerializerTest(TestCase):
         buffer = StringIO()
         configs = JsonLDConfiguration(
             {
-                "__default__": {
+                JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
                     "@vocab": "http://example.com/nodes",
                 },
             },
@@ -138,23 +156,41 @@ class JsonLDSerializerTest(TestCase):
         )
 
         graph = InMemoryGraph()
-        graph.add_property("id1", "p1", "v1")
-        graph.add_meta_property("id1", "rdf:type", ":MyNode")
+        graph.add_property(IRI("pref", "id1"), IRI("pref", "p1"), Literal("v1", "str"))
+        graph.add_meta_property(
+            IRI("pref", "id1"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode")
+        )
 
         JsonLDSerialializer(configs).write(buffer, graph)
         expected = {
             "@context": {"@vocab": "http://example.com/nodes"},
-            "@graph": [{"@id": "id1", "@type": ":MyNode", "p1": "v1"}],
+            "@graph": [{"@id": "pref:id1", "@type": "pref:MyNode", "pref:p1": "v1"}],
         }
         self.assertEqual(buffer.getvalue(), json.dumps(expected))
 
     def sample_graph(self) -> Graph:
         graph = InMemoryGraph()
-        graph.add_property("id1", "rel1", "val11")
-        graph.add_property_collection("id1", "rel2", {"val21", "val22"})
-        graph.add_property("id1", "rel2", "val23")
-        graph.add_meta_property("id1", "rdf:type", ":MyNode")
-        graph.add_relation("id1", "connects", "id2")
-        graph.add_meta_property("id2", "rdf:type", ":MyNode2")
-        graph.add_meta_property("id2", "prop2", "val2")
+        graph.add_property(
+            IRI("pref", "id1"), IRI("pref", "rel1"), Literal("val11", "str")
+        )
+        graph.add_property_collection(
+            IRI("pref", "id1"),
+            IRI("pref", "rel2"),
+            {Literal("val21", "str"), Literal("val22", "str")},
+        )
+        graph.add_property(
+            IRI("pref", "id1"), IRI("pref", "rel2"), Literal("val23", "str")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id1"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode")
+        )
+        graph.add_relation(
+            IRI("pref", "id1"), IRI("pref", "connects"), IRI("pref", "id2")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id2"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode2")
+        )
+        graph.add_meta_property(
+            IRI("pref", "id2"), IRI("pref", "prop2"), Literal("val2", "str")
+        )
         return graph

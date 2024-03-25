@@ -1,9 +1,11 @@
-from typing import Any
+from typing import Any, TypeAlias
 
-from app.kg.graph import PropertyValue
+from app.kg.id_base import IdBase
+
+PropertyValue: TypeAlias = str | int | bool | float
 
 
-class Literal:
+class Literal(IdBase):
     value: PropertyValue
     _type: str
 
@@ -20,6 +22,42 @@ class Literal:
 
         return self.value == other.value and self._type == other._type
 
+    def __gt__(self, other: Any) -> bool:
+        if isinstance(other, Literal):
+            if self._type.__eq__(other._type):
+                return self.value.__gt__(other.value)  # type: ignore[operator]
+            else:
+                # TODO int and float are still comparable
+                return NotImplemented
+        else:
+            return NotImplemented
+
+    def __lt__(self, other: Any) -> bool:
+        if isinstance(other, Literal):
+            try:
+                return not self.__gt__(other) and not self.__eq__(other)
+            except TypeError:
+                return NotImplemented
+        return NotImplemented
+
+    def __le__(self, other: Any) -> bool:
+        r = self.__lt__(other)
+        if r:
+            return True
+        try:
+            return self.__eq__(other)
+        except TypeError:
+            return NotImplemented
+
+    def __ge__(self, other: Any) -> bool:
+        r = self.__gt__(other)
+        if r:
+            return True
+        try:
+            return self.__eq__(other)
+        except TypeError:
+            return NotImplemented
+
     def __hash__(self) -> int:
         res = 7
         res ^= self._type.__hash__()
@@ -28,3 +66,6 @@ class Literal:
 
     def render(self) -> str:
         return f"{self.value}"
+
+    def is_string_type(self) -> bool:
+        return self._type == "str"

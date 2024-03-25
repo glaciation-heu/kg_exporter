@@ -1,7 +1,9 @@
 from typing import Any
 
+from app.kg.id_base import IdBase
 
-class IRI:
+
+class IRI(IdBase):
     prefix: str
     value: str
 
@@ -17,6 +19,42 @@ class IRI:
 
         return self.prefix == other.prefix and self.value == other.value
 
+    def __gt__(self, other: Any) -> bool:
+        if isinstance(other, IRI):
+            if self.prefix.__gt__(other.prefix):
+                return True
+            if self.prefix.__eq__(other.prefix) and self.value.__gt__(other.value):
+                return True
+            return False
+        else:
+            return NotImplemented
+
+    def __lt__(self, other: Any) -> bool:
+        if isinstance(other, IRI):
+            try:
+                return not self.__gt__(other) and not self.__eq__(other)
+            except TypeError:
+                return NotImplemented
+        return NotImplemented
+
+    def __le__(self, other: Any) -> bool:
+        r = self.__lt__(other)
+        if r:
+            return True
+        try:
+            return self.__eq__(other)
+        except TypeError:
+            return NotImplemented
+
+    def __ge__(self, other: Any) -> bool:
+        r = self.__gt__(other)
+        if r:
+            return True
+        try:
+            return self.__eq__(other)
+        except TypeError:
+            return NotImplemented
+
     def __hash__(self) -> int:
         res = 7
         res ^= self.prefix.__hash__()
@@ -26,3 +64,6 @@ class IRI:
     def render(self) -> str:
         result = f"{self.prefix}:{self.value}"
         return result
+
+    def is_string_type(self) -> bool:
+        return False

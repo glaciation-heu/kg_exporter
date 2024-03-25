@@ -1,7 +1,7 @@
 {
     "@graph": [
         {
-            "@id": ":tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
+            "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
             "@type": "gla:Workload",
             "rdf:subClassOf": "gla:StatefulSet",
             "gla:has-label": {
@@ -12,9 +12,9 @@
             }
         },
         {
-            "@id": ":tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd",
-            "@type": "Tenant",
-            "gla:refers-to": ":tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2"
+            "@id": "cluster:tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd",
+            "@type": "gla:Tenant",
+            "gla:refers-to": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2"
         }
     ]
 }

@@ -4,6 +4,9 @@ import json
 from io import FileIO
 from unittest import TestCase
 
+from app.k8s_transform.transformer_base import TransformerBase
+from app.kg.id_base import IdBase
+from app.kg.iri import IRI
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 
 
@@ -21,5 +24,7 @@ class TransformBaseTest(TestCase):
             return json.load(f)  # type: ignore
 
     def get_jsonld_config(self) -> JsonLDConfiguration:
-        contexts: Dict[str, Dict[str, str]] = dict()
-        return JsonLDConfiguration(contexts, {"gla:Pod"})
+        contexts: Dict[IdBase, Dict[str, Any]] = dict()
+        return JsonLDConfiguration(
+            contexts, {IRI(TransformerBase.GLACIATION_PREFIX, "Pod")}
+        )

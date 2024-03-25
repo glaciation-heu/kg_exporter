@@ -1,53 +1,55 @@
-from typing import Any, Dict, Set, TypeAlias
+from typing import Any, Dict, Set
 
 from abc import abstractmethod
 
-PropertyValue: TypeAlias = str | int | bool | float
-PropertySet: TypeAlias = Set[PropertyValue]
-RelationSet: TypeAlias = Set[str]
+from app.kg.id_base import IdBase
+from app.kg.iri import IRI
+from app.kg.literal import Literal
+from app.kg.types import LiteralSet, RelationSet
 
 
 class Graph:
+    RDF_TYPE_IRI = IRI("rdf", "type")
+    RDF_SUBCLASSOF_IRI = IRI("rdf", "subClassOf")
+
     @abstractmethod
-    def add_property(
-        self, subject_id: str, predicate: str, value: PropertyValue
-    ) -> None:
-        pass
+    def add_property(self, subject_id: IRI, predicate: IRI, value: Literal) -> None:
+        raise NotImplementedError
 
     @abstractmethod
     def add_property_collection(
-        self, subject_id: str, predicate: str, value: PropertySet
+        self, subject_id: IRI, predicate: IRI, value: LiteralSet
     ) -> None:
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def add_meta_property(
-        self, subject_id: str, predicate: str, object_id: str
+        self, subject_id: IRI, predicate: IRI, object_id: IdBase
     ) -> None:
-        pass
+        raise NotImplementedError
 
     @abstractmethod
-    def add_relation(self, subject_id: str, predicate: str, object_id: str) -> None:
-        pass
+    def add_relation(self, subject_id: IRI, predicate: IRI, object_id: IRI) -> None:
+        raise NotImplementedError
 
     @abstractmethod
     def add_relation_collection(
-        self, subject_id: str, predicate: str, object_ids: RelationSet
+        self, subject_id: IRI, predicate: IRI, object_ids: RelationSet
     ) -> None:
-        pass
+        raise NotImplementedError
 
     @abstractmethod
-    def get_ids(self) -> Set[str]:
-        pass
+    def get_ids(self) -> Set[IRI]:
+        raise NotImplementedError
 
     @abstractmethod
-    def get_node_properties(self, node_id: str) -> Dict[str, Any]:
-        pass
+    def get_node_properties(self, node_id: IRI) -> Dict[IRI, Any]:
+        raise NotImplementedError
 
     @abstractmethod
-    def get_node_meta_properties(self, node_id: str) -> Dict[str, str]:
-        pass
+    def get_node_meta_properties(self, node_id: IRI) -> Dict[IRI, IdBase]:
+        raise NotImplementedError
 
     @abstractmethod
-    def get_node_relations(self, node_id: str) -> Dict[str, RelationSet]:
-        pass
+    def get_node_relations(self, node_id: IRI) -> Dict[IRI, RelationSet]:
+        raise NotImplementedError
