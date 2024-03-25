@@ -1,7 +1,7 @@
 {
     "@graph": [
         {
-            "@id": ":tenant1-pool-0-1",
+            "@id": "cluster:tenant1-pool-0-1",
             "@type": "gla:Pod",
             "gla:has-annotation": {
                 "@set": [
@@ -23,9 +23,9 @@
             "gla:qos-class": "Burstable"
         },
         {
-            "@id": ":tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
-            "@type": "StatefulSet",
-            "gla:refers-to": ":tenant1-pool-0-1"
+            "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
+            "@type": "gla:StatefulSet",
+            "gla:refers-to": "cluster:tenant1-pool-0-1"
         }
     ]
 }

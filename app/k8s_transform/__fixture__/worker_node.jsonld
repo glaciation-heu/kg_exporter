@@ -1,7 +1,7 @@
 {
     "@graph": [
         {
-            "@id": ":glaciation-test-worker01",
+            "@id": "cluster:glaciation-test-worker01",
             "@type": "gla:Node",
             "gla:has-annotation": {
                 "@set": [
@@ -26,17 +26,17 @@
             "gla:has-allocatable-resource": {
                 "@set": [
                     {
-                        "@id": ":glaciation-test-worker01.allocatable.CPU",
+                        "@id": "cluster:glaciation-test-worker01.allocatable.CPU",
                         "@type": "gla:CPU",
                         "gla:count": "4"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.allocatable.Memory",
+                        "@id": "cluster:glaciation-test-worker01.allocatable.Memory",
                         "@type": "gla:Memory",
                         "gla:bytes": "16283152Ki"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.allocatable.Storage",
+                        "@id": "cluster:glaciation-test-worker01.allocatable.Storage",
                         "@type": "gla:Storage",
                         "gla:bytes": "47266578354"
                     }
@@ -45,17 +45,17 @@
             "gla:has-capacity-resource": {
                 "@set": [
                     {
-                        "@id": ":glaciation-test-worker01.capacity.CPU",
+                        "@id": "cluster:glaciation-test-worker01.capacity.CPU",
                         "@type": "gla:CPU",
                         "gla:count": "4"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.capacity.Memory",
+                        "@id": "cluster:glaciation-test-worker01.capacity.Memory",
                         "@type": "gla:Memory",
                         "gla:bytes": "16385552Ki"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.capacity.Storage",
+                        "@id": "cluster:glaciation-test-worker01.capacity.Storage",
                         "@type": "gla:Storage",
                         "gla:bytes": "51287520Ki"
                     }
@@ -64,31 +64,31 @@
             "gla:has-condition": {
                 "@set": [
                     {
-                        "@id": ":glaciation-test-worker01.NodeCondition.DiskPressure",
+                        "@id": "cluster:glaciation-test-worker01.NodeCondition.DiskPressure",
                         "@type": "gla:NodeCondition",
                         "gla:reason": "KubeletHasNoDiskPressure",
                         "gla:status": "False"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.NodeCondition.MemoryPressure",
+                        "@id": "cluster:glaciation-test-worker01.NodeCondition.MemoryPressure",
                         "@type": "gla:NodeCondition",
                         "gla:reason": "KubeletHasSufficientMemory",
                         "gla:status": "False"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.NodeCondition.NetworkUnavailable",
+                        "@id": "cluster:glaciation-test-worker01.NodeCondition.NetworkUnavailable",
                         "@type": "gla:NodeCondition",
                         "gla:reason": "FlannelIsUp",
                         "gla:status": "False"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.NodeCondition.PIDPressure",
+                        "@id": "cluster:glaciation-test-worker01.NodeCondition.PIDPressure",
                         "@type": "gla:NodeCondition",
                         "gla:reason": "KubeletHasSufficientPID",
                         "gla:status": "False"
                     },
                     {
-                        "@id": ":glaciation-test-worker01.NodeCondition.Ready",
+                        "@id": "cluster:glaciation-test-worker01.NodeCondition.Ready",
                         "@type": "gla:NodeCondition",
                         "gla:reason": "KubeletReady",
                         "gla:status": "True"
@@ -96,8 +96,8 @@
                 ]
             },
             "gla:has-network": {
-                "@id": ":glaciation-test-worker01.Network",
-                "@type": ":Network",
+                "@id": "cluster:glaciation-test-worker01.Network",
+                "@type": "gla:Network",
                 "gla:hostname": "glaciation-test-worker01",
                 "gla:internal_ip": "10.14.1.151"
             }

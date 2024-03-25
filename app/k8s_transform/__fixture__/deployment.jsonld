@@ -1,7 +1,7 @@
 {
     "@graph": [
         {
-            "@id": ":coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb",
+            "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb",
             "@type": "gla:Workload",
             "rdf:subClassOf": "gla:Deployment",
             "gla:has-annotation": {

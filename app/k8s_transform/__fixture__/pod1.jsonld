@@ -1,7 +1,7 @@
 {
     "@graph": [
         {
-            "@id": ":coredns-787d4945fb-l85r5",
+            "@id": "cluster:coredns-787d4945fb-l85r5",
             "@type": "gla:Pod",
             "gla:has-label": {
                 "@set": [
@@ -16,7 +16,7 @@
             "gla:qos-class": "Burstable",
             "gla:start-time": "2024-02-13T13:53:43Z",
             "gla:has-container": {
-                "@id": ":containerd-0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
+                "@id": "cluster:containerd-0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
                 "@type": "gla:Container",
                 "gla:has-name": "coredns",
                 "gla:limits-memory": "170Mi",
@@ -27,15 +27,15 @@
                 "gla:state": "running"
             },
             "gla:runs-on": {
-                "@id": ":glaciation-test-master01",
+                "@id": "cluster:glaciation-test-master01",
                 "@type": "gla:Node",
-                "gla:has-pod": ":coredns-787d4945fb-l85r5"
+                "gla:has-pod": "cluster:coredns-787d4945fb-l85r5"
             }
         },
         {
-            "@id": ":coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685",
-            "@type": "ReplicaSet",
-            "gla:refers-to": ":coredns-787d4945fb-l85r5"
+            "@id": "cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685",
+            "@type": "gla:ReplicaSet",
+            "gla:refers-to": "cluster:coredns-787d4945fb-l85r5"
         }
     ]
 }
