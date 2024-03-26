@@ -20,6 +20,9 @@ class JsonLDSerialializer(GraphSerializer):
         results: List[Dict[str, Any]] = []
         all_node_ids: Set[IRI] = graph.get_ids()
         aggregate_ids: Set[IRI] = set()
+        default_context = self.config.contexts.get(
+            JsonLDConfiguration.DEFAULT_CONTEXT_IRI, dict()
+        )
         for node_id in sorted(list(all_node_ids)):
             meta_properties = graph.get_node_meta_properties(node_id)
             rdf_type = meta_properties.get(Graph.RDF_TYPE_IRI)
@@ -27,16 +30,17 @@ class JsonLDSerialializer(GraphSerializer):
                 aggregate_ids.add(node_id)
 
         queue = sorted(list(aggregate_ids))
-        self.write_nodes(results, graph, queue, all_node_ids, aggregate_ids)
+        self.write_nodes(
+            results, graph, queue, all_node_ids, aggregate_ids, default_context
+        )
 
         queue = sorted(list(set(all_node_ids) - aggregate_ids))
-        self.write_nodes(results, graph, queue, all_node_ids, aggregate_ids)
+        self.write_nodes(
+            results, graph, queue, all_node_ids, aggregate_ids, default_context
+        )
 
         outcome: Dict[str, Any] = {}
-        default_context = self.config.contexts.get(
-            JsonLDConfiguration.DEFAULT_CONTEXT_IRI
-        )
-        if default_context:
+        if len(default_context) > 0:
             outcome["@context"] = default_context
         outcome["@graph"] = results
         out.write(json.dumps(outcome))
@@ -49,12 +53,13 @@ class JsonLDSerialializer(GraphSerializer):
         queue: List[IRI],
         all_node_ids: Set[IRI],
         aggregate_ids: Set[IRI],
+        default_context: Dict[str, Any],
     ) -> None:
         while len(queue) > 0:
             node_id, queue = queue[0], queue[1:]
             if node_id in all_node_ids:
                 result_node = self.write_node(
-                    graph, node_id, all_node_ids, aggregate_ids
+                    graph, node_id, all_node_ids, aggregate_ids, default_context
                 )
                 out_results.append(result_node)
 
@@ -64,6 +69,7 @@ class JsonLDSerialializer(GraphSerializer):
         node_id: IRI,
         all_node_ids: Set[IRI],
         aggregate_ids: Set[IRI],
+        default_context: Dict[str, Any],
     ) -> Dict[str, Any]:
         all_node_ids.remove(node_id)
         result_node: Dict[str, Any] = {}
@@ -71,19 +77,29 @@ class JsonLDSerialializer(GraphSerializer):
 
         meta_properties = dict(sorted(graph.get_node_meta_properties(node_id).items()))
         rdf_type = meta_properties.get(Graph.RDF_TYPE_IRI)
-        if rdf_type is None:
-            raise Exception(f"Node {node_id} is expected to have a rdf:type.")
+        if not rdf_type:
+            raise Exception(
+                f"Node {node_id} is expected to have a 'rdf:type' property."
+            )
         result_node["@type"] = rdf_type.render()
-        context = self.resolve_context(meta_properties)
+
+        local_context = self.resolve_context(meta_properties)
+
         del meta_properties[Graph.RDF_TYPE_IRI]
-        if len(context) > 0:
-            result_node = {**result_node, **{"@context": context}}
+        if len(local_context) > 0:
+            result_node = {**result_node, **{"@context": local_context}}
+
+        self.validate_prefix(rdf_type, default_context, local_context)
+        self.validate_prefix(node_id, default_context, local_context)
 
         for predicate, value in meta_properties.items():
+            self.validate_prefix(predicate, default_context, local_context)
+            self.validate_prefix(value, default_context, local_context)
             result_node[predicate.render()] = value.render()
 
         node_properties = dict(sorted(graph.get_node_properties(node_id).items()))
         for predicate, values in node_properties.items():
+            self.validate_prefix(predicate, default_context, local_context)
             if type(values) is set:
                 result_node[predicate.render()] = {
                     "@set": list(sorted([v.render() for v in values]))
@@ -93,6 +109,7 @@ class JsonLDSerialializer(GraphSerializer):
 
         node_relations = dict(sorted(graph.get_node_relations(node_id).items()))
         for predicate, values in node_relations.items():
+            self.validate_prefix(predicate, default_context, local_context)
             if type(values) is set:
                 if len(values) == 1:
                     relation_iri: IRI = next(iter(values))
@@ -101,9 +118,16 @@ class JsonLDSerialializer(GraphSerializer):
                         and relation_iri in all_node_ids
                     ):
                         result_node[predicate.render()] = self.write_node(
-                            graph, relation_iri, all_node_ids, aggregate_ids
+                            graph,
+                            relation_iri,
+                            all_node_ids,
+                            aggregate_ids,
+                            default_context,
                         )
                     else:
+                        self.validate_prefix(
+                            relation_iri, default_context, local_context
+                        )
                         result_node[predicate.render()] = relation_iri.render()
                 else:
                     relation_nodes = list()
@@ -111,16 +135,24 @@ class JsonLDSerialializer(GraphSerializer):
                         if value_id not in aggregate_ids and value_id in all_node_ids:
                             relation_nodes.append(
                                 self.write_node(
-                                    graph, value_id, all_node_ids, aggregate_ids
+                                    graph,
+                                    value_id,
+                                    all_node_ids,
+                                    aggregate_ids,
+                                    default_context,
                                 )
                             )
                         else:
+                            self.validate_prefix(
+                                value_id, default_context, local_context
+                            )
                             relation_nodes.append(value_id.render())
                     result_node[predicate.render()] = {"@set": relation_nodes}
             else:
+                self.validate_prefix(values, default_context, local_context)
                 if values not in aggregate_ids and value in all_node_ids:
                     result_node[predicate.render()] = self.write_node(
-                        graph, values, all_node_ids, aggregate_ids
+                        graph, values, all_node_ids, aggregate_ids, default_context
                     )
                 else:
                     result_node[predicate.render()] = values.render()
@@ -132,3 +164,20 @@ class JsonLDSerialializer(GraphSerializer):
         if not rdf_type:
             return dict()
         return self.config.contexts.get(rdf_type, dict())
+
+    def validate_prefix(
+        self,
+        iri: IdBase,
+        default_context: Dict[str, Any],
+        local_context: Dict[str, Any],
+    ) -> None:
+        prefix = iri.get_prefix()
+        if prefix:
+            if prefix in default_context:
+                return
+            elif prefix in local_context:
+                return
+            else:
+                raise Exception(
+                    f"Prefix for {iri.render()} cannot be found in any context."
+                )

@@ -27,21 +27,45 @@ class JsonLDSerializerTest(TestCase):
             IRI("pref", "id1"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode")
         )
         configs = JsonLDConfiguration(dict(), set())
+        with self.assertRaises(Exception) as e:
+            JsonLDSerialializer(configs).write(buffer, graph)
+        self.assertEqual(
+            str(e.exception), "Prefix for pref:MyNode cannot be found in any context."
+        )
+
+    def test_simple_node(self):
+        buffer = StringIO()
+        graph = InMemoryGraph()
+        graph.add_meta_property(
+            IRI("pref", "id1"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode")
+        )
+        configs = JsonLDConfiguration(
+            {JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {"pref": "whatever"}}, set()
+        )
         JsonLDSerialializer(configs).write(buffer, graph)
-        expected = json.dumps({"@graph": [{"@id": "pref:id1", "@type": "pref:MyNode"}]})
-        self.assertEqual(buffer.getvalue(), expected)
+        self.assertEqual(
+            buffer.getvalue(),
+            json.dumps(
+                {
+                    "@context": {"pref": "whatever"},
+                    "@graph": [{"@id": "pref:id1", "@type": "pref:MyNode"}],
+                }
+            ),
+        )
 
     def test_two_nodes(self):
         buffer = StringIO()
         configs = JsonLDConfiguration(
             {
                 IRI("pref", "MyNode"): {
+                    "pref": "http://example.com/",
                     "MyNode": "http://example.com/MyNode",
                     "rel1": "http://example.com/MyNode/rel1",
                     "rel2": "http://example.com/MyNode/rel2",
                     "connects": "http://example.com/MyNode/connects",
                 },
                 IRI("pref", "MyNode2"): {
+                    "pref": "http://example.com/",
                     "prop2": "http://example.com/MyNode2/prop2",
                     "MyNode2": "http://example.com/MyNode2",
                 },
@@ -56,6 +80,7 @@ class JsonLDSerializerTest(TestCase):
                     "@id": "pref:id2",
                     "@type": "pref:MyNode2",
                     "@context": {
+                        "pref": "http://example.com/",
                         "prop2": "http://example.com/MyNode2/prop2",
                         "MyNode2": "http://example.com/MyNode2",
                     },
@@ -65,6 +90,7 @@ class JsonLDSerializerTest(TestCase):
                     "@id": "pref:id1",
                     "@type": "pref:MyNode",
                     "@context": {
+                        "pref": "http://example.com/",
                         "MyNode": "http://example.com/MyNode",
                         "rel1": "http://example.com/MyNode/rel1",
                         "rel2": "http://example.com/MyNode/rel2",
@@ -90,6 +116,9 @@ class JsonLDSerializerTest(TestCase):
                 },
                 IRI("pref", "Embedded2"): {
                     "@vocab": "http://example.com/nodes",
+                },
+                JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
+                    "pref": "http://example.com/"
                 },
             },
             {IRI("pref", "MyNode")},
@@ -121,6 +150,7 @@ class JsonLDSerializerTest(TestCase):
 
         JsonLDSerialializer(configs).write(buffer, graph)
         expected = {
+            "@context": {"pref": "http://example.com/"},
             "@graph": [
                 {
                     "@id": "pref:id1",
@@ -140,7 +170,7 @@ class JsonLDSerializerTest(TestCase):
                         },
                     },
                 }
-            ]
+            ],
         }
         self.assertEqual(buffer.getvalue(), json.dumps(expected))
 
@@ -150,6 +180,7 @@ class JsonLDSerializerTest(TestCase):
             {
                 JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
                     "@vocab": "http://example.com/nodes",
+                    "pref": "http://example.com/",
                 },
             },
             set(),
@@ -163,7 +194,10 @@ class JsonLDSerializerTest(TestCase):
 
         JsonLDSerialializer(configs).write(buffer, graph)
         expected = {
-            "@context": {"@vocab": "http://example.com/nodes"},
+            "@context": {
+                "@vocab": "http://example.com/nodes",
+                "pref": "http://example.com/",
+            },
             "@graph": [{"@id": "pref:id1", "@type": "pref:MyNode", "pref:p1": "v1"}],
         }
         self.assertEqual(buffer.getvalue(), json.dumps(expected))

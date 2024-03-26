@@ -1,4 +1,9 @@
 {
+    "@context": {
+        "gla": "http://glaciation-project.eu/model/",
+        "cluster": "https://127.0.0.1:6443",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
     "@graph": [
         {
             "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
