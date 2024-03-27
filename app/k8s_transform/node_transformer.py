@@ -14,7 +14,7 @@ class NodesToRDFTransformer(TransformerBase):
         super().__init__(source, sink)
 
     def transform(self) -> None:
-        node_id = self.get_node_id()
+        node_id = self.get_node_id(self.source)
         self.sink.add_meta_property(
             node_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Node")
         )
@@ -113,8 +113,3 @@ class NodesToRDFTransformer(TransformerBase):
         self.sink.add_relation_collection(
             node_name, IRI(self.GLACIATION_PREFIX, "has-condition"), condition_ids
         )
-
-    def get_node_id(self) -> IRI:
-        name = parse("$.metadata.name").find(self.source)[0].value
-        resource_id = IRI(self.CLUSTER_PREFIX, f"{name}")
-        return resource_id

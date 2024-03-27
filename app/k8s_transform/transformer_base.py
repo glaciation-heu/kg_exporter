@@ -95,3 +95,8 @@ class TransformerBase:
     def get_pod_id(self) -> IRI:
         name = parse("$.metadata.name").find(self.source)[0].value
         return IRI(self.CLUSTER_PREFIX, name)
+
+    def get_node_id(self, node_resource: Dict[str, Any]) -> IRI:
+        name = parse("$.metadata.name").find(node_resource)[0].value
+        resource_id = IRI(self.CLUSTER_PREFIX, name)
+        return resource_id

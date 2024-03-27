@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import json
 from io import FileIO
@@ -20,6 +20,10 @@ class TransformBaseTest(TestCase):
             return json.load(f)  # type: ignore
 
     def load_json(self, name: str) -> Dict[str, Any]:
+        with FileIO(f"app/k8s_transform/__fixture__/{name}.json") as f:
+            return json.load(f)  # type: ignore
+
+    def load_json_list(self, name: str) -> List[Dict[str, Any]]:
         with FileIO(f"app/k8s_transform/__fixture__/{name}.json") as f:
             return json.load(f)  # type: ignore
 
