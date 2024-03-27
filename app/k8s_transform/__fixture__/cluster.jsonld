@@ -1,0 +1,42 @@
+{
+    "@context": {
+        "gla": "http://glaciation-project.eu/model/",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:glaciation-mast01",
+            "@type": "gla:Node"
+        },
+        {
+            "@id": "cluster:glaciation-worker01",
+            "@type": "gla:Node"
+        },
+        {
+            "@id": "cluster:glaciation-worker02",
+            "@type": "gla:Node"
+        },
+        {
+            "@id": "cluster:glaciation-worker03",
+            "@type": "gla:Node"
+        },
+        {
+            "@id": "cluster:glaciation-worker04",
+            "@type": "gla:Node"
+        },
+        {
+            "@id": "cluster:kubernetes",
+            "@type": "gla:Cluster",
+            "gla:has-node": {
+                "@set": [
+                    "cluster:glaciation-mast01",
+                    "cluster:glaciation-worker01",
+                    "cluster:glaciation-worker02",
+                    "cluster:glaciation-worker03",
+                    "cluster:glaciation-worker04"
+                ]
+            }
+        }
+    ]
+}

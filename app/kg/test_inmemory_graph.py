@@ -1,6 +1,8 @@
 from unittest import TestCase
 
 from app.kg.inmemory_graph import InMemoryGraph
+from app.kg.iri import IRI
+from app.kg.literal import Literal
 
 
 class InMemoryGraphTest(TestCase):
@@ -10,35 +12,66 @@ class InMemoryGraphTest(TestCase):
 
     def test_node(self):
         graph = InMemoryGraph()
-        graph.add_property("id1", "rel1", "val11")
+        graph.add_property(IRI("", "id1"), IRI("", "rel1"), Literal("val11", "str"))
         self.assertEqual(
-            graph.get_node_properties("id1"),
-            {"rel1": "val11"},
+            graph.get_node_properties(IRI("", "id1")),
+            {IRI("", "rel1"): Literal("val11", "str")},
         )
-        graph.add_property_collection("id1", "rel2", {"val21", "val22"})
-        graph.add_property("id1", "rel2", "val23")
-        graph.add_meta_property("id1", "rel3", "meta")
-        self.assertEqual(graph.get_ids(), {"id1"})
+        graph.add_property_collection(
+            IRI("", "id1"),
+            IRI("", "rel2"),
+            {Literal("val21", "str"), Literal("val22", "str")},
+        )
+        graph.add_property(IRI("", "id1"), IRI("", "rel2"), Literal("val23", "str"))
+        graph.add_meta_property(IRI("", "id1"), IRI("", "rel3"), Literal("meta", "str"))
+        self.assertEqual(graph.get_ids(), {IRI("", "id1")})
         self.assertEqual(
-            graph.get_node_properties("id1"),
-            {"rel1": "val11", "rel2": {"val21", "val22", "val23"}},
+            graph.get_node_properties(IRI("", "id1")),
+            {
+                IRI("", "rel1"): Literal("val11", "str"),
+                IRI("", "rel2"): {
+                    Literal("val21", "str"),
+                    Literal("val22", "str"),
+                    Literal("val23", "str"),
+                },
+            },
         )
-        self.assertEqual(graph.get_node_meta_properties("id1"), {"rel3": "meta"})
+        self.assertEqual(
+            graph.get_node_meta_properties(IRI("", "id1")),
+            {IRI("", "rel3"): Literal("meta", "str")},
+        )
 
     def test_edge(self):
         graph = InMemoryGraph()
-        graph.add_relation("id1", "rel1", "id2")
-        self.assertEqual(graph.get_node_relations("id1"), {"rel1": {"id2"}})
-        graph.add_relation("id1", "rel1", "id3")
-        self.assertEqual(graph.get_node_relations("id1"), {"rel1": {"id3", "id2"}})
-        graph.add_relation_collection("id1", "rel1", {"id3", "id4"})
-        graph.add_relation_collection("id2", "rel2", {"id3", "id4"})
-        self.assertEqual(graph.get_ids(), {"id1", "id2", "id3", "id4"})
-        self.assertEqual(graph.get_node_properties("id1"), {})
-        self.assertEqual(graph.get_node_properties("id2"), {})
-        self.assertEqual(graph.get_node_properties("id3"), {})
-        self.assertEqual(graph.get_node_properties("id4"), {})
+        graph.add_relation(IRI("", "id1"), IRI("", "rel1"), IRI("", "id2"))
         self.assertEqual(
-            graph.get_node_relations("id1"), {"rel1": {"id3", "id2", "id4"}}
+            graph.get_node_relations(IRI("", "id1")),
+            {IRI("", "rel1"): {IRI("", "id2")}},
         )
-        self.assertEqual(graph.get_node_relations("id2"), {"rel2": {"id3", "id4"}})
+        graph.add_relation(IRI("", "id1"), IRI("", "rel1"), IRI("", "id3"))
+        self.assertEqual(
+            graph.get_node_relations(IRI("", "id1")),
+            {IRI("", "rel1"): {IRI("", "id3"), IRI("", "id2")}},
+        )
+        graph.add_relation_collection(
+            IRI("", "id1"), IRI("", "rel1"), {IRI("", "id3"), IRI("", "id4")}
+        )
+        graph.add_relation_collection(
+            IRI("", "id2"), IRI("", "rel2"), {IRI("", "id3"), IRI("", "id4")}
+        )
+        self.assertEqual(
+            graph.get_ids(),
+            {IRI("", "id1"), IRI("", "id2"), IRI("", "id3"), IRI("", "id4")},
+        )
+        self.assertEqual(graph.get_node_properties(IRI("", "id1")), {})
+        self.assertEqual(graph.get_node_properties(IRI("", "id2")), {})
+        self.assertEqual(graph.get_node_properties(IRI("", "id3")), {})
+        self.assertEqual(graph.get_node_properties(IRI("", "id4")), {})
+        self.assertEqual(
+            graph.get_node_relations(IRI("", "id1")),
+            {IRI("", "rel1"): {IRI("", "id3"), IRI("", "id2"), IRI("", "id4")}},
+        )
+        self.assertEqual(
+            graph.get_node_relations(IRI("", "id2")),
+            {IRI("", "rel2"): {IRI("", "id3"), IRI("", "id4")}},
+        )

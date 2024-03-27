@@ -1,7 +1,8 @@
-:tenant1-pool-0-1 rdf:type :Pod .
-:tenant1-pool-0-1 :has-annotation ("min.io/revision:0") .
-:tenant1-pool-0-1 :has-label ("apps.kubernetes.io/pod-index:1" "controller-revision-hash:tenant1-pool-0-6b769f799d" "statefulset.kubernetes.io/pod-name:tenant1-pool-0-1" "v1.min.io/console:tenant1-console" "v1.min.io/pool:pool-0" "v1.min.io/tenant:tenant1") .
-:tenant1-pool-0-1 :is-scheduled-by "default-scheduler" .
-:tenant1-pool-0-1 :pod-phase "Pending" .
-:tenant1-pool-0-1 :qos-class "Burstable" .
-:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 :refers-to :tenant1-pool-0-1 .
+cluster:tenant1-pool-0-1 rdf:type gla:Pod .
+cluster:tenant1-pool-0-1 gla:has-annotation ("min.io/revision:0") .
+cluster:tenant1-pool-0-1 gla:has-label ("apps.kubernetes.io/pod-index:1" "controller-revision-hash:tenant1-pool-0-6b769f799d" "statefulset.kubernetes.io/pod-name:tenant1-pool-0-1" "v1.min.io/console:tenant1-console" "v1.min.io/pool:pool-0" "v1.min.io/tenant:tenant1") .
+cluster:tenant1-pool-0-1 gla:is-scheduled-by "default-scheduler" .
+cluster:tenant1-pool-0-1 gla:pod-phase "Pending" .
+cluster:tenant1-pool-0-1 gla:qos-class "Burstable" .
+cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 rdf:type gla:StatefulSet .
+cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 gla:refers-to cluster:tenant1-pool-0-1 .

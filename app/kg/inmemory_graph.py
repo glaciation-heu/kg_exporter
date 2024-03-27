@@ -1,28 +1,32 @@
 from typing import Any, Dict, Set
 
-from app.kg.graph import Graph, PropertySet, PropertyValue, RelationSet
+from app.kg.graph import Graph
+from app.kg.id_base import IdBase
+from app.kg.iri import IRI
+from app.kg.literal import Literal
+from app.kg.types import LiteralSet, RelationSet
 
 
 class GraphNode:
-    id: str
-    properties: Dict[str, PropertyValue | PropertySet]
-    meta_properties: Dict[str, str]
+    id: IRI
+    properties: Dict[IRI, Literal | LiteralSet]
+    meta_properties: Dict[IRI, IdBase]
 
-    def __init__(self, node_id: str):
+    def __init__(self, node_id: IRI):
         self.id = node_id
         self.properties = {}
         self.meta_properties = {}
 
-    def add_property(self, predicate: str, value: PropertyValue) -> None:
+    def add_property(self, predicate: IRI, value: Literal) -> None:
         if predicate in self.properties:
             self.add_property_collection(predicate, {value})
         else:
             self.properties[predicate] = value
 
-    def add_meta_property(self, predicate: str, value: str) -> None:
+    def add_meta_property(self, predicate: IRI, value: IdBase) -> None:
         self.meta_properties[predicate] = value
 
-    def add_property_collection(self, predicate: str, values: PropertySet) -> None:
+    def add_property_collection(self, predicate: IRI, values: LiteralSet) -> None:
         if predicate in self.properties:
             existing_value = self.properties[predicate]
             if type(existing_value) is set:
@@ -33,44 +37,44 @@ class GraphNode:
         else:
             self.properties[predicate] = values
 
-    def get_properties(self) -> Dict[str, Any]:
+    def get_properties(self) -> Dict[IRI, Any]:
         return self.properties
 
-    def get_meta_properties(self) -> Dict[str, str]:
+    def get_meta_properties(self) -> Dict[IRI, IdBase]:
         return self.meta_properties
 
 
 class GraphEdge:
-    subject_id: str
-    predicate: str
-    objects: Set[str]
+    subject_id: IRI
+    predicate: IRI
+    objects: Set[IRI]
 
-    def __init__(self, subject_id: str, predicate: str):
+    def __init__(self, subject_id: IRI, predicate: IRI):
         self.subject_id = subject_id
         self.predicate = predicate
         self.objects = set()
 
-    def add_object_id(self, object_id: str) -> None:
+    def add_object_id(self, object_id: IRI) -> None:
         self.objects.add(object_id)
 
-    def get_objects(self) -> Set[str]:
+    def get_objects(self) -> Set[IRI]:
         return self.objects
 
 
 class InMemoryGraph(Graph):
-    nodes: Dict[str, GraphNode]
-    edges: Dict[str, Dict[str, GraphEdge]]
+    nodes: Dict[IRI, GraphNode]
+    edges: Dict[IRI, Dict[IRI, GraphEdge]]
 
     def __init__(self):
         self.nodes = {}
         self.edges = {}
 
-    def get_or_add_node(self, node_id: str) -> GraphNode:
+    def get_or_add_node(self, node_id: IRI) -> GraphNode:
         if node_id not in self.nodes:
             self.nodes[node_id] = GraphNode(node_id)
         return self.nodes[node_id]
 
-    def get_or_add_edge(self, subject_id: str, predicate: str) -> GraphEdge:
+    def get_or_add_edge(self, subject_id: IRI, predicate: IRI) -> GraphEdge:
         self.get_or_add_node(subject_id)
         if subject_id not in self.edges:
             self.edges[subject_id] = {}
@@ -79,51 +83,49 @@ class InMemoryGraph(Graph):
             node_edges[predicate] = GraphEdge(subject_id, predicate)
         return node_edges[predicate]
 
-    def add_property(
-        self, subject_id: str, predicate: str, value: PropertyValue
-    ) -> None:
+    def add_property(self, subject_id: IRI, predicate: IRI, value: Literal) -> None:
         self.get_or_add_node(subject_id).add_property(predicate, value)
 
     def add_property_collection(
-        self, subject_id: str, predicate: str, value: PropertySet
+        self, subject_id: IRI, predicate: IRI, value: LiteralSet
     ) -> None:
         self.get_or_add_node(subject_id).add_property_collection(predicate, value)
 
     def add_meta_property(
-        self, subject_id: str, predicate: str, object_id: str
+        self, subject_id: IRI, predicate: IRI, object_id: IdBase
     ) -> None:
         self.get_or_add_node(subject_id).add_meta_property(predicate, object_id)
 
-    def add_relation(self, subject_id: str, predicate: str, object_id: str) -> None:
+    def add_relation(self, subject_id: IRI, predicate: IRI, object_id: IRI) -> None:
         self.get_or_add_node(object_id)
         self.get_or_add_edge(subject_id, predicate).add_object_id(object_id)
 
     def add_relation_collection(
-        self, subject_id: str, predicate: str, object_ids: RelationSet
+        self, subject_id: IRI, predicate: IRI, object_ids: RelationSet
     ) -> None:
         edge = self.get_or_add_edge(subject_id, predicate)
         for object_id in object_ids:
             self.get_or_add_node(object_id)
             edge.add_object_id(object_id)
 
-    def get_ids(self) -> Set[str]:
+    def get_ids(self) -> Set[IRI]:
         return set(self.nodes.keys())
 
-    def get_node_properties(self, node_id: str) -> Dict[str, Any]:
+    def get_node_properties(self, node_id: IRI) -> Dict[IRI, Any]:
         node = self.nodes.get(node_id)
         if node:
             return node.get_properties()
         else:
             return {}
 
-    def get_node_meta_properties(self, node_id: str) -> Dict[str, str]:
+    def get_node_meta_properties(self, node_id: IRI) -> Dict[IRI, IdBase]:
         node = self.nodes.get(node_id)
         if node:
             return node.get_meta_properties()
         else:
             return {}
 
-    def get_node_relations(self, node_id: str) -> Dict[str, RelationSet]:
+    def get_node_relations(self, node_id: IRI) -> Dict[IRI, RelationSet]:
         edge_nodes = self.edges.get(node_id)
         if edge_nodes:
             return {
