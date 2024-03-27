@@ -6,6 +6,11 @@ PropertyValue: TypeAlias = str | int | bool | float
 
 
 class Literal(IdBase):
+    TYPE_STRING = "str"
+    TYPE_INT = "int"
+    TYPE_FLOAT = "float"
+    TYPE_BOOL = "bool"
+
     value: PropertyValue
     _type: str
 
@@ -68,7 +73,7 @@ class Literal(IdBase):
         return f"{self.value}"
 
     def is_string_type(self) -> bool:
-        return self._type == "str"
+        return self._type == self.TYPE_STRING
 
     def get_prefix(self) -> Optional[str]:
         return None

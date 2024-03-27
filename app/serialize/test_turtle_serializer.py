@@ -25,6 +25,27 @@ pref:id1 pref:rel2 ("val21" "val22" "val23") .
 """
         self.assertEqual(buffer.getvalue(), expected)
 
+    def test_multiple_types(self):
+        buffer = StringIO()
+        graph = InMemoryGraph()
+        obj_id = IRI("pref", "id1")
+        graph.add_meta_property(obj_id, Graph.RDF_TYPE_IRI, IRI("pref", "MyNode"))
+        graph.add_property(obj_id, IRI("pref", "str_type"), Literal("str_value", "str"))
+        graph.add_property(obj_id, IRI("pref", "int_type"), Literal(42, "int"))
+        graph.add_property(obj_id, IRI("pref", "float_type"), Literal(42.00, "float"))
+        graph.add_property(obj_id, IRI("pref", "bool_type"), Literal(True, "bool"))
+
+        TurtleSerialializer().write(buffer, graph)
+        self.assertEqual(
+            buffer.getvalue(),
+            """pref:id1 rdf:type pref:MyNode .
+pref:id1 pref:bool_type True^^<http://www.w3.org/2001/XMLSchema#boolean> .
+pref:id1 pref:float_type 42.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+pref:id1 pref:int_type 42^^<http://www.w3.org/2001/XMLSchema#integer> .
+pref:id1 pref:str_type "str_value" .
+""",
+        )
+
     def sample_graph(self) -> Graph:
         graph = InMemoryGraph()
         graph.add_property(

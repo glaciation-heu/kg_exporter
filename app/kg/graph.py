@@ -1,4 +1,4 @@
-from typing import Any, Dict, Set
+from typing import Dict, Set
 
 from abc import abstractmethod
 
@@ -43,7 +43,7 @@ class Graph:
         raise NotImplementedError
 
     @abstractmethod
-    def get_node_properties(self, node_id: IRI) -> Dict[IRI, Any]:
+    def get_node_properties(self, node_id: IRI) -> Dict[IRI, Literal | LiteralSet]:
         raise NotImplementedError
 
     @abstractmethod

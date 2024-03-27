@@ -202,6 +202,39 @@ class JsonLDSerializerTest(TestCase):
         }
         self.assertEqual(buffer.getvalue(), json.dumps(expected))
 
+    def test_multiple_types(self):
+        buffer = StringIO()
+        graph = InMemoryGraph()
+        obj_id = IRI("pref", "id1")
+        graph.add_meta_property(obj_id, Graph.RDF_TYPE_IRI, IRI("pref", "MyNode"))
+        graph.add_property(obj_id, IRI("pref", "str_type"), Literal("str_value", "str"))
+        graph.add_property(obj_id, IRI("pref", "int_type"), Literal(42, "int"))
+        graph.add_property(obj_id, IRI("pref", "float_type"), Literal(42.00, "float"))
+        graph.add_property(obj_id, IRI("pref", "bool_type"), Literal(True, "bool"))
+
+        configs = JsonLDConfiguration(
+            {JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {"pref": "whatever"}}, set()
+        )
+        JsonLDSerialializer(configs).write(buffer, graph)
+        self.assertEqual(
+            buffer.getvalue(),
+            json.dumps(
+                {
+                    "@context": {"pref": "whatever"},
+                    "@graph": [
+                        {
+                            "@id": "pref:id1",
+                            "@type": "pref:MyNode",
+                            "pref:bool_type": True,
+                            "pref:float_type": 42.0,
+                            "pref:int_type": 42,
+                            "pref:str_type": "str_value",
+                        }
+                    ],
+                }
+            ),
+        )
+
     def sample_graph(self) -> Graph:
         graph = InMemoryGraph()
         graph.add_property(

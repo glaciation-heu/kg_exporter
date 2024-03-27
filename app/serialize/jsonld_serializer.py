@@ -6,6 +6,7 @@ from io import IOBase
 from app.kg.graph import Graph
 from app.kg.id_base import IdBase
 from app.kg.iri import IRI
+from app.kg.literal import Literal, PropertyValue
 from app.serialize.graph_serializer import GraphSerializer
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 
@@ -95,67 +96,51 @@ class JsonLDSerialializer(GraphSerializer):
         for predicate, value in meta_properties.items():
             self.validate_prefix(predicate, default_context, local_context)
             self.validate_prefix(value, default_context, local_context)
-            result_node[predicate.render()] = value.render()
+            result_node[predicate.render()] = self.get_value(value)
 
         node_properties = dict(sorted(graph.get_node_properties(node_id).items()))
         for predicate, values in node_properties.items():
             self.validate_prefix(predicate, default_context, local_context)
-            if type(values) is set:
+            if isinstance(values, set):
                 result_node[predicate.render()] = {
-                    "@set": list(sorted([v.render() for v in values]))
+                    "@set": list(sorted([self.get_value(v) for v in values]))
                 }
             else:
-                result_node[predicate.render()] = values.render()
+                result_node[predicate.render()] = self.get_value(values)
 
         node_relations = dict(sorted(graph.get_node_relations(node_id).items()))
-        for predicate, values in node_relations.items():
+        for predicate, relation_object in node_relations.items():
             self.validate_prefix(predicate, default_context, local_context)
-            if type(values) is set:
-                if len(values) == 1:
-                    relation_iri: IRI = next(iter(values))
-                    if (
-                        relation_iri not in aggregate_ids
-                        and relation_iri in all_node_ids
-                    ):
-                        result_node[predicate.render()] = self.write_node(
-                            graph,
-                            relation_iri,
-                            all_node_ids,
-                            aggregate_ids,
-                            default_context,
-                        )
-                    else:
-                        self.validate_prefix(
-                            relation_iri, default_context, local_context
-                        )
-                        result_node[predicate.render()] = relation_iri.render()
-                else:
-                    relation_nodes = list()
-                    for value_id in sorted(list(values)):
-                        if value_id not in aggregate_ids and value_id in all_node_ids:
-                            relation_nodes.append(
-                                self.write_node(
-                                    graph,
-                                    value_id,
-                                    all_node_ids,
-                                    aggregate_ids,
-                                    default_context,
-                                )
-                            )
-                        else:
-                            self.validate_prefix(
-                                value_id, default_context, local_context
-                            )
-                            relation_nodes.append(value_id.render())
-                    result_node[predicate.render()] = {"@set": relation_nodes}
-            else:
-                self.validate_prefix(values, default_context, local_context)
-                if values not in aggregate_ids and value in all_node_ids:
+            if len(relation_object) == 1:
+                relation_iri: IRI = next(iter(relation_object))
+                if relation_iri not in aggregate_ids and relation_iri in all_node_ids:
                     result_node[predicate.render()] = self.write_node(
-                        graph, values, all_node_ids, aggregate_ids, default_context
+                        graph,
+                        relation_iri,
+                        all_node_ids,
+                        aggregate_ids,
+                        default_context,
                     )
                 else:
-                    result_node[predicate.render()] = values.render()
+                    self.validate_prefix(relation_iri, default_context, local_context)
+                    result_node[predicate.render()] = relation_iri.render()
+            else:
+                relation_nodes: List[Any] = list()
+                for value_id in sorted(list(relation_object)):
+                    if value_id not in aggregate_ids and value_id in all_node_ids:
+                        relation_nodes.append(
+                            self.write_node(
+                                graph,
+                                value_id,
+                                all_node_ids,
+                                aggregate_ids,
+                                default_context,
+                            )
+                        )
+                    else:
+                        self.validate_prefix(value_id, default_context, local_context)
+                        relation_nodes.append(value_id.render())
+                result_node[predicate.render()] = {"@set": relation_nodes}
 
         return result_node
 
@@ -164,6 +149,14 @@ class JsonLDSerialializer(GraphSerializer):
         if not rdf_type:
             return dict()
         return self.config.contexts.get(rdf_type, dict())
+
+    def get_value(self, base: IdBase) -> PropertyValue:
+        if isinstance(base, Literal):
+            return base.value
+        elif isinstance(base, IRI):
+            return base.render()
+        else:
+            raise Exception(f"Unexpected type {type(base)}, must one of (Literal, IRI)")
 
     def validate_prefix(
         self,
