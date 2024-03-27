@@ -31,7 +31,7 @@ class TransformBaseTest(TestCase):
         contexts: Dict[IdBase, Dict[str, Any]] = {
             JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
                 "gla": "http://glaciation-project.eu/model/",
-                "cluster": "https://127.0.0.1:6443",
+                "cluster": "https://127.0.0.1:6443/",
                 "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             }
         }
