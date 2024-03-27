@@ -87,9 +87,7 @@ class TransformerBase:
         self.sink.add_property_collection(name, property, subjects)
 
     def escape(self, token: str) -> str:
-        token = token.replace('"', '\\"')
-        token = f"{token}"
-        return token
+        return token.replace('"', '\\"')
 
     def normalize(self, value: str) -> str:
         return re.sub('["\n]', "", value)

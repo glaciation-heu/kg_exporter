@@ -56,8 +56,7 @@ class JsonLDSerialializer(GraphSerializer):
         aggregate_ids: Set[IRI],
         default_context: Dict[str, Any],
     ) -> None:
-        while len(queue) > 0:
-            node_id, queue = queue[0], queue[1:]
+        for node_id in queue:
             if node_id in all_node_ids:
                 result_node = self.write_node(
                     graph, node_id, all_node_ids, aggregate_ids, default_context
