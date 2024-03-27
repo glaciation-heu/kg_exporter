@@ -103,12 +103,12 @@ class NodesToRDFTransformer(TransformerBase):
             self.sink.add_property(
                 condition_id,
                 IRI(self.GLACIATION_PREFIX, "status"),
-                Literal(self.escape(status), "str"),
+                Literal(self.escape(status), Literal.TYPE_STRING),
             )
             self.sink.add_property(
                 condition_id,
                 IRI(self.GLACIATION_PREFIX, "reason"),
-                Literal(self.escape(reason), "str"),
+                Literal(self.escape(reason), Literal.TYPE_STRING),
             )
         self.sink.add_relation_collection(
             node_name, IRI(self.GLACIATION_PREFIX, "has-condition"), condition_ids

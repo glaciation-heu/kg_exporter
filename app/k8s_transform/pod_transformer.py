@@ -74,12 +74,12 @@ class PodToRDFTransformer(TransformerBase):
             self.sink.add_property(
                 container_iri,
                 IRI(self.GLACIATION_PREFIX, "has-name"),
-                Literal(self.escape(name), "str"),
+                Literal(self.escape(name), Literal.TYPE_STRING),
             )
             self.sink.add_property(
                 container_iri,
                 IRI(self.GLACIATION_PREFIX, "restart-count"),
-                Literal(str(restart_count), "str"),
+                Literal(str(restart_count), Literal.TYPE_STRING),
             )
             state = container_match.get("state")
             if state:
@@ -147,7 +147,7 @@ class PodToRDFTransformer(TransformerBase):
             self.sink.add_property(
                 container_id,
                 IRI(self.GLACIATION_PREFIX, "state"),
-                Literal(self.escape(state_literal), "str"),
+                Literal(self.escape(state_literal), Literal.TYPE_STRING),
             )
         if state_struct:
             self.write_tuple_from(

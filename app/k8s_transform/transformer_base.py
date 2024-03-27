@@ -41,13 +41,17 @@ class TransformerBase:
     def write_tuple(self, name: IRI, property: IRI, query: str) -> None:
         for match in parse(query).find(self.source):
             self.sink.add_property(
-                name, property, Literal(self.escape(f"{match.value}"), "str")
+                name,
+                property,
+                Literal(self.escape(f"{match.value}"), Literal.TYPE_STRING),
             )
 
     def write_meta_tuple(self, name: IRI, property: IRI, query: str) -> None:
         for match in parse(query).find(self.source):
             self.sink.add_meta_property(
-                name, property, Literal(self.escape(f"{match.value}"), "str")
+                name,
+                property,
+                Literal(self.escape(f"{match.value}"), Literal.TYPE_STRING),
             )
 
     def write_tuple_from(
@@ -55,13 +59,17 @@ class TransformerBase:
     ) -> None:
         for match in parse(query).find(source):
             self.sink.add_property(
-                name, property, Literal(self.escape(f"{match.value}"), "str")
+                name,
+                property,
+                Literal(self.escape(f"{match.value}"), Literal.TYPE_STRING),
             )
 
     def write_tuple_list(self, name: IRI, property: IRI, query: str) -> None:
         for label, value in parse(query).find(self.source)[0].value.items():
             self.sink.add_property(
-                name, property, Literal(self.escape(f"{label}:{value}"), "str")
+                name,
+                property,
+                Literal(self.escape(f"{label}:{value}"), Literal.TYPE_STRING),
             )
 
     def write_collection(self, name: IRI, property: IRI, query: str) -> None:
@@ -73,7 +81,7 @@ class TransformerBase:
             subjects.add(
                 Literal(
                     self.escape(f"{self.normalize(label)}:{self.normalize(value)}"),
-                    "str",
+                    Literal.TYPE_STRING,
                 )
             )
         self.sink.add_property_collection(name, property, subjects)
