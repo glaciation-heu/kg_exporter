@@ -1,0 +1,290 @@
+{
+    "@context": {
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "cluster": "https://10.1.14.160:6443/"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:kubernetes",
+            "rdf:type": "glc:Resource",
+            "glc:hasID": "cluster:kubernetes",
+            "glc:hasDescription": "Kubernetes cluster",
+            "glc:hasSubResource": {
+                "@set": [
+                    "cluster:/apis/nodes/v1/workernode-0000001-a00000"
+                ]
+            },
+            "glc:status": {
+                "@type": "glc:Status",
+                "glc:startTime": "2024-03-10T10:25:00",
+                "glc:hasDescription": "Running"
+            }
+        },
+        {
+            "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000",
+            "@type": "glc:Resource",
+            "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000",
+            "glc:hasDescription": "Kubernetes worker node",
+            "glc:status": {
+                "@type": "glc:Status",
+                "glc:startTime": "2024-03-10T10:25:00",
+                "glc:hasDescription": "Running"
+            },
+            "glc:hasSubResource": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.CPU",
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000.CPU",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.CPU.Measurement",
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000.CPU.Measurement",
+                                    "glc:relatesToMeasurementProperty": "CPU.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 4,
+                                    "glc:measuredIn": "CPU.cores"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.RAM",
+                        "@type": "glc:Resource",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.RAM.Measurement",
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000.RAM.Measurement",
+                                    "glc:relatesToMeasurementProperty": "RAM.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 16,
+                                    "glc:measuredIn": "RAM.gb"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Storage",
+                        "@type": "glc:Resource",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Storage.Measurement",
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Storage.Measurement",
+                                    "glc:relatesToMeasurementProperty": "Storage.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 64,
+                                    "glc:measuredIn": "Storage.gb"
+                                },
+                                "cluster:/apis/nodes/v1/workernode-0000001-a00000.Energy.Measurement.16034236464"
+                            ]
+                        }
+                    },
+                    {
+                        "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Network",
+                        "@type": "glc:Resource",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Network.Measurement",
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Network.Measurement",
+                                    "glc:relatesToMeasurementProperty": "Network.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 10,
+                                    "glc:measuredIn": "Network.mb"
+                                },
+                                "cluster:/apis/nodes/v1/workernode-0000001-a00000.Energy.Measurement.16034236464"
+                            ]
+                        }
+                    },
+                    "cluster:/apis/pods/v1/pod-0000001-a00000"
+                ]
+            },
+            "glc:hasMeasurement": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Energy.Measurement.16034236464",
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/nodes/v1/workernode-0000001-a00000.Energy.Measurement.16034236464",
+                        "glc:relatesToMeasurementProperty": "Energy.Consumed",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 1000,
+                        "glc:measuredIn": "Joules.mb"
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "cluster:/apis/pods/v1/pod-0000001-a00000",
+            "@type": "glc:Resource",
+            "glc:hasID": "cluster:/apis/pods/v1/pod-0000001-a00000",
+            "glc:status": {
+                "@type": "glc:Status",
+                "glc:startTime": "2024-03-10T10:25:00",
+                "glc:endTime": "2024-03-10T13:25:00",
+                "glc:hasDescription": "Terminated"
+            },
+            "glc:hasSubResource": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/pods/v1/pod-0000001-a00000.container1",
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod-0000001-a00000.container1"
+                    }
+                ]
+            },
+            "glc:hasMeasurement": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/pods/v1/pod-0000001-a00000.Measurement.CPU.16034236464",
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod-0000001-a00000.Measurement.CPU.16034236464",
+                        "glc:relatesToMeasurementProperty": "CPU.Demanded",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "CPU.cores"
+                    },
+                    {
+                        "@id": "cluster:/apis/pods/v1/pod-0000001-a00000.Energy.Measurement.16034236464",
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod-0000001-a00000.Energy.Measurement.16034236464",
+                        "glc:relatesToMeasurementProperty": "Energy.Consumed",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 1000,
+                        "glc:measuredIn": "Joules.mb"
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "cluster:/apis/deployment/v1/deployment-0000003-c00000",
+            "@type": "glc:AssignedTask",
+            "glc:consumes": "cluster:/apis/pods/v1/pod-0000001-a00000",
+            "glc:hasConstraint": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/pods/v1/sample-deployment-0000002-b00000.SoftConstraint",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasAspect": "Aspect.PowerConsumption"
+                    },
+                    {
+                        "@id": "cluster:/apis/pods/v1/sample-deployment-0000002-b00000.HardConstraint",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": "Aspect.PowerConsumption"
+                    }
+                ]
+            },
+            "glc:hasPredictedMeasurement": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/pods/v1/pod-0000003-c00000.Measurement.Predicted.CPU.16034236464",
+                        "@type": "glc:Measurement",
+                        "glc:relatesToMeasurementProperty": "CPU.Demanded",
+                        "glc:hasTimestamp": 17034236464,
+                        "glc:hasValue": 0.5,
+                        "glc:measuredIn": "CPU.cores"
+                    }
+                ]
+            },
+            "glc:hasRealizedMeasurement": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/pods/v1/pod-0000003-c00000.Measurement.CPU.16034236464",
+                        "@type": "glc:Measurement",
+                        "glc:relatesToMeasurementProperty": "CPU.Demanded",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "CPU.cores"
+                    },
+                    {
+                        "@id": "cluster:/apis/pods/v1/pod-0000003-c00000.Measurement.agg.CPU.16034236464",
+                        "@type": "glc:AggregatedMeasurement",
+                        "glc:hasAggregatedFunction": "sum",
+                        "glc:startingInterval": 16034235464,
+                        "glc:endingInterval": 16034236464,
+                        "glc:timeStepResolution": 300000
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "CPU.cores",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "CPU.cores",
+            "glc:hasDescription": "CPU in cores"
+        },
+        {
+            "@id": "RAM.gb",
+            "gls:hasID": "RAM.gb",
+            "@type": "glc:MeasurementUnit"
+        },
+        {
+            "@id": "Storage.gb",
+            "glc:hasID": "Storage.gb",
+            "@type": "glc:MeasurementUnit"
+        },
+        {
+            "@id": "Network.mb",
+            "glc:hasID": "Network.mb",
+            "@type": "glc:MeasurementUnit"
+        },
+        {
+            "@id": "Energy.joules",
+            "glc:hasID": "Energy.joules",
+            "@type": "glc:MeasurementUnit"
+        },
+        {
+            "@id": "CPU.Available",
+            "glc:hasID": "CPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available capacity of CPU of a node"
+        },
+        {
+            "@id": "RAM.Available",
+            "glc:hasID": "RAM.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available capacity of RAM of a node"
+        },
+        {
+            "@id": "Storage.Available",
+            "glc:hasID": "Storage.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available capacity of Storage of a node"
+        },
+        {
+            "@id": "Network.Available",
+            "glc:hasID": "Network.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available capacity of Network of a node"
+        },
+        {
+            "@id": "Energy.Consumed",
+            "glc:hasID": "Energy.Consumed",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Energy consumed by a cluster, a node or a pod"
+        },
+        {
+            "@id": "CPU.Demanded",
+            "glc:hasID": "CPU.Demanded",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Demanded CPU by a pod"
+        },
+        {
+            "@id": "DefaultScheduler",
+            "glc:hasID": "DefaultScheduler",
+            "@type": "glc:Scheduler"
+        },
+        {
+            "@id": "Aspect.PowerConsumption",
+            "@type": "glc:Aspect",
+            "glc:hasID": "Aspect.PowerConsumption"
+        }
+    ]
+}
