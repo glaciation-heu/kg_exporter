@@ -1,6 +1,6 @@
 {
     "@context": {
-        "glc": "http://github.com/glaciation_heu/models/reference_model.turtle",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "cluster": "https://10.1.14.160:6443/"
     },
