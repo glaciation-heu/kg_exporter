@@ -1,6 +1,6 @@
 import pytest
 
-from app.client import ClientError, send_to_metadata_service
+from app.clients.metadata import ClientError, send_to_metadata_service
 from app.settings import Settings
 
 

@@ -1,3 +1,5 @@
+"""Client for Metadata Service"""
+
 import httpx
 from httpx import HTTPError
 
