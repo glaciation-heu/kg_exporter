@@ -22,7 +22,7 @@ def test__call_send_to_404_endpoint__raises() -> None:
     settings = Settings()
     settings.metadata_service_url = settings.metadata_service_url + "fake_url"
 
-    with pytest.raises(ClientError) as e:
+    with pytest.raises(ClientError, match="404 Not Found") as e:
         send_to_metadata_service("{}", settings)
 
     assert isinstance(e.value, ClientError)

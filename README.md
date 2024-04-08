@@ -94,6 +94,18 @@ poetry run pytest
 poetry run python app/kg_exporter.py
 ```
 
+## Integration tests
+Pytest tests with mark `vcr` can be played in two modes.
+1. Unit-test mode with network calls mocked.
+    ```bash
+    poetry run pytest --mark=vcr
+    ```
+2. Integration test mode with real network calls.
+    ```bash
+    poetry run pytest --mark=vcr --disable-vcr
+    ```
+It works via [VCR.py](https://vcrpy.readthedocs.io/en/latest/advanced.html) and [pytest-vcr](https://pytest-vcr.readthedocs.io/en/latest/).
+
 ## Manual build and deployment on minikube
 1. Install [minikube](https://minikube.sigs.k8s.io/docs/start/).
 2. Start minikube:

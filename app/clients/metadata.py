@@ -19,4 +19,4 @@ def send_to_metadata_service(message: str, settings: Settings) -> None:
             headers=[("Content-Type", "application/json")],
         ).raise_for_status()
     except HTTPError as e:
-        raise ClientError from e
+        raise ClientError(e.args[0]) from e
