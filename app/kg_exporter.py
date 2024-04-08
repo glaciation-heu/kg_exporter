@@ -5,11 +5,16 @@ import logging
 import signal
 import threading
 from abc import ABC, abstractmethod
+from datetime import datetime, timedelta
+from time import sleep
 
 from kubernetes import client, config, watch
 from kubernetes.client.models.v1_deployment_list import V1DeploymentList
 from kubernetes.client.models.v1_job_list import V1JobList
 from kubernetes.client.models.v1_stateful_set_list import V1StatefulSetList
+
+from app.clients.metadata import send_to_metadata_service
+from app.settings import Settings
 
 
 class Resource(ABC):
@@ -74,7 +79,7 @@ class KubernetesWatcher:
         except client.ApiException as e:
             self._logger.exception(e)
 
-    def watch_resources(self) -> None:
+    def watch_resources(self, background: bool = False) -> None:
         self._logger.info("Events:")
 
         threads = []
@@ -85,11 +90,14 @@ class KubernetesWatcher:
             threads.append(thread)
             thread.start()
 
-        for thread in threads:
-            thread.join()
+        if not background:
+            for thread in threads:
+                thread.join()
 
 
-def run_watcher(incluster: bool, logger: logging.Logger) -> None:
+def run_watcher(
+    incluster: bool, logger: logging.Logger, background: bool = False
+) -> None:
     if incluster:
         config.load_incluster_config()
     else:
@@ -105,7 +113,21 @@ def run_watcher(incluster: bool, logger: logging.Logger) -> None:
     }
 
     watcher = KubernetesWatcher(resources, logger)
-    watcher.watch_resources()
+    watcher.watch_resources(background=background)
+
+
+def run_periodic_push(settings: Settings) -> None:
+    with open("app/static/stub_message.jsonld") as f:
+        stub_message = f.read()
+    last_call = datetime.now()
+    send_to_metadata_service(stub_message, settings)
+    while True:
+        period = timedelta(seconds=settings.metadata_service_push_period_sec)
+        if datetime.now() - last_call > period:
+            last_call = datetime.now()
+            send_to_metadata_service(stub_message, settings)
+        else:
+            sleep(1)
 
 
 def main() -> None:
@@ -124,8 +146,10 @@ def main() -> None:
     logger.setLevel(logging.INFO)
     console_handler = logging.StreamHandler()
     logger.addHandler(console_handler)
+    settings = Settings()
 
-    run_watcher(args.incluster, logger)
+    run_watcher(args.incluster, logger, background=True)
+    run_periodic_push(settings)
 
 
 if __name__ == "__main__":
