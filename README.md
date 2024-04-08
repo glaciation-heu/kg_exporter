@@ -95,7 +95,7 @@ poetry run python app/kg_exporter.py
 ```
 
 ## Integration tests
-Pytest tests with mark `vcr` can be played in two modes.
+Pytest tests with mark `vcr` support two modes.
 1. Unit-test mode with network calls mocked.
     ```bash
     poetry run pytest --mark=vcr
