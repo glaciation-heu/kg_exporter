@@ -23,3 +23,6 @@ podSecurityContext: {}
 securityContext: {}
 
 resources: {}
+
+settings:
+  metadata_service_url: "http://metadata-service.knowledge-graph.svc.cluster.local/api/v0/graph"
