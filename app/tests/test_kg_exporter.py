@@ -19,8 +19,7 @@ from app.kg_exporter import (
     main,
     run_watcher,
 )
-
-from ..settings import Settings
+from app.settings import Settings
 
 
 @pytest.fixture
