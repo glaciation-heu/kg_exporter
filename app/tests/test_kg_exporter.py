@@ -8,8 +8,9 @@ from kubernetes import client
 from kubernetes.client.models.v1_deployment_list import V1DeploymentList
 from kubernetes.client.models.v1_job_list import V1JobList
 from kubernetes.client.models.v1_stateful_set_list import V1StatefulSetList
+from pytest_mock import MockerFixture
 
-from ..kg_exporter import (
+from app.kg_exporter import (
     DeploymentResource,
     JobResource,
     KubernetesWatcher,
@@ -18,6 +19,7 @@ from ..kg_exporter import (
     main,
     run_watcher,
 )
+from app.settings import Settings
 
 
 @pytest.fixture
@@ -37,6 +39,13 @@ def resources() -> dict[str, MagicMock]:
         "StatefulSet": MagicMock(spec=Resource),
         "Job": MagicMock(spec=Resource),
     }
+
+
+@pytest.fixture
+def settings(mocker: MockerFixture) -> Settings:
+    settings = Settings()
+    mocker.patch("app.kg_exporter.Settings", return_value=settings)
+    return settings
 
 
 class TestDeploymentResource:
@@ -193,23 +202,37 @@ class TestMain:
     @patch.object(sys, "argv", ["kg_exporter.py"])
     @patch("logging.getLogger")
     @patch("app.kg_exporter.run_watcher")
+    @patch("app.kg_exporter.run_periodic_push")
     def test_common(
-        self, mock_run_watcher: MagicMock, mock_get_logger: MagicMock
+        self,
+        mock_run_periodic_push: MagicMock,
+        mock_run_watcher: MagicMock,
+        mock_get_logger: MagicMock,
+        settings: Settings,
     ) -> None:
         main()
         mock_run_watcher.assert_called_once_with(
             False,
             mock_get_logger.return_value,
+            background=True,
         )
+        mock_run_periodic_push.assert_called_once_with(settings)
 
     @patch.object(sys, "argv", ["kg_exporter.py", "--incluster"])
     @patch("logging.getLogger")
     @patch("app.kg_exporter.run_watcher")
+    @patch("app.kg_exporter.run_periodic_push")
     def test_incluster(
-        self, mock_run_watcher: MagicMock, mock_get_logger: MagicMock
+        self,
+        mock_run_periodic_push: MagicMock,
+        mock_run_watcher: MagicMock,
+        mock_get_logger: MagicMock,
+        settings: Settings,
     ) -> None:
         main()
         mock_run_watcher.assert_called_once_with(
             True,
             mock_get_logger.return_value,
+            background=True,
         )
+        mock_run_periodic_push.assert_called_once_with(settings)
