@@ -1,0 +1,273 @@
+{
+    "@context": {
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "cluster": "https://10.1.14.160:6443/"
+    },
+    "@graph": [
+        {
+            "@type": "glc:Resource",
+            "glc:hasID": "cluster:/apis/nodes/v1/wn1",
+            "glc:hasSubResource": {
+                "@set": [
+                    {
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1.CPU",
+                        "glc:hasDescription": "CPU",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.CPU.Capacity",
+                                    "glc:hasDescription": "cpu-capacity-max",
+                                    "glc:relatesToMeasurementProperty": "CPU.Capacity",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 4,
+                                    "glc:measuredIn": "CPU.coreseconds"
+                                },
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.CPU.CapacityAvailable",
+                                    "glc:hasDescription": "cpu-capacity-available",
+                                    "glc:relatesToMeasurementProperty": "CPU.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 4,
+                                    "glc:measuredIn": "CPU.coreseconds"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1.GPU",
+                        "glc:hasDescription": "GPU",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.GPU.Capacity.Max",
+                                    "glc:hasDescription": "gpu-capacity-max",
+                                    "glc:relatesToMeasurementProperty": "GPU.Capacity",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 1,
+                                    "glc:measuredIn": "GPU.flops"
+                                },
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.GPU.CapacityAvailable",
+                                    "glc:hasDescription": "gpu-capacity-available",
+                                    "glc:relatesToMeasurementProperty": "GPU.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 1,
+                                    "glc:measuredIn": "GPU.flops"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1.RAM",
+                        "glc:hasDescription": "RAM",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.RAM.Capacity",
+                                    "glc:hasDescription": "ram-capacity-max",
+                                    "glc:relatesToMeasurementProperty": "RAM.Capacity",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 16,
+                                    "glc:measuredIn": "RAM.mb"
+                                },
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.RAM.Available",
+                                    "glc:hasDescription": "ram-capacity-available",
+                                    "glc:relatesToMeasurementProperty": "RAM.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 16,
+                                    "glc:measuredIn": "RAM.mb"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@id": "cluster:/apis/nodes/v1/wn1.Storage",
+                        "@type": "glc:Resource",
+                        "glc:hasDescription": "Storage",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.Storage.CapacityMax",
+                                    "glc:hasDescription": "storage-capacity-max",
+                                    "glc:relatesToMeasurementProperty": "Storage.Capacity",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 64,
+                                    "glc:measuredIn": "Storage.gb"
+                                },
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.Storage.AvailableMax",
+                                    "glc:hasDescription": "storage-capacity-available",
+                                    "glc:relatesToMeasurementProperty": "Storage.Available",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 64,
+                                    "glc:measuredIn": "Storage.gb"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "@id": "cluster:/apis/nodes/v1/wn1.Network",
+                        "@type": "glc:Resource",
+                        "glc:hasDescription": "Network",
+                        "glc:hasMeasurement": {
+                            "@set": [
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.Network.BandwidthMax",
+                                    "glc:hasDescription": "network-bandwidth-max",
+                                    "glc:relatesToMeasurementProperty": "Network.Bandwidth",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 10,
+                                    "glc:measuredIn": "Network.Bandwidth"
+                                },
+                                {
+                                    "@type": "glc:Measurement",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.Network.BandwidthAvailable",
+                                    "glc:hasDescription": "network-bandwidth-available",
+                                    "glc:relatesToMeasurementProperty": "Network.Bandwidth",
+                                    "glc:hasTimestamp": 16034236464,
+                                    "glc:hasValue": 10,
+                                    "glc:measuredIn": "Network.Bandwidth"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "glc:hasMeasurement": {
+                "@set": [
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1",
+                        "glc:hasDescription": "node-energy-index",
+                        "glc:relatesToMeasurementProperty": "Energy.Consumption",
+                        "glc:hasValue": 1000,
+                        "glc:measuredIn": "Energy.milliwatt"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1",
+                        "glc:hasDescription": "node-energy-consumption",
+                        "glc:relatesToMeasurementProperty": "Energy.Consumption",
+                        "glc:hasValue": 1000,
+                        "glc:measuredIn": "Energy.milliwatt"
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "CPU.coreseconds",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "CPU.coreseconds",
+            "glc:hasDescription": "CPU in coresseconds"
+        },
+        {
+            "@id": "GPU.flops",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "GPU.flops",
+            "glc:hasDescription": "GPU flops"
+        },
+        {
+            "@id": "RAM.mb",
+            "gls:hasID": "RAM.mb",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "RAM in megabytes"
+        },
+        {
+            "@id": "Storage.gb",
+            "glc:hasID": "Storage.gb",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "Storage in gigabytes"
+        },
+        {
+            "@id": "Network.mb",
+            "glc:hasID": "Network.mb",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "Network in megabytes"
+        },
+        {
+            "@id": "Energy.milliwatt",
+            "glc:hasID": "Energy.milliwatt",
+            "@type": "glc:MeasurementUnit"
+        },
+
+        {
+            "@id": "CPU.Capacity",
+            "glc:hasID": "CPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "CPU Capacity of a node"
+        },
+        {
+            "@id": "CPU.Available",
+            "glc:hasID": "CPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available CPU of a node"
+        },
+
+        {
+            "@id": "GPU.Capacity",
+            "glc:hasID": "GPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "GPU Capacity of a node"
+        },
+        {
+            "@id": "GPU.Available",
+            "glc:hasID": "GPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available GPU of a node"
+        },
+
+        {
+            "@id": "RAM.Capacity",
+            "glc:hasID": "RAM.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "RAM Capacity on node"
+        },
+        {
+            "@id": "RAM.Available",
+            "glc:hasID": "RAM.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available RAM on node"
+        },
+
+        {
+            "@id": "Storage.Capacity",
+            "glc:hasID": "Storage.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Storage capacity on a node"
+        },
+        {
+            "@id": "Storage.Available",
+            "glc:hasID": "Storage.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Available storage on a node"
+        },
+
+        {
+            "@id": "Network.Bandwidth",
+            "glc:hasID": "Network.Bandwidth",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Network bandwidth of a node"
+        },
+
+        {
+            "@id": "Energy.Consumed",
+            "glc:hasID": "Energy.Consumed",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Energy consumed by a cluster, a node or a pod"
+        }
+    ]
+}
