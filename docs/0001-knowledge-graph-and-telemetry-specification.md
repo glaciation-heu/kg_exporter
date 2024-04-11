@@ -55,7 +55,7 @@ Example:
 
 - Instant query:
 
-```json
+```promql
 sum(
 	rate(
 		container_network_receive_bytes_total{pod="kube-flannel-ds-7wjqv"}[5m]
@@ -65,7 +65,7 @@ sum(
 
 - Aggregated over time query with 1 hour window and 1 minute resolution:
 
-```json
+```promql
 avg_over_time(
 	sum(
 		rate(
