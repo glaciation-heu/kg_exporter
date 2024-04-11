@@ -22,7 +22,7 @@ Average using window of 5 minutes (300 seconds):
 | Node Storage capacity max (ephemeral storage), GB | TBD, (ephemeral storage helm chart) | WN_STR_MAX_CAPACITY | storage-capacity-max | $.worker_nodes.resources.storage.max |
 | Node network capacity max, GB per second | Not available yet | WN_NET_MAX_CAPACITY | network-bandwidth-max | $.worker_nodes.resource.network.max |
 | Node energy consumption, joules | Source: kepler:<br/> kepler_node_joules_total{node=”glaciation-testm1w5-worker01”} | ENERGY_CONSUMPTION_MIN, ENERGY_CONSUMPTION_MAX, ENERGY_CONSUMPTION_MEDIAN, ENERGY_CONSUMPTION_MEAN | node-energy-consumption | $.worker_nodes.energy.consumed |
-| Node CPU available, core seconds | Source: node exporter: sum(rate(node_cpu_seconds_total{mode!="idle", node="glaciation-testm1w5-worker01"}[5m])) | WN_CPU_AVAILABLE | cpu-capacity-available | $.worker_nodes.resources.cpu.available |
+| Node CPU available, core seconds | Source: node exporter: sum(rate(node_cpu_seconds_total{mode="idle", node="glaciation-testm1w5-worker01"}[5m])) | WN_CPU_AVAILABLE | cpu-capacity-available | $.worker_nodes.resources.cpu.available |
 | Node Memory available, Mb | Source: node exporter:<br/> node_memory_MemFree_bytes{instance="glaciation-testm1w5-worker01", app_kubernetes_io_component="metrics"} | WN_MEM_AVAILABLE  | ram-capacity-available | $.worker_nodes.resources.memory.available |
 | Node GPU available, flops | Not available yet | WN_GPU_AVAILABLE | gpu-capacity-available | $.worker_nodes.resources.gpu.available |
 | Network Storage available (ephemeral), Mb | cAdvisor metric:<br/> container_fs_usage_bytes{instance="glaciation-testm1w5-worker01"}/ (1024 * 1024) | WN_STR_AVAILABLE | storage-capacity-available | $.worker_nodes.resources.storage.available |

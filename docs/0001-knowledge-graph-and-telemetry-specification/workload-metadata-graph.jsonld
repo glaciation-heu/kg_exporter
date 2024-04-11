@@ -162,6 +162,7 @@
             ]
         },
         {
+            "@id": "cluster:/apis/pods/v1/pod1",
             "@type": "glc:Resource",
             "glc:hasID": "cluster:/apis/pods/v1/pod1",
             "glc:status": {
@@ -215,9 +216,18 @@
                     },
                     {
                         "@type": "glc:Measurement",
-                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.Storage.Used.16034236464",
-                        "glc:hasDescription": "storage-used",
-                        "glc:relatesToMeasurementProperty": "Storage.Used",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.Storage.Read.16034236464",
+                        "glc:hasDescription": "storage-read",
+                        "glc:relatesToMeasurementProperty": "Storage.Read",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "Storage.gb"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.Storage.Write.16034236464",
+                        "glc:hasDescription": "storage-write",
+                        "glc:relatesToMeasurementProperty": "Storage.Write",
                         "glc:hasTimestamp": 16034236464,
                         "glc:hasValue": 0.3,
                         "glc:measuredIn": "Storage.gb"
@@ -305,10 +315,16 @@
             "glc:hasDescription": "RAM used"
         },
         {
-            "@id": "Storage.Used",
-            "glc:hasID": "Storage.Used",
+            "@id": "Storage.Read",
+            "glc:hasID": "Storage.Read",
             "@type": "glc:MeasurementProperty",
-            "glc:hasDescription": "Storage used"
+            "glc:hasDescription": "Storage read"
+        },
+        {
+            "@id": "Storage.Write",
+            "glc:hasID": "Storage.Write",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Storage write"
         },
         {
             "@id": "Network.Used",
@@ -347,6 +363,36 @@
             "@id": "Aspect.Productivity",
             "@type": "glc:Aspect",
             "glc:hasID": "Aspect.Productivity"
+        },
+
+        {
+            "@id": "Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "Kepler",
+            "glc:makes": [
+                "cluster:/apis/pods/v1/pod1.Energy.Measurement.Used.16034236464"
+            ]
+        },
+        {
+            "@id": "WorkloadEnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "WorkloadEnergyBenchmark",
+            "glc:makes": [
+                "cluster:/apis/deployment/v1/deployment1.energy-index"
+            ]
+        },
+        {
+            "@id": "cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "cAdvisor",
+            "glc:makes": [
+                "cluster:/apis/pods/v1/pod1.Measurement.CPU.Used.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.GPU.Used.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.RAM.Used.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.Storage.Read.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.Storage.Write.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.Network.Used.16034236464"
+            ]
         }
 
     ]

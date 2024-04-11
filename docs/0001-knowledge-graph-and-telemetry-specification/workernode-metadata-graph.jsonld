@@ -18,7 +18,7 @@
                             "@set": [
                                 {
                                     "@type": "glc:Measurement",
-                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.CPU.Capacity",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.CPU.CapacityMax",
                                     "glc:hasDescription": "cpu-capacity-max",
                                     "glc:relatesToMeasurementProperty": "CPU.Capacity",
                                     "glc:hasTimestamp": 16034236464,
@@ -72,7 +72,7 @@
                             "@set": [
                                 {
                                     "@type": "glc:Measurement",
-                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.RAM.Capacity",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.RAM.CapacityMax",
                                     "glc:hasDescription": "ram-capacity-max",
                                     "glc:relatesToMeasurementProperty": "RAM.Capacity",
                                     "glc:hasTimestamp": 16034236464,
@@ -108,7 +108,7 @@
                                 },
                                 {
                                     "@type": "glc:Measurement",
-                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.Storage.AvailableMax",
+                                    "glc:hasID": "cluster:/apis/nodes/v1/wn1.Storage.Available",
                                     "glc:hasDescription": "storage-capacity-available",
                                     "glc:relatesToMeasurementProperty": "Storage.Available",
                                     "glc:hasTimestamp": 16034236464,
@@ -151,7 +151,7 @@
                 "@set": [
                     {
                         "@type": "glc:Measurement",
-                        "glc:hasID": "cluster:/apis/nodes/v1/wn1",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1.energy-index",
                         "glc:hasDescription": "node-energy-index",
                         "glc:relatesToMeasurementProperty": "EnergyIndex",
                         "glc:hasValue": 1000,
@@ -159,9 +159,10 @@
                     },
                     {
                         "@type": "glc:Measurement",
-                        "glc:hasID": "cluster:/apis/nodes/v1/wn1",
+                        "glc:hasID": "cluster:/apis/nodes/v1/wn1.energy-consumption.16034236464",
                         "glc:hasDescription": "node-energy-consumption",
                         "glc:relatesToMeasurementProperty": "Energy",
+                        "glc:hasTimestamp": 16034236464,
                         "glc:hasValue": 1000,
                         "glc:measuredIn": "Energy.milliwatt"
                     }
@@ -274,6 +275,52 @@
             "glc:hasID": "EnergyIndex",
             "@type": "glc:MeasurementProperty",
             "glc:hasDescription": "Energy index"
+        },
+
+        {
+            "@id": "Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "Kepler",
+            "glc:makes": [
+                "cluster:/apis/nodes/v1/wn1.energy-consumption.16034236464"
+            ]
+        },
+        {
+            "@id": "NodeEnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "NodeEnergyBenchmark",
+            "glc:makes": [
+                "cluster:/apis/nodes/v1/wn1.energy-index"
+            ]
+        },
+        {
+            "@id": "cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "cAdvisor",
+            "glc:makes": [
+                "cluster:/apis/nodes/v1/wn1.Storage.Available"
+            ]
+        },
+        {
+            "@id": "NodeExporter",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "NodeExporter",
+            "glc:makes": [
+                "cluster:/apis/nodes/v1/wn1.CPU.CapacityAvailable",
+                "cluster:/apis/nodes/v1/wn1.RAM.Available"
+            ]
+        },
+        {
+            "@id": "Kubernetes",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "Kubernetes",
+            "glc:hasDescription": "Kubernetes allocated resources",
+            "glc:makes": [
+                "cluster:/apis/nodes/v1/wn1.CPU.CapacityMax",
+                "cluster:/apis/nodes/v1/wn1.GPU.Capacity.Max",
+                "cluster:/apis/nodes/v1/wn1.RAM.CapacityMax",
+                "cluster:/apis/nodes/v1/wn1.Storage.CapacityMax"
+            ]
         }
 
     ]
