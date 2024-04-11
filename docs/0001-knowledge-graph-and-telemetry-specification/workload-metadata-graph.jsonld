@@ -369,6 +369,7 @@
             "@id": "Kepler",
             "@type": "glc:MeasuringResource",
             "glc:hasID": "Kepler",
+            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
             "glc:makes": [
                 "cluster:/apis/pods/v1/pod1.Energy.Measurement.Used.16034236464"
             ]
@@ -385,6 +386,7 @@
             "@id": "cAdvisor",
             "@type": "glc:MeasuringResource",
             "glc:hasID": "cAdvisor",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
             "glc:makes": [
                 "cluster:/apis/pods/v1/pod1.Measurement.CPU.Used.16034236464",
                 "cluster:/apis/pods/v1/pod1.Measurement.GPU.Used.16034236464",
