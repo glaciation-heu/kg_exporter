@@ -202,6 +202,16 @@ entries:
     - https://glaciation-heu.github.io/kg_exporter/helm-charts/kg-exporter-0.1.9-dev.9.HHT-408-json-ld.f7db8b74.tgz
     version: 0.1.9-dev.9.HHT-408-json-ld.f7db8b74
   - apiVersion: v2
+    appVersion: 0.1.9-dev.6.HHT-425-knowledg.8d94151c
+    created: "2024-04-11T10:48:52.810196728Z"
+    description: Kubernetes watcher service.
+    digest: f7c0475e55842baae6869959f09b90c50490f442b0f0bcf56f9b7223bac744e8
+    name: kg-exporter
+    type: application
+    urls:
+    - https://glaciation-heu.github.io/kg_exporter/helm-charts/kg-exporter-0.1.9-dev.6.HHT-425-knowledg.8d94151c.tgz
+    version: 0.1.9-dev.6.HHT-425-knowledg.8d94151c
+  - apiVersion: v2
     appVersion: 0.1.9-dev.6.HHT-408-json-ld.fd640cbc
     created: "2024-03-22T20:26:46.067866452Z"
     description: Kubernetes watcher service.
@@ -441,4 +451,4 @@ entries:
     urls:
     - https://glaciation-heu.github.io/kg_exporter/helm-charts/kg-exporter-0.1.6-dev.1.main.7467384f.tgz
     version: 0.1.6-dev.1.main.7467384f
-generated: "2024-04-11T10:47:44.503479591Z"
+generated: "2024-04-11T10:48:52.809789894Z"
