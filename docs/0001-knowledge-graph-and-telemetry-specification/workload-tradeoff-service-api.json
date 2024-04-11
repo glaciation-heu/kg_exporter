@@ -1,0 +1,71 @@
+{
+    "cluster": "cluster1",
+    "workloads": [
+        {
+            "workload_id": "cluster:/apis/workloads/v1/wl1",
+            "resources": {
+                "cpu": {
+                    "demand": 8,
+                    "allocated": 4,
+                    "unit": "cores"
+                },
+                "gpu": {
+                    "demand": 8,
+                    "allocated": 4,
+                    "unit": "flops"
+                },
+                "memory": {
+                    "demand": 8,
+                    "allocated": 4,
+                    "unit": "GB"
+                },
+                "storage": {
+                    "demand": 8,
+                    "allocated": 4,
+                    "unit": "GB"
+                },
+                "network": {
+                    "demand": 8,
+                    "allocated": 4,
+                    "unit": "MB"
+                },
+                "energy": {
+                    "demand": 1000,
+                    "allocated": 100,
+                    "unit": "milliwatt"
+                }
+            },
+            "usage": {
+                "cpu": {
+                    "value": 0.01,
+                    "unit": "coreseconds"
+                },
+                "gpu": {
+                    "value": 8,
+                    "unit": "flops"
+                },
+                "memory": {
+                    "value": 8,
+                    "unit": "GB"
+                },
+                "storage": {
+                    "value": 8,
+                    "unit": "GB"
+                },
+                "network": {
+                    "value": 8,
+                    "unit": "MB"
+                },
+                "energy": {
+                    "value": 1000,
+                    "unit": "milliwatt"
+                }
+            },
+            "energy_index": {
+                "value": 1000,
+                "unit": "milliwatt"
+            }
+        }
+
+    ]
+}

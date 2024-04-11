@@ -23,7 +23,7 @@
                                     "glc:relatesToMeasurementProperty": "CPU.Capacity",
                                     "glc:hasTimestamp": 16034236464,
                                     "glc:hasValue": 4,
-                                    "glc:measuredIn": "CPU.coreseconds"
+                                    "glc:measuredIn": "CPU.cores"
                                 },
                                 {
                                     "@type": "glc:Measurement",
@@ -32,7 +32,7 @@
                                     "glc:relatesToMeasurementProperty": "CPU.Available",
                                     "glc:hasTimestamp": 16034236464,
                                     "glc:hasValue": 4,
-                                    "glc:measuredIn": "CPU.coreseconds"
+                                    "glc:measuredIn": "CPU.cores"
                                 }
                             ]
                         }
@@ -153,7 +153,7 @@
                         "@type": "glc:Measurement",
                         "glc:hasID": "cluster:/apis/nodes/v1/wn1",
                         "glc:hasDescription": "node-energy-index",
-                        "glc:relatesToMeasurementProperty": "Energy.Consumption",
+                        "glc:relatesToMeasurementProperty": "EnergyIndex",
                         "glc:hasValue": 1000,
                         "glc:measuredIn": "Energy.milliwatt"
                     },
@@ -161,7 +161,7 @@
                         "@type": "glc:Measurement",
                         "glc:hasID": "cluster:/apis/nodes/v1/wn1",
                         "glc:hasDescription": "node-energy-consumption",
-                        "glc:relatesToMeasurementProperty": "Energy.Consumption",
+                        "glc:relatesToMeasurementProperty": "Energy",
                         "glc:hasValue": 1000,
                         "glc:measuredIn": "Energy.milliwatt"
                     }
@@ -172,7 +172,7 @@
             "@id": "CPU.coreseconds",
             "@type": "glc:MeasurementUnit",
             "glc:hasID": "CPU.coreseconds",
-            "glc:hasDescription": "CPU in coresseconds"
+            "glc:hasDescription": "CPU in coreseconds"
         },
         {
             "@id": "GPU.flops",
@@ -264,10 +264,17 @@
         },
 
         {
-            "@id": "Energy.Consumed",
-            "glc:hasID": "Energy.Consumed",
+            "@id": "Energy",
+            "glc:hasID": "Energy",
             "@type": "glc:MeasurementProperty",
             "glc:hasDescription": "Energy consumed by a cluster, a node or a pod"
+        },
+        {
+            "@id": "EnergyIndex",
+            "glc:hasID": "EnergyIndex",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Energy index"
         }
+
     ]
 }
