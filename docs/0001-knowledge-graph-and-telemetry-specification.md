@@ -44,12 +44,12 @@ Terminology and interpretation:
 - Demanded - How much of resource units a user requests for a pod (”requests” in terms of kubernetes)
 - Allocated - How much of a resources is maximally allowed for a pod (limits in terms of kubernetes, It can also be configured on the level of cluster. To be researched)
 
-For every metric in the table below promql query returns instant. To convert it into min, max, median and average it is necessary to wrap this query into the <agg>_over_time function with required time window.
+For every metric in the table below promql query returns instant. To convert it into min, max, median and average it is necessary to wrap this query into the \<agg\>_over_time function with required time window.
 
-- Minimum - min_over_time(<instant subquery>[<window>:<resolution>])
-- Maximum - max_over_time(<instant subquery>[<window>:<resolution>])
-- Average - avg_over_time(<instant subquery>[<window>:<resolution>])
-- Median - quantile_over_time(<instant subquery>[<window>:<resolution>], 0.5)
+- Minimum - min_over_time(\<instant subquery\>[\<window\>:\<resolution\>])
+- Maximum - max_over_time(\<instant subquery\>[\<window\>:\<resolution\>])
+- Average - avg_over_time(\<instant subquery\>[\<window\>:\<resolution\>])
+- Median - quantile_over_time(\<instant subquery\>[\<window\>:\<resolution\>], 0.5)
 
 Example:
 
@@ -106,7 +106,7 @@ avg_over_time(
     - [TradeOffService Node API](./0001-knowledge-graph-and-telemetry-specification/workernode-tradeoff-service-api.json)
 
 - Workload
-    - [K8s Workload](./0001-knowledge-graph-and-telemetry-specification/sample_workload.jsonld) (Deployment/ReplicaSet/Pod)
+    - [K8s Workload](./0001-knowledge-graph-and-telemetry-specification/workload-k8s-deployment.yaml) (Deployment/ReplicaSet/Pod)
     - [Workload metadata graph](./0001-knowledge-graph-and-telemetry-specification/workload-metadata-graph.jsonld)
     - [TradeOffService Workload API](./0001-knowledge-graph-and-telemetry-specification/workload-tradeoff-service-api.json)
 
