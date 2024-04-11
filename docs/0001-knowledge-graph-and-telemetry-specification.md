@@ -13,7 +13,7 @@ Average using window of 5 minutes (300 seconds):
 - irate(kepler_node_platform_joules_total[300s]) / 300 = watts
 - irate(kepler_node_platform_joules_total[300s]) *1000 / 300 = milliwatts
 
-| Metric | Source | Synthetic Data Generator | Knowledge graph path | Tradeoff Service, (JsonPath) |
+| Metric | Source | Synthetic Data Generator | Knowledge graph, value of "glc:hasDescription" attribute of glc:Measurement | Tradeoff Service, (JsonPath) |
 | --- | --- | --- | --- | --- |
 | Node energy index, milliwatt | Node resource:<br/> $.metadata.annotations.['glaciation-project.eu/metric/node-energy-index'] |  | node-energy-index | $.worker_nodes.energy_index |
 | Node CPU capacity max, cores | Node resource:<br/> $.status.allocatable.cpu | WN_CPU_MAX_CAPACITY | cpu-capacity-max | $.worker_nodes.resources.cpu.max |
@@ -68,7 +68,7 @@ avg_over_time(
 )
 ```
 
-| Metric description | Prometheus query | Synthetic Data Generator | Knowledge graph, measurement description | Tradeoff Service |
+| Metric description | Prometheus query | Synthetic Data Generator | Knowledge graph, value of "glc:hasDescription" attribute of glc:Measurement | Tradeoff Service |
 | --- | --- | --- | --- | --- |
 | Network received usage, Mb | cAdvisor:<br/> sum(rate(container_network_receive_bytes_total[5m])) by (pod) / (1024 * 1024) | WL_NET_REC_USG_AVG, WL_NET_REC_USG_MED, WL_NET_REC_USG_MAX, WL_NET_REC_USG_MIN | network-received |  |
 | Network transfer usage minimum, Mbit per second | cAdvisor: sum(rate(container_network_transmit_bytes_total[5m])) by (pod) | WL_NET_TRN_USG_MIN, WL_NET_TRN_USG_MAX, WL_NET_TRN_USG_MED, WL_NET_TRN_USG_AVG | network-transferred |  |
