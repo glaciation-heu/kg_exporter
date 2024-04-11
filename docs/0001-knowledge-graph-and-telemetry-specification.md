@@ -1,13 +1,19 @@
 
 # Knowledge Graph and telemetry specification
 
-# Worker Node Knowledge Graph mappings
+# Worker Node
 
 Terminology:
 
 - Capacity - the maximum allocatable units of resource on the kubernetes worker node.
 
-| Metric | Source | Synthetic Data Generator | Knowledge graph path - measurement desciption (see node example below) | Tradeoff Service, (JsonPath) |
+Energy consumption: converting joules_total (Counter) to milliwatts.
+Average using window of 5 minutes (300 seconds):
+
+- irate(kepler_node_platform_joules_total[300s]) / 300 = watts
+- irate(kepler_node_platform_joules_total[300s]) *1000 / 300 = milliwatts
+
+| Metric | Source | Synthetic Data Generator | Knowledge graph path | Tradeoff Service, (JsonPath) |
 | --- | --- | --- | --- | --- |
 | Node energy index, milliwatt | Node resource:<br/> $.metadata.annotations.['glaciation-project.eu/metric/node-energy-index'] |  | node-energy-index | $.worker_nodes.energy_index |
 | Node CPU capacity max, cores | Node resource:<br/> $.status.allocatable.cpu | WN_CPU_MAX_CAPACITY | cpu-capacity-max | $.worker_nodes.resources.cpu.max |
@@ -15,28 +21,15 @@ Terminology:
 | Node gpu capacity max, Flops | Not available yet | WN_GPU_MAX_CAPACITY | gpu-capacity-max | $.worker_nodes.resources.gpu.max |
 | Node Storage capacity max (ephemeral storage), GB | TBD, (ephemeral storage helm chart) | WN_STR_MAX_CAPACITY | storage-capacity-max | $.worker_nodes.resources.storage.max |
 | Node network capacity max, GB per second | Not available yet | WN_NET_MAX_CAPACITY | network-bandwidth-max | $.worker_nodes.resource.network.max |
-
-# Worker Node telemetry
-
-Energy consumption: converting joules_total (Counter) to milliwatts.
-
-Average using window of 5 minutes (300 seconds):
-
-- irate(kepler_node_platform_joules_total[300s]) / 300 = watts
-- irate(kepler_node_platform_joules_total[300s]) *1000 / 300 = milliwatts
-
-| Metric description | Prometheus query | Synthetic Data Generator | Knowledge Graph | Tradeoff Service |
-| --- | --- | --- | --- | --- |
 | Node energy consumption, joules | Source: kepler:<br/> kepler_node_joules_total{node=”glaciation-testm1w5-worker01”} | ENERGY_CONSUMPTION_MIN, ENERGY_CONSUMPTION_MAX, ENERGY_CONSUMPTION_MEDIAN, ENERGY_CONSUMPTION_MEAN | node-energy-consumption | $.worker_nodes.energy.consumed |
 | Node CPU available, core seconds | Source: node exporter: sum(rate(node_cpu_seconds_total{mode!="idle", node="glaciation-testm1w5-worker01"}[5m])) | WN_CPU_AVAILABLE | cpu-capacity-available | $.worker_nodes.resources.cpu.available |
 | Node Memory available, Mb | Source: node exporter:<br/> node_memory_MemFree_bytes{instance="glaciation-testm1w5-worker01", app_kubernetes_io_component="metrics"} | WN_MEM_AVAILABLE  | ram-capacity-available | $.worker_nodes.resources.memory.available |
 | Node GPU available, flops | Not available yet | WN_GPU_AVAILABLE | gpu-capacity-available | $.worker_nodes.resources.gpu.available |
-| Node Storage available (PVC), Mb | Kubernetes metric:<br/> kubelet_volume_stats_available_bytes{instance="glaciation-testm1w5-worker01"}/ (1024 * 1024) | WN_STR_AVAILABLE | storage-capacity-available | $.worker_nodes.resources.storage.available |
 | Network Storage available (ephemeral), Mb | cAdvisor metric:<br/> container_fs_usage_bytes{instance="glaciation-testm1w5-worker01"}/ (1024 * 1024) | WN_STR_AVAILABLE | storage-capacity-available | $.worker_nodes.resources.storage.available |
 | Node Network available, Mb | TBD  | WN_NET_AVAILABLE | network-bandwidth-available | $.worker_nodes.resources.network.available |
 
 
-# Workload Telemetry
+# Workload
 
 Terminology and interpretation:
 
