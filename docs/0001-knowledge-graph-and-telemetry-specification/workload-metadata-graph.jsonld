@@ -1,0 +1,401 @@
+{
+    "@context": {
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "cluster": "https://10.1.14.160:6443/"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:/apis/deployment/v1/deployment1",
+            "glc:hasDescription": "deployment-name",
+            "@type": "glc:AssignedTask",
+            "glc:produces": [
+                "cluster:/apis/replicaset/v1/replicaset1"
+            ],
+            "glc:hasConstraint": {
+                "@set": [
+                    {
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.requests.cpu",
+                        "glc:hasDescription": "cpu-requests",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption",
+                            "Aspect.Productivity"
+                        ],
+                        "value": 1,
+                        "glc:measuredIn": "CPU.cores"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.requests.ram",
+                        "glc:hasDescription": "ram-requests",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 1,
+                        "glc:measuredIn": "RAM.mb"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.requests.storage",
+                        "glc:hasDescription": "storage-requests",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 25,
+                        "glc:measuredIn": "Storage.mb"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.requests.gpu",
+                        "glc:hasDescription": "gpu-requests",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption",
+                            "Aspect.Productivity"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "GPU.flops"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.requests.network",
+                        "glc:hasDescription": "network-requests",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "Network.mb"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.requests.energy",
+                        "glc:hasDescription": "energy-requests",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "Energy.milliwatt"
+                    },
+
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.limits.cpu",
+                        "glc:hasDescription": "cpu-limits",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "CPU.cores"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.limits.gpu",
+                        "glc:hasDescription": "gpu-limits",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "GPU.flops"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.limits.ram",
+                        "glc:hasDescription": "ram-limits",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "RAM.mb"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.limits.storage",
+                        "glc:hasDescription": "storage-limits",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "Storage.gb"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.limits.network",
+                        "glc:hasDescription": "network-limits",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "Network.mb"
+                    },
+                    {
+                        "glc:hasId": "cluster:/apis/deployment/v1/deployment1.limits.energy",
+                        "glc:hasDescription": "energy-limits",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasAspect": [
+                            "Aspect.PowerConsumption"
+                        ],
+                        "value": 100,
+                        "glc:measuredIn": "Energy.milliwatt"
+                    }
+                ]
+            },
+            "glc:hasRealizedMeasurement": {
+                "@set": [
+                    {
+                        "@id": "cluster:/apis/deployment/v1/deployment1.energy-index",
+                        "@type": "glc:Measurement",
+                        "glc:hasDescription": "energy-index",
+                        "glc:relatesToMeasurementProperty": "EnergyIndex",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.100500,
+                        "glc:measuredIn": "Energy.milliwatt"
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "cluster:/apis/replicaset/v1/replicaset1",
+            "@type": "glc:AssignedTask",
+            "glc:produces": [
+                "cluster:/apis/pods/v1/pod1",
+                "cluster:/apis/pods/v1/pod2"
+            ]
+        },
+        {
+            "@id": "cluster:/apis/pods/v1/pod1",
+            "@type": "glc:Resource",
+            "glc:hasID": "cluster:/apis/pods/v1/pod1",
+            "glc:status": {
+                "@type": "glc:Status",
+                "glc:startTime": "2024-03-10T10:25:00",
+                "glc:endTime": "2024-03-10T13:25:00",
+                "glc:hasDescription": "Terminated"
+            },
+            "glc:hasSubResource": {
+                "@set": [
+                    {
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.container1",
+                        "glc:hasDescription": "container-name1"
+                    },
+                    {
+                        "@type": "glc:Resource",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.container2",
+                        "glc:hasDescription": "container-name2"
+                    }
+                ]
+            },
+            "glc:hasMeasurement": {
+                "@set": [
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.CPU.Used.16034236464",
+                        "glc:relatesToMeasurementProperty": "CPU.Used",
+                        "glc:hasDescription": "cpu-used",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "CPU.coreseconds"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.GPU.Used.16034236464",
+                        "glc:relatesToMeasurementProperty": "GPU.Used",
+                        "glc:hasDescription": "gpu-used",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "GPU.flops"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.RAM.Used.16034236464",
+                        "glc:relatesToMeasurementProperty": "RAM.Used",
+                        "glc:hasDescription": "ram-used",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "RAM.mb"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.Storage.Read.16034236464",
+                        "glc:hasDescription": "storage-read",
+                        "glc:relatesToMeasurementProperty": "Storage.Read",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "Storage.gb"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.Storage.Write.16034236464",
+                        "glc:hasDescription": "storage-write",
+                        "glc:relatesToMeasurementProperty": "Storage.Write",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "Storage.gb"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Measurement.Network.Used.16034236464",
+                        "glc:relatesToMeasurementProperty": "Network.Used",
+                        "glc:hasDescription": "network-used",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 0.3,
+                        "glc:measuredIn": "Network.mb"
+                    },
+                    {
+                        "@type": "glc:Measurement",
+                        "glc:hasID": "cluster:/apis/pods/v1/pod1.Energy.Measurement.Used.16034236464",
+                        "glc:hasDescription": "energy-used",
+                        "glc:relatesToMeasurementProperty": "Energy",
+                        "glc:hasTimestamp": 16034236464,
+                        "glc:hasValue": 1000,
+                        "glc:measuredIn": "Energy.milliwatt"
+                    }
+                ]
+            }
+        },
+
+        {
+            "@id": "CPU.coreseconds",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "CPU.coreseconds",
+            "glc:hasDescription": "CPU in coresseconds"
+        },
+        {
+            "@id": "CPU.cores",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "CPU.cores",
+            "glc:hasDescription": "CPU in cores"
+        },
+        {
+            "@id": "GPU.flops",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "GPU.flops",
+            "glc:hasDescription": "GPU flops"
+        },
+        {
+            "@id": "RAM.mb",
+            "gls:hasID": "RAM.mb",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "RAM in megabytes"
+        },
+        {
+            "@id": "Storage.gb",
+            "glc:hasID": "Storage.gb",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "Storage in gigabytes"
+        },
+        {
+            "@id": "Network.mb",
+            "glc:hasID": "Network.mb",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "Network in megabytes"
+        },
+        {
+            "@id": "Energy.milliwatt",
+            "glc:hasID": "Energy.milliwatt",
+            "@type": "glc:MeasurementUnit"
+        },
+
+        {
+            "@id": "CPU.Used",
+            "glc:hasID": "CPU.Used",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "CPU used"
+        },
+        {
+            "@id": "GPU.Used",
+            "glc:hasID": "GPU.Used",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "GPU used"
+        },
+        {
+            "@id": "RAM.Used",
+            "glc:hasID": "RAM.Used",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "RAM used"
+        },
+        {
+            "@id": "Storage.Read",
+            "glc:hasID": "Storage.Read",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Storage read"
+        },
+        {
+            "@id": "Storage.Write",
+            "glc:hasID": "Storage.Write",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Storage write"
+        },
+        {
+            "@id": "Network.Used",
+            "glc:hasID": "Network.Used",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Network used"
+        },
+        {
+            "@id": "Energy",
+            "glc:hasID": "Energy",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Energy consumed by a cluster, a node or a pod"
+        },
+        {
+            "@id": "EnergyIndex",
+            "glc:hasID": "EnergyIndex",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasDescription": "Energy index"
+        },
+
+        {
+            "@id": "DefaultScheduler",
+            "glc:hasID": "DefaultScheduler",
+            "@type": "glc:Scheduler",
+            "glc:assigns": [
+                "cluster:/apis/deployment/v1/deployment1"
+            ]
+        },
+
+        {
+            "@id": "Aspect.PowerConsumption",
+            "@type": "glc:Aspect",
+            "glc:hasID": "Aspect.PowerConsumption"
+        },
+        {
+            "@id": "Aspect.Productivity",
+            "@type": "glc:Aspect",
+            "glc:hasID": "Aspect.Productivity"
+        },
+
+        {
+            "@id": "Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "Kepler",
+            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
+            "glc:makes": [
+                "cluster:/apis/pods/v1/pod1.Energy.Measurement.Used.16034236464"
+            ]
+        },
+        {
+            "@id": "WorkloadEnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "WorkloadEnergyBenchmark",
+            "glc:makes": [
+                "cluster:/apis/deployment/v1/deployment1.energy-index"
+            ]
+        },
+        {
+            "@id": "cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasID": "cAdvisor",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
+            "glc:makes": [
+                "cluster:/apis/pods/v1/pod1.Measurement.CPU.Used.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.GPU.Used.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.RAM.Used.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.Storage.Read.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.Storage.Write.16034236464",
+                "cluster:/apis/pods/v1/pod1.Measurement.Network.Used.16034236464"
+            ]
+        }
+
+    ]
+}

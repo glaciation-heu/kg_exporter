@@ -1,0 +1,41 @@
+{
+    "cluster": "cluster1",
+    "worker_nodes": [
+        {
+            "node_id": "cluster:/apis/nodes/v1/wn1",
+            "resources": {
+                "cpu": {
+                    "max": 8,
+                    "available": 4,
+                    "unit": "cores"
+                },
+                "gpu": {
+                    "max": 8,
+                    "available": 4,
+                    "unit": "flops"
+                },
+                "memory": {
+                    "max": 16,
+                    "available": 8,
+                    "unit": "GB"
+                },
+                "storage": {
+                    "max": 16,
+                    "available": 8,
+                    "unit": "GB"
+                },
+                "network": {
+                    "max": 16,
+                    "available": 8,
+                    "unit": "MB"
+                }
+
+            },
+            "energy_index": {
+                "value": 85000,
+                "unit": "milliwatt"
+            }
+        }
+
+    ]
+}
