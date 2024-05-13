@@ -22,7 +22,7 @@ class ClusterToRDFTransformer(TransformerBase):
         config = yaml.safe_load(config_str)
         cluster_id = self.get_cluster_id(config)
         self.sink.add_meta_property(
-            cluster_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Cluster")
+            cluster_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Cluster")
         )
         for node in self.get_nodes():
             self.write_node_reference(cluster_id, node)
@@ -39,9 +39,7 @@ class ClusterToRDFTransformer(TransformerBase):
 
     def write_node_reference(self, cluster_id: IRI, node: Dict[str, Any]) -> None:
         node_id = self.get_node_id(node)
-        self.sink.add_relation(
-            cluster_id, IRI(self.GLACIATION_PREFIX, "has-node"), node_id
-        )
+        self.sink.add_relation(cluster_id, IRI(self.K8S_PREFIX, "has-node"), node_id)
         self.sink.add_meta_property(
-            node_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Node")
+            node_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Node")
         )

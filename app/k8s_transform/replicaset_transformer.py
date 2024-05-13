@@ -12,14 +12,14 @@ class ReplicaSetToRDFTransformer(TransformerBase):
     def transform(self) -> None:
         replicaset_id = self.get_id()
         self.sink.add_meta_property(
-            replicaset_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "ReplicaSet")
+            replicaset_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "ReplicaSet")
         )
         self.write_collection(
-            replicaset_id, IRI(self.GLACIATION_PREFIX, "has-label"), "$.metadata.labels"
+            replicaset_id, IRI(self.K8S_PREFIX, "has-label"), "$.metadata.labels"
         )
         self.write_collection(
             replicaset_id,
-            IRI(self.GLACIATION_PREFIX, "has-annotation"),
+            IRI(self.K8S_PREFIX, "has-annotation"),
             "$.metadata.annotations",
         )
         self.write_references(replicaset_id)

@@ -11,7 +11,7 @@ from app.kg.literal import Literal
 
 class TransformerBase:
     CLUSTER_PREFIX = "cluster"
-    GLACIATION_PREFIX = "gla"
+    K8S_PREFIX = "k8s"
 
     source: Dict[str, Any]
     sink: Graph
@@ -27,14 +27,14 @@ class TransformerBase:
         for reference_match in references_match[0].value:
             reference, ref_type = self.get_reference_id(reference_match)
             self.sink.add_relation(
-                reference, IRI(self.GLACIATION_PREFIX, "refers-to"), node_id
+                reference, IRI(self.K8S_PREFIX, "refers-to"), node_id
             )
             self.sink.add_meta_property(reference, Graph.RDF_TYPE_IRI, ref_type)
 
     def get_reference_id(self, reference: Dict[str, Any]) -> Tuple[IRI, IRI]:
         name = reference.get("name")
         uid = reference.get("uid")
-        resource_type = IRI(self.GLACIATION_PREFIX, reference["kind"])
+        resource_type = IRI(self.K8S_PREFIX, reference["kind"])
         resource_id = IRI(self.CLUSTER_PREFIX, f"{name}.{uid}")
         return resource_id, resource_type
 

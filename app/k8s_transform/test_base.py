@@ -35,6 +35,4 @@ class TransformBaseTest(TestCase):
                 "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             }
         }
-        return JsonLDConfiguration(
-            contexts, {IRI(TransformerBase.GLACIATION_PREFIX, "Pod")}
-        )
+        return JsonLDConfiguration(contexts, {IRI(TransformerBase.K8S_PREFIX, "Pod")})

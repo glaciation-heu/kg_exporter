@@ -18,27 +18,23 @@ class PodToRDFTransformer(TransformerBase):
     def transform(self) -> None:
         pod_id = self.get_pod_id()
         self.sink.add_meta_property(
-            pod_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Pod")
+            pod_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Pod")
         )
         self.write_collection(
-            pod_id, IRI(self.GLACIATION_PREFIX, "has-label"), "$.metadata.labels"
+            pod_id, IRI(self.K8S_PREFIX, "has-label"), "$.metadata.labels"
         )
         self.write_collection(
             pod_id,
-            IRI(self.GLACIATION_PREFIX, "has-annotation"),
+            IRI(self.K8S_PREFIX, "has-annotation"),
             "$.metadata.annotations",
         )
         self.write_references(pod_id)
         self.write_node_id_reference(pod_id)
+        self.write_tuple(pod_id, IRI(self.K8S_PREFIX, "qos-class"), "$.status.qosClass")
         self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "qos-class"), "$.status.qosClass"
+            pod_id, IRI(self.K8S_PREFIX, "start-time"), "$.status.startTime"
         )
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "start-time"), "$.status.startTime"
-        )
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "pod-phase"), "$.status.phase"
-        )
+        self.write_tuple(pod_id, IRI(self.K8S_PREFIX, "pod-phase"), "$.status.phase")
 
         self.write_network(pod_id)
 
@@ -69,16 +65,16 @@ class PodToRDFTransformer(TransformerBase):
             self.sink.add_meta_property(
                 container_iri,
                 Graph.RDF_TYPE_IRI,
-                IRI(self.GLACIATION_PREFIX, "Container"),
+                IRI(self.K8S_PREFIX, "Container"),
             )
             self.sink.add_property(
                 container_iri,
-                IRI(self.GLACIATION_PREFIX, "has-name"),
+                IRI(self.K8S_PREFIX, "has-name"),
                 Literal(self.escape(name), Literal.TYPE_STRING),
             )
             self.sink.add_property(
                 container_iri,
-                IRI(self.GLACIATION_PREFIX, "restart-count"),
+                IRI(self.K8S_PREFIX, "restart-count"),
                 Literal(str(restart_count), Literal.TYPE_STRING),
             )
             state = container_match.get("state")
@@ -88,7 +84,7 @@ class PodToRDFTransformer(TransformerBase):
             self.write_resources(container_iri, container_spec_property, name)
 
         self.sink.add_relation_collection(
-            pod_id, IRI(self.GLACIATION_PREFIX, "has-container"), container_ids
+            pod_id, IRI(self.K8S_PREFIX, "has-container"), container_ids
         )
 
     def normalize_container_id(self, container_id: str) -> str:
@@ -106,25 +102,25 @@ class PodToRDFTransformer(TransformerBase):
         self.write_tuple_from(
             resources,
             container_id,
-            IRI(self.GLACIATION_PREFIX, "requests-cpu"),
+            IRI(self.K8S_PREFIX, "requests-cpu"),
             "$.requests.cpu",
         )
         self.write_tuple_from(
             resources,
             container_id,
-            IRI(self.GLACIATION_PREFIX, "requests-memory"),
+            IRI(self.K8S_PREFIX, "requests-memory"),
             "$.requests.memory",
         )
         self.write_tuple_from(
             resources,
             container_id,
-            IRI(self.GLACIATION_PREFIX, "limits-cpu"),
+            IRI(self.K8S_PREFIX, "limits-cpu"),
             "$.limits.cpu",
         )
         self.write_tuple_from(
             resources,
             container_id,
-            IRI(self.GLACIATION_PREFIX, "limits-memory"),
+            IRI(self.K8S_PREFIX, "limits-memory"),
             "$.limits.memory",
         )
 
@@ -137,7 +133,7 @@ class PodToRDFTransformer(TransformerBase):
         self.write_tuple_from(
             spec_matches[0].value,
             container_id,
-            IRI(self.GLACIATION_PREFIX, "is-scheduled-by"),
+            IRI(self.K8S_PREFIX, "is-scheduled-by"),
             "$.schedulerName",
         )
 
@@ -146,26 +142,26 @@ class PodToRDFTransformer(TransformerBase):
         if state_literal:
             self.sink.add_property(
                 container_id,
-                IRI(self.GLACIATION_PREFIX, "state"),
+                IRI(self.K8S_PREFIX, "state"),
                 Literal(self.escape(state_literal), Literal.TYPE_STRING),
             )
         if state_struct:
             self.write_tuple_from(
                 state_struct,
                 container_id,
-                IRI(self.GLACIATION_PREFIX, "started-at"),
+                IRI(self.K8S_PREFIX, "started-at"),
                 "$.startedAt",
             )
             self.write_tuple_from(
                 state_struct,
                 container_id,
-                IRI(self.GLACIATION_PREFIX, "finished-at"),
+                IRI(self.K8S_PREFIX, "finished-at"),
                 "$.finishedAt",
             )
             self.write_tuple_from(
                 state_struct,
                 container_id,
-                IRI(self.GLACIATION_PREFIX, "reason"),
+                IRI(self.K8S_PREFIX, "reason"),
                 "$.reason",
             )
 
@@ -180,12 +176,8 @@ class PodToRDFTransformer(TransformerBase):
         return None, None
 
     def write_network(self, pod_id: IRI) -> None:
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "host-ip"), "$.status.hostIP"
-        )
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "pod-ip"), "$.status.podIP"
-        )
+        self.write_tuple(pod_id, IRI(self.K8S_PREFIX, "host-ip"), "$.status.hostIP")
+        self.write_tuple(pod_id, IRI(self.K8S_PREFIX, "pod-ip"), "$.status.podIP")
 
     def write_node_id_reference(self, pod_id: IRI) -> None:
         node_name_match = parse("$.spec.nodeName").find(self.source)
@@ -193,12 +185,8 @@ class PodToRDFTransformer(TransformerBase):
             return
         for node_name in node_name_match:
             node_id = IRI(self.CLUSTER_PREFIX, node_name.value)
-            self.sink.add_relation(
-                pod_id, IRI(self.GLACIATION_PREFIX, "runs-on"), node_id
-            )
+            self.sink.add_relation(pod_id, IRI(self.K8S_PREFIX, "runs-on"), node_id)
             self.sink.add_meta_property(
-                node_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Node")
+                node_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Node")
             )
-            self.sink.add_relation(
-                node_id, IRI(self.GLACIATION_PREFIX, "has-pod"), pod_id
-            )
+            self.sink.add_relation(node_id, IRI(self.K8S_PREFIX, "has-pod"), pod_id)
