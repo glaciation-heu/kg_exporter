@@ -1,14 +1,14 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
             "@id": "cluster:glaciation-test-master01",
-            "@type": "gla:Node",
-            "gla:has-annotation": {
+            "@type": "k8s:Node",
+            "k8s:has-annotation": {
                 "@set": [
                     "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:f6:a0:84:48:2e:9f}",
                     "flannel.alpha.coreos.com/backend-type:vxlan",
@@ -19,7 +19,7 @@
                     "volumes.kubernetes.io/controller-managed-attach-detach:true"
                 ]
             },
-            "gla:has-label": {
+            "k8s:has-label": {
                 "@set": [
                     "beta.kubernetes.io/arch:amd64",
                     "beta.kubernetes.io/os:linux",
@@ -30,83 +30,83 @@
                     "node.kubernetes.io/exclude-from-external-load-balancers:"
                 ]
             },
-            "gla:has-allocatable-resource": {
+            "k8s:has-allocatable-resource": {
                 "@set": [
                     {
                         "@id": "cluster:glaciation-test-master01.allocatable.CPU",
-                        "@type": "gla:CPU",
-                        "gla:count": "4"
+                        "@type": "k8s:CPU",
+                        "k8s:count": "4"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.allocatable.Memory",
-                        "@type": "gla:Memory",
-                        "gla:bytes": "16283144Ki"
+                        "@type": "k8s:Memory",
+                        "k8s:bytes": "16283144Ki"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.allocatable.Storage",
-                        "@type": "gla:Storage",
-                        "gla:bytes": "47266578354"
+                        "@type": "k8s:Storage",
+                        "k8s:bytes": "47266578354"
                     }
                 ]
             },
-            "gla:has-capacity-resource": {
+            "k8s:has-capacity-resource": {
                 "@set": [
                     {
                         "@id": "cluster:glaciation-test-master01.capacity.CPU",
-                        "@type": "gla:CPU",
-                        "gla:count": "4"
+                        "@type": "k8s:CPU",
+                        "k8s:count": "4"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.capacity.Memory",
-                        "@type": "gla:Memory",
-                        "gla:bytes": "16385544Ki"
+                        "@type": "k8s:Memory",
+                        "k8s:bytes": "16385544Ki"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.capacity.Storage",
-                        "@type": "gla:Storage",
-                        "gla:bytes": "51287520Ki"
+                        "@type": "k8s:Storage",
+                        "k8s:bytes": "51287520Ki"
                     }
                 ]
             },
-            "gla:has-condition": {
+            "k8s:has-condition": {
                 "@set": [
                     {
                         "@id": "cluster:glaciation-test-master01.NodeCondition.DiskPressure",
-                        "@type": "gla:NodeCondition",
-                        "gla:reason": "KubeletHasNoDiskPressure",
-                        "gla:status": "False"
+                        "@type": "k8s:NodeCondition",
+                        "k8s:reason": "KubeletHasNoDiskPressure",
+                        "k8s:status": "False"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.NodeCondition.MemoryPressure",
-                        "@type": "gla:NodeCondition",
-                        "gla:reason": "KubeletHasSufficientMemory",
-                        "gla:status": "False"
+                        "@type": "k8s:NodeCondition",
+                        "k8s:reason": "KubeletHasSufficientMemory",
+                        "k8s:status": "False"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.NodeCondition.NetworkUnavailable",
-                        "@type": "gla:NodeCondition",
-                        "gla:reason": "FlannelIsUp",
-                        "gla:status": "False"
+                        "@type": "k8s:NodeCondition",
+                        "k8s:reason": "FlannelIsUp",
+                        "k8s:status": "False"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.NodeCondition.PIDPressure",
-                        "@type": "gla:NodeCondition",
-                        "gla:reason": "KubeletHasSufficientPID",
-                        "gla:status": "False"
+                        "@type": "k8s:NodeCondition",
+                        "k8s:reason": "KubeletHasSufficientPID",
+                        "k8s:status": "False"
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.NodeCondition.Ready",
-                        "@type": "gla:NodeCondition",
-                        "gla:reason": "KubeletReady",
-                        "gla:status": "True"
+                        "@type": "k8s:NodeCondition",
+                        "k8s:reason": "KubeletReady",
+                        "k8s:status": "True"
                     }
                 ]
             },
-            "gla:has-network": {
+            "k8s:has-network": {
                 "@id": "cluster:glaciation-test-master01.Network",
-                "@type": "gla:Network",
-                "gla:hostname": "glaciation-test-master01",
-                "gla:internal_ip": "10.14.1.150"
+                "@type": "k8s:Network",
+                "k8s:hostname": "glaciation-test-master01",
+                "k8s:internal_ip": "10.14.1.150"
             }
         }
     ]

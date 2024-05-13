@@ -1,46 +1,46 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
             "@id": "cluster:coredns-787d4945fb-l85r5",
-            "@type": "gla:Pod",
-            "gla:has-label": {
+            "@type": "k8s:Pod",
+            "k8s:has-label": {
                 "@set": [
                     "k8s-app:kube-dns",
                     "pod-template-hash:787d4945fb"
                 ]
             },
-            "gla:host-ip": "10.14.1.150",
-            "gla:is-scheduled-by": "default-scheduler",
-            "gla:pod-ip": "10.244.0.2",
-            "gla:pod-phase": "Running",
-            "gla:qos-class": "Burstable",
-            "gla:start-time": "2024-02-13T13:53:43Z",
-            "gla:has-container": {
+            "k8s:host-ip": "10.14.1.150",
+            "k8s:is-scheduled-by": "default-scheduler",
+            "k8s:pod-ip": "10.244.0.2",
+            "k8s:pod-phase": "Running",
+            "k8s:qos-class": "Burstable",
+            "k8s:start-time": "2024-02-13T13:53:43Z",
+            "k8s:has-container": {
                 "@id": "cluster:containerd-0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
-                "@type": "gla:Container",
-                "gla:has-name": "coredns",
-                "gla:limits-memory": "170Mi",
-                "gla:requests-cpu": "100m",
-                "gla:requests-memory": "70Mi",
-                "gla:restart-count": "0",
-                "gla:started-at": "2024-02-13T13:53:44Z",
-                "gla:state": "running"
+                "@type": "k8s:Container",
+                "k8s:has-name": "coredns",
+                "k8s:limits-memory": "170Mi",
+                "k8s:requests-cpu": "100m",
+                "k8s:requests-memory": "70Mi",
+                "k8s:restart-count": "0",
+                "k8s:started-at": "2024-02-13T13:53:44Z",
+                "k8s:state": "running"
             },
-            "gla:runs-on": {
+            "k8s:runs-on": {
                 "@id": "cluster:glaciation-test-master01",
-                "@type": "gla:Node",
-                "gla:has-pod": "cluster:coredns-787d4945fb-l85r5"
+                "@type": "k8s:Node",
+                "k8s:has-pod": "cluster:coredns-787d4945fb-l85r5"
             }
         },
         {
             "@id": "cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685",
-            "@type": "gla:ReplicaSet",
-            "gla:refers-to": "cluster:coredns-787d4945fb-l85r5"
+            "@type": "k8s:ReplicaSet",
+            "k8s:refers-to": "cluster:coredns-787d4945fb-l85r5"
         }
     ]
 }

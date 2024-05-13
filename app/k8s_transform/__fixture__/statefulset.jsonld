@@ -1,15 +1,15 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
             "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
-            "@type": "gla:Workload",
-            "rdf:subClassOf": "gla:StatefulSet",
-            "gla:has-label": {
+            "@type": "k8s:Workload",
+            "rdf:subClassOf": "k8s:StatefulSet",
+            "k8s:has-label": {
                 "@set": [
                     "v1.min.io/pool:pool-0",
                     "v1.min.io/tenant:tenant1"
@@ -18,8 +18,8 @@
         },
         {
             "@id": "cluster:tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd",
-            "@type": "gla:Tenant",
-            "gla:refers-to": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2"
+            "@type": "k8s:Tenant",
+            "k8s:refers-to": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2"
         }
     ]
 }

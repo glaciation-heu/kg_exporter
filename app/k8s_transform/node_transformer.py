@@ -11,7 +11,7 @@ from app.kg.types import RelationSet
 
 class NodesToRDFTransformer(TransformerBase):
     def __init__(self, source: Dict[str, Any], sink: Graph):
-        super().__init__(source, sink)
+        TransformerBase.__init__(self, source, sink)
 
     def transform(self) -> None:
         node_id = self.get_node_id(self.source)

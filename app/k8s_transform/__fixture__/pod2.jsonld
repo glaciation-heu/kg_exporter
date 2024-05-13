@@ -1,19 +1,19 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
             "@id": "cluster:tenant1-pool-0-1",
-            "@type": "gla:Pod",
-            "gla:has-annotation": {
+            "@type": "k8s:Pod",
+            "k8s:has-annotation": {
                 "@set": [
                     "min.io/revision:0"
                 ]
             },
-            "gla:has-label": {
+            "k8s:has-label": {
                 "@set": [
                     "apps.kubernetes.io/pod-index:1",
                     "controller-revision-hash:tenant1-pool-0-6b769f799d",
@@ -23,14 +23,14 @@
                     "v1.min.io/tenant:tenant1"
                 ]
             },
-            "gla:is-scheduled-by": "default-scheduler",
-            "gla:pod-phase": "Pending",
-            "gla:qos-class": "Burstable"
+            "k8s:is-scheduled-by": "default-scheduler",
+            "k8s:pod-phase": "Pending",
+            "k8s:qos-class": "Burstable"
         },
         {
             "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
-            "@type": "gla:StatefulSet",
-            "gla:refers-to": "cluster:tenant1-pool-0-1"
+            "@type": "k8s:StatefulSet",
+            "k8s:refers-to": "cluster:tenant1-pool-0-1"
         }
     ]
 }

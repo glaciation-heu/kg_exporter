@@ -14,7 +14,7 @@ class ClusterToRDFTransformer(TransformerBase):
     def __init__(
         self, config_map: Dict[str, Any], nodes: List[Dict[str, Any]], sink: Graph
     ):
-        super().__init__(config_map, sink)
+        TransformerBase.__init__(self, config_map, sink)
         self.nodes = nodes
 
     def transform(self) -> None:

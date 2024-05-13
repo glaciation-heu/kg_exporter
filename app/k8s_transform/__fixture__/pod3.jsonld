@@ -1,14 +1,14 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
             "@id": "cluster:kube-flannel-ds-848v8",
-            "@type": "gla:Pod",
-            "gla:has-label": {
+            "@type": "k8s:Pod",
+            "k8s:has-label": {
                 "@set": [
                     "app:flannel",
                     "controller-revision-hash:6fbbc5c975",
@@ -16,56 +16,56 @@
                     "tier:node"
                 ]
             },
-            "gla:host-ip": "10.14.2.2",
-            "gla:is-scheduled-by": "default-scheduler",
-            "gla:pod-ip": "10.14.2.2",
-            "gla:pod-phase": "Running",
-            "gla:qos-class": "Burstable",
-            "gla:start-time": "2023-10-20T11:01:50Z",
-            "gla:has-container": {
+            "k8s:host-ip": "10.14.2.2",
+            "k8s:is-scheduled-by": "default-scheduler",
+            "k8s:pod-ip": "10.14.2.2",
+            "k8s:pod-phase": "Running",
+            "k8s:qos-class": "Burstable",
+            "k8s:start-time": "2023-10-20T11:01:50Z",
+            "k8s:has-container": {
                 "@set": [
                     {
                         "@id": "cluster:containerd-b23fcc9919d7e58fdeb4a729ccf2363c31429e9906a836f55e7d3bf61c908cdb",
-                        "@type": "gla:Container",
-                        "gla:has-name": "kube-flannel",
-                        "gla:requests-cpu": "100m",
-                        "gla:requests-memory": "50Mi",
-                        "gla:restart-count": "17",
-                        "gla:started-at": "2023-12-11T11:10:16Z",
-                        "gla:state": "running"
+                        "@type": "k8s:Container",
+                        "k8s:has-name": "kube-flannel",
+                        "k8s:requests-cpu": "100m",
+                        "k8s:requests-memory": "50Mi",
+                        "k8s:restart-count": "17",
+                        "k8s:started-at": "2023-12-11T11:10:16Z",
+                        "k8s:state": "running"
                     },
                     {
                         "@id": "cluster:containerd-b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f",
-                        "@type": "gla:Container",
-                        "gla:finished-at": "2023-12-11T11:10:15Z",
-                        "gla:has-name": "install-cni",
-                        "gla:reason": "Completed",
-                        "gla:restart-count": "0",
-                        "gla:started-at": "2023-12-11T11:10:15Z",
-                        "gla:state": "terminated"
+                        "@type": "k8s:Container",
+                        "k8s:finished-at": "2023-12-11T11:10:15Z",
+                        "k8s:has-name": "install-cni",
+                        "k8s:reason": "Completed",
+                        "k8s:restart-count": "0",
+                        "k8s:started-at": "2023-12-11T11:10:15Z",
+                        "k8s:state": "terminated"
                     },
                     {
                         "@id": "cluster:containerd-c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74",
-                        "@type": "gla:Container",
-                        "gla:finished-at": "2023-12-11T11:10:14Z",
-                        "gla:has-name": "install-cni-plugin",
-                        "gla:reason": "Completed",
-                        "gla:restart-count": "3",
-                        "gla:started-at": "2023-12-11T11:10:14Z",
-                        "gla:state": "terminated"
+                        "@type": "k8s:Container",
+                        "k8s:finished-at": "2023-12-11T11:10:14Z",
+                        "k8s:has-name": "install-cni-plugin",
+                        "k8s:reason": "Completed",
+                        "k8s:restart-count": "3",
+                        "k8s:started-at": "2023-12-11T11:10:14Z",
+                        "k8s:state": "terminated"
                     }
                 ]
             },
-            "gla:runs-on": {
+            "k8s:runs-on": {
                 "@id": "cluster:glaciation-worker04",
-                "@type": "gla:Node",
-                "gla:has-pod": "cluster:kube-flannel-ds-848v8"
+                "@type": "k8s:Node",
+                "k8s:has-pod": "cluster:kube-flannel-ds-848v8"
             }
         },
         {
             "@id": "cluster:kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178",
-            "@type": "gla:DaemonSet",
-            "gla:refers-to": "cluster:kube-flannel-ds-848v8"
+            "@type": "k8s:DaemonSet",
+            "k8s:refers-to": "cluster:kube-flannel-ds-848v8"
         }
     ]
 }

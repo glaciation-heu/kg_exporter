@@ -7,7 +7,7 @@ from app.kg.iri import IRI
 
 class ReplicaSetToRDFTransformer(TransformerBase):
     def __init__(self, source: Dict[str, Any], sink: Graph):
-        super().__init__(source, sink)
+        TransformerBase.__init__(self, source, sink)
 
     def transform(self) -> None:
         replicaset_id = self.get_id()

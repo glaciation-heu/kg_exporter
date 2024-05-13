@@ -1,5 +1,5 @@
-cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 rdf:type gla:ReplicaSet .
-cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 gla:has-annotation ("deployment.kubernetes.io/desired-replicas:2" "deployment.kubernetes.io/max-replicas:3" "deployment.kubernetes.io/revision:1") .
-cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 gla:has-label ("k8s-app:kube-dns" "pod-template-hash:787d4945fb") .
-cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb rdf:type gla:Deployment .
-cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb gla:refers-to cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 .
+cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 rdf:type k8s:ReplicaSet .
+cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 k8s:has-annotation ("deployment.kubernetes.io/desired-replicas:2" "deployment.kubernetes.io/max-replicas:3" "deployment.kubernetes.io/revision:1") .
+cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 k8s:has-label ("k8s-app:kube-dns" "pod-template-hash:787d4945fb") .
+cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb rdf:type k8s:Deployment .
+cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb k8s:refers-to cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 .

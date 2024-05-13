@@ -9,7 +9,7 @@ from app.kg.iri import IRI
 
 class WorkloadToRDFTransformer(TransformerBase):
     def __init__(self, source: Dict[str, Any], sink: Graph):
-        super().__init__(source, sink)
+        TransformerBase.__init__(self, source, sink)
 
     def transform(self) -> None:
         name = self.get_id()
