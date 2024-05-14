@@ -47,7 +47,7 @@ Example with a Counter and cpu usage:
 
 - Instant query below returns the number of cores consumed by a pod for last sampling interval (~2 minutes):
 
-```json
+```promql
 sum (
 	rate(
 		container_cpu_usage_seconds_total{pod="kube-flannel-ds-7wjqv"}[2m]
@@ -57,7 +57,7 @@ sum (
 
 - Total number of core-seconds consumed by a pod for a large window interval, e.g. 1 hour.
 
-```json
+```promql
 
 sum (
 	increase(
@@ -69,7 +69,7 @@ sum (
 
 - Average number of core-seconds consumed by a pod during a large window interval, e.g. 1 hour.
 
-```json
+```promql
 
 sum (
 	rate(
