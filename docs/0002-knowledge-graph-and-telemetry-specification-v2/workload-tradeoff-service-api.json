@@ -1,0 +1,51 @@
+{
+    "cluster_id": "cluster1",
+    "workloads": [
+        {
+            "workload_id": "cluster:/apis/workloads/wl1",
+            "runs_on": {
+                "start_time": "2024-02-08 18:40:00",
+                "end_time": "2024-02-08 18:45:00",
+                "worker_node_id": "cluster:/apis/nodes/wnode1"
+            },
+            "resources": {
+                "cpu": {
+                    "unit": "cores",
+                    "demanded": 4,
+                    "allocated": 8,
+                    "used": 0.2
+                },
+                "gpu": {
+                    "unit": "flops",
+                    "demanded": 4,
+                    "allocated": 8,
+                    "used": 1.0
+                },
+                "memory": {
+                    "unit": "GB",
+                    "demanded": 4,
+                    "allocated": 8,
+                    "used": 1.2
+                },
+                "storage": {
+                    "unit": "GB",
+                    "demanded": 4,
+                    "allocated": 8,
+                    "used": 1.2
+                },
+                "network": {
+                    "unit": "MB",
+                    "demanded": 1.0,
+                    "allocated": 1.0,
+                    "used": 0.5
+                },
+                "energy_index": {
+                    "unit": "milliwatt",
+                    "demanded": 10,
+                    "allocated": 10,
+                    "used": 1.0
+                }
+            }
+        }
+    ]
+}
