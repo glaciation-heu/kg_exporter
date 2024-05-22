@@ -61,6 +61,9 @@ class IRI(IdBase):
         res ^= self.value.__hash__()
         return res
 
+    def dot(self, token: str) -> "IRI":
+        return IRI(self.prefix, f"{self.value}.{token}")
+
     def render(self) -> str:
         result = f"{self.prefix}:{self.value}"
         return result

@@ -1,7 +1,9 @@
-cluster:glaciation-mast01 rdf:type k8s:Node .
-cluster:glaciation-worker01 rdf:type k8s:Node .
-cluster:glaciation-worker02 rdf:type k8s:Node .
-cluster:glaciation-worker03 rdf:type k8s:Node .
-cluster:glaciation-worker04 rdf:type k8s:Node .
-cluster:kubernetes rdf:type k8s:Cluster .
-cluster:kubernetes k8s:has-node (cluster:glaciation-mast01 cluster:glaciation-worker01 cluster:glaciation-worker02 cluster:glaciation-worker03 cluster:glaciation-worker04) .
+cluster:glaciation-mast01 rdf:type glc:WorkProducingResource .
+cluster:glaciation-worker01 rdf:type glc:WorkProducingResource .
+cluster:glaciation-worker02 rdf:type glc:WorkProducingResource .
+cluster:glaciation-worker03 rdf:type glc:WorkProducingResource .
+cluster:glaciation-worker04 rdf:type glc:WorkProducingResource .
+cluster:kubernetes rdf:type glc:WorkProducingResource .
+cluster:kubernetes glc:hasDescription "KubernetesCluster" .
+cluster:kubernetes glc:hasID cluster:kubernetes .
+cluster:kubernetes glc:hasSubResource (cluster:glaciation-mast01 cluster:glaciation-worker01 cluster:glaciation-worker02 cluster:glaciation-worker03 cluster:glaciation-worker04) .
