@@ -3,6 +3,7 @@ from typing import Any, Dict, List
 import yaml
 from jsonpath_ng.ext import parse
 
+from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
@@ -19,7 +20,7 @@ class ClusterToRDFTransformer(TransformerBase, UpperOntologyBase):
         UpperOntologyBase.__init__(self, sink)
         self.nodes = nodes
 
-    def transform(self) -> None:
+    def transform(self, _: TransformationContext) -> None:
         config_str: str = self.get_cluster_configuration()
         config = yaml.safe_load(config_str)
         cluster_id = self.get_cluster_id(config)

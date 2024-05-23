@@ -1,111 +1,247 @@
 {
     "@context": {
         "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
             "@id": "cluster:glaciation-test-worker01",
-            "@type": "k8s:Node",
-            "k8s:has-annotation": {
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-test-worker01",
+            "glc:hasSubResource": {
                 "@set": [
-                    "flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:de:b3:94:d0:27:9e}",
-                    "flannel.alpha.coreos.com/backend-type:vxlan",
-                    "flannel.alpha.coreos.com/kube-subnet-manager:true",
-                    "flannel.alpha.coreos.com/public-ip:10.14.1.151",
-                    "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock",
-                    "node.alpha.kubernetes.io/ttl:0",
-                    "volumes.kubernetes.io/controller-managed-attach-detach:true"
+                    "cluster:glaciation-test-worker01.CPU",
+                    "cluster:glaciation-test-worker01.GPU",
+                    "cluster:glaciation-test-worker01.Network",
+                    "cluster:glaciation-test-worker01.RAM",
+                    "cluster:glaciation-test-worker01.Storage"
                 ]
-            },
-            "k8s:has-label": {
-                "@set": [
-                    "beta.kubernetes.io/arch:amd64",
-                    "beta.kubernetes.io/os:linux",
-                    "kubernetes.io/arch:amd64",
-                    "kubernetes.io/hostname:glaciation-test-worker01",
-                    "kubernetes.io/os:linux"
-                ]
-            },
-            "k8s:has-allocatable-resource": {
-                "@set": [
-                    {
-                        "@id": "cluster:glaciation-test-worker01.allocatable.CPU",
-                        "@type": "k8s:CPU",
-                        "k8s:count": "4"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.allocatable.Memory",
-                        "@type": "k8s:Memory",
-                        "k8s:bytes": "16283152Ki"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.allocatable.Storage",
-                        "@type": "k8s:Storage",
-                        "k8s:bytes": "47266578354"
-                    }
-                ]
-            },
-            "k8s:has-capacity-resource": {
-                "@set": [
-                    {
-                        "@id": "cluster:glaciation-test-worker01.capacity.CPU",
-                        "@type": "k8s:CPU",
-                        "k8s:count": "4"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.capacity.Memory",
-                        "@type": "k8s:Memory",
-                        "k8s:bytes": "16385552Ki"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.capacity.Storage",
-                        "@type": "k8s:Storage",
-                        "k8s:bytes": "51287520Ki"
-                    }
-                ]
-            },
-            "k8s:has-condition": {
-                "@set": [
-                    {
-                        "@id": "cluster:glaciation-test-worker01.NodeCondition.DiskPressure",
-                        "@type": "k8s:NodeCondition",
-                        "k8s:reason": "KubeletHasNoDiskPressure",
-                        "k8s:status": "False"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.NodeCondition.MemoryPressure",
-                        "@type": "k8s:NodeCondition",
-                        "k8s:reason": "KubeletHasSufficientMemory",
-                        "k8s:status": "False"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.NodeCondition.NetworkUnavailable",
-                        "@type": "k8s:NodeCondition",
-                        "k8s:reason": "FlannelIsUp",
-                        "k8s:status": "False"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.NodeCondition.PIDPressure",
-                        "@type": "k8s:NodeCondition",
-                        "k8s:reason": "KubeletHasSufficientPID",
-                        "k8s:status": "False"
-                    },
-                    {
-                        "@id": "cluster:glaciation-test-worker01.NodeCondition.Ready",
-                        "@type": "k8s:NodeCondition",
-                        "k8s:reason": "KubeletReady",
-                        "k8s:status": "True"
-                    }
-                ]
-            },
-            "k8s:has-network": {
-                "@id": "cluster:glaciation-test-worker01.Network",
-                "@type": "k8s:Network",
-                "k8s:hostname": "glaciation-test-worker01",
-                "k8s:internal_ip": "10.14.1.151"
             }
+        },
+        {
+            "@id": "cluster:glaciation-test-worker01.CPU",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "CPU",
+            "glc:hasID": "cluster:glaciation-test-worker01.CPU",
+            "glc:hasMeasurement": {
+                "@id": "cluster:glaciation-test-worker01.CPU.Capacity",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "Capacity CPU",
+                "glc:hasTimestamp": 123,
+                "glc:hasValue": 4,
+                "glc:hasID": "cluster:glaciation-test-worker01.CPU.Capacity",
+                "glc:measuredIn": "glc:Core",
+                "glc:relatesToMeasurementProperty": "glc:CPU.Capacity"
+            }
+        },
+        {
+            "@id": "cluster:glaciation-test-worker01.GPU",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "GPU",
+            "glc:hasID": "cluster:glaciation-test-worker01.GPU"
+        },
+        {
+            "@id": "cluster:glaciation-test-worker01.Network",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Network",
+            "glc:hasID": "cluster:glaciation-test-worker01.Network"
+        },
+        {
+            "@id": "cluster:glaciation-test-worker01.RAM",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "RAM",
+            "glc:hasID": "cluster:glaciation-test-worker01.RAM",
+            "glc:hasMeasurement": {
+                "@id": "cluster:glaciation-test-worker01.RAM.Capacity",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "Capacity",
+                "glc:hasTimestamp": 123,
+                "glc:hasValue": 16673947648,
+                "glc:hasID": "cluster:glaciation-test-worker01.RAM.Capacity",
+                "glc:measuredIn": "glc:Bytes",
+                "glc:relatesToMeasurementProperty": "glc:RAM.Capacity"
+            }
+        },
+        {
+            "@id": "cluster:glaciation-test-worker01.Storage",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "EphemeralStorage",
+            "glc:hasID": "cluster:glaciation-test-worker01.Storage",
+            "glc:hasMeasurement": {
+                "@id": "cluster:glaciation-test-worker01.Storage.Capacity",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "Capacity",
+                "glc:hasTimestamp": 123,
+                "glc:hasValue": 47266578354,
+                "glc:hasID": "cluster:glaciation-test-worker01.Storage.Capacity",
+                "glc:measuredIn": "glc:Bytes",
+                "glc:relatesToMeasurementProperty": "glc:Storage.Capacity"
+            }
+        },
+        {
+            "@id": "glc:Bytes",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Bytes"
+        },
+        {
+            "@id": "glc:CPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Available"
+        },
+        {
+            "@id": "glc:CPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Capacity"
+        },
+        {
+            "@id": "glc:CPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Usage"
+        },
+        {
+            "@id": "glc:Core",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Core"
+        },
+        {
+            "@id": "glc:Energy.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Available"
+        },
+        {
+            "@id": "glc:Energy.Index",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Index"
+        },
+        {
+            "@id": "glc:Energy.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Usage"
+        },
+        {
+            "@id": "glc:EnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "EnergyBenchmark",
+            "glc:hasID": "glc:EnergyBenchmark"
+        },
+        {
+            "@id": "glc:GB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:GB"
+        },
+        {
+            "@id": "glc:GPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Available"
+        },
+        {
+            "@id": "glc:GPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Capacity"
+        },
+        {
+            "@id": "glc:GPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Usage"
+        },
+        {
+            "@id": "glc:Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
+            "glc:hasID": "glc:Kepler"
+        },
+        {
+            "@id": "glc:MB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:MB"
+        },
+        {
+            "@id": "glc:Milliwatt",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Milliwatt"
+        },
+        {
+            "@id": "glc:Network.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Available"
+        },
+        {
+            "@id": "glc:Network.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Capacity"
+        },
+        {
+            "@id": "glc:Network.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Usage"
+        },
+        {
+            "@id": "glc:NodeExporter",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "NodeExporter",
+            "glc:hasID": "glc:NodeExporter"
+        },
+        {
+            "@id": "glc:Performance",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Performance"
+        },
+        {
+            "@id": "glc:Power",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Power"
+        },
+        {
+            "@id": "glc:RAM.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Available"
+        },
+        {
+            "@id": "glc:RAM.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Capacity"
+        },
+        {
+            "@id": "glc:RAM.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Usage"
+        },
+        {
+            "@id": "glc:ResourceSpecification",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "ResourceSpecification",
+            "glc:hasID": "glc:ResourceSpecification",
+            "glc:makes": {
+                "@set": [
+                    "cluster:glaciation-test-worker01.CPU.Capacity",
+                    "cluster:glaciation-test-worker01.RAM.Capacity",
+                    "cluster:glaciation-test-worker01.Storage.Capacity"
+                ]
+            }
+        },
+        {
+            "@id": "glc:Storage.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Available"
+        },
+        {
+            "@id": "glc:Storage.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Capacity"
+        },
+        {
+            "@id": "glc:Storage.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Usage"
+        },
+        {
+            "@id": "glc:cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
+            "glc:hasID": "glc:cAdvisor"
         }
     ]
 }

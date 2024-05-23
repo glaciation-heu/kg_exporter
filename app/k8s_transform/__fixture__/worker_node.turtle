@@ -1,37 +1,44 @@
-cluster:glaciation-test-worker01 rdf:type k8s:Node .
-cluster:glaciation-test-worker01 k8s:has-annotation ("flannel.alpha.coreos.com/backend-data:{VNI:1,VtepMAC:de:b3:94:d0:27:9e}" "flannel.alpha.coreos.com/backend-type:vxlan" "flannel.alpha.coreos.com/kube-subnet-manager:true" "flannel.alpha.coreos.com/public-ip:10.14.1.151" "kubeadm.alpha.kubernetes.io/cri-socket:unix:///var/run/containerd/containerd.sock" "node.alpha.kubernetes.io/ttl:0" "volumes.kubernetes.io/controller-managed-attach-detach:true") .
-cluster:glaciation-test-worker01 k8s:has-label ("beta.kubernetes.io/arch:amd64" "beta.kubernetes.io/os:linux" "kubernetes.io/arch:amd64" "kubernetes.io/hostname:glaciation-test-worker01" "kubernetes.io/os:linux") .
-cluster:glaciation-test-worker01 k8s:has-allocatable-resource (cluster:glaciation-test-worker01.allocatable.CPU cluster:glaciation-test-worker01.allocatable.Memory cluster:glaciation-test-worker01.allocatable.Storage) .
-cluster:glaciation-test-worker01 k8s:has-capacity-resource (cluster:glaciation-test-worker01.capacity.CPU cluster:glaciation-test-worker01.capacity.Memory cluster:glaciation-test-worker01.capacity.Storage) .
-cluster:glaciation-test-worker01 k8s:has-condition (cluster:glaciation-test-worker01.NodeCondition.DiskPressure cluster:glaciation-test-worker01.NodeCondition.MemoryPressure cluster:glaciation-test-worker01.NodeCondition.NetworkUnavailable cluster:glaciation-test-worker01.NodeCondition.PIDPressure cluster:glaciation-test-worker01.NodeCondition.Ready) .
-cluster:glaciation-test-worker01 k8s:has-network cluster:glaciation-test-worker01.Network .
-cluster:glaciation-test-worker01.Network rdf:type k8s:Network .
-cluster:glaciation-test-worker01.Network k8s:hostname "glaciation-test-worker01" .
-cluster:glaciation-test-worker01.Network k8s:internal_ip "10.14.1.151" .
-cluster:glaciation-test-worker01.NodeCondition.DiskPressure rdf:type k8s:NodeCondition .
-cluster:glaciation-test-worker01.NodeCondition.DiskPressure k8s:reason "KubeletHasNoDiskPressure" .
-cluster:glaciation-test-worker01.NodeCondition.DiskPressure k8s:status "False" .
-cluster:glaciation-test-worker01.NodeCondition.MemoryPressure rdf:type k8s:NodeCondition .
-cluster:glaciation-test-worker01.NodeCondition.MemoryPressure k8s:reason "KubeletHasSufficientMemory" .
-cluster:glaciation-test-worker01.NodeCondition.MemoryPressure k8s:status "False" .
-cluster:glaciation-test-worker01.NodeCondition.NetworkUnavailable rdf:type k8s:NodeCondition .
-cluster:glaciation-test-worker01.NodeCondition.NetworkUnavailable k8s:reason "FlannelIsUp" .
-cluster:glaciation-test-worker01.NodeCondition.NetworkUnavailable k8s:status "False" .
-cluster:glaciation-test-worker01.NodeCondition.PIDPressure rdf:type k8s:NodeCondition .
-cluster:glaciation-test-worker01.NodeCondition.PIDPressure k8s:reason "KubeletHasSufficientPID" .
-cluster:glaciation-test-worker01.NodeCondition.PIDPressure k8s:status "False" .
-cluster:glaciation-test-worker01.NodeCondition.Ready rdf:type k8s:NodeCondition .
-cluster:glaciation-test-worker01.NodeCondition.Ready k8s:reason "KubeletReady" .
-cluster:glaciation-test-worker01.NodeCondition.Ready k8s:status "True" .
-cluster:glaciation-test-worker01.allocatable.CPU rdf:type k8s:CPU .
-cluster:glaciation-test-worker01.allocatable.CPU k8s:count "4" .
-cluster:glaciation-test-worker01.allocatable.Memory rdf:type k8s:Memory .
-cluster:glaciation-test-worker01.allocatable.Memory k8s:bytes "16283152Ki" .
-cluster:glaciation-test-worker01.allocatable.Storage rdf:type k8s:Storage .
-cluster:glaciation-test-worker01.allocatable.Storage k8s:bytes "47266578354" .
-cluster:glaciation-test-worker01.capacity.CPU rdf:type k8s:CPU .
-cluster:glaciation-test-worker01.capacity.CPU k8s:count "4" .
-cluster:glaciation-test-worker01.capacity.Memory rdf:type k8s:Memory .
-cluster:glaciation-test-worker01.capacity.Memory k8s:bytes "16385552Ki" .
-cluster:glaciation-test-worker01.capacity.Storage rdf:type k8s:Storage .
-cluster:glaciation-test-worker01.capacity.Storage k8s:bytes "51287520Ki" .
+cluster:glaciation-test-worker01 rdf:type glc:WorkProducingResource .
+cluster:glaciation-test-worker01 glc:hasDescription "KubernetesWorkerNode" .
+cluster:glaciation-test-worker01 glc:hasID cluster:glaciation-test-worker01 .
+cluster:glaciation-test-worker01 glc:hasSubResource (cluster:glaciation-test-worker01.CPU cluster:glaciation-test-worker01.GPU cluster:glaciation-test-worker01.Network cluster:glaciation-test-worker01.RAM cluster:glaciation-test-worker01.Storage) .
+cluster:glaciation-test-worker01.CPU rdf:type glc:WorkProducingResource .
+cluster:glaciation-test-worker01.CPU glc:hasDescription "CPU" .
+cluster:glaciation-test-worker01.CPU glc:hasID cluster:glaciation-test-worker01.CPU .
+cluster:glaciation-test-worker01.CPU glc:hasMeasurement cluster:glaciation-test-worker01.CPU.Capacity .
+cluster:glaciation-test-worker01.CPU.Capacity rdf:type glc:Measurement .
+cluster:glaciation-test-worker01.CPU.Capacity glc:hasDescription "Capacity CPU" .
+cluster:glaciation-test-worker01.CPU.Capacity glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-worker01.CPU.Capacity glc:hasValue 4^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-worker01.CPU.Capacity glc:hasID cluster:glaciation-test-worker01.CPU.Capacity .
+cluster:glaciation-test-worker01.CPU.Capacity glc:measuredIn glc:Core .
+cluster:glaciation-test-worker01.CPU.Capacity glc:relatesToMeasurementProperty glc:CPU.Capacity .
+cluster:glaciation-test-worker01.GPU rdf:type glc:WorkProducingResource .
+cluster:glaciation-test-worker01.GPU glc:hasDescription "GPU" .
+cluster:glaciation-test-worker01.GPU glc:hasID cluster:glaciation-test-worker01.GPU .
+cluster:glaciation-test-worker01.Network rdf:type glc:WorkProducingResource .
+cluster:glaciation-test-worker01.Network glc:hasDescription "Network" .
+cluster:glaciation-test-worker01.Network glc:hasID cluster:glaciation-test-worker01.Network .
+cluster:glaciation-test-worker01.RAM rdf:type glc:WorkProducingResource .
+cluster:glaciation-test-worker01.RAM glc:hasDescription "RAM" .
+cluster:glaciation-test-worker01.RAM glc:hasID cluster:glaciation-test-worker01.RAM .
+cluster:glaciation-test-worker01.RAM glc:hasMeasurement cluster:glaciation-test-worker01.RAM.Capacity .
+cluster:glaciation-test-worker01.RAM.Capacity rdf:type glc:Measurement .
+cluster:glaciation-test-worker01.RAM.Capacity glc:hasDescription "Capacity" .
+cluster:glaciation-test-worker01.RAM.Capacity glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-worker01.RAM.Capacity glc:hasValue 16673947648^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-worker01.RAM.Capacity glc:hasID cluster:glaciation-test-worker01.RAM.Capacity .
+cluster:glaciation-test-worker01.RAM.Capacity glc:measuredIn glc:Bytes .
+cluster:glaciation-test-worker01.RAM.Capacity glc:relatesToMeasurementProperty glc:RAM.Capacity .
+cluster:glaciation-test-worker01.Storage rdf:type glc:WorkProducingResource .
+cluster:glaciation-test-worker01.Storage glc:hasDescription "EphemeralStorage" .
+cluster:glaciation-test-worker01.Storage glc:hasID cluster:glaciation-test-worker01.Storage .
+cluster:glaciation-test-worker01.Storage glc:hasMeasurement cluster:glaciation-test-worker01.Storage.Capacity .
+cluster:glaciation-test-worker01.Storage.Capacity rdf:type glc:Measurement .
+cluster:glaciation-test-worker01.Storage.Capacity glc:hasDescription "Capacity" .
+cluster:glaciation-test-worker01.Storage.Capacity glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-worker01.Storage.Capacity glc:hasValue 47266578354^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-worker01.Storage.Capacity glc:hasID cluster:glaciation-test-worker01.Storage.Capacity .
+cluster:glaciation-test-worker01.Storage.Capacity glc:measuredIn glc:Bytes .
+cluster:glaciation-test-worker01.Storage.Capacity glc:relatesToMeasurementProperty glc:Storage.Capacity .
+glc:ResourceSpecification glc:makes (cluster:glaciation-test-worker01.CPU.Capacity cluster:glaciation-test-worker01.RAM.Capacity cluster:glaciation-test-worker01.Storage.Capacity) .

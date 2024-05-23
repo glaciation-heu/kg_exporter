@@ -1,113 +1,101 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from jsonpath_ng.ext import parse
+from kubernetes.utils.quantity import parse_quantity
 
+from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
+from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
-from app.kg.literal import Literal
-from app.kg.types import RelationSet
 
 
-class NodesToRDFTransformer(TransformerBase):
+class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
     def __init__(self, source: Dict[str, Any], sink: Graph):
         TransformerBase.__init__(self, source, sink)
+        UpperOntologyBase.__init__(self, sink)
 
-    def transform(self) -> None:
+    def transform(self, context: TransformationContext) -> None:
         node_id = self.get_node_id(self.source)
-        self.sink.add_meta_property(
-            node_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Node")
-        )
-        self.write_collection(
-            node_id, IRI(self.K8S_PREFIX, "has-label"), "$.metadata.labels"
-        )
-        self.write_collection(
-            node_id,
-            IRI(self.K8S_PREFIX, "has-annotation"),
-            "$.metadata.annotations",
-        )
+        self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
 
-        self.write_network(node_id)
-        self.write_resources(node_id, "allocatable")
-        self.write_resources(node_id, "capacity")
-        self.write_conditions(node_id)
+        self.add_cpu_resource(node_id, context.get_timestamp())
+        self.add_memory_resource(node_id, context.get_timestamp())
+        self.add_storage_resource(node_id, context.get_timestamp())
+        self.add_network_resource(node_id, context.get_timestamp())
+        self.add_gpu_resource(node_id, context.get_timestamp())
 
-    def write_resources(self, name: IRI, src: str) -> None:
-        cpu_id = IRI(self.CLUSTER_PREFIX, f"{name.value}.{src}.CPU")
-        self.sink.add_meta_property(
-            cpu_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "CPU")
-        )
-        self.write_tuple(cpu_id, IRI(self.K8S_PREFIX, "count"), f"$.status.{src}.cpu")
-
-        memory_id = IRI(self.CLUSTER_PREFIX, f"{name.value}.{src}.Memory")
-        self.sink.add_meta_property(
-            memory_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Memory")
-        )
-        self.write_tuple(
-            memory_id, IRI(self.K8S_PREFIX, "bytes"), f"$.status.{src}.memory"
-        )
-
-        storage_id = IRI(self.CLUSTER_PREFIX, f"{name.value}.{src}.Storage")
-        self.sink.add_meta_property(
-            storage_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Storage")
-        )
-        self.write_tuple(
-            storage_id,
-            IRI(self.K8S_PREFIX, "bytes"),
-            f"$.status.{src}.ephemeral-storage",
-        )
-
-        resources = {cpu_id, memory_id, storage_id}
-        self.sink.add_relation_collection(
-            name, IRI(self.K8S_PREFIX, f"has-{src}-resource"), resources
-        )
-
-    def write_network(self, node_name: IRI) -> None:
-        network_id = IRI(self.CLUSTER_PREFIX, f"{node_name.value}.Network")
-        self.sink.add_meta_property(
-            network_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Network")
-        )
-        self.write_tuple(
-            network_id,
-            IRI(self.K8S_PREFIX, "internal_ip"),
-            '$.status.addresses[?type == "InternalIP"].address',
-        )
-        self.write_tuple(
-            network_id,
-            IRI(self.K8S_PREFIX, "hostname"),
-            '$.status.addresses[?type == "Hostname"].address',
-        )
-        self.sink.add_relation(
-            node_name, IRI(self.K8S_PREFIX, "has-network"), network_id
-        )
-
-    def write_conditions(self, node_name: IRI) -> None:
-        condition_ids: RelationSet = set()
-        for condition in parse("$.status.conditions").find(self.source)[0].value:
-            condition_type = condition.get("type")
-            if not condition_type:
-                continue
-            condition_id = IRI(
-                self.CLUSTER_PREFIX, f"{node_name.value}.NodeCondition.{condition_type}"
+    def add_cpu_resource(self, node_id: IRI, timestamp: int) -> None:
+        cpu_id = node_id.dot("CPU")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, cpu_id)
+        self.add_work_producing_resource(cpu_id, "CPU")
+        cpu_capacity_value = self.get_int_value("$.status.allocatable.cpu")
+        if cpu_capacity_value:
+            cpu_capacity_id = cpu_id.dot("Capacity")
+            self.add_measurement(
+                cpu_id.dot("Capacity"),
+                "Capacity CPU",
+                cpu_capacity_value,
+                timestamp,
+                self.UNIT_CPU_CORE_ID,
+                self.PROPERTY_CPU_CAPACITY,
+                self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
             )
-            condition_ids.add(condition_id)
-            status = condition.get("status")
-            reason = condition.get("reason")
-            self.sink.add_meta_property(
-                condition_id,
-                Graph.RDF_TYPE_IRI,
-                IRI(self.K8S_PREFIX, "NodeCondition"),
+            self.sink.add_relation(cpu_id, self.HAS_MEASUREMENT, cpu_capacity_id)
+
+    def add_memory_resource(self, node_id: IRI, timestamp: int) -> None:
+        ram_id = node_id.dot("RAM")
+        self.add_work_producing_resource(ram_id, "RAM")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, ram_id)
+
+        ram_capacity_value = self.get_int_value("$.status.allocatable.memory")
+        if ram_capacity_value:
+            ram_capacity_id = ram_id.dot("Capacity")
+            self.add_measurement(
+                ram_capacity_id,
+                "Capacity",
+                ram_capacity_value,
+                timestamp,
+                self.UNIT_BYTES_ID,
+                self.PROPERTY_RAM_CAPACITY,
+                self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
             )
-            self.sink.add_property(
-                condition_id,
-                IRI(self.K8S_PREFIX, "status"),
-                Literal(self.escape(status), Literal.TYPE_STRING),
-            )
-            self.sink.add_property(
-                condition_id,
-                IRI(self.K8S_PREFIX, "reason"),
-                Literal(self.escape(reason), Literal.TYPE_STRING),
-            )
-        self.sink.add_relation_collection(
-            node_name, IRI(self.K8S_PREFIX, "has-condition"), condition_ids
+            self.sink.add_relation(ram_id, self.HAS_MEASUREMENT, ram_capacity_id)
+
+    def add_storage_resource(self, node_id: IRI, timestamp: int) -> None:
+        storage_id = node_id.dot("Storage")
+        self.add_work_producing_resource(storage_id, "EphemeralStorage")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
+
+        storage_capacity_value = self.get_int_value(
+            "$.status.allocatable.ephemeral-storage"
         )
+        if storage_capacity_value:
+            storage_capacity_id = storage_id.dot("Capacity")
+            self.add_measurement(
+                storage_capacity_id,
+                "Capacity",
+                storage_capacity_value,
+                timestamp,
+                self.UNIT_BYTES_ID,
+                self.PROPERTY_STORAGE_CAPACITY,
+                self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
+            )
+            self.sink.add_relation(
+                storage_id, self.HAS_MEASUREMENT, storage_capacity_id
+            )
+
+    def add_network_resource(self, node_id: IRI, _: int) -> None:
+        storage_id = node_id.dot("Network")
+        self.add_work_producing_resource(storage_id, "Network")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
+
+    def add_gpu_resource(self, node_id: IRI, _: int) -> None:
+        storage_id = node_id.dot("GPU")
+        self.add_work_producing_resource(storage_id, "GPU")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
+
+    def get_int_value(self, query: str) -> Optional[int]:
+        for match in parse(query).find(self.source):
+            return int(parse_quantity(match.value))
+        return None

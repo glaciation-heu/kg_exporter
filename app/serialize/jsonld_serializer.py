@@ -79,7 +79,7 @@ class JsonLDSerialializer(GraphSerializer):
         rdf_type = meta_properties.get(Graph.RDF_TYPE_IRI)
         if not rdf_type:
             raise Exception(
-                f"Node {node_id} is expected to have a 'rdf:type' property."
+                f"Node {node_id.render()} is expected to have a 'rdf:type' property."
             )
         result_node["@type"] = rdf_type.render()
 

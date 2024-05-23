@@ -2,6 +2,7 @@ import json
 from io import StringIO
 
 from app.k8s_transform.test_base import TransformBaseTest
+from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
@@ -22,8 +23,10 @@ class WorkloadTransformerTest(TransformBaseTest):
 
         buffer = StringIO()
         graph = InMemoryGraph()
-        WorkloadToRDFTransformer(node_json, graph).transform()
+        context = TransformationContext(123)
+        WorkloadToRDFTransformer(node_json, graph).transform(context)
         TurtleSerialializer().write(buffer, graph)
+        # print(buffer.getvalue())
         self.assertEqual(buffer.getvalue(), node_turtle)
 
     def test_transform_jsonld(self):
@@ -36,6 +39,8 @@ class WorkloadTransformerTest(TransformBaseTest):
 
         buffer = StringIO()
         graph = InMemoryGraph()
-        WorkloadToRDFTransformer(node_json, graph).transform()
+        context = TransformationContext(123)
+        WorkloadToRDFTransformer(node_json, graph).transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
+        # print(buffer.getvalue())
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

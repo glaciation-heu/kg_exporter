@@ -4,18 +4,21 @@ import re
 
 from jsonpath_ng.ext import parse
 
+from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
+from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
 from app.kg.types import RelationSet
 
 
-class PodToRDFTransformer(TransformerBase):
+class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
     def __init__(self, source: Dict[str, Any], sink: Graph):
         TransformerBase.__init__(self, source, sink)
+        UpperOntologyBase.__init__(self, sink)
 
-    def transform(self) -> None:
+    def transform(self, _: TransformationContext) -> None:
         pod_id = self.get_pod_id()
         self.sink.add_meta_property(
             pod_id, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Pod")
