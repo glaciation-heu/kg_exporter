@@ -1,6 +1,7 @@
 cluster:glaciation-test-master01 rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01 glc:hasDescription "KubernetesWorkerNode" .
 cluster:glaciation-test-master01 glc:hasID cluster:glaciation-test-master01 .
+cluster:glaciation-test-master01 glc:hasStatus cluster:glaciation-test-master01.Status .
 cluster:glaciation-test-master01 glc:hasSubResource (cluster:glaciation-test-master01.CPU cluster:glaciation-test-master01.GPU cluster:glaciation-test-master01.Network cluster:glaciation-test-master01.RAM cluster:glaciation-test-master01.Storage) .
 cluster:glaciation-test-master01.CPU rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01.CPU glc:hasDescription "CPU" .
@@ -30,6 +31,10 @@ cluster:glaciation-test-master01.RAM.Capacity glc:hasValue 16673939456^^<http://
 cluster:glaciation-test-master01.RAM.Capacity glc:hasID cluster:glaciation-test-master01.RAM.Capacity .
 cluster:glaciation-test-master01.RAM.Capacity glc:measuredIn glc:Bytes .
 cluster:glaciation-test-master01.RAM.Capacity glc:relatesToMeasurementProperty glc:RAM.Capacity .
+cluster:glaciation-test-master01.Status rdf:type glc:Status .
+cluster:glaciation-test-master01.Status glc:hasDescription "Ready" .
+cluster:glaciation-test-master01.Status glc:startTime "2024-02-13T13:53:43Z" .
+cluster:glaciation-test-master01.Status glc:hasID cluster:glaciation-test-master01.Status .
 cluster:glaciation-test-master01.Storage rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01.Storage glc:hasDescription "EphemeralStorage" .
 cluster:glaciation-test-master01.Storage glc:hasID cluster:glaciation-test-master01.Storage .

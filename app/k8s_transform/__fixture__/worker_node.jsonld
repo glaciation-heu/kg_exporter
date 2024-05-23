@@ -11,6 +11,13 @@
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
             "glc:hasID": "cluster:glaciation-test-worker01",
+            "glc:hasStatus": {
+                "@id": "cluster:glaciation-test-worker01.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "Ready",
+                "glc:startTime": "2024-02-23T06:11:02Z",
+                "glc:hasID": "cluster:glaciation-test-worker01.Status"
+            },
             "glc:hasSubResource": {
                 "@set": [
                     "cluster:glaciation-test-worker01.CPU",

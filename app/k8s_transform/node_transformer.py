@@ -24,6 +24,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_storage_resource(node_id, context.get_timestamp())
         self.add_network_resource(node_id, context.get_timestamp())
         self.add_gpu_resource(node_id, context.get_timestamp())
+        self.add_node_status(node_id)
 
     def add_cpu_resource(self, node_id: IRI, timestamp: int) -> None:
         cpu_id = node_id.dot("CPU")
@@ -95,7 +96,33 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(storage_id, "GPU")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
 
+    def add_node_status(self, node_id: IRI) -> None:
+        status_value = self.get_node_status()
+        last_transition_time = (
+            self.get_str_value(
+                '$.status.conditions[?type == "Ready"].lastTransitionTime'
+            )
+            or "0"
+        )
+        status_id = node_id.dot("Status")
+        self.add_status(status_id, status_value, last_transition_time, None)
+        self.sink.add_relation(node_id, self.HAS_STATUS, status_id)
+
+    def get_node_status(self) -> str:
+        status = self.get_str_value('$.status.conditions[?type == "Ready"].status')
+        if status and status.lower() == "true":
+            return "Ready"
+        elif status and status.lower() == "false":
+            return "NotReady"
+        else:
+            return "Unknown"
+
     def get_int_value(self, query: str) -> Optional[int]:
         for match in parse(query).find(self.source):
             return int(parse_quantity(match.value))
+        return None
+
+    def get_str_value(self, query: str) -> Optional[str]:
+        for match in parse(query).find(self.source):
+            return str(match.value)
         return None

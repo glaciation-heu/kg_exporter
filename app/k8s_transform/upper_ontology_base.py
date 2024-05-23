@@ -11,6 +11,7 @@ class UpperOntologyBase:
     HAS_DESCRIPTION = IRI(GLACIATION_PREFIX, "hasDescription")
     HAS_SUBRESOURCE = IRI(GLACIATION_PREFIX, "hasSubResource")
     HAS_MEASUREMENT = IRI(GLACIATION_PREFIX, "hasMeasurement")
+    HAS_STATUS = IRI(GLACIATION_PREFIX, "hasStatus")
     PRODUCES = IRI(GLACIATION_PREFIX, "produces")
     MAKES = IRI(GLACIATION_PREFIX, "makes")
 
@@ -181,15 +182,11 @@ class UpperOntologyBase:
             constraint_id, IRI(self.GLACIATION_PREFIX, "hasAspect"), aspect
         )
 
-    def add_assigned_task(self, identifier: str, description: str) -> IRI:
-        task_id = IRI(self.GLACIATION_PREFIX, identifier)
-        self.add_common_info(task_id, "AssignedTask", description)
-        return task_id
+    def add_assigned_task(self, identifier: IRI, description: Optional[str]) -> None:
+        self.add_common_info(identifier, "AssignedTask", description)
 
-    def add_submitted_task(self, identifier: str, description: str) -> IRI:
-        task_id = IRI(self.GLACIATION_PREFIX, identifier)
-        self.add_common_info(task_id, "SubmittedTask", description)
-        return task_id
+    def add_submitted_task(self, identifier: IRI, description: Optional[str]) -> None:
+        self.add_common_info(identifier, "SubmittedTask", description)
 
     def add_non_work_producing_resource(
         self, identifier: IRI, description: Optional[str]
