@@ -1,24 +1,277 @@
 {
     "@context": {
         "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
+            "@id": "glc:Bytes",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Bytes"
+        },
+        {
+            "@id": "glc:CPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Available"
+        },
+        {
+            "@id": "glc:CPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Capacity"
+        },
+        {
+            "@id": "glc:CPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Usage"
+        },
+        {
+            "@id": "glc:Core",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Core"
+        },
+        {
+            "@id": "glc:Energy.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Available"
+        },
+        {
+            "@id": "glc:Energy.Index",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Index"
+        },
+        {
+            "@id": "glc:Energy.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Usage"
+        },
+        {
+            "@id": "glc:EnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "EnergyBenchmark",
+            "glc:hasID": "glc:EnergyBenchmark"
+        },
+        {
+            "@id": "glc:GB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:GB"
+        },
+        {
+            "@id": "glc:GPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Available"
+        },
+        {
+            "@id": "glc:GPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Capacity"
+        },
+        {
+            "@id": "glc:GPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Usage"
+        },
+        {
+            "@id": "glc:Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
+            "glc:hasID": "glc:Kepler"
+        },
+        {
+            "@id": "glc:MB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:MB"
+        },
+        {
+            "@id": "glc:Milliwatt",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Milliwatt"
+        },
+        {
+            "@id": "glc:Network.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Available"
+        },
+        {
+            "@id": "glc:Network.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Capacity"
+        },
+        {
+            "@id": "glc:Network.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Usage"
+        },
+        {
+            "@id": "glc:NodeExporter",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "NodeExporter",
+            "glc:hasID": "glc:NodeExporter"
+        },
+        {
+            "@id": "glc:Performance",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Performance"
+        },
+        {
+            "@id": "glc:Power",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Power"
+        },
+        {
+            "@id": "glc:RAM.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Available"
+        },
+        {
+            "@id": "glc:RAM.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Capacity"
+        },
+        {
+            "@id": "glc:RAM.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Usage"
+        },
+        {
+            "@id": "glc:ResourceSpecification",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "ResourceSpecification",
+            "glc:hasID": "glc:ResourceSpecification"
+        },
+        {
+            "@id": "glc:Storage.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Available"
+        },
+        {
+            "@id": "glc:Storage.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Capacity"
+        },
+        {
+            "@id": "glc:Storage.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Usage"
+        },
+        {
+            "@id": "glc:cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
+            "glc:hasID": "glc:cAdvisor"
+        },
+        {
             "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb",
-            "@type": "k8s:Workload",
-            "rdf:subClassOf": "k8s:Deployment",
-            "k8s:has-annotation": {
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "Deployment",
+            "glc:hasConstraint": {
                 "@set": [
-                    "deployment.kubernetes.io/revision:1"
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.CPU.Allocated",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasDescription": "CPU.Allocated",
+                        "glc:maxValue": 0.30000000000000004,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.CPU.Allocated",
+                        "glc:measuredIn": "glc:Core"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Energy.Allocated",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasDescription": "Energy.Allocated",
+                        "glc:maxValue": 100.0,
+                        "glc:hasAspect": "glc:Power",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Energy.Allocated",
+                        "glc:measuredIn": "glc:Milliwatt"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Energy.Capacity",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasDescription": "Energy.Capacity",
+                        "glc:maxValue": 100.0,
+                        "glc:hasAspect": "glc:Power",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Energy.Capacity",
+                        "glc:measuredIn": "glc:Milliwatt"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.GPU.Allocated",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasDescription": "GPU.Allocated",
+                        "glc:maxValue": 101.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.GPU.Allocated",
+                        "glc:measuredIn": "glc:Core"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.GPU.Capacity",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasDescription": "GPU.Capacity",
+                        "glc:maxValue": 101.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.GPU.Capacity",
+                        "glc:measuredIn": "glc:Core"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Network.Allocated",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasDescription": "Network.Allocated",
+                        "glc:maxValue": 1010.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Network.Allocated",
+                        "glc:measuredIn": "glc:Bytes"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Network.Capacity",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasDescription": "Network.Capacity",
+                        "glc:maxValue": 1010.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Network.Capacity",
+                        "glc:measuredIn": "glc:Bytes"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.RAM.Allocated",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasDescription": "RAM.Allocated",
+                        "glc:maxValue": 220200960.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.RAM.Allocated",
+                        "glc:measuredIn": "glc:Bytes"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.RAM.Capacity",
+                        "@type": "glc:HardConstraint",
+                        "glc:hasDescription": "RAM.Capacity",
+                        "glc:maxValue": 534773760.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.RAM.Capacity",
+                        "glc:measuredIn": "glc:Bytes"
+                    },
+                    {
+                        "@id": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Storage.Allocated",
+                        "@type": "glc:SoftConstraint",
+                        "glc:hasDescription": "Storage.Allocated",
+                        "glc:maxValue": 100500.0,
+                        "glc:hasAspect": "glc:Performance",
+                        "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb.Storage.Allocated",
+                        "glc:measuredIn": "glc:Bytes"
+                    }
                 ]
             },
-            "k8s:has-label": {
-                "@set": [
-                    "k8s-app:kube-dns"
-                ]
-            }
+            "glc:hasID": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb"
+        },
+        {
+            "@id": "cluster:crd-resource.930f2fc9-2b5e-46c7-a11f-4374fe55fafd",
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "CRD",
+            "glc:makes": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb"
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:assigns": "cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb",
+            "glc:hasID": "glc:default-scheduler"
         }
     ]
 }

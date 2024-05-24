@@ -11,6 +11,16 @@
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
             "glc:hasID": "cluster:glaciation-test-master01",
+            "glc:hasMeasurement": {
+                "@id": "cluster:glaciation-test-master01.Energy.Index",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "Energy.Index",
+                "glc:hasTimestamp": 123,
+                "glc:hasValue": 1001,
+                "glc:hasID": "cluster:glaciation-test-master01.Energy.Index",
+                "glc:measuredIn": "glc:Milliwatt",
+                "glc:relatesToMeasurementProperty": "glc:Energy.Index"
+            },
             "glc:hasStatus": {
                 "@id": "cluster:glaciation-test-master01.Status",
                 "@type": "glc:Status",
@@ -224,6 +234,7 @@
             "glc:makes": {
                 "@set": [
                     "cluster:glaciation-test-master01.CPU.Capacity",
+                    "cluster:glaciation-test-master01.Energy.Index",
                     "cluster:glaciation-test-master01.RAM.Capacity",
                     "cluster:glaciation-test-master01.Storage.Capacity"
                 ]

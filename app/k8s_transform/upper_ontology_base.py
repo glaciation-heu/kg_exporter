@@ -7,13 +7,43 @@ from app.kg.literal import Literal
 
 class UpperOntologyBase:
     GLACIATION_PREFIX = "glc"
+    # Entities
+
+    ASSIGNED_TASK = IRI(GLACIATION_PREFIX, "AssignedTask")
+    SUBMITTED_TASK = IRI(GLACIATION_PREFIX, "SubmittedTask")
+    WORK_PRODUCING_RESOURCE = IRI(GLACIATION_PREFIX, "WorkProducingResource")
+    NON_WORK_PRODUCING_RESOURCE = IRI(GLACIATION_PREFIX, "NonWorkProducingResource")
+    ASPECT = IRI(GLACIATION_PREFIX, "Aspect")
+    MEASUREMENT_PROPERTY = IRI(GLACIATION_PREFIX, "MeasurementProperty")
+    STATUS = IRI(GLACIATION_PREFIX, "Status")
+    MEASUREMENT = IRI(GLACIATION_PREFIX, "Measurement")
+    MEASURING_RESOURCE = IRI(GLACIATION_PREFIX, "MeasuringResource")
+    MEASUREMENT_UNIT = IRI(GLACIATION_PREFIX, "MeasurementUnit")
+    SOFT_CONSTRAINT = IRI(GLACIATION_PREFIX, "SoftConstraint")
+    HARD_CONSTRAINT = IRI(GLACIATION_PREFIX, "HardConstraint")
+    SCHEDULER = IRI(GLACIATION_PREFIX, "Scheduler")
+
+    # Relations
     HAS_ID = IRI(GLACIATION_PREFIX, "hasID")
     HAS_DESCRIPTION = IRI(GLACIATION_PREFIX, "hasDescription")
     HAS_SUBRESOURCE = IRI(GLACIATION_PREFIX, "hasSubResource")
+    HAS_SUBTASK = IRI(GLACIATION_PREFIX, "hasSubTask")
     HAS_MEASUREMENT = IRI(GLACIATION_PREFIX, "hasMeasurement")
     HAS_STATUS = IRI(GLACIATION_PREFIX, "hasStatus")
+    HAS_ASPECT = IRI(GLACIATION_PREFIX, "hasAspect")
+    HAS_CONSTRAINT = IRI(GLACIATION_PREFIX, "hasConstraint")
     PRODUCES = IRI(GLACIATION_PREFIX, "produces")
+    CONSUMES = IRI(GLACIATION_PREFIX, "consumes")
+    ASSIGNS = IRI(GLACIATION_PREFIX, "assigns")
     MAKES = IRI(GLACIATION_PREFIX, "makes")
+    MEASURED_IN = IRI(GLACIATION_PREFIX, "measuredIn")
+    START_TIME = IRI(GLACIATION_PREFIX, "startTime")
+    END_TIME = IRI(GLACIATION_PREFIX, "endTime")
+    HAS_VALUE = IRI(GLACIATION_PREFIX, "hasValue")
+    HAS_TIMESTAMP = IRI(GLACIATION_PREFIX, "hasTimestamp")
+    RELATES_TO_MEASUREMENT_PROPERTY = IRI(
+        GLACIATION_PREFIX, "relatesToMeasurementProperty"
+    )
 
     # Measuring Resources
     MEASURING_RESOURCE_KEPLER_ID = IRI(GLACIATION_PREFIX, "Kepler")
@@ -94,26 +124,26 @@ class UpperOntologyBase:
         ]
 
     def add_aspect(self, identifier: IRI, description: Optional[str]) -> None:
-        self.add_common_info(identifier, "Aspect", description)
+        self.add_common_info(identifier, self.ASPECT, description)
 
     def add_measurement_property(
         self, identifier: IRI, description: Optional[str]
     ) -> None:
-        self.add_common_info(identifier, "MeasurementProperty", description)
+        self.add_common_info(identifier, self.MEASUREMENT_PROPERTY, description)
 
     def add_status(
         self, identifier: IRI, status: str, start_time: str, end_time: Optional[str]
     ) -> None:
-        self.add_common_info(identifier, "Status", status)
+        self.add_common_info(identifier, self.STATUS, status)
         self.sink.add_property(
             identifier,
-            IRI(self.GLACIATION_PREFIX, "startTime"),
+            self.START_TIME,
             Literal(start_time, "str"),
         )
         if end_time:
             self.sink.add_property(
                 identifier,
-                IRI(self.GLACIATION_PREFIX, "endTime"),
+                self.END_TIME,
                 Literal(end_time, "str"),
             )
 
@@ -127,83 +157,75 @@ class UpperOntologyBase:
         related_to_property: IRI,
         measuring_resource: IRI,
     ) -> None:
-        self.add_common_info(identifier, "Measurement", description)
+        self.add_common_info(identifier, self.MEASUREMENT, description)
         self.sink.add_property(
             identifier,
-            IRI(self.GLACIATION_PREFIX, "hasValue"),
+            self.HAS_VALUE,
             Literal(value, "int"),
         )
         self.sink.add_property(
             identifier,
-            IRI(self.GLACIATION_PREFIX, "hasTimestamp"),
+            self.HAS_TIMESTAMP,
             Literal(timestamp, "int"),
         )
         self.sink.add_relation(
             identifier,
-            IRI(self.GLACIATION_PREFIX, "relatesToMeasurementProperty"),
+            self.RELATES_TO_MEASUREMENT_PROPERTY,
             related_to_property,
         )
-        self.sink.add_relation(
-            identifier, IRI(self.GLACIATION_PREFIX, "measuredIn"), unit
-        )
-        self.sink.add_relation(
-            measuring_resource, IRI(self.GLACIATION_PREFIX, "makes"), identifier
-        )
+        self.sink.add_relation(identifier, self.MEASURED_IN, unit)
+        self.sink.add_relation(measuring_resource, self.MAKES, identifier)
 
     def add_measuring_resource(self, identifier: IRI, description: str) -> None:
-        self.add_common_info(identifier, "MeasuringResource", description)
+        self.add_common_info(identifier, self.MEASURING_RESOURCE, description)
 
     def add_unit(self, identifier: IRI, description: Optional[str]) -> None:
-        self.add_common_info(identifier, "MeasurementUnit", description)
+        self.add_common_info(identifier, self.MEASUREMENT_UNIT, description)
 
     def add_constraint(
         self,
-        identifier: str,
+        identifier: IRI,
         description: str,
         is_soft_constraint: bool,
-        value: int,
+        value: float,
         unit: IRI,
         aspect: IRI,
     ) -> None:
-        constraint_id = IRI(self.GLACIATION_PREFIX, identifier)
         if is_soft_constraint:
-            self.add_common_info(constraint_id, "SoftConstraint", description)
+            self.add_common_info(identifier, self.SOFT_CONSTRAINT, description)
         else:
-            self.add_common_info(constraint_id, "HardConstraint", description)
+            self.add_common_info(identifier, self.HARD_CONSTRAINT, description)
         self.sink.add_property(
-            constraint_id,
+            identifier,
             IRI(self.GLACIATION_PREFIX, "maxValue"),
-            Literal(value, "int"),
+            Literal(value, "float"),
         )
-        self.sink.add_relation(
-            constraint_id, IRI(self.GLACIATION_PREFIX, "measuredIn"), unit
-        )
-        self.sink.add_relation(
-            constraint_id, IRI(self.GLACIATION_PREFIX, "hasAspect"), aspect
-        )
+        self.sink.add_relation(identifier, self.MEASURED_IN, unit)
+        self.sink.add_relation(identifier, self.HAS_ASPECT, aspect)
 
     def add_assigned_task(self, identifier: IRI, description: Optional[str]) -> None:
-        self.add_common_info(identifier, "AssignedTask", description)
+        self.add_common_info(identifier, self.ASSIGNED_TASK, description)
 
     def add_submitted_task(self, identifier: IRI, description: Optional[str]) -> None:
-        self.add_common_info(identifier, "SubmittedTask", description)
+        self.add_common_info(identifier, self.SUBMITTED_TASK, description)
 
     def add_non_work_producing_resource(
         self, identifier: IRI, description: Optional[str]
     ) -> None:
-        self.add_common_info(identifier, "NonWorkProducingResource", description)
+        self.add_common_info(identifier, self.NON_WORK_PRODUCING_RESOURCE, description)
+
+    def add_scheduler(self, identifier: IRI, description: Optional[str]) -> None:
+        self.add_common_info(identifier, self.SCHEDULER, description)
 
     def add_work_producing_resource(
         self, identifier: IRI, description: Optional[str]
     ) -> None:
-        self.add_common_info(identifier, "WorkProducingResource", description)
+        self.add_common_info(identifier, self.WORK_PRODUCING_RESOURCE, description)
 
     def add_common_info(
-        self, entity_id: IRI, entity_type: str, description: Optional[str]
+        self, entity_id: IRI, entity_type: IRI, description: Optional[str]
     ) -> None:
-        self.sink.add_meta_property(
-            entity_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, entity_type)
-        )
+        self.sink.add_meta_property(entity_id, Graph.RDF_TYPE_IRI, entity_type)
         self.sink.add_relation(entity_id, self.HAS_ID, entity_id)
         if description:
             self.sink.add_property(

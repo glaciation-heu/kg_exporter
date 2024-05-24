@@ -1,6 +1,7 @@
 cluster:glaciation-test-master01 rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01 glc:hasDescription "KubernetesWorkerNode" .
 cluster:glaciation-test-master01 glc:hasID cluster:glaciation-test-master01 .
+cluster:glaciation-test-master01 glc:hasMeasurement cluster:glaciation-test-master01.Energy.Index .
 cluster:glaciation-test-master01 glc:hasStatus cluster:glaciation-test-master01.Status .
 cluster:glaciation-test-master01 glc:hasSubResource (cluster:glaciation-test-master01.CPU cluster:glaciation-test-master01.GPU cluster:glaciation-test-master01.Network cluster:glaciation-test-master01.RAM cluster:glaciation-test-master01.Storage) .
 cluster:glaciation-test-master01.CPU rdf:type glc:WorkProducingResource .
@@ -14,6 +15,13 @@ cluster:glaciation-test-master01.CPU.Capacity glc:hasValue 4^^<http://www.w3.org
 cluster:glaciation-test-master01.CPU.Capacity glc:hasID cluster:glaciation-test-master01.CPU.Capacity .
 cluster:glaciation-test-master01.CPU.Capacity glc:measuredIn glc:Core .
 cluster:glaciation-test-master01.CPU.Capacity glc:relatesToMeasurementProperty glc:CPU.Capacity .
+cluster:glaciation-test-master01.Energy.Index rdf:type glc:Measurement .
+cluster:glaciation-test-master01.Energy.Index glc:hasDescription "Energy.Index" .
+cluster:glaciation-test-master01.Energy.Index glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-master01.Energy.Index glc:hasValue 1001^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:glaciation-test-master01.Energy.Index glc:hasID cluster:glaciation-test-master01.Energy.Index .
+cluster:glaciation-test-master01.Energy.Index glc:measuredIn glc:Milliwatt .
+cluster:glaciation-test-master01.Energy.Index glc:relatesToMeasurementProperty glc:Energy.Index .
 cluster:glaciation-test-master01.GPU rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01.GPU glc:hasDescription "GPU" .
 cluster:glaciation-test-master01.GPU glc:hasID cluster:glaciation-test-master01.GPU .
@@ -46,4 +54,4 @@ cluster:glaciation-test-master01.Storage.Capacity glc:hasValue 47266578354^^<htt
 cluster:glaciation-test-master01.Storage.Capacity glc:hasID cluster:glaciation-test-master01.Storage.Capacity .
 cluster:glaciation-test-master01.Storage.Capacity glc:measuredIn glc:Bytes .
 cluster:glaciation-test-master01.Storage.Capacity glc:relatesToMeasurementProperty glc:Storage.Capacity .
-glc:ResourceSpecification glc:makes (cluster:glaciation-test-master01.CPU.Capacity cluster:glaciation-test-master01.RAM.Capacity cluster:glaciation-test-master01.Storage.Capacity) .
+glc:ResourceSpecification glc:makes (cluster:glaciation-test-master01.CPU.Capacity cluster:glaciation-test-master01.Energy.Index cluster:glaciation-test-master01.RAM.Capacity cluster:glaciation-test-master01.Storage.Capacity) .

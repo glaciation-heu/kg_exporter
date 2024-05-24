@@ -1,6 +1,7 @@
-from typing import Any, Dict
+from typing import Any, Dict, List, Optional
 
 from jsonpath_ng.ext import parse
+from kubernetes.utils.quantity import parse_quantity
 
 from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
@@ -15,24 +16,198 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
         UpperOntologyBase.__init__(self, sink)
 
     def transform(self, _: TransformationContext) -> None:
-        name = self.get_id()
-        self.sink.add_meta_property(
-            name, Graph.RDF_TYPE_IRI, IRI(self.K8S_PREFIX, "Workload")
-        )
-        self.write_subclass_of(name, Graph.RDF_SUBCLASSOF_IRI, "$.kind")
+        workload_id = self.get_id()
+        kind = self.get_str_value("$.kind")
+        self.add_assigned_task(workload_id, kind)
+        if kind:
+            self.add_references(workload_id, kind)
+        self.add_soft_constraints(workload_id)
+        self.add_hard_constraints(workload_id)
+        self.add_workload_scheduler(workload_id)
 
-        self.write_collection(
-            name, IRI(self.K8S_PREFIX, "has-label"), "$.metadata.labels"
+    def add_soft_constraints(self, workload_id: IRI) -> None:
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "CPU.Allocated",
+            True,
+            [
+                "$.spec.template.spec.containers[*].resources.requests.cpu",
+                "$.spec.template.spec.initContainers[*].resources.requests.cpu",
+            ],
+            self.UNIT_CPU_CORE_ID,
+            self.ASPECT_PERFORMANCE_ID,
         )
-        self.write_collection(
-            name,
-            IRI(self.K8S_PREFIX, "has-annotation"),
-            "$.metadata.annotations",
-        )
-        self.write_references(name)
 
-    def write_subclass_of(self, name: IRI, property: IRI, query: str) -> None:
-        for match in parse(query).find(self.source):
-            self.sink.add_meta_property(
-                name, property, IRI(self.K8S_PREFIX, match.value)
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "RAM.Allocated",
+            True,
+            [
+                "$.spec.template.spec.containers[*].resources.requests.memory",
+                "$.spec.template.spec.initContainers[*].resources.requests.memory",
+            ],
+            self.UNIT_BYTES_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "Storage.Allocated",
+            True,
+            [
+                "$.spec.template.spec.containers[*].resources.requests.ephemeral-storage",  # noqa: E501
+                "$.spec.template.spec.initContainers[*].resources.requests.ephemeral-storage",  # noqa: E501
+            ],
+            self.UNIT_BYTES_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "GPU.Allocated",
+            True,
+            [
+                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/requests/gpu']"  # noqa: E501
+            ],
+            self.UNIT_CPU_CORE_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "Network.Allocated",
+            True,
+            [
+                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/requests/network']"  # noqa: E501
+            ],
+            self.UNIT_BYTES_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "Energy.Allocated",
+            True,
+            [
+                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/requests/energy']"  # noqa: E501
+            ],
+            self.UNIT_MILLIWATT_ID,
+            self.ASPECT_POWER_ID,
+        )
+
+    def add_hard_constraints(self, workload_id: IRI) -> None:
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "CPU.Capacity",
+            False,
+            [
+                "$.spec.template.spec.containers[*].resources.limits.cpu",
+                "$.spec.template.spec.initContainers[*].resources.limits.cpu",
+            ],
+            self.UNIT_CPU_CORE_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "RAM.Capacity",
+            False,
+            [
+                "$.spec.template.spec.containers[*].resources.limits.memory",
+                "$.spec.template.spec.initContainers[*].resources.limits.memory",
+            ],
+            self.UNIT_BYTES_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "Storage.Capacity",
+            False,
+            [
+                "$.spec.template.spec.containers[*].resources.limits.ephemeral-storage",  # noqa: E501
+                "$.spec.template.spec.initContainers[*].resources.limits.ephemeral-storage",  # noqa: E501
+            ],
+            self.UNIT_BYTES_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "GPU.Capacity",
+            False,
+            [
+                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/limits/gpu']"  # noqa: E501
+            ],
+            self.UNIT_CPU_CORE_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "Network.Capacity",
+            False,
+            [
+                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/limits/network']"  # noqa: E501
+            ],
+            self.UNIT_BYTES_ID,
+            self.ASPECT_PERFORMANCE_ID,
+        )
+
+        self.add_resource_constraint_by_jpath(
+            workload_id,
+            "Energy.Capacity",
+            False,
+            [
+                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/limits/energy']"  # noqa: E501
+            ],
+            self.UNIT_MILLIWATT_ID,
+            self.ASPECT_POWER_ID,
+        )
+
+    def add_resource_constraint_by_jpath(
+        self,
+        workload_id: IRI,
+        constraint_id_name: str,
+        is_soft: bool,
+        jqpath: List[str],
+        unit: IRI,
+        aspect: IRI,
+    ) -> None:
+        constraint_id = workload_id.dot(constraint_id_name)
+        value = self.get_int_quantity_value_list(jqpath)
+        if value:
+            self.add_constraint(
+                constraint_id,
+                constraint_id_name,
+                is_soft,
+                value,
+                unit,
+                aspect,
             )
+            self.sink.add_relation(workload_id, self.HAS_CONSTRAINT, constraint_id)
+
+    def get_int_quantity_value(self, query: str) -> Optional[int]:
+        for match in parse(query).find(self.source):
+            return int(parse_quantity(match.value))
+        return None
+
+    def get_int_quantity_value_list(self, queries: List[str]) -> Optional[float]:
+        result = []
+        for query in queries:
+            for match in parse(query).find(self.source):
+                quantity = float(parse_quantity(match.value))
+                if quantity > 0:
+                    result.append(quantity)
+        if len(result) > 0:
+            return sum(result)
+        else:
+            return None
+
+    def add_workload_scheduler(self, workload_id: IRI) -> None:
+        scheduler_name = self.get_str_value("$.spec.template.spec.schedulerName")
+        scheduler_id = IRI(
+            self.GLACIATION_PREFIX, scheduler_name or "default-scheduler"
+        )
+        self.add_scheduler(scheduler_id, None)
+        self.sink.add_relation(scheduler_id, self.ASSIGNS, workload_id)

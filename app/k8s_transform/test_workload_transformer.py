@@ -16,6 +16,7 @@ class WorkloadTransformerTest(TransformBaseTest):
     def test_transform_turtle(self):
         self.transform_turtle("deployment")
         self.transform_turtle("statefulset")
+        self.transform_turtle("replicaset")
 
     def transform_turtle(self, file_id: str) -> None:
         node_json = self.load_json(file_id)
@@ -26,12 +27,12 @@ class WorkloadTransformerTest(TransformBaseTest):
         context = TransformationContext(123)
         WorkloadToRDFTransformer(node_json, graph).transform(context)
         TurtleSerialializer().write(buffer, graph)
-        # print(buffer.getvalue())
         self.assertEqual(buffer.getvalue(), node_turtle)
 
     def test_transform_jsonld(self):
         self.transform_jsonld("deployment")
         self.transform_jsonld("statefulset")
+        self.transform_jsonld("replicaset")
 
     def transform_jsonld(self, file_id: str) -> None:
         node_json = self.load_json(file_id)
@@ -40,7 +41,8 @@ class WorkloadTransformerTest(TransformBaseTest):
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        WorkloadToRDFTransformer(node_json, graph).transform(context)
+        transformer = WorkloadToRDFTransformer(node_json, graph)
+        transformer.add_common_entities()
+        transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
-        # print(buffer.getvalue())
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

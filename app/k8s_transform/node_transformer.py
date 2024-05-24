@@ -24,13 +24,14 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_storage_resource(node_id, context.get_timestamp())
         self.add_network_resource(node_id, context.get_timestamp())
         self.add_gpu_resource(node_id, context.get_timestamp())
+        self.add_energy_information(node_id, context.get_timestamp())
         self.add_node_status(node_id)
 
     def add_cpu_resource(self, node_id: IRI, timestamp: int) -> None:
         cpu_id = node_id.dot("CPU")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, cpu_id)
         self.add_work_producing_resource(cpu_id, "CPU")
-        cpu_capacity_value = self.get_int_value("$.status.allocatable.cpu")
+        cpu_capacity_value = self.get_int_quantity_value("$.status.allocatable.cpu")
         if cpu_capacity_value:
             cpu_capacity_id = cpu_id.dot("Capacity")
             self.add_measurement(
@@ -49,7 +50,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(ram_id, "RAM")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, ram_id)
 
-        ram_capacity_value = self.get_int_value("$.status.allocatable.memory")
+        ram_capacity_value = self.get_int_quantity_value("$.status.allocatable.memory")
         if ram_capacity_value:
             ram_capacity_id = ram_id.dot("Capacity")
             self.add_measurement(
@@ -68,7 +69,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(storage_id, "EphemeralStorage")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
 
-        storage_capacity_value = self.get_int_value(
+        storage_capacity_value = self.get_int_quantity_value(
             "$.status.allocatable.ephemeral-storage"
         )
         if storage_capacity_value:
@@ -96,6 +97,23 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(storage_id, "GPU")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
 
+    def add_energy_information(self, node_id: IRI, timestamp: int) -> None:
+        energy_index_value = self.get_int_quantity_value(
+            '$.metadata.annotations["glaciation-project.eu/metric/node-energy-index"]'
+        )
+        if energy_index_value:
+            energy_index_id = node_id.dot("Energy.Index")
+            self.add_measurement(
+                energy_index_id,
+                "Energy.Index",
+                energy_index_value,
+                timestamp,
+                self.UNIT_MILLIWATT_ID,
+                self.PROPERTY_ENERGY_INDEX,
+                self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
+            )
+            self.sink.add_relation(node_id, self.HAS_MEASUREMENT, energy_index_id)
+
     def add_node_status(self, node_id: IRI) -> None:
         status_value = self.get_node_status()
         last_transition_time = (
@@ -117,12 +135,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         else:
             return "Unknown"
 
-    def get_int_value(self, query: str) -> Optional[int]:
+    def get_int_quantity_value(self, query: str) -> Optional[int]:
         for match in parse(query).find(self.source):
             return int(parse_quantity(match.value))
-        return None
-
-    def get_str_value(self, query: str) -> Optional[str]:
-        for match in parse(query).find(self.source):
-            return str(match.value)
         return None
