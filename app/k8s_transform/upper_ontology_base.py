@@ -144,13 +144,13 @@ class UpperOntologyBase:
             self.sink.add_property(
                 identifier,
                 self.START_TIME,
-                Literal(start_time, Literal.TYPE_STRING),
+                Literal(start_time, Literal.TYPE_DATE, "%Y-%m-%dT%H:%M:%S%z"),
             )
         if end_time:
             self.sink.add_property(
                 identifier,
                 self.END_TIME,
-                Literal(end_time, Literal.TYPE_STRING),
+                Literal(end_time, Literal.TYPE_DATE, "%Y-%m-%dT%H:%M:%S%z"),
             )
 
     def add_measurement(

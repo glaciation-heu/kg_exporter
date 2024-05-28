@@ -41,7 +41,7 @@ cluster:glaciation-test-master01.RAM.Capacity glc:measuredIn glc:Bytes .
 cluster:glaciation-test-master01.RAM.Capacity glc:relatesToMeasurementProperty glc:RAM.Capacity .
 cluster:glaciation-test-master01.Status rdf:type glc:Status .
 cluster:glaciation-test-master01.Status glc:hasDescription "Ready" .
-cluster:glaciation-test-master01.Status glc:startTime "2024-02-13T13:53:43Z" .
+cluster:glaciation-test-master01.Status glc:startTime "2024-02-13T13:53:43Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:glaciation-test-master01.Status glc:hasID cluster:glaciation-test-master01.Status .
 cluster:glaciation-test-master01.Storage rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01.Storage glc:hasDescription "EphemeralStorage" .

@@ -12,7 +12,7 @@ cluster:kube-system.coredns-787d4945fb-l85r5 glc:hasID cluster:kube-system.cored
 cluster:kube-system.coredns-787d4945fb-l85r5 glc:hasSubResource cluster:kube-system.coredns-787d4945fb-l85r5.coredns .
 cluster:kube-system.coredns-787d4945fb-l85r5.Status rdf:type glc:Status .
 cluster:kube-system.coredns-787d4945fb-l85r5.Status glc:hasDescription "Running" .
-cluster:kube-system.coredns-787d4945fb-l85r5.Status glc:startTime "2024-02-13T13:53:43Z" .
+cluster:kube-system.coredns-787d4945fb-l85r5.Status glc:startTime "2024-02-13T13:53:43Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-system.coredns-787d4945fb-l85r5.Status glc:hasID cluster:kube-system.coredns-787d4945fb-l85r5.Status .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns rdf:type glc:WorkProducingResource .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns glc:hasDescription "Container" .
@@ -21,7 +21,7 @@ cluster:kube-system.coredns-787d4945fb-l85r5.coredns k8s:hasContainerName "cored
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns glc:hasID cluster:kube-system.coredns-787d4945fb-l85r5.coredns .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status rdf:type glc:Status .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status glc:hasDescription "running" .
-cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status glc:startTime "2024-02-13T13:53:44Z" .
+cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status glc:startTime "2024-02-13T13:53:44Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status glc:hasID cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status .
 glc:default-scheduler rdf:type glc:Scheduler .
 glc:default-scheduler glc:hasID glc:default-scheduler .

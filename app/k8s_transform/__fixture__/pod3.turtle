@@ -12,7 +12,7 @@ cluster:kube-flannel.kube-flannel-ds-848v8 glc:hasID cluster:kube-flannel.kube-f
 cluster:kube-flannel.kube-flannel-ds-848v8 glc:hasSubResource (cluster:kube-flannel.kube-flannel-ds-848v8.install-cni cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel) .
 cluster:kube-flannel.kube-flannel-ds-848v8.Status rdf:type glc:Status .
 cluster:kube-flannel.kube-flannel-ds-848v8.Status glc:hasDescription "Running" .
-cluster:kube-flannel.kube-flannel-ds-848v8.Status glc:startTime "2023-10-20T11:01:50Z" .
+cluster:kube-flannel.kube-flannel-ds-848v8.Status glc:startTime "2023-10-20T11:01:50Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-flannel.kube-flannel-ds-848v8.Status glc:hasID cluster:kube-flannel.kube-flannel-ds-848v8.Status .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni rdf:type glc:WorkProducingResource .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni glc:hasDescription "Container" .
@@ -25,14 +25,14 @@ cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin k8s:hasContainerID
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin k8s:hasContainerName "install-cni-plugin" .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin glc:hasID cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status rdf:type glc:Status .
-cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status glc:endTime "2023-12-11T11:10:14Z" .
+cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status glc:endTime "2023-12-11T11:10:14Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status glc:hasDescription "terminated" .
-cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status glc:startTime "2023-12-11T11:10:14Z" .
+cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status glc:startTime "2023-12-11T11:10:14Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status glc:hasID cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status rdf:type glc:Status .
-cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status glc:endTime "2023-12-11T11:10:15Z" .
+cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status glc:endTime "2023-12-11T11:10:15Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status glc:hasDescription "terminated" .
-cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status glc:startTime "2023-12-11T11:10:15Z" .
+cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status glc:startTime "2023-12-11T11:10:15Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status glc:hasID cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status .
 cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel rdf:type glc:WorkProducingResource .
 cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel glc:hasDescription "Container" .
@@ -41,7 +41,7 @@ cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel k8s:hasContainerName "ku
 cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel glc:hasID cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel .
 cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status rdf:type glc:Status .
 cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status glc:hasDescription "running" .
-cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status glc:startTime "2023-12-11T11:10:16Z" .
+cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status glc:startTime "2023-12-11T11:10:16Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status glc:hasID cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status .
 glc:default-scheduler rdf:type glc:Scheduler .
 glc:default-scheduler glc:hasID glc:default-scheduler .

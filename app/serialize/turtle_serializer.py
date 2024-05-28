@@ -53,7 +53,9 @@ class TurtleSerialializer(GraphSerializer):
         self, out: IOBase, subject: IRI, predicate: IRI, values: LiteralSet
     ) -> None:
         collection_subject = " ".join(sorted([self.get_value(v) for v in values]))
-        out.write(f"{subject.render()} {predicate.render()} ({collection_subject}) .\n")
+        out.write(
+            f"{subject.render()} {predicate.render()} ({collection_subject}) .\n"
+        )  # noqa: E501
 
     def add_relation(
         self, out: IOBase, subject: IRI, predicate: IRI, object: IRI
@@ -74,11 +76,11 @@ class TurtleSerialializer(GraphSerializer):
                 return f"{base.value}^^<http://www.w3.org/2001/XMLSchema#integer>"
             elif base._type == Literal.TYPE_BOOL:
                 return f"{base.value}^^<http://www.w3.org/2001/XMLSchema#boolean>"
+            elif base._type == Literal.TYPE_DATE:
+                return f'"{base.value}"^^<http://www.w3.org/2001/XMLSchema#dateTime>'
             else:
                 raise Exception(
-                    f"""Unexpected type {base._type},
-                    must one of ('{Literal.TYPE_STRING}', '{Literal.TYPE_INT}',
-                    '{Literal.TYPE_FLOAT}', '{Literal.TYPE_BOOL}')"""
+                    f"""Unexpected type {base._type}, must one of {Literal.LITERAL_TYPES}"""
                 )
         elif isinstance(base, IRI):
             return base.render()
