@@ -35,6 +35,10 @@ class TransformerBase:
     CLUSTER_PREFIX = "cluster"
     K8S_PREFIX = "k8s"
 
+    HAS_NAME = IRI(K8S_PREFIX, "hasName")
+    HAS_CONTAINER_ID = IRI(K8S_PREFIX, "hasContainerID")
+    HAS_CONTAINER_NAME = IRI(K8S_PREFIX, "hasContainerName")
+
     source: Dict[str, Any]
     sink: Graph
 
@@ -111,7 +115,8 @@ class TransformerBase:
 
     def get_pod_id(self) -> IRI:
         name = parse("$.metadata.name").find(self.source)[0].value
-        return IRI(self.CLUSTER_PREFIX, name)
+        namespace = parse("$.metadata.namespace").find(self.source)[0].value
+        return IRI(self.CLUSTER_PREFIX, namespace).dot(name)
 
     def get_node_id(self, node_resource: Dict[str, Any]) -> IRI:
         name = parse("$.metadata.name").find(node_resource)[0].value
@@ -144,5 +149,15 @@ class TransformerBase:
             self.sink.add_relation(reference, relation, node_id)
             self.sink.add_meta_property(reference, Graph.RDF_TYPE_IRI, src_type)
             self.sink.add_property(
-                reference, UpperOntologyBase.HAS_DESCRIPTION, Literal(src_kind, "str")
+                reference,
+                UpperOntologyBase.HAS_DESCRIPTION,
+                Literal(src_kind, Literal.TYPE_STRING),
+            )
+
+    def add_str_property(self, subject: IRI, property: IRI, query: str) -> None:
+        for match in parse(query).find(self.source):
+            self.sink.add_property(
+                subject,
+                property,
+                Literal(match.value, Literal.TYPE_STRING),
             )

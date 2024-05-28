@@ -36,6 +36,7 @@ class UpperOntologyBase:
     CONSUMES = IRI(GLACIATION_PREFIX, "consumes")
     ASSIGNS = IRI(GLACIATION_PREFIX, "assigns")
     MAKES = IRI(GLACIATION_PREFIX, "makes")
+    MANAGES = IRI(GLACIATION_PREFIX, "manages")
     MEASURED_IN = IRI(GLACIATION_PREFIX, "measuredIn")
     START_TIME = IRI(GLACIATION_PREFIX, "startTime")
     END_TIME = IRI(GLACIATION_PREFIX, "endTime")
@@ -132,19 +133,24 @@ class UpperOntologyBase:
         self.add_common_info(identifier, self.MEASUREMENT_PROPERTY, description)
 
     def add_status(
-        self, identifier: IRI, status: str, start_time: str, end_time: Optional[str]
+        self,
+        identifier: IRI,
+        status: str,
+        start_time: Optional[str],
+        end_time: Optional[str],
     ) -> None:
         self.add_common_info(identifier, self.STATUS, status)
-        self.sink.add_property(
-            identifier,
-            self.START_TIME,
-            Literal(start_time, "str"),
-        )
+        if start_time:
+            self.sink.add_property(
+                identifier,
+                self.START_TIME,
+                Literal(start_time, Literal.TYPE_STRING),
+            )
         if end_time:
             self.sink.add_property(
                 identifier,
                 self.END_TIME,
-                Literal(end_time, "str"),
+                Literal(end_time, Literal.TYPE_STRING),
             )
 
     def add_measurement(
@@ -161,12 +167,12 @@ class UpperOntologyBase:
         self.sink.add_property(
             identifier,
             self.HAS_VALUE,
-            Literal(value, "int"),
+            Literal(value, Literal.TYPE_FLOAT),
         )
         self.sink.add_property(
             identifier,
             self.HAS_TIMESTAMP,
-            Literal(timestamp, "int"),
+            Literal(timestamp, Literal.TYPE_INT),
         )
         self.sink.add_relation(
             identifier,
@@ -198,7 +204,7 @@ class UpperOntologyBase:
         self.sink.add_property(
             identifier,
             IRI(self.GLACIATION_PREFIX, "maxValue"),
-            Literal(value, "float"),
+            Literal(value, Literal.TYPE_FLOAT),
         )
         self.sink.add_relation(identifier, self.MEASURED_IN, unit)
         self.sink.add_relation(identifier, self.HAS_ASPECT, aspect)

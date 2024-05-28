@@ -27,7 +27,6 @@ class PodTransformerTest(TransformBaseTest):
         context = TransformationContext(123)
         PodToRDFTransformer(node_json, graph).transform(context)
         TurtleSerialializer().write(buffer, graph)
-        # print(buffer.getvalue())
         self.assertEqual(buffer.getvalue(), node_turtle)
 
     def test_transform_jsonld(self):
@@ -42,7 +41,8 @@ class PodTransformerTest(TransformBaseTest):
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        PodToRDFTransformer(node_json, graph).transform(context)
+        transformer = PodToRDFTransformer(node_json, graph)
+        transformer.add_common_entities()
+        transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
-        # print(buffer.getvalue())
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)
