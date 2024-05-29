@@ -1,5 +1,5 @@
-from app.pipeline.dkg_slice_store import DKGSliceStore
-from app.pipeline.source.kg_repository import KGRepository
+from app.core.dkg_slice_store import DKGSliceStore
+from app.core.kg_repository import KGRepository
 
 
 class KGUpdater:

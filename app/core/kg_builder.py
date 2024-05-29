@@ -1,7 +1,7 @@
-from app.pipeline.dkg_slice_store import DKGSliceStore
-from app.pipeline.source.influxdb_repository import InfluxDBRepository
-from app.pipeline.source.k8s_repository import K8SRepository
-from app.pipeline.source.kg_repository import KGRepository
+from app.core.dkg_slice_store import DKGSliceStore
+from app.core.influxdb_repository import InfluxDBRepository
+from app.core.k8s_repository import K8SRepository
+from app.core.kg_repository import KGRepository
 
 
 class KGBuilder:
