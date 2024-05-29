@@ -3,6 +3,7 @@ from io import StringIO
 
 from app.k8s_transform.cluster_transformer import ClusterToRDFTransformer
 from app.k8s_transform.test_base import TransformBaseTest
+from app.k8s_transform.transformation_context import TransformationContext
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
@@ -22,7 +23,8 @@ class ClusterTransformerTest(TransformBaseTest):
 
         buffer = StringIO()
         graph = InMemoryGraph()
-        ClusterToRDFTransformer(config_map_json, nodes_json, graph).transform()
+        context = TransformationContext(123)
+        ClusterToRDFTransformer(config_map_json, nodes_json, graph).transform(context)
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
 
@@ -36,6 +38,7 @@ class ClusterTransformerTest(TransformBaseTest):
 
         buffer = StringIO()
         graph = InMemoryGraph()
-        ClusterToRDFTransformer(config_map_json, nodes_json, graph).transform()
+        context = TransformationContext(123)
+        ClusterToRDFTransformer(config_map_json, nodes_json, graph).transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

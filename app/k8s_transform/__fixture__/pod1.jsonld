@@ -1,46 +1,219 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
-            "@id": "cluster:coredns-787d4945fb-l85r5",
-            "@type": "gla:Pod",
-            "gla:has-label": {
-                "@set": [
-                    "k8s-app:kube-dns",
-                    "pod-template-hash:787d4945fb"
-                ]
-            },
-            "gla:host-ip": "10.14.1.150",
-            "gla:is-scheduled-by": "default-scheduler",
-            "gla:pod-ip": "10.244.0.2",
-            "gla:pod-phase": "Running",
-            "gla:qos-class": "Burstable",
-            "gla:start-time": "2024-02-13T13:53:43Z",
-            "gla:has-container": {
-                "@id": "cluster:containerd-0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
-                "@type": "gla:Container",
-                "gla:has-name": "coredns",
-                "gla:limits-memory": "170Mi",
-                "gla:requests-cpu": "100m",
-                "gla:requests-memory": "70Mi",
-                "gla:restart-count": "0",
-                "gla:started-at": "2024-02-13T13:53:44Z",
-                "gla:state": "running"
-            },
-            "gla:runs-on": {
-                "@id": "cluster:glaciation-test-master01",
-                "@type": "gla:Node",
-                "gla:has-pod": "cluster:coredns-787d4945fb-l85r5"
-            }
+            "@id": "cluster:glaciation-test-master01",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-test-master01"
+        },
+        {
+            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "k8s:hasName": "coredns-787d4945fb-l85r5",
+            "glc:consumes": "cluster:glaciation-test-master01",
+            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5",
+            "glc:hasSubResource": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+        },
+        {
+            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "k8s:hasContainerID": "containerd://0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
+            "k8s:hasContainerName": "coredns",
+            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+        },
+        {
+            "@id": "glc:Bytes",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Bytes"
+        },
+        {
+            "@id": "glc:CPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Available"
+        },
+        {
+            "@id": "glc:CPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Capacity"
+        },
+        {
+            "@id": "glc:CPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Usage"
+        },
+        {
+            "@id": "glc:Core",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Core"
+        },
+        {
+            "@id": "glc:Energy.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Available"
+        },
+        {
+            "@id": "glc:Energy.Index",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Index"
+        },
+        {
+            "@id": "glc:Energy.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Usage"
+        },
+        {
+            "@id": "glc:EnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "EnergyBenchmark",
+            "glc:hasID": "glc:EnergyBenchmark"
+        },
+        {
+            "@id": "glc:GB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:GB"
+        },
+        {
+            "@id": "glc:GPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Available"
+        },
+        {
+            "@id": "glc:GPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Capacity"
+        },
+        {
+            "@id": "glc:GPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Usage"
+        },
+        {
+            "@id": "glc:Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
+            "glc:hasID": "glc:Kepler"
+        },
+        {
+            "@id": "glc:MB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:MB"
+        },
+        {
+            "@id": "glc:Milliwatt",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Milliwatt"
+        },
+        {
+            "@id": "glc:Network.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Available"
+        },
+        {
+            "@id": "glc:Network.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Capacity"
+        },
+        {
+            "@id": "glc:Network.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Usage"
+        },
+        {
+            "@id": "glc:NodeExporter",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "NodeExporter",
+            "glc:hasID": "glc:NodeExporter"
+        },
+        {
+            "@id": "glc:Performance",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Performance"
+        },
+        {
+            "@id": "glc:Power",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Power"
+        },
+        {
+            "@id": "glc:RAM.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Available"
+        },
+        {
+            "@id": "glc:RAM.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Capacity"
+        },
+        {
+            "@id": "glc:RAM.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Usage"
+        },
+        {
+            "@id": "glc:ResourceSpecification",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "ResourceSpecification",
+            "glc:hasID": "glc:ResourceSpecification"
+        },
+        {
+            "@id": "glc:Storage.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Available"
+        },
+        {
+            "@id": "glc:Storage.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Capacity"
+        },
+        {
+            "@id": "glc:Storage.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Usage"
+        },
+        {
+            "@id": "glc:cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
+            "glc:hasID": "glc:cAdvisor"
         },
         {
             "@id": "cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685",
-            "@type": "gla:ReplicaSet",
-            "gla:refers-to": "cluster:coredns-787d4945fb-l85r5"
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "ReplicaSet",
+            "glc:makes": "cluster:kube-system.coredns-787d4945fb-l85r5"
+        },
+        {
+            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Status",
+            "@type": "glc:Status",
+            "glc:hasDescription": "Running",
+            "glc:startTime": "2024-02-13T13:53:43Z",
+            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
+        },
+        {
+            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status",
+            "@type": "glc:Status",
+            "glc:hasDescription": "running",
+            "glc:startTime": "2024-02-13T13:53:44Z",
+            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:hasID": "glc:default-scheduler",
+            "glc:manages": {
+                "@set": [
+                    "cluster:kube-system.coredns-787d4945fb-l85r5",
+                    "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+                ]
+            }
         }
     ]
 }

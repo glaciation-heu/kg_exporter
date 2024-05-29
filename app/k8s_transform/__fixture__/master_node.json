@@ -9,7 +9,8 @@
             "flannel.alpha.coreos.com/public-ip": "10.14.1.150",
             "kubeadm.alpha.kubernetes.io/cri-socket": "unix:///var/run/containerd/containerd.sock",
             "node.alpha.kubernetes.io/ttl": "0",
-            "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+            "volumes.kubernetes.io/controller-managed-attach-detach": "true",
+            "glaciation-project.eu/metric/node-energy-index": "1001"
         },
         "creationTimestamp": "2024-02-13T13:50:36Z",
         "labels": {

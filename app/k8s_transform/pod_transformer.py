@@ -4,170 +4,100 @@ import re
 
 from jsonpath_ng.ext import parse
 
+from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
+from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
-from app.kg.types import RelationSet
 
 
-class PodToRDFTransformer(TransformerBase):
+class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
     def __init__(self, source: Dict[str, Any], sink: Graph):
-        super().__init__(source, sink)
+        TransformerBase.__init__(self, source, sink)
+        UpperOntologyBase.__init__(self, sink)
 
-    def transform(self) -> None:
+    def transform(self, _: TransformationContext) -> None:
         pod_id = self.get_pod_id()
-        self.sink.add_meta_property(
-            pod_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Pod")
+        self.add_work_producing_resource(pod_id, "Pod")
+        self.add_references(pod_id, "Pod")
+        scheduler_name = (
+            self.get_str_value("$.spec.schedulerName") or "default-scheduler"
         )
-        self.write_collection(
-            pod_id, IRI(self.GLACIATION_PREFIX, "has-label"), "$.metadata.labels"
+        self.add_str_property(pod_id, self.HAS_NAME, "$.metadata.name")
+        self.add_scheduler_reference(pod_id, scheduler_name)
+        self.add_node_reference(pod_id)
+        self.add_pod_status(pod_id)
+        self.add_containers_resources(pod_id, scheduler_name)
+
+    def add_scheduler_reference(self, resource_id: IRI, scheduler_name: str) -> None:
+        scheduler_id = IRI(self.GLACIATION_PREFIX, scheduler_name)
+        self.add_scheduler(scheduler_id, None)
+        self.sink.add_relation(scheduler_id, self.MANAGES, resource_id)
+
+    def add_node_reference(self, pod_id: IRI) -> None:
+        node_name = self.get_str_value("$.spec.nodeName")
+        if node_name:
+            node_id = IRI(self.CLUSTER_PREFIX, node_name)
+            self.sink.add_relation(pod_id, self.CONSUMES, node_id)
+            self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
+
+    def add_pod_status(self, pod_id: IRI) -> None:
+        status_id = pod_id.dot("Status")
+        start_time = self.get_str_value("$.status.startTime")
+        status = self.get_str_value("$.status.phase")
+        if status:
+            # TODO if start_time is None
+            self.add_status(status_id, status, start_time or "", None)
+
+    def add_containers_resources(self, pod_id: IRI, scheduler_name: str) -> None:
+        self.add_container_resources_by_query(
+            pod_id, scheduler_name, "$.status.containerStatuses"
         )
-        self.write_collection(
-            pod_id,
-            IRI(self.GLACIATION_PREFIX, "has-annotation"),
-            "$.metadata.annotations",
-        )
-        self.write_references(pod_id)
-        self.write_node_id_reference(pod_id)
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "qos-class"), "$.status.qosClass"
-        )
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "start-time"), "$.status.startTime"
-        )
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "pod-phase"), "$.status.phase"
+        self.add_container_resources_by_query(
+            pod_id, scheduler_name, "$.status.initContainerStatuses"
         )
 
-        self.write_network(pod_id)
-
-        self.write_containers(pod_id, "$.status.containerStatuses", "$.spec.containers")
-        self.write_containers(
-            pod_id, "$.status.initContainerStatuses", "$.spec.initContainers"
-        )
-        self.write_other_spec_properties(pod_id, "$.spec")
-
-    def write_containers(
-        self, pod_id: IRI, status_property: str, container_spec_property: str
+    def add_container_resources_by_query(
+        self, pod_id: IRI, scheduler_name: str, jsonpath: str
     ) -> None:
-        container_ids: RelationSet = set()
+        container_status_matches = parse(jsonpath).find(self.source)
+        if len(container_status_matches) > 0:
+            for container_match in container_status_matches[0].value:
+                self.add_container_resource(pod_id, container_match, scheduler_name)
 
-        container_status_matches = parse(status_property).find(self.source)
-        if len(container_status_matches) == 0:
-            return
-        for container_match in container_status_matches[0].value:
-            container_id = container_match.get("containerID")
-            if not container_id:
-                continue
-            container_iri = IRI(
-                self.CLUSTER_PREFIX, self.normalize_container_id(container_id)
-            )
-            name = container_match.get("name")
-            restart_count = container_match.get("restartCount")
-            container_ids.add(container_iri)
-            self.sink.add_meta_property(
-                container_iri,
-                Graph.RDF_TYPE_IRI,
-                IRI(self.GLACIATION_PREFIX, "Container"),
-            )
-            self.sink.add_property(
-                container_iri,
-                IRI(self.GLACIATION_PREFIX, "has-name"),
-                Literal(self.escape(name), Literal.TYPE_STRING),
-            )
-            self.sink.add_property(
-                container_iri,
-                IRI(self.GLACIATION_PREFIX, "restart-count"),
-                Literal(str(restart_count), Literal.TYPE_STRING),
-            )
-            state = container_match.get("state")
-            if state:
-                self.write_state(container_iri, state)
-
-            self.write_resources(container_iri, container_spec_property, name)
-
-        self.sink.add_relation_collection(
-            pod_id, IRI(self.GLACIATION_PREFIX, "has-container"), container_ids
-        )
-
-    def normalize_container_id(self, container_id: str) -> str:
-        return re.sub("[:/]+", "-", container_id)
-
-    def write_resources(
-        self, container_id: IRI, container_spec_property: str, container_name: str
+    def add_container_resource(
+        self, pod_id: IRI, container: Dict[str, Any], scheduler_name: str
     ) -> None:
-        resource_spec_matches = parse(
-            f"{container_spec_property}[?name='{container_name}'].resources"
-        ).find(self.source)
-        if len(resource_spec_matches) == 0:
-            return
-        resources = resource_spec_matches[0].value
-        self.write_tuple_from(
-            resources,
+        k8s_container_id = container.get("containerID") or "undefined"
+        k8s_container_name = container.get("name") or "undefined"
+        container_id = pod_id.dot(k8s_container_name)
+        self.sink.add_property(
             container_id,
-            IRI(self.GLACIATION_PREFIX, "requests-cpu"),
-            "$.requests.cpu",
+            self.HAS_CONTAINER_ID,
+            Literal(k8s_container_id, Literal.TYPE_STRING),
         )
-        self.write_tuple_from(
-            resources,
+        self.sink.add_property(
             container_id,
-            IRI(self.GLACIATION_PREFIX, "requests-memory"),
-            "$.requests.memory",
+            self.HAS_CONTAINER_NAME,
+            Literal(k8s_container_name, Literal.TYPE_STRING),
         )
-        self.write_tuple_from(
-            resources,
-            container_id,
-            IRI(self.GLACIATION_PREFIX, "limits-cpu"),
-            "$.limits.cpu",
-        )
-        self.write_tuple_from(
-            resources,
-            container_id,
-            IRI(self.GLACIATION_PREFIX, "limits-memory"),
-            "$.limits.memory",
-        )
+        self.add_work_producing_resource(container_id, "Container")
+        self.add_scheduler_reference(container_id, scheduler_name)
+        state = container.get("state")
+        if state:
+            self.add_container_status(container_id, state)
+        self.sink.add_relation(pod_id, self.HAS_SUBRESOURCE, container_id)
 
-    def write_other_spec_properties(
-        self, container_id: IRI, container_spec_property: str
+    def add_container_status(
+        self, container_id: IRI, container_state: Dict[str, Any]
     ) -> None:
-        spec_matches = parse(f"{container_spec_property}").find(self.source)
-        if len(spec_matches) == 0:
-            return
-        self.write_tuple_from(
-            spec_matches[0].value,
-            container_id,
-            IRI(self.GLACIATION_PREFIX, "is-scheduled-by"),
-            "$.schedulerName",
-        )
-
-    def write_state(self, container_id: IRI, state: Any) -> None:
-        state_struct, state_literal = self.get_state_struct(state)
-        if state_literal:
-            self.sink.add_property(
-                container_id,
-                IRI(self.GLACIATION_PREFIX, "state"),
-                Literal(self.escape(state_literal), Literal.TYPE_STRING),
-            )
-        if state_struct:
-            self.write_tuple_from(
-                state_struct,
-                container_id,
-                IRI(self.GLACIATION_PREFIX, "started-at"),
-                "$.startedAt",
-            )
-            self.write_tuple_from(
-                state_struct,
-                container_id,
-                IRI(self.GLACIATION_PREFIX, "finished-at"),
-                "$.finishedAt",
-            )
-            self.write_tuple_from(
-                state_struct,
-                container_id,
-                IRI(self.GLACIATION_PREFIX, "reason"),
-                "$.reason",
-            )
+        status_id = container_id.dot("Status")
+        state_struct, state_literal = self.get_state_struct(container_state)
+        if state_literal and state_struct:
+            start_time = state_struct.get("startedAt")
+            end_time = state_struct.get("finishedAt")
+            self.add_status(status_id, state_literal, start_time or "", end_time)
 
     def get_state_struct(
         self, state: Dict[str, Any]
@@ -179,26 +109,5 @@ class PodToRDFTransformer(TransformerBase):
                 return status_struct, status
         return None, None
 
-    def write_network(self, pod_id: IRI) -> None:
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "host-ip"), "$.status.hostIP"
-        )
-        self.write_tuple(
-            pod_id, IRI(self.GLACIATION_PREFIX, "pod-ip"), "$.status.podIP"
-        )
-
-    def write_node_id_reference(self, pod_id: IRI) -> None:
-        node_name_match = parse("$.spec.nodeName").find(self.source)
-        if len(node_name_match) == 0:
-            return
-        for node_name in node_name_match:
-            node_id = IRI(self.CLUSTER_PREFIX, node_name.value)
-            self.sink.add_relation(
-                pod_id, IRI(self.GLACIATION_PREFIX, "runs-on"), node_id
-            )
-            self.sink.add_meta_property(
-                node_id, Graph.RDF_TYPE_IRI, IRI(self.GLACIATION_PREFIX, "Node")
-            )
-            self.sink.add_relation(
-                node_id, IRI(self.GLACIATION_PREFIX, "has-pod"), pod_id
-            )
+    def normalize_container_id(self, container_id: str) -> str:
+        return re.sub("[:/]+", "-", container_id)

@@ -1,36 +1,190 @@
 {
     "@context": {
-        "gla": "http://glaciation-project.eu/model/",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
         "cluster": "https://127.0.0.1:6443/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     },
     "@graph": [
         {
-            "@id": "cluster:tenant1-pool-0-1",
-            "@type": "gla:Pod",
-            "gla:has-annotation": {
-                "@set": [
-                    "min.io/revision:0"
-                ]
-            },
-            "gla:has-label": {
-                "@set": [
-                    "apps.kubernetes.io/pod-index:1",
-                    "controller-revision-hash:tenant1-pool-0-6b769f799d",
-                    "statefulset.kubernetes.io/pod-name:tenant1-pool-0-1",
-                    "v1.min.io/console:tenant1-console",
-                    "v1.min.io/pool:pool-0",
-                    "v1.min.io/tenant:tenant1"
-                ]
-            },
-            "gla:is-scheduled-by": "default-scheduler",
-            "gla:pod-phase": "Pending",
-            "gla:qos-class": "Burstable"
+            "@id": "cluster:tenant1.tenant1-pool-0-1",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "k8s:hasName": "tenant1-pool-0-1",
+            "glc:hasID": "cluster:tenant1.tenant1-pool-0-1"
+        },
+        {
+            "@id": "glc:Bytes",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Bytes"
+        },
+        {
+            "@id": "glc:CPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Available"
+        },
+        {
+            "@id": "glc:CPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Capacity"
+        },
+        {
+            "@id": "glc:CPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Usage"
+        },
+        {
+            "@id": "glc:Core",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Core"
+        },
+        {
+            "@id": "glc:Energy.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Available"
+        },
+        {
+            "@id": "glc:Energy.Index",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Index"
+        },
+        {
+            "@id": "glc:Energy.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Usage"
+        },
+        {
+            "@id": "glc:EnergyBenchmark",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "EnergyBenchmark",
+            "glc:hasID": "glc:EnergyBenchmark"
+        },
+        {
+            "@id": "glc:GB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:GB"
+        },
+        {
+            "@id": "glc:GPU.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Available"
+        },
+        {
+            "@id": "glc:GPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Capacity"
+        },
+        {
+            "@id": "glc:GPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:GPU.Usage"
+        },
+        {
+            "@id": "glc:Kepler",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
+            "glc:hasID": "glc:Kepler"
+        },
+        {
+            "@id": "glc:MB",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:MB"
+        },
+        {
+            "@id": "glc:Milliwatt",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Milliwatt"
+        },
+        {
+            "@id": "glc:Network.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Available"
+        },
+        {
+            "@id": "glc:Network.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Capacity"
+        },
+        {
+            "@id": "glc:Network.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Network.Usage"
+        },
+        {
+            "@id": "glc:NodeExporter",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "NodeExporter",
+            "glc:hasID": "glc:NodeExporter"
+        },
+        {
+            "@id": "glc:Performance",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Performance"
+        },
+        {
+            "@id": "glc:Power",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Power"
+        },
+        {
+            "@id": "glc:RAM.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Available"
+        },
+        {
+            "@id": "glc:RAM.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Capacity"
+        },
+        {
+            "@id": "glc:RAM.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:RAM.Usage"
+        },
+        {
+            "@id": "glc:ResourceSpecification",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "ResourceSpecification",
+            "glc:hasID": "glc:ResourceSpecification"
+        },
+        {
+            "@id": "glc:Storage.Available",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Available"
+        },
+        {
+            "@id": "glc:Storage.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Capacity"
+        },
+        {
+            "@id": "glc:Storage.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Storage.Usage"
+        },
+        {
+            "@id": "glc:cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
+            "glc:hasID": "glc:cAdvisor"
         },
         {
             "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
-            "@type": "gla:StatefulSet",
-            "gla:refers-to": "cluster:tenant1-pool-0-1"
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "StatefulSet",
+            "glc:makes": "cluster:tenant1.tenant1-pool-0-1"
+        },
+        {
+            "@id": "cluster:tenant1.tenant1-pool-0-1.Status",
+            "@type": "glc:Status",
+            "glc:hasDescription": "Pending",
+            "glc:hasID": "cluster:tenant1.tenant1-pool-0-1.Status"
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:hasID": "glc:default-scheduler",
+            "glc:manages": "cluster:tenant1.tenant1-pool-0-1"
         }
     ]
 }

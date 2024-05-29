@@ -3,6 +3,7 @@ from io import StringIO
 
 from app.k8s_transform.pod_transformer import PodToRDFTransformer
 from app.k8s_transform.test_base import TransformBaseTest
+from app.k8s_transform.transformation_context import TransformationContext
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
@@ -23,7 +24,8 @@ class PodTransformerTest(TransformBaseTest):
 
         buffer = StringIO()
         graph = InMemoryGraph()
-        PodToRDFTransformer(node_json, graph).transform()
+        context = TransformationContext(123)
+        PodToRDFTransformer(node_json, graph).transform(context)
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
 
@@ -38,6 +40,9 @@ class PodTransformerTest(TransformBaseTest):
 
         buffer = StringIO()
         graph = InMemoryGraph()
-        PodToRDFTransformer(node_json, graph).transform()
+        context = TransformationContext(123)
+        transformer = PodToRDFTransformer(node_json, graph)
+        transformer.add_common_entities()
+        transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

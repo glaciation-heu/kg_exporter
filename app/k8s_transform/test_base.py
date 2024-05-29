@@ -4,7 +4,7 @@ import json
 from io import FileIO
 from unittest import TestCase
 
-from app.k8s_transform.transformer_base import TransformerBase
+from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.id_base import IdBase
 from app.kg.iri import IRI
 from app.serialize.jsonld_configuration import JsonLDConfiguration
@@ -30,11 +30,19 @@ class TransformBaseTest(TestCase):
     def get_jsonld_config(self) -> JsonLDConfiguration:
         contexts: Dict[IdBase, Dict[str, Any]] = {
             JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
-                "gla": "http://glaciation-project.eu/model/",
+                "k8s": "http://glaciation-project.eu/model/k8s/",
+                "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
                 "cluster": "https://127.0.0.1:6443/",
                 "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             }
         }
         return JsonLDConfiguration(
-            contexts, {IRI(TransformerBase.GLACIATION_PREFIX, "Pod")}
+            contexts,
+            {
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "WorkProducingResource"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "Aspect"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementProperty"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasuringResource"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementUnit"),
+            },
         )
