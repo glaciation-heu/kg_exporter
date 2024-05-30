@@ -1,5 +1,6 @@
 from typing import Any, Dict, List
 
+import asyncio
 from dataclasses import dataclass, field
 
 
@@ -16,13 +17,24 @@ class ResourceSnapshot:
 
 class K8SClient:
     async def fetch_snapshot(self) -> ResourceSnapshot:
-        nodes = await self.get_nodes()
-        pods = await self.get_pods()
-        deployments = await self.get_deployments()
-        jobs = await self.get_jobs()
-        statefullsets = await self.get_statefullsets()
-        daemonsets = await self.get_daemonsets()
-        replicasets = await self.get_replicasets()
+        result = await asyncio.gather(
+            self.get_nodes(),
+            self.get_pods(),
+            self.get_deployments(),
+            self.get_jobs(),
+            self.get_statefullsets(),
+            self.get_daemonsets(),
+            self.get_replicasets(),
+        )
+        (
+            nodes,
+            pods,
+            deployments,
+            jobs,
+            statefullsets,
+            daemonsets,
+            replicasets,
+        ) = result
         return ResourceSnapshot(
             pods=pods,
             nodes=nodes,
