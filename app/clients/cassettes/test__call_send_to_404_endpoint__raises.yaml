@@ -13,11 +13,11 @@ interactions:
       content-type:
       - application/json
       host:
-      - metadata.integration
+      - metadata-service
       user-agent:
       - python-httpx/0.27.0
     method: PATCH
-    uri: http://metadata.integration/api/v0/graphfake_url
+    uri: http://metadata-service/api/v0/graphfake_url
   response:
     content: '{"detail":"Not Found"}'
     headers:
