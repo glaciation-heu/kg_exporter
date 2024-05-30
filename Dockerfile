@@ -12,6 +12,6 @@ RUN pip install --no-cache-dir poetry \
     && rm -rf $(poetry config cache-dir)/{cache,artifacts}
 
 COPY ./app /code/app
-WORKDIR /code/app
+WORKDIR /code
 
-CMD ["python", "kg_exporter.py", "--incluster"]
+CMD ["python", "-m", "app.kg_exporter", "--incluster"]
