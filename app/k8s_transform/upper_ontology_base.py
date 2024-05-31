@@ -228,6 +228,9 @@ class UpperOntologyBase:
     ) -> None:
         self.add_common_info(identifier, self.WORK_PRODUCING_RESOURCE, description)
 
+    def add_subresource(self, identifier: IRI, subresource: IRI) -> None:
+        self.sink.add_relation(identifier, self.HAS_SUBRESOURCE, subresource)
+
     def add_common_info(
         self, entity_id: IRI, entity_type: IRI, description: Optional[str]
     ) -> None:

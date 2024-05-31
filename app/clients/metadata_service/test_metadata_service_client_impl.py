@@ -2,11 +2,13 @@ import asyncio
 
 from vcr.unittest import VCRTestCase
 
-from app.clients.metadata.metadata_service_client_impl import (
+from app.clients.metadata_service.metadata_service_client_impl import (
     ClientError,
     MetadataServiceClientImpl,
 )
-from app.clients.metadata.metadata_service_settings import MetadataServiceSettings
+from app.clients.metadata_service.metadata_service_settings import (
+    MetadataServiceSettings,
+)
 
 
 class MetadataServiceClientTest(VCRTestCase):

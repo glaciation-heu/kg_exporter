@@ -1,6 +1,9 @@
 from typing import Dict, List, Optional, TypeAlias
 
-from app.clients.metadata.metadata_service_client import MetadataServiceClient, Triple
+from app.clients.metadata_service.metadata_service_client import (
+    MetadataServiceClient,
+    Triple,
+)
 
 HostId: TypeAlias = str
 SparQLQuery: TypeAlias = str
@@ -10,6 +13,10 @@ SerializedGraph: TypeAlias = str
 class HostInteractions:
     query_to_response: Dict[SparQLQuery, List[Triple]]
     inserts: List[SerializedGraph]
+
+    def __init__(self):
+        self.query_to_response = dict()
+        self.inserts = []
 
     def add_query(self, sparql: SparQLQuery, result: List[Triple]) -> None:
         self.query_to_response[sparql] = result
@@ -27,6 +34,9 @@ class HostInteractions:
 class MockMetadataServiceClient(MetadataServiceClient):
     hosts: Dict[HostId, HostInteractions]
 
+    def __init__(self):
+        self.hosts = dict()
+
     def mock_query(
         self, host: HostId, sparql: SparQLQuery, result: List[Triple]
     ) -> None:
@@ -41,7 +51,11 @@ class MockMetadataServiceClient(MetadataServiceClient):
         return []
 
     def get_inserts(self, host: HostId) -> List[SerializedGraph]:
-        return self.hosts[host].get_inserts()
+        host_interactions = self.hosts.get(host)
+        if host_interactions:
+            return host_interactions.get_inserts()
+        else:
+            return []
 
     async def insert(self, host_and_port: HostId, message: SerializedGraph) -> None:
         if host_and_port not in self.hosts:

@@ -75,3 +75,34 @@ class InMemoryGraphTest(TestCase):
             graph.get_node_relations(IRI("", "id2")),
             {IRI("", "rel2"): {IRI("", "id3"), IRI("", "id4")}},
         )
+
+    def test_equality(self):
+        graph1 = InMemoryGraph()
+        graph2 = InMemoryGraph()
+        self.assertEqual(graph1, graph2)
+
+        graph1.add_property(
+            IRI("", "id1"), IRI("", "rel1"), Literal("1", Literal.TYPE_INT)
+        )
+        self.assertNotEqual(graph1, graph2)
+
+        graph2.add_property(
+            IRI("", "id1"), IRI("", "rel1"), Literal("1", Literal.TYPE_INT)
+        )
+        self.assertEqual(graph1, graph2)
+
+        graph1.add_relation(IRI("", "id1"), IRI("", "rel2"), IRI("", "id2"))
+        self.assertNotEqual(graph1, graph2)
+
+        graph2.add_relation(IRI("", "id1"), IRI("", "rel2"), IRI("", "id2"))
+        self.assertEqual(graph1, graph2)
+
+        graph1.add_meta_property(
+            IRI("", "id1"), IRI("", "rel3"), Literal("1", Literal.TYPE_INT)
+        )
+        self.assertNotEqual(graph1, graph2)
+
+        graph2.add_meta_property(
+            IRI("", "id1"), IRI("", "rel3"), Literal("1", Literal.TYPE_INT)
+        )
+        self.assertEqual(graph1, graph2)

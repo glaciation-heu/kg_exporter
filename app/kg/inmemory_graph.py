@@ -43,6 +43,16 @@ class GraphNode:
     def get_meta_properties(self) -> Dict[IRI, IdBase]:
         return self.meta_properties
 
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, GraphNode):
+            return (
+                self.id == other.id
+                and self.properties == other.properties
+                and self.meta_properties == other.meta_properties
+            )
+        else:
+            raise NotImplementedError
+
 
 class GraphEdge:
     subject_id: IRI
@@ -59,6 +69,16 @@ class GraphEdge:
 
     def get_objects(self) -> Set[IRI]:
         return self.objects
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, GraphEdge):
+            return (
+                self.subject_id == other.subject_id
+                and self.predicate == other.predicate
+                and self.objects == other.objects
+            )
+        else:
+            raise NotImplementedError
 
 
 class InMemoryGraph(Graph):
@@ -134,3 +154,9 @@ class InMemoryGraph(Graph):
             }
         else:
             return {}
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, InMemoryGraph):
+            return self.nodes == other.nodes and self.edges == other.edges
+        else:
+            raise NotImplementedError

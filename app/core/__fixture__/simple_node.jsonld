@@ -1,0 +1,50 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "glc:CPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Capacity"
+        },
+        {
+            "@id": "glc:Core",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasDescription": "Cores",
+            "glc:hasID": "glc:Core"
+        },
+        {
+            "@id": "glc:ResourceSpecification",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "Test",
+            "glc:hasID": "glc:ResourceSpecification",
+            "glc:makes": {
+                "@id": "glc:measurement1",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "CPU.MAX",
+                "glc:hasTimestamp": 1700000000,
+                "glc:hasValue": 42.0,
+                "glc:hasID": "glc:measurement1",
+                "glc:measuredIn": "glc:Core",
+                "glc:relatesToMeasurementProperty": "glc:CPU.Capacity"
+            }
+        },
+        {
+            "@id": "glc:cpu",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "CPU",
+            "glc:hasID": "glc:cpu"
+        },
+        {
+            "@id": "glc:node1",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Node",
+            "glc:hasID": "glc:node1",
+            "glc:hasSubResource": "glc:cpu"
+        }
+    ]
+}

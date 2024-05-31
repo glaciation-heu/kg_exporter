@@ -3,8 +3,13 @@ from typing import List
 import httpx
 from httpx import HTTPError
 
-from app.clients.metadata.metadata_service_client import MetadataServiceClient, Triple
-from app.clients.metadata.metadata_service_settings import MetadataServiceSettings
+from app.clients.metadata_service.metadata_service_client import (
+    MetadataServiceClient,
+    Triple,
+)
+from app.clients.metadata_service.metadata_service_settings import (
+    MetadataServiceSettings,
+)
 
 
 class ClientError(Exception):

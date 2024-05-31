@@ -1,23 +1,31 @@
-from typing import List, Set
+from typing import List
 
-from dataclasses import dataclass, field
+import asyncio
+from dataclasses import dataclass
+from enum import StrEnum
 
 from app.clients.influxdb.influxdb_client import InfluxDBClient
+from app.clients.influxdb.metric_value import MetricValue
+from app.clients.influxdb.query_result_parser import QueryResultParser
+from app.clients.influxdb.simple_result_parser import SimpleResultParser
+
+
+class ResultParserId(StrEnum):
+    SIMPLE_RESULT_PARSER = "SimpleResultParser"
+
+    def get_by_name(self) -> QueryResultParser:
+        if self.name == "SIMPLE_RESULT_PARSER":
+            return SimpleResultParser()
+        else:
+            raise Exception(f"Unknown parser for {self}")
 
 
 @dataclass
 class MetricQuery:
     measurement_name: str
     query: str
-    result_parser: str
+    result_parser: ResultParserId
     source: str
-
-
-@dataclass
-class QueryOptions:
-    pod_metric_queries: List[MetricQuery]
-    node_metric_queries: List[MetricQuery]
-    workload_metric_queries: List[MetricQuery]
 
 
 @dataclass
@@ -31,23 +39,19 @@ class Metric:
     source: str
 
 
-@dataclass
-class MetricsSnapshot:
-    pod_metrics: Set[Metric] = field(default_factory=set)
-    node_metrics: Set[Metric] = field(default_factory=set)
-    deployment_metrics: Set[Metric] = field(default_factory=set)
-
-
 class InfluxDBRepository:
     client: InfluxDBClient
 
     def __init__(self, client: InfluxDBClient):
         self.client = client
 
-    async def fetch(
-        self, timestamp: int, query_options: QueryOptions
-    ) -> MetricsSnapshot:
-        # query_api = self.client.query_api()
-        # query = ""
-        # result = await query_api.query(query)
-        return MetricsSnapshot()
+    async def query_many(
+        self, now: int, queries: List[MetricQuery]
+    ) -> List[MetricValue]:
+        query_futures = [self.query_one(now, query) for query in queries]
+        query_results: List[List[MetricValue]] = await asyncio.gather(*query_futures)
+        return [element for elements in query_results for element in elements]
+
+    async def query_one(self, now: int, query: MetricQuery) -> List[MetricValue]:
+        result_parser = query.result_parser.get_by_name()
+        return await self.client.query(query.query, result_parser)
