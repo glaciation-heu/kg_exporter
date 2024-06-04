@@ -37,7 +37,6 @@ jobs:
 
     - name: Run style checks
       run: |
-        poetry run mypy --install-types
         poetry run mypy .
         poetry run isort . --check --diff
         poetry run flake8 .
