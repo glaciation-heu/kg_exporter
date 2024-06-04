@@ -1,6 +1,5 @@
-from dataclasses import dataclass
+from pydantic_settings import BaseSettings
 
 
-@dataclass
-class K8SSettings:
+class K8SSettings(BaseSettings):
     in_cluster: bool

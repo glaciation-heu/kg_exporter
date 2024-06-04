@@ -1,8 +1,13 @@
-from typing import List
+from typing import Any, Dict, List, Type
 
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.k8s.k8s_client import ResourceSnapshot
-from app.core.types import DKGSlice, KGSliceId
+from app.core.types import DKGSlice, KGSliceId, MetricSnapshot, SliceInputs
+from app.k8s_transform.node_transformer import NodesToRDFTransformer
+from app.k8s_transform.pod_transformer import PodToRDFTransformer
+from app.k8s_transform.transformation_context import TransformationContext
+from app.k8s_transform.transformer_base import TransformerBase
+from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
+from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
 
 
@@ -11,11 +16,48 @@ class KGSliceAssembler:
         self,
         now: int,
         slice_id: KGSliceId,
-        cluster_snapshot: ResourceSnapshot,
-        pod_metrics: List[MetricValue],
-        node_metrics: List[MetricValue],
-        workload_metrics: List[MetricValue],
+        inputs: SliceInputs,
     ) -> DKGSlice:
-        graph = InMemoryGraph()
-        slice = DKGSlice(slice_id, graph, now)
+        sink = InMemoryGraph()
+
+        self.transform_resources(now, inputs.resource, sink)
+        self.transform_metrics(now, inputs.metrics, sink)
+
+        slice = DKGSlice(slice_id, sink, now)
         return slice
+
+    def transform_resources(
+        self, now: int, snapshot: ResourceSnapshot, sink: Graph
+    ) -> None:
+        context = TransformationContext(now)
+        self.transform_resource(sink, snapshot.nodes, context, NodesToRDFTransformer)
+        self.transform_resource(sink, snapshot.pods, context, PodToRDFTransformer)
+        self.transform_resource(
+            sink, snapshot.daemonsets, context, WorkloadToRDFTransformer
+        )
+        self.transform_resource(
+            sink, snapshot.deployments, context, WorkloadToRDFTransformer
+        )
+        self.transform_resource(
+            sink, snapshot.replicasets, context, WorkloadToRDFTransformer
+        )
+        self.transform_resource(sink, snapshot.jobs, context, WorkloadToRDFTransformer)
+        self.transform_resource(
+            sink, snapshot.statefullsets, context, WorkloadToRDFTransformer
+        )
+
+    def transform_resource(
+        self,
+        sink: Graph,
+        nodes: List[Dict[str, Any]],
+        context: TransformationContext,
+        transformer_cls: Type[TransformerBase],
+    ) -> None:
+        for node in nodes:
+            transformer = transformer_cls(node, sink)
+            transformer.transform(context)
+
+    def transform_metrics(
+        self, now: int, snapshot: MetricSnapshot, sink: Graph
+    ) -> None:
+        pass

@@ -1,12 +1,13 @@
-from typing import List, Set
+from typing import List
 
 from dataclasses import dataclass, field
 
-from app.core.influxdb_repository import Metric, MetricQuery
+from app.clients.influxdb.metric_value import MetricValue
+from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.kg.graph import Graph
 
 
-@dataclass
+@dataclass(frozen=True)
 class KGSliceId:
     node_ip: str
     port: int
@@ -23,14 +24,13 @@ class DKGSlice:
 
 
 @dataclass
-class MetricsSnapshot:
-    pod_metrics: Set[Metric] = field(default_factory=set)
-    node_metrics: Set[Metric] = field(default_factory=set)
-    deployment_metrics: Set[Metric] = field(default_factory=set)
+class MetricSnapshot:
+    pod_metrics: List[MetricValue] = field(default_factory=list)
+    node_metrics: List[MetricValue] = field(default_factory=list)
+    workload_metrics: List[MetricValue] = field(default_factory=list)
 
 
 @dataclass
-class QueryOptions:
-    pod_queries: List[MetricQuery] = field(default_factory=list)
-    node_queries: List[MetricQuery] = field(default_factory=list)
-    workload_queries: List[MetricQuery] = field(default_factory=list)
+class SliceInputs:
+    resource: ResourceSnapshot
+    metrics: MetricSnapshot

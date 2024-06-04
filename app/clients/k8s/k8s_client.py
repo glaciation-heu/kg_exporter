@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class ResourceSnapshot:
+    cluster: Dict[str, Any] = field(default_factory=dict)
     pods: List[Dict[str, Any]] = field(default_factory=list)
     nodes: List[Dict[str, Any]] = field(default_factory=list)
     deployments: List[Dict[str, Any]] = field(default_factory=list)
@@ -36,6 +37,7 @@ class K8SClient:
             replicasets,
         ) = result
         return ResourceSnapshot(
+            cluster=dict(),
             pods=pods,
             nodes=nodes,
             deployments=deployments,

@@ -1,8 +1,7 @@
-from dataclasses import dataclass
+from pydantic_settings import BaseSettings
 
 
-@dataclass
-class InfluxDBSettings:
+class InfluxDBSettings(BaseSettings):
     url: str
     token: str
     org: str

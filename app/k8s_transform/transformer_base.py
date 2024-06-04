@@ -4,6 +4,7 @@ import re
 
 from jsonpath_ng.ext import parse
 
+from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
@@ -45,6 +46,9 @@ class TransformerBase:
     def __init__(self, source: Dict[str, Any], sink: Graph):
         self.source = source
         self.sink = sink
+
+    def transform(self, context: TransformationContext) -> None:
+        raise NotImplementedError
 
     def get_reference_id(self, reference: Dict[str, Any]) -> Tuple[IRI, str]:
         name = reference.get("name")

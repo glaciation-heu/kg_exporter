@@ -9,7 +9,7 @@ from app.clients.metadata_service.mock_metadata_service_client import (
 )
 from app.core.async_queue import AsyncQueue
 from app.core.influxdb_repository import InfluxDBRepository
-from app.core.kg_builder import KGBuilder
+from app.core.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
 from app.core.kg_repository import KGRepository
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.types import DKGSlice, KGSliceId
@@ -23,6 +23,7 @@ class KGBuilderTest(TestCase, TestGraphFixture):
     queue: AsyncQueue[DKGSlice]
     running_event: asyncio.Event
     runner: asyncio.Runner
+    settings: KGBuilderSettings
 
     def setUp(self) -> None:
         self.client = MockMetadataServiceClient()
@@ -32,6 +33,9 @@ class KGBuilderTest(TestCase, TestGraphFixture):
         self.running_event = asyncio.Event()
         self.running_event.set()
         self.runner = asyncio.Runner()
+        self.settings = KGBuilderSettings(
+            builder_tick_seconds=1, influxdb_queries=QuerySettings()
+        )
 
     def test_build(self) -> None:
         builder = self.create_builder()
@@ -61,6 +65,7 @@ class KGBuilderTest(TestCase, TestGraphFixture):
             self.k8s_client,
             repository,
             influxdb_repository,
+            self.settings,
         )
 
     async def run_builder(self, builder: KGBuilder) -> None:
