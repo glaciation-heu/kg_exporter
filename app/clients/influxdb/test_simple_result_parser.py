@@ -31,12 +31,18 @@ class SimpleResultParserTest(TestCase):
             "instance": "10.14.1.160:9100",
             "job": "kubernetes-service-endpoints",
             "namespace": "monitoring",
-            "identifier": "glaciation-testm1w5-master01",
+            "resource_id": "glaciation-testm1w5-master01",
+            "metric_id": "RAM.Capacity",
             "service": "monitoring-stack-prometheus-node-exporter",
         }
         actual = parser.parse(row)
 
         self.assertEqual(
-            MetricValue("glaciation-testm1w5-master01", 1717142400000, 26237685760.0),
+            MetricValue(
+                "RAM.Capacity",
+                "glaciation-testm1w5-master01",
+                1717142400000,
+                26237685760.0,
+            ),
             actual,
         )

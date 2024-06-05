@@ -15,7 +15,7 @@ class InfluxDBRepositoryTest(TestCase):
         self.repository = InfluxDBRepository(self.client)
 
     def test_query_one(self) -> None:
-        expected = MetricValue("id", 100500, 42.0)
+        expected = MetricValue("id", "resource", 100500, 42.0)
         self.client.mock_query("test_query", [expected])
         now = 1
         query = MetricQuery(
@@ -29,9 +29,9 @@ class InfluxDBRepositoryTest(TestCase):
         self.assertEqual([expected], actual)
 
     def test_query_many(self) -> None:
-        expected1 = MetricValue("id1", 100500, 41.0)
-        expected2 = MetricValue("id2", 100500, 42.0)
-        expected3 = MetricValue("id3", 100500, 43.0)
+        expected1 = MetricValue("id1", "pod1", 100500, 41.0)
+        expected2 = MetricValue("id2", "node1", 100500, 42.0)
+        expected3 = MetricValue("id3", "deployment1", 100500, 43.0)
         self.client.mock_query("test_query1", [expected1])
         self.client.mock_query("test_query2", [expected2])
         self.client.mock_query("test_query3", [expected3])
