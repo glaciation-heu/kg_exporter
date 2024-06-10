@@ -8,9 +8,9 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
 )
 from app.core.async_queue import AsyncQueue
-from app.core.influxdb_repository import InfluxDBRepository
 from app.core.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
 from app.core.kg_repository import KGRepository
+from app.core.metric_repository import MetricRepository
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.types import DKGSlice, KGSliceId
 from app.kg.inmemory_graph import InMemoryGraph
@@ -58,7 +58,7 @@ class KGBuilderTest(TestCase, TestGraphFixture):
 
     def create_builder(self) -> KGBuilder:
         repository = KGRepository(self.client, self.get_jsonld_config())
-        influxdb_repository = InfluxDBRepository(self.influxdb_client)
+        influxdb_repository = MetricRepository(self.influxdb_client)
         return KGBuilder(
             self.running_event,
             self.queue,

@@ -1,8 +1,8 @@
 from typing import Dict, List
 
 from app.clients.influxdb.influxdb_client import InfluxDBClient
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.influxdb.query_result_parser import QueryResultParser
+from app.core.metric_value import MetricValue
 
 
 class MockInfluxDBClient(InfluxDBClient):

@@ -1,18 +1,18 @@
 import asyncio
 from unittest import TestCase
 
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
-from app.core.influxdb_repository import InfluxDBRepository, MetricQuery, ResultParserId
+from app.core.metric_repository import MetricQuery, MetricRepository, ResultParserId
+from app.core.metric_value import MetricValue
 
 
-class InfluxDBRepositoryTest(TestCase):
+class MetricRepositoryTest(TestCase):
     client: MockInfluxDBClient
-    repository: InfluxDBRepository
+    repository: MetricRepository
 
     def setUp(self) -> None:
         self.client = MockInfluxDBClient()
-        self.repository = InfluxDBRepository(self.client)
+        self.repository = MetricRepository(self.client)
 
     def test_query_one(self) -> None:
         expected = MetricValue("id", "resource", 100500, 42.0)

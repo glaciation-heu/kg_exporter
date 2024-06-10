@@ -14,9 +14,7 @@ from app.pydantic_yaml import from_yaml, to_yaml
 class PyDanticYamlTest(TestCase):
     def test_dump_load_settings(self):
         expected = KGExporterSettings(
-            builder=KGBuilderSettings(
-                builder_tick_seconds=1, influxdb_queries=QuerySettings()
-            ),
+            builder=KGBuilderSettings(builder_tick_seconds=1, queries=QuerySettings()),
             k8s=K8SSettings(in_cluster=True),
             influxdb=InfluxDBSettings(
                 url="test", token="token", org="org", timeout=60000

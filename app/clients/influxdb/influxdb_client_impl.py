@@ -5,8 +5,8 @@ from influxdb_client.client.influxdb_client_async import InfluxDBClientAsync
 
 from app.clients.influxdb.influxdb_client import InfluxDBClient
 from app.clients.influxdb.influxdb_settings import InfluxDBSettings
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.influxdb.query_result_parser import QueryResultParser
+from app.core.metric_value import MetricValue
 
 
 class InfluxDBClientImpl(InfluxDBClient):

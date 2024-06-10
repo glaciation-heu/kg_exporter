@@ -2,8 +2,8 @@ from typing import List
 
 from dataclasses import dataclass, field
 
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.k8s.k8s_client import ResourceSnapshot
+from app.core.metric_value import MetricValue
 from app.kg.graph import Graph
 
 

@@ -7,9 +7,9 @@ from pydantic_settings import BaseSettings
 
 from app.clients.k8s.k8s_client import K8SClient
 from app.core.async_queue import AsyncQueue
-from app.core.influxdb_repository import InfluxDBRepository, MetricQuery
 from app.core.kg_repository import KGRepository
 from app.core.kg_slice_assembler import KGSliceAssembler
+from app.core.metric_repository import MetricQuery, MetricRepository
 from app.core.slice_for_node_strategy import SliceForNodeStrategy
 from app.core.slice_strategy import SliceStrategy
 from app.core.types import DKGSlice, MetricSnapshot
@@ -23,7 +23,7 @@ class QuerySettings(BaseSettings):
 
 class KGBuilderSettings(BaseSettings):
     builder_tick_seconds: int
-    influxdb_queries: QuerySettings
+    queries: QuerySettings
 
 
 class KGBuilder:
@@ -31,7 +31,7 @@ class KGBuilder:
     k8s_client: K8SClient
     queue: AsyncQueue[DKGSlice]
     kg_repository: KGRepository
-    influxdb_repository: InfluxDBRepository
+    influxdb_repository: MetricRepository
     settings: KGBuilderSettings
     slice_strategy: SliceStrategy
     slice_assembler: KGSliceAssembler
@@ -42,7 +42,7 @@ class KGBuilder:
         queue: AsyncQueue[DKGSlice],
         k8s_client: K8SClient,
         kg_repository: KGRepository,
-        influxdb_repository: InfluxDBRepository,
+        influxdb_repository: MetricRepository,
         settings: KGBuilderSettings,
     ):
         self.running = running
@@ -65,13 +65,13 @@ class KGBuilder:
             ) = await asyncio.gather(
                 self.k8s_client.fetch_snapshot(),
                 self.influxdb_repository.query_many(
-                    now, self.settings.influxdb_queries.pod_queries
+                    now, self.settings.queries.pod_queries
                 ),
                 self.influxdb_repository.query_many(
-                    now, self.settings.influxdb_queries.node_queries
+                    now, self.settings.queries.node_queries
                 ),
                 self.influxdb_repository.query_many(
-                    now, self.settings.influxdb_queries.workload_queries
+                    now, self.settings.queries.workload_queries
                 ),
             )
             metric_snapshot = MetricSnapshot(

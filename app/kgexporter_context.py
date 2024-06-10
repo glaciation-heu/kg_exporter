@@ -10,10 +10,10 @@ from app.clients.k8s.k8s_client import K8SClient
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
 from app.core.async_queue import AsyncQueue
 from app.core.dkg_slice_store import DKGSliceStore
-from app.core.influxdb_repository import InfluxDBRepository
 from app.core.kg_builder import KGBuilder
 from app.core.kg_repository import KGRepository
 from app.core.kg_updater import KGUpdater
+from app.core.metric_repository import MetricRepository
 from app.core.types import DKGSlice
 from app.kgexporter_settings import KGExporterSettings
 from app.serialize.jsonld_configuration import JsonLDConfiguration
@@ -40,7 +40,7 @@ class KGExporterContext:
     ):
         self.settings = settings
         kg_repository = KGRepository(metadata_client, jsonld_config)
-        influxdb_repository = InfluxDBRepository(influxdb_client)
+        influxdb_repository = MetricRepository(influxdb_client)
         self.running = asyncio.Event()
         self.queue = AsyncQueue[DKGSlice]()
         self.dkg_slice_store = DKGSliceStore()

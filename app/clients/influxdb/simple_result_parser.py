@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.influxdb.query_result_parser import QueryResultParser
+from app.core.metric_value import MetricValue
 
 
 class SimpleResultParser(QueryResultParser):

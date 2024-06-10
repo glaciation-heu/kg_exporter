@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from datetime import datetime
 
-from app.clients.influxdb.metric_value import MetricValue
+from app.core.metric_value import MetricValue
 
 
 class QueryResultParser:

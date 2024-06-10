@@ -5,9 +5,9 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from app.clients.influxdb.influxdb_client import InfluxDBClient
-from app.clients.influxdb.metric_value import MetricValue
 from app.clients.influxdb.query_result_parser import QueryResultParser
 from app.clients.influxdb.simple_result_parser import SimpleResultParser
+from app.core.metric_value import MetricValue
 
 
 class ResultParserId(StrEnum):
@@ -39,7 +39,7 @@ class Metric:
     source: str
 
 
-class InfluxDBRepository:
+class MetricRepository:
     client: InfluxDBClient
 
     def __init__(self, client: InfluxDBClient):
