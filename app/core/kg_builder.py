@@ -75,7 +75,9 @@ class KGBuilder:
                 ),
             )
             metric_snapshot = MetricSnapshot(
-                pod_metrics, node_metrics, workload_metrics
+                list(zip(self.settings.queries.pod_queries, pod_metrics)),
+                list(zip(self.settings.queries.node_queries, node_metrics)),
+                list(zip(self.settings.queries.workload_queries, workload_metrics)),
             )
             logger.debug(cluster_snapshot)
             logger.debug(pod_metrics)

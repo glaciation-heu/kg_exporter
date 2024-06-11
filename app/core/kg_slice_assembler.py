@@ -9,6 +9,8 @@ from app.k8s_transform.transformer_base import TransformerBase
 from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
+from app.metric_transform.node_metric_transformer import NodeMetricToGraphTransformer
+from app.metric_transform.pod_metric_transformer import PodMetricToGraphTransformer
 
 
 class KGSliceAssembler:
@@ -58,6 +60,13 @@ class KGSliceAssembler:
             transformer.transform(context)
 
     def transform_metrics(
-        self, now: int, snapshot: MetricSnapshot, sink: Graph
+        self,
+        now: int,
+        snapshot: MetricSnapshot,
+        sink: Graph,
     ) -> None:
-        pass
+        context = TransformationContext(now)
+        node_transformer = NodeMetricToGraphTransformer(snapshot.node_metrics, sink)
+        node_transformer.transform(context)
+        pod_transformer = PodMetricToGraphTransformer(snapshot.pod_metrics, sink)
+        pod_transformer.transform(context)

@@ -19,10 +19,13 @@ class MetricRepositoryTest(TestCase):
         self.client.mock_query("test_query", [expected])
         now = 1
         query = MetricQuery(
-            measurement_name="measurement",
-            query="test_query",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            measurement_id="measurement",
+            subresource=None,
             source="source",
+            query="test_query",
+            unit="bytes",
+            property="property",
+            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
         )
 
         actual = asyncio.run(self.repository.query_one(now, query))
@@ -37,22 +40,31 @@ class MetricRepositoryTest(TestCase):
         self.client.mock_query("test_query3", [expected3])
         now = 1
         query1 = MetricQuery(
-            measurement_name="measurement",
+            measurement_id="measurement",
+            subresource=None,
+            source="source",
+            unit="bytes",
+            property="property",
             query="test_query1",
             result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
-            source="source",
         )
         query2 = MetricQuery(
-            measurement_name="measurement",
-            query="test_query2",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            measurement_id="measurement",
+            subresource=None,
             source="source",
+            query="test_query2",
+            unit="bytes",
+            property="property",
+            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
         )
         query3 = MetricQuery(
-            measurement_name="measurement",
-            query="test_query3",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            measurement_id="measurement",
+            subresource=None,
             source="source",
+            query="test_query3",
+            unit="bytes",
+            property="property",
+            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
         )
 
         actual = asyncio.run(self.repository.query_many(now, [query1, query2, query3]))

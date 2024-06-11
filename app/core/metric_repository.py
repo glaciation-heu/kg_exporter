@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import asyncio
 from dataclasses import dataclass
@@ -22,21 +22,13 @@ class ResultParserId(StrEnum):
 
 @dataclass
 class MetricQuery:
-    measurement_name: str
+    measurement_id: str
+    subresource: Optional[str]
+    source: str
+    unit: str
+    property: str
     query: str
     result_parser: ResultParserId
-    source: str
-
-
-@dataclass
-class Metric:
-    identifier: str
-    kind: str
-    measurement_name: str
-    metric_name: str
-    value: float
-    timestamp: int
-    source: str
 
 
 class MetricRepository:

@@ -34,7 +34,7 @@ class KGBuilderTest(TestCase, TestGraphFixture):
         self.running_event.set()
         self.runner = asyncio.Runner()
         self.settings = KGBuilderSettings(
-            builder_tick_seconds=1, influxdb_queries=QuerySettings()
+            builder_tick_seconds=1, queries=QuerySettings()
         )
 
     def test_build(self) -> None:

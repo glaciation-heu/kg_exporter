@@ -1,0 +1,75 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:pod1",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasID": "cluster:pod1",
+            "glc:hasMeasurement": {
+                "@set": [
+                    {
+                        "@id": "cluster:pod1.CPU.Usage",
+                        "@type": "glc:Measurement",
+                        "glc:hasDescription": "CPU.Usage",
+                        "glc:hasTimestamp": 17100500,
+                        "glc:hasValue": 42.0,
+                        "glc:hasID": "cluster:pod1.CPU.Usage",
+                        "glc:measuredIn": "glc:coreseconds",
+                        "glc:relatesToMeasurementProperty": "glc:CPU.Usage"
+                    },
+                    {
+                        "@id": "cluster:pod1.Energy.Usage",
+                        "@type": "glc:Measurement",
+                        "glc:hasDescription": "Energy.Usage",
+                        "glc:hasTimestamp": 17100500,
+                        "glc:hasValue": 42.0,
+                        "glc:hasID": "cluster:pod1.Energy.Usage",
+                        "glc:measuredIn": "glc:milliwatt",
+                        "glc:relatesToMeasurementProperty": "glc:Energy.Usage"
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "glc:CPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Usage"
+        },
+        {
+            "@id": "glc:Energy.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Usage"
+        },
+        {
+            "@id": "glc:cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": {
+                "@set": [
+                    "cAdvisor"
+                ]
+            },
+            "glc:hasID": "glc:cAdvisor",
+            "glc:makes": {
+                "@set": [
+                    "cluster:pod1.CPU.Usage",
+                    "cluster:pod1.Energy.Usage"
+                ]
+            }
+        },
+        {
+            "@id": "glc:coreseconds",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:coreseconds"
+        },
+        {
+            "@id": "glc:milliwatt",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:milliwatt"
+        }
+    ]
+}
