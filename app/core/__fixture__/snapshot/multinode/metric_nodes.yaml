@@ -1,0 +1,117 @@
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: test1
+    result_parser: SimpleResultParser
+  value:
+    metric_id: cpu_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 41.0
+- query:
+    measurement_id: Usage
+    subresource: GPU
+    source: dcgm
+    unit: coreseconds
+    property: GPU.Usage
+    query: test2
+    result_parser: SimpleResultParser
+  value:
+    metric_id: gpu_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 41.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: test3
+    result_parser: SimpleResultParser
+  value:
+    metric_id: ram_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 42.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: test4
+    result_parser: SimpleResultParser
+  value:
+    metric_id: eph_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 43.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes5
+    property: Network.Usage
+    query: test
+    result_parser: SimpleResultParser
+  value:
+    metric_id: net_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 43.0
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: test6
+    result_parser: SimpleResultParser
+  value:
+    metric_id: cpu_usage
+    resource_id: glaciation-test-worker01
+    timestamp: 17100500
+    value: 41.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: test7
+    result_parser: SimpleResultParser
+  value:
+    metric_id: ram_usage
+    resource_id: glaciation-test-worker01
+    timestamp: 17100500
+    value: 42.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: test8
+    result_parser: SimpleResultParser
+  value:
+    metric_id: eph_usage
+    resource_id: glaciation-test-worker01
+    timestamp: 17100500
+    value: 43.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes9
+    property: Network.Usage
+    query: test
+    result_parser: SimpleResultParser
+  value:
+    metric_id: net_usage
+    resource_id: glaciation-test-worker01
+    timestamp: 17100500
+    value: 43.0

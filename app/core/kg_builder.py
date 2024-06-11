@@ -23,6 +23,7 @@ class QuerySettings(BaseSettings):
 
 class KGBuilderSettings(BaseSettings):
     builder_tick_seconds: int
+    node_port: int
     queries: QuerySettings
 
 
@@ -51,7 +52,7 @@ class KGBuilder:
         self.kg_repository = kg_repository
         self.influxdb_repository = influxdb_repository
         self.settings = settings
-        self.slice_strategy = SliceForNodeStrategy()
+        self.slice_strategy = SliceForNodeStrategy(node_port=settings.node_port)
         self.slice_assembler = KGSliceAssembler()
 
     async def run(self) -> None:

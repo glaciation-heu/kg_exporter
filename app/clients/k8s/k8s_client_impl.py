@@ -41,6 +41,9 @@ class K8SClientImpl(K8SClient):
     async def get_jobs(self) -> List[Dict[str, Any]]:
         return await self.get_resource("Job")
 
+    async def get_cluster_info(self) -> Dict[str, Any]:
+        raise NotImplementedError("get_cluster_info() is not implemented")
+
     async def get_resource(self, kind: str) -> List[Dict[str, Any]]:
         api = self.client.resources.get(api_version="v1", kind=kind)
         return [item.to_dict() for item in api.get().items]

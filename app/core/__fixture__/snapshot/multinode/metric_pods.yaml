@@ -1,0 +1,212 @@
+# coredns-787d4945fb-l85r5
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: pods1
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_cpu_usage
+    resource_id: coredns-787d4945fb-l85r5
+    timestamp: 17100500
+    value: 41.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: pods2
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_ram_usage
+    resource_id: coredns-787d4945fb-l85r5
+    timestamp: 17100500
+    value: 42.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: pods3
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_eph_usage
+    resource_id: coredns-787d4945fb-l85r5
+    timestamp: 17100500
+    value: 43.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes
+    property: Network.Usage
+    query: pods4
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_net_usage
+    resource_id: coredns-787d4945fb-l85r5
+    timestamp: 17100500
+    value: 44.0
+#  kube-flannel-ds-848v8
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: pods5
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_cpu_usage
+    resource_id: kube-flannel-ds-848v8
+    timestamp: 17100500
+    value: 51.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: pods6
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_ram_usage
+    resource_id: kube-flannel-ds-848v8
+    timestamp: 17100500
+    value: 52.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: pods7
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_eph_usage
+    resource_id: kube-flannel-ds-848v8
+    timestamp: 17100500
+    value: 53.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes
+    property: Network.Usage
+    query: pods8
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_net_usage
+    resource_id: kube-flannel-ds-848v8
+    timestamp: 17100500
+    value: 54.0
+#  init-vault-cluster-cbqhq
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: pods9
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_cpu_usage
+    resource_id: init-vault-cluster-cbqhq
+    timestamp: 17100500
+    value: 61.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: pods10
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_ram_usage
+    resource_id: init-vault-cluster-cbqhq
+    timestamp: 17100500
+    value: 62.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: pods11
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_eph_usage
+    resource_id: init-vault-cluster-cbqhq
+    timestamp: 17100500
+    value: 63.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes
+    property: Network.Usage
+    query: pods12
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_net_usage
+    resource_id: init-vault-cluster-cbqhq
+    timestamp: 17100500
+    value: 64.0
+# glaciation-pool-0-0
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: pods13
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_cpu_usage
+    resource_id: glaciation-pool-0-0
+    timestamp: 17100500
+    value: 71.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: pods14
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_ram_usage
+    resource_id: glaciation-pool-0-0
+    timestamp: 17100500
+    value: 72.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: pods15
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_eph_usage
+    resource_id: glaciation-pool-0-0
+    timestamp: 17100500
+    value: 73.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes
+    property: Network.Usage
+    query: pods16
+    result_parser: SimpleResultParser
+  value:
+    metric_id: pod_net_usage
+    resource_id: glaciation-pool-0-0
+    timestamp: 17100500
+    value: 74.0

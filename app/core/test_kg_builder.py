@@ -12,11 +12,12 @@ from app.core.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
 from app.core.kg_repository import KGRepository
 from app.core.metric_repository import MetricRepository
 from app.core.test_graph_fixture import TestGraphFixture
+from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import DKGSlice, KGSliceId
 from app.kg.inmemory_graph import InMemoryGraph
 
 
-class KGBuilderTest(TestCase, TestGraphFixture):
+class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
     client: MockMetadataServiceClient
     k8s_client: MockK8SClient
     influxdb_client: MockInfluxDBClient
@@ -34,27 +35,40 @@ class KGBuilderTest(TestCase, TestGraphFixture):
         self.running_event.set()
         self.runner = asyncio.Runner()
         self.settings = KGBuilderSettings(
-            builder_tick_seconds=1, queries=QuerySettings()
+            builder_tick_seconds=1, node_port=80, queries=QuerySettings()
         )
 
-    def test_build(self) -> None:
+    def test_build_minimal(self) -> None:
+        self.mock_minimal_inputs()
+
         builder = self.create_builder()
         self.runner.run(self.run_builder(builder))
 
         slice = self.wait_for_slice(2)
 
-        self.assertEqual(slice.graph, InMemoryGraph())
         self.assertEqual(slice.timestamp, 0)
-        self.assertEqual(slice.slice_id, KGSliceId("127.0.0.1", 80))
+        self.assertEqual(slice.slice_id, KGSliceId("glaciation-test-master01", 80))
+        self.assertNotEqual(slice.graph, InMemoryGraph())
 
-    def wait_for_slice(self, seconds: int) -> DKGSlice:
-        start = datetime.datetime.now()
-        while start + datetime.timedelta(seconds=seconds) > datetime.datetime.now():
-            slice = self.queue.get_nowait()
-            if slice:
-                return slice
-            self.runner.run(asyncio.sleep(0.1))
-        raise AssertionError("time is up.")
+        # TODO validate graph nodes and edges
+
+    def mock_minimal_inputs(self) -> None:
+        resources = self.load_k8s_snapshot("minimal")
+
+        self.k8s_client.mock_cluster(resources.cluster)
+        self.k8s_client.mock_daemonsets(resources.daemonsets)
+        self.k8s_client.mock_deployments(resources.deployments)
+        self.k8s_client.mock_jobs(resources.jobs)
+        self.k8s_client.mock_nodes(resources.nodes)
+        self.k8s_client.mock_pods(resources.pods)
+        self.k8s_client.mock_replicasets(resources.replicasets)
+        self.k8s_client.mock_statefullsets(resources.statefullsets)
+
+        metrics = self.load_metric_snapshot("minimal")
+        for query, value in metrics.node_metrics:
+            self.influxdb_client.mock_query(query.query, [value])
+        for query, value in metrics.pod_metrics:
+            self.influxdb_client.mock_query(query.query, [value])
 
     def create_builder(self) -> KGBuilder:
         repository = KGRepository(self.client, self.get_jsonld_config())
@@ -67,6 +81,15 @@ class KGBuilderTest(TestCase, TestGraphFixture):
             influxdb_repository,
             self.settings,
         )
+
+    def wait_for_slice(self, seconds: int) -> DKGSlice:
+        start = datetime.datetime.now()
+        while start + datetime.timedelta(seconds=seconds) > datetime.datetime.now():
+            slice = self.queue.get_nowait()
+            if slice:
+                return slice
+            self.runner.run(asyncio.sleep(0.1))
+        raise AssertionError("time is up.")
 
     async def run_builder(self, builder: KGBuilder) -> None:
         asyncio.create_task(builder.run())

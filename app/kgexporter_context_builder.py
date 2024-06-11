@@ -47,7 +47,9 @@ class KGExporterContextBuilder:
         )
 
     def parse(self):
-        parser = argparse.ArgumentParser(description="Kubernetes watcher service")
+        parser = argparse.ArgumentParser(
+            description="Kubernetes knowledge graph exporter."
+        )
         parser.add_argument(
             "--config",
             dest="config",

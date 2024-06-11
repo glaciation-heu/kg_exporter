@@ -1,0 +1,54 @@
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: coredns
+    uid: 1
+    namespace: kube-system
+    ownerReferences:
+    - apiVersion: minio.min.io/v2
+      kind: CRD
+      name: crd-resource
+    labels:
+      k8s-app: kube-dns
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        k8s-app: kube-dns
+    template:
+      metadata:
+        labels:
+          k8s-app: kube-dns
+        annotations:
+          glaciation-project.eu/resource/limits/energy: '100'
+          glaciation-project.eu/resource/limits/network: '1010'
+          glaciation-project.eu/resource/limits/gpu: '101'
+          glaciation-project.eu/resource/requests/energy: '100'
+          glaciation-project.eu/resource/requests/network: '1010'
+          glaciation-project.eu/resource/requests/gpu: '101'
+      spec:
+        initContainers:
+        - name: init-coredns
+          resources:
+            limits:
+              memory: 170Mi
+            requests:
+              cpu: 100m
+              memory: 70Mi
+        containers:
+        - name: coredns
+          resources:
+            limits:
+              memory: 170Mi
+            requests:
+              cpu: 100m
+              memory: 70Mi
+        - name: coredns-other
+          resources:
+            limits:
+              memory: 170Mi
+            requests:
+              cpu: 100m
+              memory: 70Mi
+              ephemeral-storage: 100500
+        schedulerName: default-scheduler

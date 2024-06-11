@@ -11,6 +11,7 @@ class MockK8SClient(K8SClient):
     daemonsets: List[Dict[str, Any]]
     statefullsets: List[Dict[str, Any]]
     jobs: List[Dict[str, Any]]
+    cluster: Dict[str, Any]
 
     def __init__(self):
         self.nodes = []
@@ -20,6 +21,13 @@ class MockK8SClient(K8SClient):
         self.daemonsets = []
         self.statefullsets = []
         self.jobs = []
+        self.cluster = {}
+
+    def mock_cluster(self, cluster: Dict[str, Any]) -> None:
+        self.cluster = cluster
+
+    async def get_cluster_info(self) -> Dict[str, Any]:
+        return self.cluster
 
     def mock_nodes(self, nodes: List[Dict[str, Any]]) -> None:
         self.nodes = nodes

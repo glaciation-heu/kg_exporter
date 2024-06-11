@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Set, Tuple
 
 from dataclasses import dataclass, field
 
@@ -40,9 +40,34 @@ class Metric:
 class MetricSnapshot:
     pod_metrics: List[Tuple[MetricQuery, MetricValue]] = field(default_factory=list)
     node_metrics: List[Tuple[MetricQuery, MetricValue]] = field(default_factory=list)
+    # TODO remove workload_metrics
     workload_metrics: List[Tuple[MetricQuery, MetricValue]] = field(
         default_factory=list
     )
+
+    def get_metric_names(self) -> Set[str]:
+        names: Set[str] = set()
+        names = {*names, *{resource[1].metric_id for resource in self.pod_metrics}}
+        names = {*names, *{resource[1].metric_id for resource in self.node_metrics}}
+        return names
+
+    def get_node_metrics_by_resource(
+        self, resource_name: str
+    ) -> List[Tuple[MetricQuery, MetricValue]]:
+        return [
+            metric
+            for metric in self.node_metrics
+            if metric[1].resource_id == resource_name
+        ]
+
+    def get_pod_metrics_by_resource(
+        self, resource_name: str
+    ) -> List[Tuple[MetricQuery, MetricValue]]:
+        return [
+            metric
+            for metric in self.pod_metrics
+            if metric[1].resource_id == resource_name
+        ]
 
 
 @dataclass
