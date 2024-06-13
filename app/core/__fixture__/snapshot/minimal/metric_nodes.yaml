@@ -28,7 +28,7 @@
     measurement_id: Usage
     subresource: Storage
     source: cAdvisor
-    unit: bytesß
+    unit: bytes
     property: Storage.Usage
     query: test3
     result_parser: SimpleResultParser

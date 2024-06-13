@@ -73,3 +73,6 @@ class IRI(IdBase):
 
     def get_prefix(self) -> Optional[str]:
         return self.prefix
+
+    def get_value(self) -> str:
+        return self.value

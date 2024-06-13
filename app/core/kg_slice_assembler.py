@@ -2,6 +2,7 @@ from typing import Any, Dict, List, Type
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.core.types import DKGSlice, KGSliceId, MetricSnapshot, SliceInputs
+from app.k8s_transform.cluster_transformer import ClusterToRDFTransformer
 from app.k8s_transform.node_transformer import NodesToRDFTransformer
 from app.k8s_transform.pod_transformer import PodToRDFTransformer
 from app.k8s_transform.transformation_context import TransformationContext
@@ -32,6 +33,7 @@ class KGSliceAssembler:
         self, now: int, snapshot: ResourceSnapshot, sink: Graph
     ) -> None:
         context = TransformationContext(now)
+        self.transform_cluster(sink, snapshot.nodes, snapshot.cluster, context)
         self.transform_resource(sink, snapshot.nodes, context, NodesToRDFTransformer)
         self.transform_resource(sink, snapshot.pods, context, PodToRDFTransformer)
         self.transform_resource(
@@ -47,6 +49,16 @@ class KGSliceAssembler:
         self.transform_resource(
             sink, snapshot.statefullsets, context, WorkloadToRDFTransformer
         )
+
+    def transform_cluster(
+        self,
+        sink: Graph,
+        nodes: List[Dict[str, Any]],
+        cluster_info: Dict[str, Any],
+        context: TransformationContext,
+    ) -> None:
+        transformer = ClusterToRDFTransformer(cluster_info, nodes, sink)
+        transformer.transform(context)
 
     def transform_resource(
         self,

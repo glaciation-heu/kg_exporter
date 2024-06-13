@@ -1,9 +1,12 @@
+from typing import List, Set
+
 from unittest import TestCase
 
 from app.core.kg_slice_assembler import KGSliceAssembler
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import DKGSlice, KGSliceId
 from app.kg.inmemory_graph import InMemoryGraph
+from app.kg.iri import IRI
 
 
 class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
@@ -21,18 +24,19 @@ class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
         self.assertEqual(DKGSlice(slice_id, InMemoryGraph(), now), actual)
 
     def test_assemble_minimal(self) -> None:
-        pass
-        # now = 1
-        # slice_id = KGSliceId("127.0.0.1", 80)
-        # inputs = self.get_inputs("minimal")
-        # assembler = KGSliceAssembler()
+        now = 1
+        slice_id = KGSliceId("glaciation-test-master01", 80)
+        inputs = self.get_inputs("minimal")
+        assembler = KGSliceAssembler()
 
-        # actual = assembler.assemble(
-        #     now,
-        #     slice_id,
-        #     inputs,
-        # )
-        # self.assertEqual(DKGSlice(slice_id, InMemoryGraph(), now), actual)
+        actual = assembler.assemble(
+            now,
+            slice_id,
+            inputs,
+        )
+        self.assertEqual(slice_id, actual.slice_id)
+        self.assertEqual(now, actual.timestamp)
+        self.assert_graph(actual.graph, "minimal", slice_id)
 
-    def test_assemble_multinode(self) -> None:
-        pass
+    def to_value(self, ids: List[IRI]) -> Set[str]:
+        return {iri.get_value() for iri in ids}
