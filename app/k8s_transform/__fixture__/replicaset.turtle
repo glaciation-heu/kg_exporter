@@ -23,6 +23,12 @@ cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685.RAM.Capacity glc
 cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb rdf:type glc:AssignedTask .
 cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb glc:hasDescription "Deployment" .
 cluster:coredns.3c85dfea-a3a3-4cda-9145-c2fa46de66fb glc:hasSubTask cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 .
+glc:Bytes rdf:type glc:MeasurementUnit .
+glc:Bytes glc:hasID glc:Bytes .
+glc:Core rdf:type glc:MeasurementUnit .
+glc:Core glc:hasID glc:Core .
+glc:Performance rdf:type glc:Aspect .
+glc:Performance glc:hasID glc:Performance .
 glc:default-scheduler rdf:type glc:Scheduler .
 glc:default-scheduler glc:assigns cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685 .
 glc:default-scheduler glc:hasID glc:default-scheduler .

@@ -104,19 +104,9 @@
             "glc:hasID": "glc:Bytes"
         },
         {
-            "@id": "glc:CPU.Available",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Available"
-        },
-        {
             "@id": "glc:CPU.Capacity",
             "@type": "glc:MeasurementProperty",
             "glc:hasID": "glc:CPU.Capacity"
-        },
-        {
-            "@id": "glc:CPU.Usage",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Usage"
         },
         {
             "@id": "glc:Core",
@@ -124,56 +114,9 @@
             "glc:hasID": "glc:Core"
         },
         {
-            "@id": "glc:Energy.Available",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Energy.Available"
-        },
-        {
             "@id": "glc:Energy.Index",
             "@type": "glc:MeasurementProperty",
             "glc:hasID": "glc:Energy.Index"
-        },
-        {
-            "@id": "glc:Energy.Usage",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Energy.Usage"
-        },
-        {
-            "@id": "glc:EnergyBenchmark",
-            "@type": "glc:MeasuringResource",
-            "glc:hasDescription": "EnergyBenchmark",
-            "glc:hasID": "glc:EnergyBenchmark"
-        },
-        {
-            "@id": "glc:GB",
-            "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:GB"
-        },
-        {
-            "@id": "glc:GPU.Available",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:GPU.Available"
-        },
-        {
-            "@id": "glc:GPU.Capacity",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:GPU.Capacity"
-        },
-        {
-            "@id": "glc:GPU.Usage",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:GPU.Usage"
-        },
-        {
-            "@id": "glc:Kepler",
-            "@type": "glc:MeasuringResource",
-            "glc:hasDescription": "Kepler metrics https://sustainable-computing.io/",
-            "glc:hasID": "glc:Kepler"
-        },
-        {
-            "@id": "glc:MB",
-            "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:MB"
         },
         {
             "@id": "glc:Milliwatt",
@@ -181,50 +124,9 @@
             "glc:hasID": "glc:Milliwatt"
         },
         {
-            "@id": "glc:Network.Available",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Network.Available"
-        },
-        {
-            "@id": "glc:Network.Capacity",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Network.Capacity"
-        },
-        {
-            "@id": "glc:Network.Usage",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Network.Usage"
-        },
-        {
-            "@id": "glc:NodeExporter",
-            "@type": "glc:MeasuringResource",
-            "glc:hasDescription": "NodeExporter",
-            "glc:hasID": "glc:NodeExporter"
-        },
-        {
-            "@id": "glc:Performance",
-            "@type": "glc:Aspect",
-            "glc:hasID": "glc:Performance"
-        },
-        {
-            "@id": "glc:Power",
-            "@type": "glc:Aspect",
-            "glc:hasID": "glc:Power"
-        },
-        {
-            "@id": "glc:RAM.Available",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:RAM.Available"
-        },
-        {
             "@id": "glc:RAM.Capacity",
             "@type": "glc:MeasurementProperty",
             "glc:hasID": "glc:RAM.Capacity"
-        },
-        {
-            "@id": "glc:RAM.Usage",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:RAM.Usage"
         },
         {
             "@id": "glc:ResourceSpecification",
@@ -241,25 +143,9 @@
             }
         },
         {
-            "@id": "glc:Storage.Available",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Storage.Available"
-        },
-        {
             "@id": "glc:Storage.Capacity",
             "@type": "glc:MeasurementProperty",
             "glc:hasID": "glc:Storage.Capacity"
-        },
-        {
-            "@id": "glc:Storage.Usage",
-            "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Storage.Usage"
-        },
-        {
-            "@id": "glc:cAdvisor",
-            "@type": "glc:MeasuringResource",
-            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
-            "glc:hasID": "glc:cAdvisor"
         }
     ]
 }

@@ -46,4 +46,17 @@ cluster:glaciation-test-worker01.Storage.Capacity glc:hasValue 47266578354^^<htt
 cluster:glaciation-test-worker01.Storage.Capacity glc:hasID cluster:glaciation-test-worker01.Storage.Capacity .
 cluster:glaciation-test-worker01.Storage.Capacity glc:measuredIn glc:Bytes .
 cluster:glaciation-test-worker01.Storage.Capacity glc:relatesToMeasurementProperty glc:Storage.Capacity .
+glc:Bytes rdf:type glc:MeasurementUnit .
+glc:Bytes glc:hasID glc:Bytes .
+glc:CPU.Capacity rdf:type glc:MeasurementProperty .
+glc:CPU.Capacity glc:hasID glc:CPU.Capacity .
+glc:Core rdf:type glc:MeasurementUnit .
+glc:Core glc:hasID glc:Core .
+glc:RAM.Capacity rdf:type glc:MeasurementProperty .
+glc:RAM.Capacity glc:hasID glc:RAM.Capacity .
+glc:ResourceSpecification rdf:type glc:MeasuringResource .
+glc:ResourceSpecification glc:hasDescription "ResourceSpecification" .
+glc:ResourceSpecification glc:hasID glc:ResourceSpecification .
 glc:ResourceSpecification glc:makes (cluster:glaciation-test-worker01.CPU.Capacity cluster:glaciation-test-worker01.RAM.Capacity cluster:glaciation-test-worker01.Storage.Capacity) .
+glc:Storage.Capacity rdf:type glc:MeasurementProperty .
+glc:Storage.Capacity glc:hasID glc:Storage.Capacity .

@@ -14,13 +14,12 @@
         {
             "@id": "glc:Core",
             "@type": "glc:MeasurementUnit",
-            "glc:hasDescription": "Cores",
             "glc:hasID": "glc:Core"
         },
         {
             "@id": "glc:ResourceSpecification",
             "@type": "glc:MeasuringResource",
-            "glc:hasDescription": "Test",
+            "glc:hasDescription": "ResourceSpecification",
             "glc:hasID": "glc:ResourceSpecification",
             "glc:makes": {
                 "@id": "glc:measurement1",

@@ -20,7 +20,7 @@ glc:CPU.Usage glc:hasID glc:CPU.Usage .
 glc:Energy.Usage rdf:type glc:MeasurementProperty .
 glc:Energy.Usage glc:hasID glc:Energy.Usage .
 glc:cAdvisor rdf:type glc:MeasuringResource .
-glc:cAdvisor glc:hasDescription ("cAdvisor") .
+glc:cAdvisor glc:hasDescription "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md" .
 glc:cAdvisor glc:hasID glc:cAdvisor .
 glc:cAdvisor glc:makes (cluster:pod1.CPU.Usage cluster:pod1.Energy.Usage) .
 glc:coreseconds rdf:type glc:MeasurementUnit .

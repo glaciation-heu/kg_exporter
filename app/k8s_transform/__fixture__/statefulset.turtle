@@ -17,6 +17,12 @@ cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2.RAM.Allocated glc:me
 cluster:tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd rdf:type glc:AssignedTask .
 cluster:tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd glc:hasDescription "Tenant" .
 cluster:tenant1.930f2fc9-2b5e-46c7-a11f-4374fe55fafd glc:makes cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 .
+glc:Bytes rdf:type glc:MeasurementUnit .
+glc:Bytes glc:hasID glc:Bytes .
+glc:Core rdf:type glc:MeasurementUnit .
+glc:Core glc:hasID glc:Core .
+glc:Performance rdf:type glc:Aspect .
+glc:Performance glc:hasID glc:Performance .
 glc:default-scheduler rdf:type glc:Scheduler .
 glc:default-scheduler glc:assigns cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2 .
 glc:default-scheduler glc:hasID glc:default-scheduler .

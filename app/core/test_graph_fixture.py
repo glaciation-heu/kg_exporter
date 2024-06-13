@@ -27,13 +27,6 @@ class TestGraphFixture:
         transformer.add_work_producing_resource(node1, "Node")
         transformer.add_work_producing_resource(cpu, "CPU")
         transformer.add_subresource(node1, cpu)
-        transformer.add_unit(UpperOntologyBase.UNIT_CPU_CORE_ID, "Cores")
-        transformer.add_measurement_property(
-            UpperOntologyBase.PROPERTY_CPU_CAPACITY, None
-        )
-        transformer.add_measuring_resource(
-            UpperOntologyBase.MEASURING_RESOURCE_NODE_K8S_SPEC_ID, "Test"
-        )
         transformer.add_measurement(
             measurement_id,
             "CPU.MAX",

@@ -25,9 +25,6 @@ class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBa
             property_id = IRI(self.GLACIATION_PREFIX, query.property)
             unit_id = IRI(self.GLACIATION_PREFIX, query.unit)
             source_id = IRI(self.GLACIATION_PREFIX, query.source)
-            self.add_measurement_property(property_id, None)
-            self.add_unit(unit_id, None)
-            self.add_measuring_resource(source_id, query.source)
             self.add_work_producing_resource(parent_resource_id, None)
             self.add_measurement(
                 measurement_id,

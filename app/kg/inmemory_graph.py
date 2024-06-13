@@ -128,6 +128,9 @@ class InMemoryGraph(Graph):
             self.get_or_add_node(object_id)
             edge.add_object_id(object_id)
 
+    def has_node(self, node_id: IRI) -> bool:
+        return node_id in self.nodes
+
     def get_ids(self) -> Set[IRI]:
         return set(self.nodes.keys())
 

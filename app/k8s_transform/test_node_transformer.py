@@ -40,7 +40,6 @@ class NodeTransformerTest(TransformBaseTest):
         graph = InMemoryGraph()
         context = TransformationContext(123)
         transformer = NodesToRDFTransformer(node_json, graph)
-        transformer.add_common_entities()
         transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

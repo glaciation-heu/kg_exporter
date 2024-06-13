@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from app.kg.graph import Graph
 from app.kg.iri import IRI
@@ -55,6 +55,14 @@ class UpperOntologyBase:
     MEASURING_RESOURCE_NODE_CADVISOR_ID = IRI(GLACIATION_PREFIX, "cAdvisor")
     MEASURING_RESOURCE_NODE_ENERGY_BENCHMARK = IRI(GLACIATION_PREFIX, "EnergyBenchmark")
 
+    MEASURING_RESOURCE_DESCRIPTIONS: Dict[IRI, str] = {
+        MEASURING_RESOURCE_KEPLER_ID: "Kepler metrics https://sustainable-computing.io/",
+        MEASURING_RESOURCE_NODE_EXPORTER_ID: "NodeExporter",
+        MEASURING_RESOURCE_NODE_K8S_SPEC_ID: "ResourceSpecification",
+        MEASURING_RESOURCE_NODE_CADVISOR_ID: "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",  # noqa: E501
+        MEASURING_RESOURCE_NODE_ENERGY_BENCHMARK: "EnergyBenchmark",
+    }
+
     # Units
     UNIT_CPU_CORE_ID = IRI(GLACIATION_PREFIX, "Core")
     UNIT_GB_ID = IRI(GLACIATION_PREFIX, "GB")
@@ -89,12 +97,19 @@ class UpperOntologyBase:
     units: List[IRI]
     aspects: List[IRI]
     properties: List[IRI]
+    measuring_resources: List[IRI]
 
     sink: Graph
 
     def __init__(self, sink: Graph):
         self.sink = sink
-
+        self.measuring_resources = [
+            self.MEASURING_RESOURCE_KEPLER_ID,
+            self.MEASURING_RESOURCE_NODE_EXPORTER_ID,
+            self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
+            self.MEASURING_RESOURCE_NODE_CADVISOR_ID,
+            self.MEASURING_RESOURCE_NODE_ENERGY_BENCHMARK,
+        ]
         self.units = [
             self.UNIT_CPU_CORE_ID,
             self.UNIT_GB_ID,
@@ -164,6 +179,16 @@ class UpperOntologyBase:
         measuring_resource: IRI,
     ) -> None:
         self.add_common_info(identifier, self.MEASUREMENT, description)
+
+        if not self.sink.has_node(unit):
+            self.add_unit(unit, None)
+
+        if not self.sink.has_node(related_to_property):
+            self.add_measurement_property(related_to_property, None)
+
+        if not self.sink.has_node(measuring_resource):
+            self.add_measuring_resource(measuring_resource)
+
         self.sink.add_property(
             identifier,
             self.HAS_VALUE,
@@ -182,9 +207,6 @@ class UpperOntologyBase:
         self.sink.add_relation(identifier, self.MEASURED_IN, unit)
         self.sink.add_relation(measuring_resource, self.MAKES, identifier)
 
-    def add_measuring_resource(self, identifier: IRI, description: str) -> None:
-        self.add_common_info(identifier, self.MEASURING_RESOURCE, description)
-
     def add_unit(self, identifier: IRI, description: Optional[str]) -> None:
         self.add_common_info(identifier, self.MEASUREMENT_UNIT, description)
 
@@ -197,6 +219,12 @@ class UpperOntologyBase:
         unit: IRI,
         aspect: IRI,
     ) -> None:
+        if not self.sink.has_node(unit):
+            self.add_unit(unit, None)
+
+        if not self.sink.has_node(aspect):
+            self.add_aspect(aspect, None)
+
         if is_soft_constraint:
             self.add_common_info(identifier, self.SOFT_CONSTRAINT, description)
         else:
@@ -244,23 +272,8 @@ class UpperOntologyBase:
             )
 
     def add_common_entities(self) -> None:
-        self.add_measuring_resource(
-            self.MEASURING_RESOURCE_KEPLER_ID,
-            "Kepler metrics https://sustainable-computing.io/",
-        )
-        self.add_measuring_resource(
-            self.MEASURING_RESOURCE_NODE_EXPORTER_ID, "NodeExporter"
-        )
-        self.add_measuring_resource(
-            self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID, "ResourceSpecification"
-        )
-        self.add_measuring_resource(
-            self.MEASURING_RESOURCE_NODE_CADVISOR_ID,
-            """cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md""",  # noqa: E501
-        )
-        self.add_measuring_resource(
-            self.MEASURING_RESOURCE_NODE_ENERGY_BENCHMARK, "EnergyBenchmark"
-        )
+        for measuring_resource in self.measuring_resources:
+            self.add_measuring_resource(measuring_resource)
 
         for unit in self.units:
             self.add_unit(unit, None)
@@ -270,3 +283,9 @@ class UpperOntologyBase:
 
         for property in self.properties:
             self.add_measurement_property(property, None)
+
+    def add_measuring_resource(self, measuring_resource_id: IRI) -> None:
+        description = self.MEASURING_RESOURCE_DESCRIPTIONS.get(measuring_resource_id)
+        self.add_common_info(
+            measuring_resource_id, self.MEASURING_RESOURCE, description
+        )

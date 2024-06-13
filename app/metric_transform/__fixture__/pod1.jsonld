@@ -48,11 +48,7 @@
         {
             "@id": "glc:cAdvisor",
             "@type": "glc:MeasuringResource",
-            "glc:hasDescription": {
-                "@set": [
-                    "cAdvisor"
-                ]
-            },
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
             "glc:hasID": "glc:cAdvisor",
             "glc:makes": {
                 "@set": [
