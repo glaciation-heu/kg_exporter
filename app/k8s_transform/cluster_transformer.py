@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import yaml
 from jsonpath_ng.ext import parse
@@ -21,22 +21,25 @@ class ClusterToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.nodes = nodes
 
     def transform(self, _: TransformationContext) -> None:
-        config_str: str = self.get_cluster_configuration()
-        config = yaml.safe_load(config_str)
-        cluster_id = self.get_cluster_id(config)
+        config_str = self.get_cluster_configuration()
+        if config_str:
+            config = yaml.safe_load(config_str)
+            cluster_id = self.get_cluster_id(config)
+        else:
+            cluster_id = IRI(self.CLUSTER_PREFIX, "Unknown")
         self.add_work_producing_resource(cluster_id, "KubernetesCluster")
-        for node in self.get_nodes():
+        for node in self.nodes:
             self.write_node_reference(cluster_id, node)
 
-    def get_cluster_configuration(self) -> str:
-        return str(parse("$.data.ClusterConfiguration").find(self.source)[0].value)
+    def get_cluster_configuration(self) -> Optional[str]:
+        config_match = parse("$.data.ClusterConfiguration").find(self.source)
+        if len(config_match) == 0:
+            return None
+        return str(config_match[0].value)
 
     def get_cluster_id(self, config: Dict[str, Any]) -> IRI:
         cluster_name = parse("$.clusterName").find(config)[0].value
         return IRI(self.CLUSTER_PREFIX, self.escape(cluster_name))
-
-    def get_nodes(self) -> List[Dict[str, Any]]:
-        return list(parse("$.items").find(self.nodes)[0].value)
 
     def write_node_reference(self, cluster_id: IRI, node: Dict[str, Any]) -> None:
         node_id = self.get_node_id(node)

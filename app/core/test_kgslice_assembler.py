@@ -4,12 +4,14 @@ from unittest import TestCase
 
 from app.core.kg_slice_assembler import KGSliceAssembler
 from app.core.test_snapshot_base import SnapshotTestBase
-from app.core.types import DKGSlice, KGSliceId
-from app.kg.inmemory_graph import InMemoryGraph
+from app.core.types import KGSliceId
 from app.kg.iri import IRI
 
 
 class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
+    def setUp(self):
+        self.maxDiff = None
+
     def test_assemble_empty(self) -> None:
         now = 1
         slice_id = KGSliceId("127.0.0.1", 80)
@@ -21,7 +23,9 @@ class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
             slice_id,
             inputs,
         )
-        self.assertEqual(DKGSlice(slice_id, InMemoryGraph(), now), actual)
+        self.assertEqual(slice_id, actual.slice_id)
+        self.assertEqual(now, actual.timestamp)
+        self.assert_graph(actual.graph, "empty", slice_id)
 
     def test_assemble_minimal(self) -> None:
         now = 1

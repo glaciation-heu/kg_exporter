@@ -1,0 +1,16 @@
+{
+  "@context": {
+    "k8s": "http://glaciation-project.eu/model/k8s/",
+    "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+    "cluster": "https://127.0.0.1:6443/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  },
+  "@graph": [
+    {
+      "@id": "cluster:Unknown",
+      "@type": "glc:WorkProducingResource",
+      "glc:hasDescription": "KubernetesCluster",
+      "glc:hasID": "cluster:Unknown"
+    }
+  ]
+}
