@@ -18,7 +18,10 @@ class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBas
     def transform(self, context: TransformationContext) -> None:
         for query, result in self.metrics:
             pod_id = self.get_pod_id(result.resource_id)
-            measurement_id = pod_id.dot(query.measurement_id)
+            parent_resource_id = (
+                pod_id.dot(query.subresource) if query.subresource else pod_id
+            )
+            measurement_id = parent_resource_id.dot(query.measurement_id)
             property_id = IRI(self.GLACIATION_PREFIX, query.property)
             unit_id = IRI(self.GLACIATION_PREFIX, query.unit)
             source_id = IRI(self.GLACIATION_PREFIX, query.source)

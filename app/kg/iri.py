@@ -13,7 +13,7 @@ class IRI(IdBase):
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, IRI):
-            return NotImplemented
+            raise NotImplementedError
         if self is other:
             return True
 
@@ -27,15 +27,15 @@ class IRI(IdBase):
                 return True
             return False
         else:
-            return NotImplemented
+            raise NotImplementedError
 
     def __lt__(self, other: Any) -> bool:
         if isinstance(other, IRI):
             try:
                 return not self.__gt__(other) and not self.__eq__(other)
             except TypeError:
-                return NotImplemented
-        return NotImplemented
+                raise NotImplementedError
+        raise NotImplementedError
 
     def __le__(self, other: Any) -> bool:
         r = self.__lt__(other)
@@ -44,7 +44,7 @@ class IRI(IdBase):
         try:
             return self.__eq__(other)
         except TypeError:
-            return NotImplemented
+            raise NotImplementedError
 
     def __ge__(self, other: Any) -> bool:
         r = self.__gt__(other)
@@ -53,7 +53,7 @@ class IRI(IdBase):
         try:
             return self.__eq__(other)
         except TypeError:
-            return NotImplemented
+            raise NotImplementedError
 
     def __hash__(self) -> int:
         res = 7

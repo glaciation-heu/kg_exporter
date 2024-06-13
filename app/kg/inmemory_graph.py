@@ -14,12 +14,13 @@ class GraphNode:
 
     def __init__(self, node_id: IRI):
         self.id = node_id
-        self.properties = {}
-        self.meta_properties = {}
+        self.properties = dict()
+        self.meta_properties = dict()
 
     def add_property(self, predicate: IRI, value: Literal) -> None:
         if predicate in self.properties:
-            self.add_property_collection(predicate, {value})
+            if self.properties[predicate] != value:
+                self.add_property_collection(predicate, {value})
         else:
             self.properties[predicate] = value
 
