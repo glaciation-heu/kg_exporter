@@ -9,7 +9,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_cpu_usage
-    resource_id: coredns-787d4945fb-l85r5
+    resource_id: kube-system.coredns-787d4945fb-l85r5
     timestamp: 17100500
     value: 41.0
 - query:
@@ -22,7 +22,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_ram_usage
-    resource_id: coredns-787d4945fb-l85r5
+    resource_id: kube-system.coredns-787d4945fb-l85r5
     timestamp: 17100500
     value: 42.0
 - query:
@@ -35,7 +35,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_eph_usage
-    resource_id: coredns-787d4945fb-l85r5
+    resource_id: kube-system.coredns-787d4945fb-l85r5
     timestamp: 17100500
     value: 43.0
 - query:
@@ -48,7 +48,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_net_usage
-    resource_id: coredns-787d4945fb-l85r5
+    resource_id: kube-system.coredns-787d4945fb-l85r5
     timestamp: 17100500
     value: 44.0
 #  kube-flannel-ds-848v8
@@ -62,7 +62,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_cpu_usage
-    resource_id: kube-flannel-ds-848v8
+    resource_id: kube-flannel.kube-flannel-ds-848v8
     timestamp: 17100500
     value: 51.0
 - query:
@@ -75,7 +75,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_ram_usage
-    resource_id: kube-flannel-ds-848v8
+    resource_id: kube-flannel.kube-flannel-ds-848v8
     timestamp: 17100500
     value: 52.0
 - query:
@@ -88,7 +88,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_eph_usage
-    resource_id: kube-flannel-ds-848v8
+    resource_id: kube-flannel.kube-flannel-ds-848v8
     timestamp: 17100500
     value: 53.0
 - query:
@@ -101,7 +101,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_net_usage
-    resource_id: kube-flannel-ds-848v8
+    resource_id: kube-flannel.kube-flannel-ds-848v8
     timestamp: 17100500
     value: 54.0
 #  init-vault-cluster-cbqhq
@@ -115,7 +115,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_cpu_usage
-    resource_id: init-vault-cluster-cbqhq
+    resource_id: vault.init-vault-cluster-cbqhq
     timestamp: 17100500
     value: 61.0
 - query:
@@ -128,7 +128,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_ram_usage
-    resource_id: init-vault-cluster-cbqhq
+    resource_id: vault.init-vault-cluster-cbqhq
     timestamp: 17100500
     value: 62.0
 - query:
@@ -141,7 +141,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_eph_usage
-    resource_id: init-vault-cluster-cbqhq
+    resource_id: vault.init-vault-cluster-cbqhq
     timestamp: 17100500
     value: 63.0
 - query:
@@ -154,7 +154,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_net_usage
-    resource_id: init-vault-cluster-cbqhq
+    resource_id: vault.init-vault-cluster-cbqhq
     timestamp: 17100500
     value: 64.0
 # glaciation-pool-0-0
@@ -168,7 +168,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_cpu_usage
-    resource_id: glaciation-pool-0-0
+    resource_id: minio-tenant.glaciation-pool-0-0
     timestamp: 17100500
     value: 71.0
 - query:
@@ -181,7 +181,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_ram_usage
-    resource_id: glaciation-pool-0-0
+    resource_id: minio-tenant.glaciation-pool-0-0
     timestamp: 17100500
     value: 72.0
 - query:
@@ -194,7 +194,7 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_eph_usage
-    resource_id: glaciation-pool-0-0
+    resource_id: minio-tenant.glaciation-pool-0-0
     timestamp: 17100500
     value: 73.0
 - query:
@@ -207,6 +207,6 @@
     result_parser: SimpleResultParser
   value:
     metric_id: pod_net_usage
-    resource_id: glaciation-pool-0-0
+    resource_id: minio-tenant.glaciation-pool-0-0
     timestamp: 17100500
     value: 74.0

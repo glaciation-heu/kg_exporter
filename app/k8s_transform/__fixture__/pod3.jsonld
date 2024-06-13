@@ -52,7 +52,7 @@
             "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel"
         },
         {
-            "@id": "cluster:kube-flannel-ds.84cf7062-bb28-49c9-89b6-5bb34014f178",
+            "@id": "cluster:kube-flannel-ds",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "DaemonSet",
             "glc:makes": "cluster:kube-flannel.kube-flannel-ds-848v8"

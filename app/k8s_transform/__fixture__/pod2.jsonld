@@ -14,7 +14,7 @@
             "glc:hasID": "cluster:tenant1.tenant1-pool-0-1"
         },
         {
-            "@id": "cluster:tenant1-pool-0.9dcbaee2-a251-46f3-ab61-1a44934ae1f2",
+            "@id": "cluster:tenant1-pool-0",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "StatefulSet",
             "glc:makes": "cluster:tenant1.tenant1-pool-0-1"

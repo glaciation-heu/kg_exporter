@@ -51,10 +51,9 @@ class TransformerBase:
         raise NotImplementedError
 
     def get_reference_id(self, reference: Dict[str, Any]) -> Tuple[IRI, str]:
-        name = reference.get("name")
-        uid = reference.get("uid")
+        name = reference["name"]
         resource_type = reference["kind"]
-        resource_id = IRI(self.CLUSTER_PREFIX, f"{name}.{uid}")
+        resource_id = IRI(self.CLUSTER_PREFIX, name)
         return resource_id, resource_type
 
     def write_tuple(self, name: IRI, property: IRI, query: str) -> None:
@@ -113,8 +112,7 @@ class TransformerBase:
 
     def get_id(self) -> IRI:
         name = parse("$.metadata.name").find(self.source)[0].value
-        uid = parse("$.metadata.uid").find(self.source)[0].value
-        resource_id = IRI(self.CLUSTER_PREFIX, f"{name}.{uid}")
+        resource_id = IRI(self.CLUSTER_PREFIX, name)
         return resource_id
 
     def get_pod_id(self) -> IRI:

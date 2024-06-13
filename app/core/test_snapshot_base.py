@@ -7,8 +7,11 @@ from io import FileIO, StringIO
 
 import yaml
 
+from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
 from app.clients.k8s.k8s_client import ResourceSnapshot
-from app.core.metric_repository import MetricQuery
+from app.clients.k8s.mock_k8s_client import MockK8SClient
+from app.core.kg_builder import QuerySettings
+from app.core.metric_repository import MetricQuery, ResultParserId
 from app.core.metric_value import MetricValue
 from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
@@ -21,6 +24,33 @@ from app.serialize.jsonld_serializer import JsonLDSerialializer
 
 class SnapshotTestBase:
     SNAPSHOT_ROOT: str = "app/core/__fixture__/snapshot"
+
+    def mock_inputs(
+        self,
+        identity: str,
+        k8s_client: MockK8SClient,
+        influxdb_client: MockInfluxDBClient,
+        settings: QuerySettings,
+    ) -> None:
+        resources = self.load_k8s_snapshot(identity)
+
+        k8s_client.mock_cluster(resources.cluster)
+        k8s_client.mock_daemonsets(resources.daemonsets)
+        k8s_client.mock_deployments(resources.deployments)
+        k8s_client.mock_jobs(resources.jobs)
+        k8s_client.mock_nodes(resources.nodes)
+        k8s_client.mock_pods(resources.pods)
+        k8s_client.mock_replicasets(resources.replicasets)
+        k8s_client.mock_statefullsets(resources.statefullsets)
+
+        metrics = self.load_metric_snapshot(identity)
+        for query, value in metrics.node_metrics:
+            influxdb_client.mock_query(query.query, [value])
+            settings.node_queries.append(query)
+
+        for query, value in metrics.pod_metrics:
+            influxdb_client.mock_query(query.query, [value])
+            settings.pod_queries.append(query)
 
     def get_inputs(self, identity: str) -> SliceInputs:
         resource_snapshot = self.load_k8s_snapshot(identity)
@@ -62,6 +92,7 @@ class SnapshotTestBase:
         result = []
         for query_and_value in query_and_values:
             query = self.dataclass_from_dict(MetricQuery, query_and_value["query"])
+            query.result_parser = ResultParserId.SIMPLE_RESULT_PARSER  # TODO parse
             value = self.dataclass_from_dict(MetricValue, query_and_value["value"])
             result.append((query, value))
         return result
@@ -70,7 +101,7 @@ class SnapshotTestBase:
         with FileIO(file_path) as f:
             return yaml.safe_load(f)
 
-    def load_json(self, file_path: str) -> Dict[str, Any]:
+    def load_jsonld(self, file_path: str) -> Dict[str, Any]:
         with FileIO(file_path) as f:
             return json.load(f)  # type: ignore
 
@@ -84,12 +115,11 @@ class SnapshotTestBase:
             return d  # Not a dataclass field
 
     def assert_graph(self, graph: Graph, snapshot_id: str, slice_id: KGSliceId) -> None:
-        file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/graph_{slice_id.node_ip}_{slice_id.port}.jsonld"
-        node_jsonld = self.load_json(file_path)
+        file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/slice_{slice_id.node_ip}_{slice_id.port}.jsonld"
+        node_jsonld = self.load_jsonld(file_path)
 
         buffer = StringIO()
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
-
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)  # type: ignore
 
     def get_jsonld_config(self) -> JsonLDConfiguration:

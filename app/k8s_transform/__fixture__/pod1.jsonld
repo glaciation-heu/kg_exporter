@@ -30,7 +30,7 @@
             "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
         },
         {
-            "@id": "cluster:coredns-787d4945fb.83c2b537-9bcd-4fac-b954-ea140c7d3685",
+            "@id": "cluster:coredns-787d4945fb",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "ReplicaSet",
             "glc:makes": "cluster:kube-system.coredns-787d4945fb-l85r5"

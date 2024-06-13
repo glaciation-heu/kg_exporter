@@ -27,6 +27,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
     settings: KGBuilderSettings
 
     def setUp(self) -> None:
+        self.maxDiff = None
         self.client = MockMetadataServiceClient()
         self.influxdb_client = MockInfluxDBClient()
         self.queue = AsyncQueue()
@@ -39,36 +40,19 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         )
 
     def test_build_minimal(self) -> None:
-        self.mock_minimal_inputs()
+        self.mock_inputs(
+            "minimal", self.k8s_client, self.influxdb_client, self.settings.queries
+        )
 
         builder = self.create_builder()
         self.runner.run(self.run_builder(builder))
 
         slice = self.wait_for_slice(2)
 
-        self.assertEqual(slice.timestamp, 0)
+        self.assertEqual(slice.timestamp, 1)
         self.assertEqual(slice.slice_id, KGSliceId("glaciation-test-master01", 80))
         self.assertNotEqual(slice.graph, InMemoryGraph())
-
-        # TODO validate graph nodes and edges
-
-    def mock_minimal_inputs(self) -> None:
-        resources = self.load_k8s_snapshot("minimal")
-
-        self.k8s_client.mock_cluster(resources.cluster)
-        self.k8s_client.mock_daemonsets(resources.daemonsets)
-        self.k8s_client.mock_deployments(resources.deployments)
-        self.k8s_client.mock_jobs(resources.jobs)
-        self.k8s_client.mock_nodes(resources.nodes)
-        self.k8s_client.mock_pods(resources.pods)
-        self.k8s_client.mock_replicasets(resources.replicasets)
-        self.k8s_client.mock_statefullsets(resources.statefullsets)
-
-        metrics = self.load_metric_snapshot("minimal")
-        for query, value in metrics.node_metrics:
-            self.influxdb_client.mock_query(query.query, [value])
-        for query, value in metrics.pod_metrics:
-            self.influxdb_client.mock_query(query.query, [value])
+        self.assert_graph(slice.graph, "minimal", slice.slice_id)
 
     def create_builder(self) -> KGBuilder:
         repository = KGRepository(self.client, self.get_jsonld_config())

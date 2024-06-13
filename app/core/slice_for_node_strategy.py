@@ -108,6 +108,11 @@ class SliceForNodeStrategy(SliceStrategy):
             slice_metrics.node_metrics.extend(metrics)
 
         for pod in slice_resources.pods:
-            pod_name = self.get_resource_name(pod)
+            pod_name = self.get_pod_name(pod)
             metrics = src_metrics.get_pod_metrics_by_resource(pod_name)
             slice_metrics.pod_metrics.extend(metrics)
+
+    def get_pod_name(self, resource: Dict[str, Any]) -> str:
+        name = parse("$.metadata.name").find(resource)[0].value
+        namespace = parse("$.metadata.namespace").find(resource)[0].value
+        return f"{namespace}.{name}"

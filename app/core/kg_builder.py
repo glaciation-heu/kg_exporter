@@ -57,7 +57,7 @@ class KGBuilder:
 
     async def run(self) -> None:
         while self.running.is_set():
-            now = 0
+            now = 1
             (
                 cluster_snapshot,
                 pod_metrics,
