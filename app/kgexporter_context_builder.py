@@ -38,7 +38,9 @@ class KGExporterContextBuilder:
 
     def get_settings(self) -> KGExporterSettings:
         return KGExporterSettings(
-            builder=KGBuilderSettings(builder_tick_seconds=1, queries=QuerySettings()),
+            builder=KGBuilderSettings(
+                builder_tick_seconds=1, node_port=80, queries=QuerySettings()
+            ),
             k8s=K8SSettings(in_cluster=True),
             influxdb=InfluxDBSettings(
                 url="test", token="token", org="org", timeout=60000
