@@ -57,7 +57,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         )
         self.context.start()
 
-        inserts = self.metadata_client.wait_for_inserts2(self.context.runner, 2, 1)
+        inserts = self.metadata_client.wait_for_inserts2(self.context.runner, 5, 1)
 
         self.assert_graphs("minimal", inserts)
 
@@ -73,7 +73,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         )
         self.context.start()
 
-        inserts = self.metadata_client.wait_for_inserts2(self.context.runner, 2, 2)
+        inserts = self.metadata_client.wait_for_inserts2(self.context.runner, 5, 2)
 
         self.assert_graphs("multinode", inserts)
 
