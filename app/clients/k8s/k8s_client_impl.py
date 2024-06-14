@@ -30,10 +30,10 @@ class K8SClientImpl(K8SClient):
         return await self.get_resource("Deployment")
 
     async def get_replicasets(self) -> List[Dict[str, Any]]:
-        return await self.get_resource("Replicaset")
+        return await self.get_resource("ReplicaSet")
 
     async def get_daemonsets(self) -> List[Dict[str, Any]]:
-        return await self.get_resource("Daemonset")
+        return await self.get_resource("DaemonSet")
 
     async def get_statefullsets(self) -> List[Dict[str, Any]]:
         return await self.get_resource("StatefulSet")
@@ -42,7 +42,12 @@ class K8SClientImpl(K8SClient):
         return await self.get_resource("Job")
 
     async def get_cluster_info(self) -> Dict[str, Any]:
-        raise NotImplementedError("get_cluster_info() is not implemented")
+        configmap_api = self.client.resources.get(api_version="v1", kind="ConfigMap")
+        results = configmap_api.get(namespace="kube-system", name="kubeadm-config")
+        if results:
+            return results.to_dict()  # type: ignore
+        else:
+            return {}
 
     async def get_resource(self, kind: str) -> List[Dict[str, Any]]:
         api = self.client.resources.get(api_version="v1", kind=kind)

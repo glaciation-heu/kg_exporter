@@ -74,6 +74,7 @@ class MockMetadataServiceClient(MetadataServiceClient):
             self.hosts[host_and_port] = HostInteractions()
         self.hosts[host_and_port].add_insert(message)
 
+    # TODO remove
     def wait_for_inserts(
         self, seconds: int, count: int
     ) -> List[Tuple[HostId, SerializedGraph]]:

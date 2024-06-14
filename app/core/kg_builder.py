@@ -29,7 +29,7 @@ class KGBuilderSettings(BaseSettings):
 
 
 class KGBuilder:
-    running: asyncio.Event
+    terminated: asyncio.Event
     k8s_client: K8SClient
     queue: AsyncQueue[DKGSlice]
     kg_repository: KGRepository
@@ -40,7 +40,7 @@ class KGBuilder:
 
     def __init__(
         self,
-        running: asyncio.Event,
+        terminated: asyncio.Event,
         clock: Clock,
         queue: AsyncQueue[DKGSlice],
         k8s_client: K8SClient,
@@ -48,7 +48,7 @@ class KGBuilder:
         influxdb_repository: MetricRepository,
         settings: KGBuilderSettings,
     ):
-        self.running = running
+        self.terminated = terminated
         self.clock = clock
         self.k8s_client = k8s_client
         self.queue = queue
@@ -59,42 +59,14 @@ class KGBuilder:
         self.slice_assembler = KGSliceAssembler()
 
     async def run(self) -> None:
-        while self.running.is_set():
+        logger.info("Builder started.")
+        while not self.terminated.is_set():
             now_seconds = self.clock.now_seconds()
-            now = now_seconds * 1000
-            (
-                cluster_snapshot,
-                pod_metrics,
-                node_metrics,
-                workload_metrics,
-            ) = await asyncio.gather(
-                self.k8s_client.fetch_snapshot(),
-                self.influxdb_repository.query_many(
-                    now, self.settings.queries.pod_queries
-                ),
-                self.influxdb_repository.query_many(
-                    now, self.settings.queries.node_queries
-                ),
-                self.influxdb_repository.query_many(
-                    now, self.settings.queries.workload_queries
-                ),
-            )
-            metric_snapshot = MetricSnapshot(
-                list(zip(self.settings.queries.pod_queries, pod_metrics)),
-                list(zip(self.settings.queries.node_queries, node_metrics)),
-                list(zip(self.settings.queries.workload_queries, workload_metrics)),
-            )
-            logger.debug(cluster_snapshot)
-            logger.debug(pod_metrics)
-            logger.debug(node_metrics)
-            logger.debug(workload_metrics)
 
-            slices = self.slice_strategy.get_slices(cluster_snapshot, metric_snapshot)
-            for slice_id, slice_inputs in slices.items():
-                slice = self.slice_assembler.assemble(
-                    now=now, slice_id=slice_id, inputs=slice_inputs
-                )
-                self.queue.put_nowait(slice)
+            try:
+                await self.run_cycle(now_seconds)
+            except Exception as e:
+                logger.error(f"Builder error: {e}")
 
             sleep_seconds = (
                 now_seconds
@@ -103,3 +75,48 @@ class KGBuilder:
             )
             if sleep_seconds > 0:
                 await asyncio.sleep(sleep_seconds)
+
+        logger.info("Builder stopped.")
+
+    async def run_cycle(self, now_seconds: int) -> None:
+        now = now_seconds * 1000
+        (
+            cluster_snapshot,
+            pod_metrics,
+            node_metrics,
+            workload_metrics,
+        ) = await asyncio.gather(
+            self.k8s_client.fetch_snapshot(),
+            self.influxdb_repository.query_many(now, self.settings.queries.pod_queries),
+            self.influxdb_repository.query_many(
+                now, self.settings.queries.node_queries
+            ),
+            self.influxdb_repository.query_many(
+                now, self.settings.queries.workload_queries
+            ),
+        )
+        metric_snapshot = MetricSnapshot(
+            list(zip(self.settings.queries.pod_queries, pod_metrics)),
+            list(zip(self.settings.queries.node_queries, node_metrics)),
+            list(zip(self.settings.queries.workload_queries, workload_metrics)),
+        )
+        logger.debug("Cluster snapshot: {size}", size=len(cluster_snapshot.cluster))
+        logger.debug("Nodes: {size}", size=len(cluster_snapshot.nodes))
+        logger.debug("Pods: {size}", size=len(cluster_snapshot.pods))
+        logger.debug("Deployments: {size}", size=len(cluster_snapshot.deployments))
+        logger.debug("ReplicaSets: {size}", size=len(cluster_snapshot.replicasets))
+        logger.debug("DaemonSets: {size}", size=len(cluster_snapshot.daemonsets))
+        logger.debug("StatefullSets: {size}", size=len(cluster_snapshot.statefullsets))
+        logger.debug("Jobs: {size}", size=len(cluster_snapshot.jobs))
+        logger.debug("NodeMetrics: {size}", size=len(metric_snapshot.node_metrics))
+        logger.debug("PodMetrics: {size}", size=len(metric_snapshot.pod_metrics))
+
+        slices = self.slice_strategy.get_slices(cluster_snapshot, metric_snapshot)
+        logger.info("Slices produced: {size}", size=len(slices))
+        logger.debug("Slices: {slices}", slices=set(slices.keys()))
+        for slice_id, slice_inputs in slices.items():
+            logger.debug("Assembling slice: {slice_id}", slice_id=slice_id)
+            slice = self.slice_assembler.assemble(
+                now=now, slice_id=slice_id, inputs=slice_inputs
+            )
+            self.queue.put_nowait(slice)

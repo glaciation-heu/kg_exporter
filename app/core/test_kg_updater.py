@@ -23,7 +23,6 @@ class KGUpdaterTest(TestCase, TestGraphFixture):
         self.client = MockMetadataServiceClient()
         self.queue = AsyncQueue()
         self.running_event = asyncio.Event()
-        self.running_event.set()
         self.runner = asyncio.Runner()
 
     def test_kg_updater(self) -> None:

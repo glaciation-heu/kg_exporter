@@ -10,27 +10,35 @@ from app.core.types import DKGSlice
 class KGUpdater:
     queue: AsyncQueue[DKGSlice]
     kg_repository: KGRepository
-    running: asyncio.Event
+    terminated: asyncio.Event
 
     def __init__(
         self,
-        running: asyncio.Event,
+        terminated: asyncio.Event,
         queue: AsyncQueue[DKGSlice],
         kg_repository: KGRepository,
     ):
         self.queue = queue
         self.kg_repository = kg_repository
-        self.running = running
+        self.terminated = terminated
 
     async def run(self) -> None:
-        while self.running.is_set():
-            slice = self.queue.get_nowait()
-            if slice:
-                logger.debug(
-                    "updating slice {slice}, with timestamp {timestamp}",
-                    slice=slice.slice_id,
-                    timestamp=slice.timestamp,
-                )
-                await self.kg_repository.update(slice.slice_id, slice.graph)
-            else:
-                await asyncio.sleep(0.5)
+        logger.info("Updater started.")
+        while not self.terminated.is_set():
+            try:
+                await self.run_cycle()
+            except Exception as e:
+                logger.error(f"Updater error: {e}")
+        logger.info("Updater stopped.")
+
+    async def run_cycle(self) -> None:
+        slice = self.queue.get_nowait()
+        if slice:
+            logger.info(
+                "updating slice {slice}, with timestamp {timestamp}",
+                slice=slice.slice_id,
+                timestamp=slice.timestamp,
+            )
+            await self.kg_repository.update(slice.slice_id, slice.graph)
+        else:
+            await asyncio.sleep(0.5)

@@ -11,6 +11,7 @@ def main() -> None:
         context = builder.build()
         context.start()
         context.wait_for_termination()
+        context.stop()
 
 
 if __name__ == "__main__":

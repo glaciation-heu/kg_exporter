@@ -37,7 +37,6 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         self.queue = AsyncQueue()
         self.k8s_client = MockK8SClient()
         self.running_event = asyncio.Event()
-        self.running_event.set()
         self.runner = asyncio.Runner()
         self.settings = KGBuilderSettings(
             builder_tick_seconds=1, node_port=80, queries=QuerySettings()

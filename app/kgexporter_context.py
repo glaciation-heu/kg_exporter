@@ -3,6 +3,7 @@ from typing import Any, List
 import asyncio
 from wsgiref.simple_server import WSGIServer
 
+from loguru import logger
 from prometheus_client import start_http_server
 
 from app.clients.influxdb.influxdb_client import InfluxDBClient
@@ -26,7 +27,7 @@ class KGExporterContext:
     queue: AsyncQueue[DKGSlice]
     runner: asyncio.Runner
     dkg_slice_store: DKGSliceStore
-    running: asyncio.Event
+    terminated: asyncio.Event
     prometheus_server: WSGIServer
     tasks: List[asyncio.Task[Any]]
     settings: KGExporterSettings
@@ -43,11 +44,11 @@ class KGExporterContext:
         self.settings = settings
         kg_repository = KGRepository(metadata_client, jsonld_config)
         influxdb_repository = MetricRepository(influxdb_client)
-        self.running = asyncio.Event()
+        self.terminated = asyncio.Event()
         self.queue = AsyncQueue[DKGSlice]()
         self.dkg_slice_store = DKGSliceStore()
         self.builder = KGBuilder(
-            self.running,
+            self.terminated,
             clock,
             self.queue,
             k8s_client,
@@ -55,14 +56,14 @@ class KGExporterContext:
             influxdb_repository,
             self.settings.builder,
         )
-        self.updater = KGUpdater(self.running, self.queue, kg_repository)
+        self.updater = KGUpdater(self.terminated, self.queue, kg_repository)
         self.runner = asyncio.Runner()
         self.tasks = []
 
     def start(self) -> None:
-        if self.running.is_set():
+        if self.terminated.is_set():
             return
-        self.running.set()
+        self.terminated.clear()
         self.runner.run(self.run_tasks())
         server, _ = start_http_server(self.settings.prometheus.endpoint_port)
         self.prometheus_server = server
@@ -72,8 +73,9 @@ class KGExporterContext:
         self.tasks.append(asyncio.create_task(self.updater.run()))
 
     def stop(self) -> None:
-        self.running.clear()
+        self.terminated.set()
         self.prometheus_server.shutdown()
 
     def wait_for_termination(self) -> None:
-        self.runner.run(self.running.wait())
+        self.runner.run(self.terminated.wait())
+        logger.info("Application terminated.")

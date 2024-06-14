@@ -3,12 +3,14 @@ from typing import Any, Dict, List, Optional, Tuple, TypeAlias
 from jsonpath_ng.ext import parse
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
+from app.core.resource_snapshot_index import ResourceSnapshotIndex
 from app.core.slice_strategy import SliceStrategy
 from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
 
 ReferenceKind: TypeAlias = str
 
 
+# TODO rename
 class SliceForNodeStrategy(SliceStrategy):
     node_port: int
 
@@ -19,9 +21,9 @@ class SliceForNodeStrategy(SliceStrategy):
         self, resources: ResourceSnapshot, metrics: MetricSnapshot
     ) -> Dict[KGSliceId, SliceInputs]:
         result: Dict[KGSliceId, SliceInputs] = dict()
-
+        index = ResourceSnapshotIndex.build(resources)
         for node in resources.nodes:
-            slice_id, inputs = self.split_node(node, resources, metrics)
+            slice_id, inputs = self.split_node(node, index, resources, metrics)
             result[slice_id] = inputs
 
         return result
@@ -29,6 +31,7 @@ class SliceForNodeStrategy(SliceStrategy):
     def split_node(
         self,
         node: Dict[str, Any],
+        index: ResourceSnapshotIndex,
         src_resources: ResourceSnapshot,
         src_metrics: MetricSnapshot,
     ) -> Tuple[KGSliceId, SliceInputs]:
@@ -37,20 +40,18 @@ class SliceForNodeStrategy(SliceStrategy):
 
         slice_resources = ResourceSnapshot(cluster=src_resources.cluster, nodes=[node])
         slice_metrics = MetricSnapshot()
-
-        self.add_workloads(node_hostname, slice_resources, src_resources)
+        self.add_workloads(node_hostname, index, slice_resources, src_resources)
         self.add_metrics(slice_resources, slice_metrics, src_metrics)
 
         return slice_id, SliceInputs(slice_resources, slice_metrics)
 
     def get_resource_name(self, resource: Dict[str, Any]) -> str:
-        for match in parse("$.metadata.name").find(resource):
-            return str(match.value)
-        raise Exception("Metadata does not contain name.")
+        return resource["metadata"]["name"]  # type: ignore
 
     def add_workloads(
         self,
         node_hostname: str,
+        index: ResourceSnapshotIndex,
         slice_resources: ResourceSnapshot,
         src_resources: ResourceSnapshot,
     ) -> None:
@@ -59,39 +60,36 @@ class SliceForNodeStrategy(SliceStrategy):
             if not hostname or hostname != node_hostname:
                 continue
             slice_resources.pods.append(pod)
-            self.add_parent_resources(pod, slice_resources, src_resources)
+            self.add_parent_resources(pod, index, slice_resources, src_resources)
 
     def add_parent_resources(
         self,
         resource: Dict[str, Any],
+        index: ResourceSnapshotIndex,
         slice_resources: ResourceSnapshot,
         src_resources: ResourceSnapshot,
     ) -> None:
         for parent_kind, parent_identity in self.get_owner_references(resource):
-            src_found_resources = src_resources.find_resources_by_kind_and_identity(
-                parent_kind, parent_identity
-            )
-            slice_resources.add_resources_by_kind(parent_kind, src_found_resources)
-            for found_resource in src_found_resources:
+            src_found_resource = index.get_by(parent_kind, parent_identity)
+            if src_found_resource:
+                slice_resources.add_resources_by_kind(parent_kind, [src_found_resource])
                 self.add_parent_resources(
-                    found_resource, slice_resources, src_resources
+                    src_found_resource, index, slice_resources, src_resources
                 )
 
     def get_owner_references(
         self, resource: Dict[str, Any]
     ) -> List[Tuple[ReferenceKind, str]]:
-        references_match = parse("$.metadata.ownerReferences").find(resource)
-        if len(references_match) == 0:
+        references_matches = resource["metadata"].get("ownerReferences") or []
+        if len(references_matches) == 0:
             return []
         return [
             self.get_reference_id(reference_match)
-            for reference_match in references_match[0].value
+            for reference_match in references_matches
         ]
 
     def get_pod_hostname(self, pod: Dict[str, Any]) -> Optional[str]:
-        for match in parse("$.spec.nodeName").find(pod):
-            return str(match.value)
-        return None
+        return pod.get("spec").get("nodeName")  # type: ignore
 
     def get_reference_id(self, reference: Dict[str, Any]) -> Tuple[str, str]:
         return reference["kind"], reference["name"]
