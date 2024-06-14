@@ -1,68 +1,75 @@
-from typing import List
+from typing import List, Optional, Tuple
 
 import argparse
+from argparse import Namespace
+from io import StringIO
 
 from app.clients.influxdb.influxdb_client_impl import InfluxDBClientImpl
-from app.clients.influxdb.influxdb_settings import InfluxDBSettings
 from app.clients.k8s.k8s_client_impl import K8SClientImpl
-from app.clients.k8s.k8s_settings import K8SSettings
 from app.clients.metadata_service.metadata_service_client_impl import (
     MetadataServiceClientImpl,
 )
-from app.clients.metadata_service.metadata_service_settings import (
-    MetadataServiceSettings,
-)
-from app.core.kg_builder import KGBuilderSettings, QuerySettings
 from app.kgexporter_context import KGExporterContext
-from app.kgexporter_settings import KGExporterSettings, PrometheusSettings
+from app.kgexporter_settings import KGExporterSettings
+from app.pydantic_yaml import from_yaml
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.util.clock_impl import ClockImpl
 
 
 class KGExporterContextBuilder:
-    args: List[str]
+    settings: KGExporterSettings
 
-    def __init__(self, args: List[str]):
-        self.args = args
+    def __init__(self, settings: KGExporterSettings):
+        self.settings = settings
 
-    def build(self) -> KGExporterContext:
-        settings = self.get_settings()
-        clock = ClockImpl()
-        metadata_client = MetadataServiceClientImpl(settings.metadata)
-        k8s_client = K8SClientImpl(settings.k8s)
-        influxdb_client = InfluxDBClientImpl(settings.influxdb)
-        jsonld_config = JsonLDConfiguration(contexts=dict(), aggregates=set())
+    @staticmethod
+    def from_args(args: List[str]) -> Optional["KGExporterContextBuilder"]:
+        is_success, config_or_msg = KGExporterContextBuilder.parse_args(args)
+        if is_success:
+            settings: KGExporterSettings = from_yaml(config_or_msg, KGExporterSettings)  # type: ignore
+            return KGExporterContextBuilder(settings)
+        else:
+            print(config_or_msg)
+            return None
 
-        context = KGExporterContext(
-            clock, metadata_client, k8s_client, influxdb_client, jsonld_config, settings
-        )
-        return context
-
-    def get_settings(self) -> KGExporterSettings:
-        return KGExporterSettings(
-            builder=KGBuilderSettings(
-                builder_tick_seconds=1, node_port=80, queries=QuerySettings()
-            ),
-            k8s=K8SSettings(in_cluster=True),
-            influxdb=InfluxDBSettings(
-                url="test", token="token", org="org", timeout=60000
-            ),
-            metadata=MetadataServiceSettings(),
-            prometheus=PrometheusSettings(),
-        )
-
-    def parse(self):
+    @staticmethod
+    def parse_args(args: List[str]) -> Tuple[bool, str]:
         parser = argparse.ArgumentParser(
-            description="Kubernetes knowledge graph exporter."
+            description="Kubernetes knowledge graph exporter.", exit_on_error=False
         )
         parser.add_argument(
             "--config",
             dest="config",
             action="store",
             help="Configuration of the KGExporter",
+            required=True,
         )
-        args = parser.parse_args()
-        print(args)
+
+        try:
+            ns: Namespace = parser.parse_args(args)
+            return True, ns.config
+        except argparse.ArgumentError as e:
+            message = StringIO()
+            parser.print_help(message)
+            message.write(str(e))
+            return False, message.getvalue()
+
+    def build(self) -> KGExporterContext:
+        clock = ClockImpl()
+        metadata_client = MetadataServiceClientImpl(self.settings.metadata)
+        k8s_client = K8SClientImpl(self.settings.k8s)
+        influxdb_client = InfluxDBClientImpl(self.settings.influxdb)
+        jsonld_config = JsonLDConfiguration(contexts=dict(), aggregates=set())
+
+        context = KGExporterContext(
+            clock,
+            metadata_client,
+            k8s_client,
+            influxdb_client,
+            jsonld_config,
+            self.settings,
+        )
+        return context
 
         # logger = logging.getLogger()
         # logger.setLevel(logging.INFO)
