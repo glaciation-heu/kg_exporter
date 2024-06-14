@@ -36,9 +36,14 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          env:
-            - name: METADATA_SERVICE_URL
-              value: {{ .Values.settings.metadata_service_url }}
+          volumeMounts:
+          - name: configuration
+            mountPath: /code/config.yaml
+            subPath: config.yaml
+      volumes:
+      - name: configuration
+        configMap:
+          name: {{ include "app.fullname" . }}-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

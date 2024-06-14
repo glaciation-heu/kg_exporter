@@ -25,4 +25,22 @@ securityContext: {}
 resources: {}
 
 settings:
-  metadata_service_url: "http://metadata-service.knowledge-graph.svc.cluster.local/api/v0/graph"
+  builder:
+    builder_tick_seconds: 60
+    node_port: 80
+    queries:
+      node_queries: []
+      pod_queries: []
+      workload_queries: []
+  influxdb:
+    org: org
+    timeout: 60000
+    token: token
+    url: test
+  k8s:
+    in_cluster: true
+  metadata:
+    metadata_service_push_period_sec: 60
+    metadata_service_url: metadata-service
+  prometheus:
+    endpoint_port: 8080
