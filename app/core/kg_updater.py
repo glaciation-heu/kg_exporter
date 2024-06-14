@@ -33,4 +33,4 @@ class KGUpdater:
                 )
                 await self.kg_repository.update(slice.slice_id, slice.graph)
             else:
-                await asyncio.sleep(0.3)
+                await asyncio.sleep(0.5)

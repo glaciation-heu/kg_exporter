@@ -1,5 +1,6 @@
 from typing import List, Set, Tuple
 
+import urllib.parse
 from dataclasses import dataclass, field
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
@@ -15,6 +16,11 @@ class KGSliceId:
 
     def get_host_port(self) -> str:
         return f"{self.node_ip}:{self.port}"
+
+    @staticmethod
+    def from_host_port(host_and_port: str) -> "KGSliceId":
+        result = urllib.parse.urlsplit(f"//{host_and_port}")
+        return KGSliceId(str(result.hostname), result.port or 80)
 
 
 @dataclass

@@ -119,10 +119,18 @@ class SnapshotTestBase:
         node_jsonld = self.load_jsonld(file_path)
 
         buffer = StringIO()
-        JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
+        JsonLDSerialializer(self.get_test_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)  # type: ignore
 
-    def get_jsonld_config(self) -> JsonLDConfiguration:
+    def assert_serialized_graph(
+        self, snapshot_id: str, slice_id: KGSliceId, actual_graph: str
+    ) -> None:
+        file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/slice_{slice_id.node_ip}_{slice_id.port}.jsonld"
+        node_jsonld = self.load_jsonld(file_path)
+
+        self.assertEqual(json.loads(actual_graph), node_jsonld)  # type: ignore
+
+    def get_test_jsonld_config(self) -> JsonLDConfiguration:
         contexts: Dict[IdBase, Dict[str, Any]] = {
             JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
                 "k8s": "http://glaciation-project.eu/model/k8s/",

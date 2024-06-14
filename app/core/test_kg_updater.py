@@ -43,7 +43,7 @@ class KGUpdaterTest(TestCase, TestGraphFixture):
     def wait_for_graph(self, slice_id: KGSliceId, seconds: int) -> SerializedGraph:
         start = datetime.datetime.now()
         while start + datetime.timedelta(seconds=seconds) > datetime.datetime.now():
-            graphs = self.client.get_inserts(slice_id.get_host_port())
+            graphs = self.client.take_inserts(slice_id.get_host_port())
             if len(graphs) > 0:
                 return graphs[0]
             self.runner.run(asyncio.sleep(0.1))

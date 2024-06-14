@@ -8,8 +8,13 @@ from app.clients.metadata_service.metadata_service_settings import (
 from app.core.kg_builder import KGBuilderSettings
 
 
+class PrometheusSettings(BaseSettings):
+    endpoint_port: int = 8080
+
+
 class KGExporterSettings(BaseSettings):
     builder: KGBuilderSettings
     k8s: K8SSettings
     influxdb: InfluxDBSettings
     metadata: MetadataServiceSettings
+    prometheus: PrometheusSettings

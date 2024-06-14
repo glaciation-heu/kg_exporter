@@ -20,7 +20,7 @@ class KGRepositoryTest(TestCase, TestGraphFixture):
         graph, expected = self.simple_node()
         asyncio.run(repository.update(slice_id, graph))
 
-        graphs = client.get_inserts(slice_id.get_host_port())
+        graphs = client.take_inserts(slice_id.get_host_port())
         self.assertEqual(expected, graphs[0])
 
     def test_query(self) -> None:

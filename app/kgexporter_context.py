@@ -61,7 +61,7 @@ class KGExporterContext:
             return
         self.running.set()
         self.runner.run(self.run_tasks())
-        server, _ = start_http_server(8080)
+        server, _ = start_http_server(self.settings.prometheus.endpoint_port)
         self.prometheus_server = server
 
     async def run_tasks(self) -> None:
