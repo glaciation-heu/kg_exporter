@@ -13,7 +13,7 @@ class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
         self.maxDiff = None
 
     def test_assemble_empty(self) -> None:
-        now = 1
+        now = 1000
         slice_id = KGSliceId("127.0.0.1", 80)
         inputs = self.get_inputs("empty")
         assembler = KGSliceAssembler()
@@ -28,7 +28,7 @@ class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
         self.assert_graph(actual.graph, "empty", slice_id)
 
     def test_assemble_minimal(self) -> None:
-        now = 1
+        now = 1000
         slice_id = KGSliceId("glaciation-test-master01", 80)
         inputs = self.get_inputs("minimal")
         assembler = KGSliceAssembler()

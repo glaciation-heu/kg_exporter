@@ -19,9 +19,12 @@ from app.core.types import KGSliceId
 from app.kgexporter_context import KGExporterContext
 from app.kgexporter_settings import KGExporterSettings, PrometheusSettings
 from app.serialize.jsonld_configuration import JsonLDConfiguration
+from app.util.clock import Clock
+from app.util.mock_clock import MockClock
 
 
 class KGExporterContextTest(TestCase, SnapshotTestBase):
+    clock: Clock
     metadata_client: MockMetadataServiceClient
     k8s_client: MockK8SClient
     influxdb_client: MockInfluxDBClient
@@ -30,12 +33,14 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
     context: KGExporterContext
 
     def setUp(self) -> None:
+        self.clock = MockClock()
         self.metadata_client = MockMetadataServiceClient()
         self.k8s_client = MockK8SClient()
         self.influxdb_client = MockInfluxDBClient()
         self.jsonld_config = self.get_test_jsonld_config()
         self.settings = self.test_kg_exporter_settings()
         self.context = KGExporterContext(
+            self.clock,
             self.metadata_client,
             self.k8s_client,
             self.influxdb_client,
@@ -85,7 +90,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
     def test_kg_exporter_settings(self) -> KGExporterSettings:
         settings = KGExporterSettings(
             builder=KGBuilderSettings(
-                builder_tick_seconds=1, node_port=80, queries=QuerySettings()
+                builder_tick_seconds=60, node_port=80, queries=QuerySettings()
             ),
             k8s=K8SSettings(in_cluster=True),
             influxdb=InfluxDBSettings(

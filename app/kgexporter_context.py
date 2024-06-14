@@ -17,6 +17,7 @@ from app.core.metric_repository import MetricRepository
 from app.core.types import DKGSlice
 from app.kgexporter_settings import KGExporterSettings
 from app.serialize.jsonld_configuration import JsonLDConfiguration
+from app.util.clock import Clock
 
 
 class KGExporterContext:
@@ -32,6 +33,7 @@ class KGExporterContext:
 
     def __init__(
         self,
+        clock: Clock,
         metadata_client: MetadataServiceClient,
         k8s_client: K8SClient,
         influxdb_client: InfluxDBClient,
@@ -46,6 +48,7 @@ class KGExporterContext:
         self.dkg_slice_store = DKGSliceStore()
         self.builder = KGBuilder(
             self.running,
+            clock,
             self.queue,
             k8s_client,
             kg_repository,

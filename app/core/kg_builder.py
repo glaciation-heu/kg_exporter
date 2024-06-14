@@ -13,6 +13,7 @@ from app.core.metric_repository import MetricQuery, MetricRepository
 from app.core.slice_for_node_strategy import SliceForNodeStrategy
 from app.core.slice_strategy import SliceStrategy
 from app.core.types import DKGSlice, MetricSnapshot
+from app.util.clock import Clock
 
 
 class QuerySettings(BaseSettings):
@@ -40,6 +41,7 @@ class KGBuilder:
     def __init__(
         self,
         running: asyncio.Event,
+        clock: Clock,
         queue: AsyncQueue[DKGSlice],
         k8s_client: K8SClient,
         kg_repository: KGRepository,
@@ -47,6 +49,7 @@ class KGBuilder:
         settings: KGBuilderSettings,
     ):
         self.running = running
+        self.clock = clock
         self.k8s_client = k8s_client
         self.queue = queue
         self.kg_repository = kg_repository
@@ -57,7 +60,8 @@ class KGBuilder:
 
     async def run(self) -> None:
         while self.running.is_set():
-            now = 1
+            now_seconds = self.clock.now_seconds()
+            now = now_seconds * 1000
             (
                 cluster_snapshot,
                 pod_metrics,
@@ -91,4 +95,11 @@ class KGBuilder:
                     now=now, slice_id=slice_id, inputs=slice_inputs
                 )
                 self.queue.put_nowait(slice)
-            await asyncio.sleep(30)
+
+            sleep_seconds = (
+                now_seconds
+                + self.settings.builder_tick_seconds
+                - self.clock.now_seconds()
+            )
+            if sleep_seconds > 0:
+                await asyncio.sleep(sleep_seconds)

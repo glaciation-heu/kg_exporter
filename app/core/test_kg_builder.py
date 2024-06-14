@@ -15,9 +15,12 @@ from app.core.test_graph_fixture import TestGraphFixture
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import DKGSlice, KGSliceId
 from app.kg.inmemory_graph import InMemoryGraph
+from app.util.clock import Clock
+from app.util.mock_clock import MockClock
 
 
 class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
+    clock: Clock
     client: MockMetadataServiceClient
     k8s_client: MockK8SClient
     influxdb_client: MockInfluxDBClient
@@ -28,6 +31,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
 
     def setUp(self) -> None:
         self.maxDiff = None
+        self.clock = MockClock()
         self.client = MockMetadataServiceClient()
         self.influxdb_client = MockInfluxDBClient()
         self.queue = AsyncQueue()
@@ -49,7 +53,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
 
         slice = self.wait_for_slice(2)
 
-        self.assertEqual(slice.timestamp, 1)
+        self.assertEqual(slice.timestamp, 1000)
         self.assertEqual(slice.slice_id, KGSliceId("glaciation-test-master01", 80))
         self.assertNotEqual(slice.graph, InMemoryGraph())
         self.assert_graph(slice.graph, "minimal", slice.slice_id)
@@ -59,6 +63,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         influxdb_repository = MetricRepository(self.influxdb_client)
         return KGBuilder(
             self.running_event,
+            self.clock,
             self.queue,
             self.k8s_client,
             repository,

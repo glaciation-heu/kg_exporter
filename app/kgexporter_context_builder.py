@@ -14,8 +14,9 @@ from app.clients.metadata_service.metadata_service_settings import (
 )
 from app.core.kg_builder import KGBuilderSettings, QuerySettings
 from app.kgexporter_context import KGExporterContext
-from app.kgexporter_settings import KGExporterSettings
+from app.kgexporter_settings import KGExporterSettings, PrometheusSettings
 from app.serialize.jsonld_configuration import JsonLDConfiguration
+from app.util.clock_impl import ClockImpl
 
 
 class KGExporterContextBuilder:
@@ -26,13 +27,14 @@ class KGExporterContextBuilder:
 
     def build(self) -> KGExporterContext:
         settings = self.get_settings()
+        clock = ClockImpl()
         metadata_client = MetadataServiceClientImpl(settings.metadata)
         k8s_client = K8SClientImpl(settings.k8s)
         influxdb_client = InfluxDBClientImpl(settings.influxdb)
         jsonld_config = JsonLDConfiguration(contexts=dict(), aggregates=set())
 
         context = KGExporterContext(
-            metadata_client, k8s_client, influxdb_client, jsonld_config, settings
+            clock, metadata_client, k8s_client, influxdb_client, jsonld_config, settings
         )
         return context
 
@@ -46,6 +48,7 @@ class KGExporterContextBuilder:
                 url="test", token="token", org="org", timeout=60000
             ),
             metadata=MetadataServiceSettings(),
+            prometheus=PrometheusSettings(),
         )
 
     def parse(self):
