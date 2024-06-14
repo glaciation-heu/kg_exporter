@@ -17,7 +17,7 @@ class KGExporterContextBuilderTest(TestCase):
         self.assertEqual(
             msg,
             (
-                "usage: python -m unittest [-h] --config CONFIG\n\n"
+                "usage: pytest [-h] --config CONFIG\n\n"
                 "Kubernetes knowledge graph exporter.\n\n"
                 + "options:\n"
                 + "  -h, --help       show this help message and exit\n"
