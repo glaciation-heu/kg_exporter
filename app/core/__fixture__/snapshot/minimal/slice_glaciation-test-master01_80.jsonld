@@ -467,6 +467,7 @@
             "@id": "cluster:crd-resource",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "CRD",
+            "glc:hasID": "cluster:crd-resource",
             "glc:makes": "cluster:coredns"
         },
         {

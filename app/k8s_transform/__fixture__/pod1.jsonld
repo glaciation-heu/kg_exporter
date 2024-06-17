@@ -33,6 +33,7 @@
             "@id": "cluster:coredns-787d4945fb",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "ReplicaSet",
+            "glc:hasID": "cluster:coredns-787d4945fb",
             "glc:makes": "cluster:kube-system.coredns-787d4945fb-l85r5"
         },
         {

@@ -1,5 +1,6 @@
 cluster:tenant1 rdf:type glc:AssignedTask .
 cluster:tenant1 glc:hasDescription "Tenant" .
+cluster:tenant1 glc:hasID cluster:tenant1 .
 cluster:tenant1 glc:makes cluster:tenant1-pool-0 .
 cluster:tenant1-pool-0 rdf:type glc:AssignedTask .
 cluster:tenant1-pool-0 glc:hasDescription "StatefulSet" .

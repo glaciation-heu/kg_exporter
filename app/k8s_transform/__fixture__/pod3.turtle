@@ -3,6 +3,7 @@ cluster:glaciation-worker04 glc:hasDescription "KubernetesWorkerNode" .
 cluster:glaciation-worker04 glc:hasID cluster:glaciation-worker04 .
 cluster:kube-flannel-ds rdf:type glc:AssignedTask .
 cluster:kube-flannel-ds glc:hasDescription "DaemonSet" .
+cluster:kube-flannel-ds glc:hasID cluster:kube-flannel-ds .
 cluster:kube-flannel-ds glc:makes cluster:kube-flannel.kube-flannel-ds-848v8 .
 cluster:kube-flannel.kube-flannel-ds-848v8 rdf:type glc:WorkProducingResource .
 cluster:kube-flannel.kube-flannel-ds-848v8 glc:hasDescription "Pod" .

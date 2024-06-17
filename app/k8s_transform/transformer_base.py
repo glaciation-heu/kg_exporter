@@ -1,8 +1,9 @@
-from typing import Any, Dict, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 import re
 
 from jsonpath_ng.ext import parse
+from kubernetes.utils.quantity import parse_quantity
 
 from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
@@ -111,17 +112,17 @@ class TransformerBase:
         return re.sub('["\n]', "", value)
 
     def get_id(self) -> IRI:
-        name = parse("$.metadata.name").find(self.source)[0].value
+        name = self.source["metadata"]["name"]
         resource_id = IRI(self.CLUSTER_PREFIX, name)
         return resource_id
 
     def get_pod_id(self) -> IRI:
-        name = parse("$.metadata.name").find(self.source)[0].value
-        namespace = parse("$.metadata.namespace").find(self.source)[0].value
+        name = self.source["metadata"]["name"]
+        namespace = self.source["metadata"]["namespace"]
         return IRI(self.CLUSTER_PREFIX, namespace).dot(name)
 
     def get_node_id(self, node_resource: Dict[str, Any]) -> IRI:
-        name = parse("$.metadata.name").find(node_resource)[0].value
+        name = node_resource["metadata"]["name"]
         resource_id = IRI(self.CLUSTER_PREFIX, name)
         return resource_id
 
@@ -136,10 +137,10 @@ class TransformerBase:
         return None
 
     def add_references(self, node_id: IRI, target_kind: str) -> None:
-        references_match = parse("$.metadata.ownerReferences").find(self.source)
-        if len(references_match) == 0:
+        references_matches = self.source["metadata"].get("ownerReferences") or []
+        if len(references_matches) == 0:
             return
-        for reference_match in references_match[0].value:
+        for reference_match in references_matches:
             reference, src_kind = self.get_reference_id(reference_match)
             src_type = (
                 self.RESOURCE_TYPE_MAP.get(src_kind) or UpperOntologyBase.ASSIGNED_TASK
@@ -150,6 +151,7 @@ class TransformerBase:
             )
             self.sink.add_relation(reference, relation, node_id)
             self.sink.add_meta_property(reference, Graph.RDF_TYPE_IRI, src_type)
+            self.sink.add_relation(reference, UpperOntologyBase.HAS_ID, reference)
             self.sink.add_property(
                 reference,
                 UpperOntologyBase.HAS_DESCRIPTION,
@@ -163,3 +165,88 @@ class TransformerBase:
                 property,
                 Literal(match.value, Literal.TYPE_STRING),
             )
+
+    def get_opt_str_value(self, query_path: List[str]) -> Optional[str]:
+        if len(query_path) == 0:
+            return None
+        current: Dict[str, Any] = self.source
+        result: Optional[str] = None
+        for subpath in query_path:
+            next = current.get(subpath)
+            if not next:
+                return None
+            current = next
+            if isinstance(next, str):
+                result = str(current)
+        return result
+
+    def get_opt_struct(self, query_path: List[str]) -> Optional[Dict[str, Any]]:
+        if len(query_path) == 0:
+            return None
+        current: Dict[str, Any] = self.source
+        for subpath in query_path:
+            next = current.get(subpath)
+            if not next:
+                return None
+            current = next
+        return current
+
+    def get_opt_list(self, query_path: List[str]) -> Optional[List[Dict[str, Any]]]:
+        if len(query_path) == 0:
+            return None
+        current: Dict[str, Any] = self.source
+        result: List[Dict[str, Any]] = []
+        for subpath in query_path:
+            next = current.get(subpath)
+            if not next:
+                return None
+            current = next
+            result = next
+        return result
+
+    def get_opt_int_quantity_value(self, query_path: List[str]) -> Optional[int]:
+        if len(query_path) == 0:
+            return None
+        current: Dict[str, Any] = self.source
+        result: Any = "0"
+        for subpath in query_path:
+            next = current.get(subpath)
+            if not next:
+                return None
+            current = next
+            result = next
+        return int(parse_quantity(result))
+
+    def get_str_list(self, query_path: List[str]) -> List[str]:
+        if len(query_path) == 0:
+            return []
+        results: List[str] = []
+        self.fetch_level([self.source], query_path, 0, results)
+        return results
+
+    def fetch_level(
+        self,
+        current: List[Dict[str, Any]],
+        query_path: List[str],
+        query_path_i: int,
+        result: List[str],
+    ) -> None:
+        if query_path_i == len(query_path) - 1:
+            path = query_path[query_path_i]
+            for current_level in current:
+                query_result = current_level.get(path)
+                if query_result:
+                    result.append(query_result)
+        else:
+            path = query_path[query_path_i]
+            for current_level in current:
+                next_level = current_level.get(path)
+                if next_level:
+                    if isinstance(next_level, list):
+                        self.fetch_level(
+                            next_level, query_path, query_path_i + 1, result
+                        )
+                    else:
+                        self.fetch_level(
+                            [next_level], query_path, query_path_i + 1, result
+                        )

@@ -1,5 +1,6 @@
 cluster:coredns rdf:type glc:AssignedTask .
 cluster:coredns glc:hasDescription "Deployment" .
+cluster:coredns glc:hasID cluster:coredns .
 cluster:coredns glc:hasSubTask cluster:coredns-787d4945fb .
 cluster:coredns-787d4945fb rdf:type glc:AssignedTask .
 cluster:coredns-787d4945fb glc:hasDescription "ReplicaSet" .

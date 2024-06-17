@@ -127,7 +127,6 @@ class SnapshotTestBase:
     ) -> None:
         file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/slice_{slice_id.node_ip}_{slice_id.port}.jsonld"
         node_jsonld = self.load_jsonld(file_path)
-
         self.assertEqual(json.loads(actual_graph), node_jsonld)  # type: ignore
 
     def get_test_jsonld_config(self) -> JsonLDConfiguration:

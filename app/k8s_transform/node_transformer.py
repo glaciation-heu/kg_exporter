@@ -1,7 +1,4 @@
-from typing import Any, Dict, Optional
-
-from jsonpath_ng.ext import parse
-from kubernetes.utils.quantity import parse_quantity
+from typing import Any, Dict
 
 from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
@@ -29,9 +26,11 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
 
     def add_cpu_resource(self, node_id: IRI, timestamp: int) -> None:
         cpu_id = node_id.dot("CPU")
-        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, cpu_id)
         self.add_work_producing_resource(cpu_id, "CPU")
-        cpu_capacity_value = self.get_int_quantity_value("$.status.allocatable.cpu")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, cpu_id)
+        cpu_capacity_value = self.get_opt_int_quantity_value(
+            ["status", "allocatable", "cpu"]
+        )
         if cpu_capacity_value:
             cpu_capacity_id = cpu_id.dot("Capacity")
             self.add_measurement(
@@ -50,7 +49,9 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(ram_id, "RAM")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, ram_id)
 
-        ram_capacity_value = self.get_int_quantity_value("$.status.allocatable.memory")
+        ram_capacity_value = self.get_opt_int_quantity_value(
+            ["status", "allocatable", "memory"]
+        )
         if ram_capacity_value:
             ram_capacity_id = ram_id.dot("Capacity")
             self.add_measurement(
@@ -69,8 +70,8 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(storage_id, "EphemeralStorage")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
 
-        storage_capacity_value = self.get_int_quantity_value(
-            "$.status.allocatable.ephemeral-storage"
+        storage_capacity_value = self.get_opt_int_quantity_value(
+            ["status", "allocatable", "ephemeral-storage"]
         )
         if storage_capacity_value:
             storage_capacity_id = storage_id.dot("Capacity")
@@ -98,8 +99,12 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
 
     def add_energy_information(self, node_id: IRI, timestamp: int) -> None:
-        energy_index_value = self.get_int_quantity_value(
-            '$.metadata.annotations["glaciation-project.eu/metric/node-energy-index"]'
+        energy_index_value = self.get_opt_int_quantity_value(
+            [
+                "metadata",
+                "annotations",
+                "glaciation-project.eu/metric/node-energy-index",
+            ]
         )
         if energy_index_value:
             energy_index_id = node_id.dot("Energy.Index")
@@ -134,8 +139,3 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             return "NotReady"
         else:
             return "Unknown"
-
-    def get_int_quantity_value(self, query: str) -> Optional[int]:
-        for match in parse(query).find(self.source):
-            return int(parse_quantity(match.value))
-        return None

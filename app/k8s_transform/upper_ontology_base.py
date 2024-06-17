@@ -262,6 +262,8 @@ class UpperOntologyBase:
     def add_common_info(
         self, entity_id: IRI, entity_type: IRI, description: Optional[str]
     ) -> None:
+        if self.sink.has_node(entity_id):
+            return
         self.sink.add_meta_property(entity_id, Graph.RDF_TYPE_IRI, entity_type)
         self.sink.add_relation(entity_id, self.HAS_ID, entity_id)
         if description:

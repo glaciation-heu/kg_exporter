@@ -1,5 +1,6 @@
 cluster:coredns-787d4945fb rdf:type glc:AssignedTask .
 cluster:coredns-787d4945fb glc:hasDescription "ReplicaSet" .
+cluster:coredns-787d4945fb glc:hasID cluster:coredns-787d4945fb .
 cluster:coredns-787d4945fb glc:makes cluster:kube-system.coredns-787d4945fb-l85r5 .
 cluster:glaciation-test-master01 rdf:type glc:WorkProducingResource .
 cluster:glaciation-test-master01 glc:hasDescription "KubernetesWorkerNode" .

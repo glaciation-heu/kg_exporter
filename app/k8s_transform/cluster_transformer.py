@@ -43,9 +43,5 @@ class ClusterToRDFTransformer(TransformerBase, UpperOntologyBase):
 
     def write_node_reference(self, cluster_id: IRI, node: Dict[str, Any]) -> None:
         node_id = self.get_node_id(node)
+        self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
         self.sink.add_relation(cluster_id, self.HAS_SUBRESOURCE, node_id)
-        self.sink.add_meta_property(
-            node_id,
-            Graph.RDF_TYPE_IRI,
-            IRI(self.GLACIATION_PREFIX, "WorkProducingResource"),
-        )

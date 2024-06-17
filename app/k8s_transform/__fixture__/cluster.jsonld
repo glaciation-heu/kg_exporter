@@ -8,29 +8,39 @@
     "@graph": [
         {
             "@id": "cluster:glaciation-mast01",
-            "@type": "glc:WorkProducingResource"
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-mast01"
         },
         {
             "@id": "cluster:glaciation-worker01",
-            "@type": "glc:WorkProducingResource"
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-worker01"
         },
         {
             "@id": "cluster:glaciation-worker02",
-            "@type": "glc:WorkProducingResource"
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-worker02"
         },
         {
             "@id": "cluster:glaciation-worker03",
-            "@type": "glc:WorkProducingResource"
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-worker03"
         },
         {
             "@id": "cluster:glaciation-worker04",
-            "@type": "glc:WorkProducingResource"
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-worker04"
         },
         {
             "@id": "cluster:kubernetes",
             "@type": "glc:WorkProducingResource",
-            "glc:hasID": "cluster:kubernetes",
             "glc:hasDescription": "KubernetesCluster",
+            "glc:hasID": "cluster:kubernetes",
             "glc:hasSubResource": {
                 "@set": [
                     "cluster:glaciation-mast01",

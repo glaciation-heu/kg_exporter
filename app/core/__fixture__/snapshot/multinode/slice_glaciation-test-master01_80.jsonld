@@ -564,6 +564,7 @@
             "@id": "cluster:crd-resource",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "CRD",
+            "glc:hasID": "cluster:crd-resource",
             "glc:makes": "cluster:coredns"
         },
         {
@@ -642,6 +643,7 @@
             "@id": "cluster:tenant1",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "Tenant",
+            "glc:hasID": "cluster:tenant1",
             "glc:makes": "cluster:glaciation-pool-0"
         },
         {

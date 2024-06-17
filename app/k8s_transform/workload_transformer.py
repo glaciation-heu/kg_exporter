@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional
 
-from jsonpath_ng.ext import parse
 from kubernetes.utils.quantity import parse_quantity
 
 from app.k8s_transform.transformation_context import TransformationContext
@@ -17,7 +16,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
     def transform(self, _: TransformationContext) -> None:
         workload_id = self.get_id()
-        kind = self.get_str_value("$.kind")
+        kind = self.source["kind"]
         self.add_assigned_task(workload_id, kind)
         if kind:
             self.add_references(workload_id, kind)
@@ -31,8 +30,24 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "CPU.Allocated",
             True,
             [
-                "$.spec.template.spec.containers[*].resources.requests.cpu",
-                "$.spec.template.spec.initContainers[*].resources.requests.cpu",
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "requests",
+                    "cpu",
+                ],
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "requests",
+                    "cpu",
+                ],
             ],
             self.UNIT_CPU_CORE_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -43,8 +58,24 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "RAM.Allocated",
             True,
             [
-                "$.spec.template.spec.containers[*].resources.requests.memory",
-                "$.spec.template.spec.initContainers[*].resources.requests.memory",
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "requests",
+                    "memory",
+                ],
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "requests",
+                    "memory",
+                ],
             ],
             self.UNIT_BYTES_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -55,8 +86,24 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "Storage.Allocated",
             True,
             [
-                "$.spec.template.spec.containers[*].resources.requests.ephemeral-storage",  # noqa: E501
-                "$.spec.template.spec.initContainers[*].resources.requests.ephemeral-storage",  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "requests",
+                    "ephemeral-storage",
+                ],  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "requests",
+                    "ephemeral-storage",
+                ],  # noqa: E501
             ],
             self.UNIT_BYTES_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -67,7 +114,13 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "GPU.Allocated",
             True,
             [
-                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/requests/gpu']"  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "metadata",
+                    "annotations",
+                    "glaciation-project.eu/resource/requests/gpu",
+                ]  # noqa: E501
             ],
             self.UNIT_CPU_CORE_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -78,7 +131,13 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "Network.Allocated",
             True,
             [
-                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/requests/network']"  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "metadata",
+                    "annotations",
+                    "glaciation-project.eu/resource/requests/network",
+                ]  # noqa: E501
             ],
             self.UNIT_BYTES_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -89,7 +148,13 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "Energy.Allocated",
             True,
             [
-                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/requests/energy']"  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "metadata",
+                    "annotations",
+                    "glaciation-project.eu/resource/requests/energy",
+                ]  # noqa: E501
             ],
             self.UNIT_MILLIWATT_ID,
             self.ASPECT_POWER_ID,
@@ -101,8 +166,24 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "CPU.Capacity",
             False,
             [
-                "$.spec.template.spec.containers[*].resources.limits.cpu",
-                "$.spec.template.spec.initContainers[*].resources.limits.cpu",
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "limits",
+                    "cpu",
+                ],
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "limits",
+                    "cpu",
+                ],
             ],
             self.UNIT_CPU_CORE_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -113,8 +194,24 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "RAM.Capacity",
             False,
             [
-                "$.spec.template.spec.containers[*].resources.limits.memory",
-                "$.spec.template.spec.initContainers[*].resources.limits.memory",
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "limits",
+                    "memory",
+                ],
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "limits",
+                    "memory",
+                ],
             ],
             self.UNIT_BYTES_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -125,8 +222,24 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "Storage.Capacity",
             False,
             [
-                "$.spec.template.spec.containers[*].resources.limits.ephemeral-storage",  # noqa: E501
-                "$.spec.template.spec.initContainers[*].resources.limits.ephemeral-storage",  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "limits",
+                    "ephemeral-storage",
+                ],  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "limits",
+                    "ephemeral-storage",
+                ],  # noqa: E501
             ],
             self.UNIT_BYTES_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -137,7 +250,13 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "GPU.Capacity",
             False,
             [
-                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/limits/gpu']"  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "metadata",
+                    "annotations",
+                    "glaciation-project.eu/resource/limits/gpu",
+                ]  # noqa: E501
             ],
             self.UNIT_CPU_CORE_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -148,7 +267,13 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "Network.Capacity",
             False,
             [
-                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/limits/network']"  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "metadata",
+                    "annotations",
+                    "glaciation-project.eu/resource/limits/network",
+                ]  # noqa: E501
             ],
             self.UNIT_BYTES_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -159,7 +284,13 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             "Energy.Capacity",
             False,
             [
-                "$.spec.template.metadata.annotations['glaciation-project.eu/resource/limits/energy']"  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "metadata",
+                    "annotations",
+                    "glaciation-project.eu/resource/limits/energy",
+                ]  # noqa: E501
             ],
             self.UNIT_MILLIWATT_ID,
             self.ASPECT_POWER_ID,
@@ -170,7 +301,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
         workload_id: IRI,
         constraint_id_name: str,
         is_soft: bool,
-        jqpath: List[str],
+        jqpath: List[List[str]],
         unit: IRI,
         aspect: IRI,
     ) -> None:
@@ -187,27 +318,25 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
             )
             self.sink.add_relation(workload_id, self.HAS_CONSTRAINT, constraint_id)
 
-    def get_int_quantity_value(self, query: str) -> Optional[int]:
-        for match in parse(query).find(self.source):
-            return int(parse_quantity(match.value))
-        return None
+    def add_workload_scheduler(self, workload_id: IRI) -> None:
+        scheduler_name = self.get_opt_str_value(
+            ["spec", "template", "spec", "schedulerName"]
+        )
+        scheduler_id = IRI(
+            self.GLACIATION_PREFIX, scheduler_name or "default-scheduler"
+        )
+        self.add_scheduler(scheduler_id, None)
+        self.sink.add_relation(scheduler_id, self.ASSIGNS, workload_id)
 
-    def get_int_quantity_value_list(self, queries: List[str]) -> Optional[float]:
+    def get_int_quantity_value_list(self, queries: List[List[str]]) -> Optional[float]:
         result = []
         for query in queries:
-            for match in parse(query).find(self.source):
-                quantity = float(parse_quantity(match.value))
+            values = self.get_str_list(query)
+            for quantity_str in values:
+                quantity = float(parse_quantity(quantity_str))
                 if quantity > 0:
                     result.append(quantity)
         if len(result) > 0:
             return sum(result)
         else:
             return None
-
-    def add_workload_scheduler(self, workload_id: IRI) -> None:
-        scheduler_name = self.get_str_value("$.spec.template.spec.schedulerName")
-        scheduler_id = IRI(
-            self.GLACIATION_PREFIX, scheduler_name or "default-scheduler"
-        )
-        self.add_scheduler(scheduler_id, None)
-        self.sink.add_relation(scheduler_id, self.ASSIGNS, workload_id)

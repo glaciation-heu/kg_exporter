@@ -1,8 +1,6 @@
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import re
-
-from jsonpath_ng.ext import parse
 
 from app.k8s_transform.transformation_context import TransformationContext
 from app.k8s_transform.transformer_base import TransformerBase
@@ -22,7 +20,7 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(pod_id, "Pod")
         self.add_references(pod_id, "Pod")
         scheduler_name = (
-            self.get_str_value("$.spec.schedulerName") or "default-scheduler"
+            self.get_opt_str_value(["spec", "schedulerName"]) or "default-scheduler"
         )
         self.add_str_property(pod_id, self.HAS_NAME, "$.metadata.name")
         self.add_scheduler_reference(pod_id, scheduler_name)
@@ -36,35 +34,34 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.sink.add_relation(scheduler_id, self.MANAGES, resource_id)
 
     def add_node_reference(self, pod_id: IRI) -> None:
-        node_name = self.get_str_value("$.spec.nodeName")
+        node_name = self.get_opt_str_value(["spec", "nodeName"])
         if node_name:
             node_id = IRI(self.CLUSTER_PREFIX, node_name)
-            self.sink.add_relation(pod_id, self.CONSUMES, node_id)
             self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
+            self.sink.add_relation(pod_id, self.CONSUMES, node_id)
 
     def add_pod_status(self, pod_id: IRI) -> None:
         status_id = pod_id.dot("Status")
-        start_time = self.get_str_value("$.status.startTime")
-        status = self.get_str_value("$.status.phase")
+        start_time = self.get_opt_str_value(["status", "startTime"])
+        status = self.get_opt_str_value(["status", "phase"])
         if status:
             # TODO if start_time is None
             self.add_status(status_id, status, start_time or "", None)
 
     def add_containers_resources(self, pod_id: IRI, scheduler_name: str) -> None:
         self.add_container_resources_by_query(
-            pod_id, scheduler_name, "$.status.containerStatuses"
+            pod_id, scheduler_name, ["status", "containerStatuses"]
         )
         self.add_container_resources_by_query(
-            pod_id, scheduler_name, "$.status.initContainerStatuses"
+            pod_id, scheduler_name, ["status", "initContainerStatuses"]
         )
 
     def add_container_resources_by_query(
-        self, pod_id: IRI, scheduler_name: str, jsonpath: str
+        self, pod_id: IRI, scheduler_name: str, jsonpath: List[str]
     ) -> None:
-        container_status_matches = parse(jsonpath).find(self.source)
-        if len(container_status_matches) > 0:
-            for container_match in container_status_matches[0].value:
-                self.add_container_resource(pod_id, container_match, scheduler_name)
+        container_status_matches = self.get_opt_list(jsonpath) or []
+        for container_match in container_status_matches:
+            self.add_container_resource(pod_id, container_match, scheduler_name)
 
     def add_container_resource(
         self, pod_id: IRI, container: Dict[str, Any], scheduler_name: str
@@ -72,6 +69,8 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         k8s_container_id = container.get("containerID") or "undefined"
         k8s_container_name = container.get("name") or "undefined"
         container_id = pod_id.dot(k8s_container_name)
+        self.add_work_producing_resource(container_id, "Container")
+        self.add_scheduler_reference(container_id, scheduler_name)
         self.sink.add_property(
             container_id,
             self.HAS_CONTAINER_ID,
@@ -82,8 +81,6 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
             self.HAS_CONTAINER_NAME,
             Literal(k8s_container_name, Literal.TYPE_STRING),
         )
-        self.add_work_producing_resource(container_id, "Container")
-        self.add_scheduler_reference(container_id, scheduler_name)
         state = container.get("state")
         if state:
             self.add_container_status(container_id, state)

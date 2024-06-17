@@ -64,6 +64,7 @@ cluster:coredns.Storage.Allocated glc:hasID cluster:coredns.Storage.Allocated .
 cluster:coredns.Storage.Allocated glc:measuredIn glc:Bytes .
 cluster:crd-resource rdf:type glc:AssignedTask .
 cluster:crd-resource glc:hasDescription "CRD" .
+cluster:crd-resource glc:hasID cluster:crd-resource .
 cluster:crd-resource glc:makes cluster:coredns .
 glc:Bytes rdf:type glc:MeasurementUnit .
 glc:Bytes glc:hasID glc:Bytes .
