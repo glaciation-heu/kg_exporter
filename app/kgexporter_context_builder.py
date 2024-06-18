@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import argparse
 from argparse import Namespace
@@ -9,6 +9,9 @@ from app.clients.k8s.k8s_client_impl import K8SClientImpl
 from app.clients.metadata_service.metadata_service_client_impl import (
     MetadataServiceClientImpl,
 )
+from app.k8s_transform.upper_ontology_base import UpperOntologyBase
+from app.kg.id_base import IdBase
+from app.kg.iri import IRI
 from app.kgexporter_context import KGExporterContext
 from app.kgexporter_settings import KGExporterSettings
 from app.pydantic_yaml import from_yaml
@@ -59,7 +62,7 @@ class KGExporterContextBuilder:
         metadata_client = MetadataServiceClientImpl(self.settings.metadata)
         k8s_client = K8SClientImpl(self.settings.k8s)
         influxdb_client = InfluxDBClientImpl(self.settings.influxdb)
-        jsonld_config = JsonLDConfiguration(contexts=dict(), aggregates=set())
+        jsonld_config = self.get_jsonld_config()
 
         context = KGExporterContext(
             clock,
@@ -70,3 +73,23 @@ class KGExporterContextBuilder:
             self.settings,
         )
         return context
+
+    def get_jsonld_config(self) -> JsonLDConfiguration:
+        contexts: Dict[IdBase, Dict[str, Any]] = {
+            JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
+                "k8s": "http://glaciation-project.eu/model/k8s/",
+                "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+                "cluster": "https://127.0.0.1:6443/",
+                "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            }
+        }
+        return JsonLDConfiguration(
+            contexts,
+            {
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "WorkProducingResource"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "Aspect"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementProperty"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasuringResource"),
+                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementUnit"),
+            },
+        )

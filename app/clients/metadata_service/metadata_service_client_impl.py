@@ -23,7 +23,8 @@ class MetadataServiceClientImpl(MetadataServiceClient):
         self.settings = settings
 
     async def query(self, host_and_port: str, sparql: str) -> List[Triple]:
-        url = f"http://{host_and_port}/api/v0/graph/search"
+        base_url = self.get_base_url(host_and_port)
+        url = f"{base_url}/api/v0/graph/search"
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.post(
@@ -38,7 +39,8 @@ class MetadataServiceClientImpl(MetadataServiceClient):
                 raise ClientError(e.args[0]) from e
 
     async def insert(self, host_and_port: str, graph: str) -> None:
-        url = f"http://{host_and_port}/api/v0/graph"
+        base_url = self.get_base_url(host_and_port)
+        url = f"{base_url}/api/v0/graph"
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.patch(
@@ -49,3 +51,9 @@ class MetadataServiceClientImpl(MetadataServiceClient):
                 response.raise_for_status()
             except HTTPError as e:
                 raise ClientError(e.args[0]) from e
+
+    def get_base_url(self, host_and_port: str) -> str:
+        if self.settings.use_single_url:
+            return f"http://{self.settings.metadata_service_url}"
+        else:
+            return f"http://{host_and_port}"
