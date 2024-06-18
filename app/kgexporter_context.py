@@ -10,7 +10,6 @@ from app.clients.influxdb.influxdb_client import InfluxDBClient
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
 from app.core.async_queue import AsyncQueue
-from app.core.dkg_slice_store import DKGSliceStore
 from app.core.kg_builder import KGBuilder
 from app.core.kg_repository import KGRepository
 from app.core.kg_updater import KGUpdater
@@ -26,7 +25,6 @@ class KGExporterContext:
     updater: KGUpdater
     queue: AsyncQueue[DKGSlice]
     runner: asyncio.Runner
-    dkg_slice_store: DKGSliceStore
     terminated: asyncio.Event
     prometheus_server: WSGIServer
     tasks: List[asyncio.Task[Any]]
@@ -46,7 +44,6 @@ class KGExporterContext:
         influxdb_repository = MetricRepository(influxdb_client)
         self.terminated = asyncio.Event()
         self.queue = AsyncQueue[DKGSlice]()
-        self.dkg_slice_store = DKGSliceStore()
         self.builder = KGBuilder(
             self.terminated,
             clock,
