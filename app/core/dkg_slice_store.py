@@ -11,7 +11,7 @@ class DKGSliceStore:
 
     def update(self, slice: DKGSlice) -> bool:
         existing = self.slices.get(slice.slice_id)
-        if existing != slice:
+        if not existing or existing.graph != slice.graph:
             self.slices[slice.slice_id] = slice
             return True
         else:
