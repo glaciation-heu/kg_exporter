@@ -4,11 +4,11 @@ import argparse
 from argparse import Namespace
 from io import StringIO
 
-from app.clients.influxdb.influxdb_client_impl import InfluxDBClientImpl
 from app.clients.k8s.k8s_client_impl import K8SClientImpl
 from app.clients.metadata_service.metadata_service_client_impl import (
     MetadataServiceClientImpl,
 )
+from app.clients.prometheus.prometheus_client import PrometheusClient
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.id_base import IdBase
 from app.kg.iri import IRI
@@ -61,14 +61,15 @@ class KGExporterContextBuilder:
         clock = ClockImpl()
         metadata_client = MetadataServiceClientImpl(self.settings.metadata)
         k8s_client = K8SClientImpl(self.settings.k8s)
-        influxdb_client = InfluxDBClientImpl(self.settings.influxdb)
+        # influxdb_client = InfluxDBClientImpl(self.settings.influxdb)
+        prometheus_client = PrometheusClient(self.settings.prometheus_client)
         jsonld_config = self.get_jsonld_config()
 
         context = KGExporterContext(
             clock,
             metadata_client,
             k8s_client,
-            influxdb_client,
+            prometheus_client,
             jsonld_config,
             self.settings,
         )

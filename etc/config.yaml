@@ -1,5 +1,5 @@
 builder:
-  builder_tick_seconds: 1
+  builder_tick_seconds: 10
   node_port: 80
   queries:
     node_queries: []
@@ -11,9 +11,13 @@ influxdb:
   token: token
   url: test
 k8s:
-  in_cluster: true
+  in_cluster: false
 metadata:
   metadata_service_push_period_sec: 60
-  metadata_service_url: metadata-service
+  metadata_service_url: metadata.integration
+  # metadata_service_url: metadata-service
+  use_single_url: true
 prometheus:
   endpoint_port: 8080
+prometheus_client:
+  url: prometheus.integration

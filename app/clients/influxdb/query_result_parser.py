@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from datetime import datetime
 
@@ -24,5 +24,5 @@ class QueryResultParser:
                 f"Unable to convert value '{value}' to float. Unknown type {type(value)}."
             )
 
-    def parse(self, row: Dict[str, Any]) -> MetricValue:
+    def parse(self, row: Dict[str, Any]) -> List[MetricValue]:
         raise NotImplementedError

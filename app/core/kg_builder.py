@@ -3,6 +3,7 @@ from typing import List
 import asyncio
 
 from loguru import logger
+from prometheus_client import Counter
 from pydantic_settings import BaseSettings
 
 from app.clients.k8s.k8s_client import K8SClient
@@ -37,6 +38,15 @@ class KGBuilder:
     settings: KGBuilderSettings
     slice_strategy: SliceStrategy
     slice_assembler: KGSliceAssembler
+    errors_metric: Counter = Counter(
+        "builder_errors_total", "knowledge graph builder errors"
+    )
+    successes_metric: Counter = Counter(
+        "builder_successes_total", "knowledge graph builder successes"
+    )
+    passes_metric: Counter = Counter(
+        "builder_cycles_total", "knowledge graph builder cycles"
+    )
 
     def __init__(
         self,
@@ -64,9 +74,12 @@ class KGBuilder:
             now_seconds = self.clock.now_seconds()
 
             try:
+                self.passes_metric.inc()
                 await self.run_cycle(now_seconds)
+                self.successes_metric.inc()
             except Exception as e:
                 logger.error(f"Builder error: {e}")
+                self.errors_metric.inc()
 
             sleep_seconds = (
                 now_seconds

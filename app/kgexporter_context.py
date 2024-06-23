@@ -35,13 +35,13 @@ class KGExporterContext:
         clock: Clock,
         metadata_client: MetadataServiceClient,
         k8s_client: K8SClient,
-        influxdb_client: MetricStoreClient,
+        metric_store_client: MetricStoreClient,
         jsonld_config: JsonLDConfiguration,
         settings: KGExporterSettings,
     ):
         self.settings = settings
         kg_repository = KGRepository(metadata_client, jsonld_config)
-        influxdb_repository = MetricRepository(influxdb_client)
+        influxdb_repository = MetricRepository(metric_store_client)
         self.terminated = asyncio.Event()
         self.queue = AsyncQueue[DKGSlice]()
         self.builder = KGBuilder(

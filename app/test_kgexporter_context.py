@@ -13,6 +13,7 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
     SerializedGraph,
 )
+from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
 from app.core.kg_builder import KGBuilderSettings, QuerySettings
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
@@ -98,5 +99,6 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
             ),
             metadata=MetadataServiceSettings(),
             prometheus=PrometheusSettings(endpoint_port=8080),
+            prometheus_client=PrometheusClientSettings(url="prometheus.integration"),
         )
         return settings

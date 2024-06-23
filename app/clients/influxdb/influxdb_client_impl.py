@@ -36,5 +36,5 @@ class InfluxDBClientImpl(MetricStoreClient):
         query_results = []
         for table in flux_result:
             for record in table.records:
-                query_results.append(result_parser.parse(record))
+                query_results.extend(result_parser.parse(record))
         return query_results

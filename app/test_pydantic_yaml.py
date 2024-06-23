@@ -6,6 +6,7 @@ from app.clients.k8s.k8s_settings import K8SSettings
 from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
+from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
 from app.core.kg_builder import KGBuilderSettings, QuerySettings
 from app.kgexporter_settings import KGExporterSettings, PrometheusSettings
 from app.pydantic_yaml import from_yaml, to_yaml
@@ -23,6 +24,7 @@ class PyDanticYamlTest(TestCase):
             ),
             metadata=MetadataServiceSettings(),
             prometheus=PrometheusSettings(endpoint_port=8080),
+            prometheus_client=PrometheusClientSettings(url="prometheus.integration"),
         )
         with TemporaryDirectory("-pydantic", "test") as tmpdir:
             yaml_file = f"{tmpdir}/test.yaml"

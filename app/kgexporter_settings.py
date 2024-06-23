@@ -5,6 +5,7 @@ from app.clients.k8s.k8s_settings import K8SSettings
 from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
+from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
 from app.core.kg_builder import KGBuilderSettings
 
 
@@ -17,4 +18,5 @@ class KGExporterSettings(BaseSettings):
     k8s: K8SSettings
     influxdb: InfluxDBSettings
     metadata: MetadataServiceSettings
+    prometheus_client: PrometheusClientSettings
     prometheus: PrometheusSettings

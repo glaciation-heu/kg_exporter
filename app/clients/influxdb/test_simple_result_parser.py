@@ -38,11 +38,13 @@ class SimpleResultParserTest(TestCase):
         actual = parser.parse(row)
 
         self.assertEqual(
-            MetricValue(
-                "RAM.Capacity",
-                "glaciation-testm1w5-master01",
-                1717142400000,
-                26237685760.0,
-            ),
+            [
+                MetricValue(
+                    "RAM.Capacity",
+                    "glaciation-testm1w5-master01",
+                    1717142400000,
+                    26237685760.0,
+                )
+            ],
             actual,
         )
