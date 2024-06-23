@@ -4,7 +4,7 @@ import asyncio
 from dataclasses import dataclass
 from enum import StrEnum
 
-from app.clients.influxdb.influxdb_client import InfluxDBClient
+from app.clients.influxdb.metricstore_client import MetricStoreClient
 from app.clients.influxdb.query_result_parser import QueryResultParser
 from app.clients.influxdb.simple_result_parser import SimpleResultParser
 from app.core.metric_value import MetricValue
@@ -32,9 +32,9 @@ class MetricQuery:
 
 
 class MetricRepository:
-    client: InfluxDBClient
+    client: MetricStoreClient
 
-    def __init__(self, client: InfluxDBClient):
+    def __init__(self, client: MetricStoreClient):
         self.client = client
 
     async def query_many(

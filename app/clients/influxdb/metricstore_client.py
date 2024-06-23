@@ -4,7 +4,7 @@ from app.clients.influxdb.query_result_parser import QueryResultParser
 from app.core.metric_value import MetricValue
 
 
-class InfluxDBClient:
+class MetricStoreClient:
     async def query(
         self, query: str, result_parser: QueryResultParser
     ) -> List[MetricValue]:

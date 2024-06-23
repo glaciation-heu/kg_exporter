@@ -6,7 +6,7 @@ from wsgiref.simple_server import WSGIServer
 from loguru import logger
 from prometheus_client import start_http_server
 
-from app.clients.influxdb.influxdb_client import InfluxDBClient
+from app.clients.influxdb.metricstore_client import MetricStoreClient
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
 from app.core.async_queue import AsyncQueue
@@ -35,7 +35,7 @@ class KGExporterContext:
         clock: Clock,
         metadata_client: MetadataServiceClient,
         k8s_client: K8SClient,
-        influxdb_client: InfluxDBClient,
+        influxdb_client: MetricStoreClient,
         jsonld_config: JsonLDConfiguration,
         settings: KGExporterSettings,
     ):
@@ -76,3 +76,7 @@ class KGExporterContext:
     def wait_for_termination(self) -> None:
         self.runner.run(self.terminated.wait())
         logger.info("Application terminated.")
+
+    def exit_gracefully(self) -> None:
+        self.stop()
+        self.wait_for_termination()

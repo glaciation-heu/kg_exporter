@@ -1,11 +1,11 @@
 from typing import Dict, List
 
-from app.clients.influxdb.influxdb_client import InfluxDBClient
+from app.clients.influxdb.metricstore_client import MetricStoreClient
 from app.clients.influxdb.query_result_parser import QueryResultParser
 from app.core.metric_value import MetricValue
 
 
-class MockInfluxDBClient(InfluxDBClient):
+class MockInfluxDBClient(MetricStoreClient):
     results: Dict[str, List[MetricValue]]
 
     def __init__(self):

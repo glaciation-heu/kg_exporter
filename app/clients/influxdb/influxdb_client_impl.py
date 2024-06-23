@@ -3,13 +3,13 @@ from typing import List
 from influxdb_client.client.flux_table import TableList
 from influxdb_client.client.influxdb_client_async import InfluxDBClientAsync
 
-from app.clients.influxdb.influxdb_client import InfluxDBClient
 from app.clients.influxdb.influxdb_settings import InfluxDBSettings
+from app.clients.influxdb.metricstore_client import MetricStoreClient
 from app.clients.influxdb.query_result_parser import QueryResultParser
 from app.core.metric_value import MetricValue
 
 
-class InfluxDBClientImpl(InfluxDBClient):
+class InfluxDBClientImpl(MetricStoreClient):
     settings: InfluxDBSettings
     async_client: InfluxDBClientAsync
 
