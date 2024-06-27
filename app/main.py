@@ -9,8 +9,8 @@ def main() -> None:
     if builder:
         context = builder.build()
 
-        signal.signal(signal.SIGINT, context.exit_gracefully)  # type: ignore
-        signal.signal(signal.SIGTERM, context.exit_gracefully)  # type: ignore
+        signal.signal(signal.SIGINT, context.exit_gracefully)
+        signal.signal(signal.SIGTERM, context.exit_gracefully)
 
         context.start()
         context.wait_for_termination()
