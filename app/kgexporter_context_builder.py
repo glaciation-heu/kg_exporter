@@ -61,7 +61,6 @@ class KGExporterContextBuilder:
         clock = ClockImpl()
         metadata_client = MetadataServiceClientImpl(self.settings.metadata)
         k8s_client = K8SClientImpl(self.settings.k8s)
-        # influxdb_client = InfluxDBClientImpl(self.settings.influxdb)
         prometheus_client = PrometheusClient(self.settings.prometheus_client)
         jsonld_config = self.get_jsonld_config()
 

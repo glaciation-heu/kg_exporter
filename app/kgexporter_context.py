@@ -77,6 +77,6 @@ class KGExporterContext:
         self.runner.run(self.terminated.wait())
         logger.info("Application terminated.")
 
-    def exit_gracefully(self) -> None:
+    def exit_gracefully(self, _1: Any, _2: Any) -> None:
         self.stop()
         self.wait_for_termination()
