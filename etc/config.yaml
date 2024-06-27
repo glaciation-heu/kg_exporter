@@ -1,6 +1,8 @@
 builder:
   builder_tick_seconds: 10
   node_port: 80
+  is_single_slice: True
+  single_slice_url: http://metadata.integration:80
   queries:
     node_queries: []
     pod_queries: []
@@ -15,7 +17,6 @@ k8s:
 metadata:
   metadata_service_push_period_sec: 60
   metadata_service_url: metadata.integration
-  # metadata_service_url: metadata-service
   use_single_url: true
 prometheus:
   endpoint_port: 8080

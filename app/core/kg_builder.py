@@ -11,6 +11,7 @@ from app.core.async_queue import AsyncQueue
 from app.core.kg_repository import KGRepository
 from app.core.kg_slice_assembler import KGSliceAssembler
 from app.core.metric_repository import MetricQuery, MetricRepository
+from app.core.single_slice_strategy import SingleSliceStrategy
 from app.core.slice_for_node_strategy import SliceForNodeStrategy
 from app.core.slice_strategy import SliceStrategy
 from app.core.types import DKGSlice, MetricSnapshot
@@ -26,6 +27,8 @@ class QuerySettings(BaseSettings):
 class KGBuilderSettings(BaseSettings):
     builder_tick_seconds: int
     node_port: int
+    is_single_slice: bool
+    single_slice_url: str
     queries: QuerySettings
 
 
@@ -65,7 +68,11 @@ class KGBuilder:
         self.kg_repository = kg_repository
         self.influxdb_repository = influxdb_repository
         self.settings = settings
-        self.slice_strategy = SliceForNodeStrategy(node_port=settings.node_port)
+        self.slice_strategy = (
+            SingleSliceStrategy(settings.single_slice_url)
+            if settings.is_single_slice
+            else SliceForNodeStrategy(node_port=settings.node_port)
+        )
         self.slice_assembler = KGSliceAssembler()
 
     async def run(self) -> None:

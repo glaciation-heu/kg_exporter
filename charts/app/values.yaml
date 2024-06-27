@@ -28,6 +28,8 @@ settings:
   builder:
     builder_tick_seconds: 60
     node_port: 80
+    single_slice_url: http://metadata-service:80
+    is_single_slice: False
     queries:
       node_queries: []
       pod_queries: []
@@ -44,3 +46,5 @@ settings:
     metadata_service_url: metadata-service
   prometheus:
     endpoint_port: 8080
+  prometheus_client:
+    url: prometheus.integration

@@ -39,7 +39,11 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         self.running_event = asyncio.Event()
         self.runner = asyncio.Runner()
         self.settings = KGBuilderSettings(
-            builder_tick_seconds=1, node_port=80, queries=QuerySettings()
+            builder_tick_seconds=1,
+            node_port=80,
+            queries=QuerySettings(),
+            is_single_slice=False,
+            single_slice_url="test",
         )
 
     def test_build_minimal(self) -> None:

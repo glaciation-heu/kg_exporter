@@ -91,7 +91,11 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
     def test_kg_exporter_settings(self) -> KGExporterSettings:
         settings = KGExporterSettings(
             builder=KGBuilderSettings(
-                builder_tick_seconds=60, node_port=80, queries=QuerySettings()
+                builder_tick_seconds=60,
+                node_port=80,
+                queries=QuerySettings(),
+                is_single_slice=False,
+                single_slice_url="http://metadata-service:80",
             ),
             k8s=K8SSettings(in_cluster=True),
             influxdb=InfluxDBSettings(
