@@ -1,20 +1,20 @@
 from unittest import TestCase
 
-from app.core.builder.slice_strategy.slice_for_node_strategy import SliceForNodeStrategy
+from app.core.builder.slice_strategy.slice_per_node import SlicePerNode
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
 
 
-class SliceForNodeStrategyTest(TestCase, SnapshotTestBase):
+class SlicePerNodeTest(TestCase, SnapshotTestBase):
     def test_split_empty(self) -> None:
-        strategy = SliceForNodeStrategy(node_port=80)
+        strategy = SlicePerNode(node_port=80)
         resources = self.load_k8s_snapshot("empty")
         metrics = self.load_metric_snapshot("empty")
         actual = strategy.get_slices(resources, metrics)
         self.assertEqual({}, actual)
 
     def test_split_minimal(self) -> None:
-        strategy = SliceForNodeStrategy(node_port=80)
+        strategy = SlicePerNode(node_port=80)
         resources = self.load_k8s_snapshot("minimal")
         metrics = self.load_metric_snapshot("minimal")
         actual = strategy.get_slices(resources, metrics)
@@ -50,7 +50,7 @@ class SliceForNodeStrategyTest(TestCase, SnapshotTestBase):
         )
 
     def test_split_multinode(self) -> None:
-        strategy = SliceForNodeStrategy(node_port=80)
+        strategy = SlicePerNode(node_port=80)
         resources = self.load_k8s_snapshot("multinode")
         metrics = self.load_metric_snapshot("multinode")
         actual = strategy.get_slices(resources, metrics)

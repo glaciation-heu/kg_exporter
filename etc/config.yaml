@@ -6,7 +6,6 @@ builder:
   queries:
     node_queries: []
     pod_queries: []
-    workload_queries: []
 influxdb:
   org: org
   timeout: 60000

@@ -7,7 +7,7 @@ from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
 from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
 
 
-class SingleSliceStrategy(SliceStrategy):
+class SlicePerCluster(SliceStrategy):
     metadata_host: str
     metadata_port: int
 

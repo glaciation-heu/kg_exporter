@@ -10,8 +10,7 @@ from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
 ReferenceKind: TypeAlias = str
 
 
-# TODO rename
-class SliceForNodeStrategy(SliceStrategy):
+class SlicePerNode(SliceStrategy):
     node_port: int
 
     def __init__(self, node_port: int):

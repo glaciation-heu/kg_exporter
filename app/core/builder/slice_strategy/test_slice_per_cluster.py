@@ -1,13 +1,13 @@
 from unittest import TestCase
 
-from app.core.builder.slice_strategy.single_slice_strategy import SingleSliceStrategy
+from app.core.builder.slice_strategy.slice_per_cluster import SlicePerCluster
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
 
 
-class SingleSliceStrategyTest(TestCase, SnapshotTestBase):
+class SlicePerClusterTest(TestCase, SnapshotTestBase):
     def test_split_empty(self) -> None:
-        strategy = SingleSliceStrategy(metadata_url="http://metadata-service:80")
+        strategy = SlicePerCluster(metadata_url="http://metadata-service:80")
         resources = self.load_k8s_snapshot("empty")
         metrics = self.load_metric_snapshot("empty")
         actual = strategy.get_slices(resources, metrics)
@@ -22,7 +22,7 @@ class SingleSliceStrategyTest(TestCase, SnapshotTestBase):
         self.assertEqual(actual_metric_names, set())
 
     def test_split_minimal(self) -> None:
-        strategy = SingleSliceStrategy(metadata_url="http://metadata-service:80")
+        strategy = SlicePerCluster(metadata_url="http://metadata-service:80")
         resources = self.load_k8s_snapshot("minimal")
         metrics = self.load_metric_snapshot("minimal")
         actual = strategy.get_slices(resources, metrics)
@@ -58,7 +58,7 @@ class SingleSliceStrategyTest(TestCase, SnapshotTestBase):
         )
 
     def test_split_multinode(self) -> None:
-        strategy = SingleSliceStrategy(metadata_url="http://metadata-service:80")
+        strategy = SlicePerCluster(metadata_url="http://metadata-service:80")
         resources = self.load_k8s_snapshot("multinode")
         metrics = self.load_metric_snapshot("multinode")
         actual = strategy.get_slices(resources, metrics)

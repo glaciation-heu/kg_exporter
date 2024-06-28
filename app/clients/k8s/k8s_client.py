@@ -3,8 +3,6 @@ from typing import Any, Dict, List, Optional, Set
 import asyncio
 from dataclasses import dataclass, field
 
-from jsonpath_ng.ext import parse
-
 
 @dataclass
 class ResourceSnapshot:
@@ -54,11 +52,8 @@ class ResourceSnapshot:
         else:
             return []
 
-    # TODO remove
     def get_resource_name(self, node: Dict[str, Any]) -> str:
-        for match in parse("$.metadata.name").find(node):
-            return str(match.value)
-        raise Exception("Metadata does not contain name.")
+        return node["metadata"]["name"]  # type: ignore
 
     def get_resources_by_kind(self, kind: str) -> Optional[List[Dict[str, Any]]]:
         if kind == "Pod":

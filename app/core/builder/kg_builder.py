@@ -9,8 +9,8 @@ from pydantic_settings import BaseSettings
 from app.clients.k8s.k8s_client import K8SClient
 from app.core.async_queue import AsyncQueue
 from app.core.builder.kg_slice_assembler import KGSliceAssembler
-from app.core.builder.slice_strategy.single_slice_strategy import SingleSliceStrategy
-from app.core.builder.slice_strategy.slice_for_node_strategy import SliceForNodeStrategy
+from app.core.builder.slice_strategy.slice_per_cluster import SlicePerCluster
+from app.core.builder.slice_strategy.slice_per_node import SlicePerNode
 from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
 from app.core.repository.metric_repository import MetricRepository
 from app.core.repository.types import MetricQuery
@@ -69,9 +69,9 @@ class KGBuilder:
         self.influxdb_repository = influxdb_repository
         self.settings = settings
         self.slice_strategy = (
-            SingleSliceStrategy(settings.single_slice_url)
+            SlicePerCluster(settings.single_slice_url)
             if settings.is_single_slice
-            else SliceForNodeStrategy(node_port=settings.node_port)
+            else SlicePerNode(node_port=settings.node_port)
         )
         self.slice_assembler = KGSliceAssembler()
 
