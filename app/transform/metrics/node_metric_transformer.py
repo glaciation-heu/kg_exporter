@@ -7,25 +7,25 @@ from app.k8s_transform.transformer_base import TransformerBase
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
-from app.metric_transform.metric_transformer import MetricToGraphTransformerBase
+from app.transform.metrics.metric_transformer import MetricToGraphTransformerBase
 
 
-class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBase):
+class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBase):
     def __init__(self, metrics: List[Tuple[MetricQuery, MetricValue]], sink: Graph):
         MetricToGraphTransformerBase.__init__(self, metrics, sink)
         UpperOntologyBase.__init__(self, sink)
 
     def transform(self, context: TransformationContext) -> None:
         for query, result in self.metrics:
-            pod_id = self.get_pod_id(result.resource_id)
+            node_id = self.get_node_id(result.resource_id)
             parent_resource_id = (
-                pod_id.dot(query.subresource) if query.subresource else pod_id
+                node_id.dot(query.subresource) if query.subresource else node_id
             )
             measurement_id = parent_resource_id.dot(query.measurement_id)
             property_id = IRI(self.GLACIATION_PREFIX, query.property)
             unit_id = IRI(self.GLACIATION_PREFIX, query.unit)
             source_id = IRI(self.GLACIATION_PREFIX, query.source)
-            self.add_work_producing_resource(pod_id, None)
+            self.add_work_producing_resource(parent_resource_id, None)
             self.add_measurement(
                 measurement_id,
                 query.measurement_id,
@@ -35,8 +35,10 @@ class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBas
                 property_id,
                 source_id,
             )
-            self.sink.add_relation(pod_id, self.HAS_MEASUREMENT, measurement_id)
+            self.sink.add_relation(
+                parent_resource_id, self.HAS_MEASUREMENT, measurement_id
+            )
 
-    def get_pod_id(self, name: str) -> IRI:
+    def get_node_id(self, name: str) -> IRI:
         resource_id = IRI(TransformerBase.CLUSTER_PREFIX, name)
         return resource_id

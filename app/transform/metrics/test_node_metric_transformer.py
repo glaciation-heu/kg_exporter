@@ -5,18 +5,18 @@ from app.core.metric_repository import MetricQuery, ResultParserId
 from app.core.metric_value import MetricValue
 from app.k8s_transform.transformation_context import TransformationContext
 from app.kg.inmemory_graph import InMemoryGraph
-from app.metric_transform.pod_metric_transformer import PodMetricToGraphTransformer
-from app.metric_transform.test_base import MetricTransformTestBase
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
+from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
+from app.transform.metrics.test_base import MetricTransformTestBase
 
 
-class PodMetricToGraphTransformerTest(MetricTransformTestBase):
+class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
     test_metrics = [
         (
             MetricQuery(
-                measurement_id="CPU.Usage",
-                subresource=None,
+                measurement_id="Usage",
+                subresource="CPU",
                 source="cAdvisor",
                 unit="coreseconds",
                 property="CPU.Usage",
@@ -25,7 +25,7 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
             ),
             MetricValue(
                 metric_id="my_metric",
-                resource_id="pod1",
+                resource_id="worker1",
                 timestamp=17100500,
                 value=42.0,
             ),
@@ -42,7 +42,7 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
             ),
             MetricValue(
                 metric_id="my_metric",
-                resource_id="pod1",
+                resource_id="worker1",
                 timestamp=17100500,
                 value=42.0,
             ),
@@ -53,22 +53,22 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
         self.maxDiff = None
 
     def test_transform_turtle(self) -> None:
-        node_turtle = self.load_turtle("pod1")
+        node_turtle = self.load_turtle("node")
 
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        PodMetricToGraphTransformer(self.test_metrics, graph).transform(context)
+        NodeMetricToGraphTransformer(self.test_metrics, graph).transform(context)
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
 
     def test_transform_jsonld(self) -> None:
-        node_jsonld = self.load_jsonld("pod1")
+        node_jsonld = self.load_jsonld("node")
 
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        transformer = PodMetricToGraphTransformer(self.test_metrics, graph)
+        transformer = NodeMetricToGraphTransformer(self.test_metrics, graph)
         transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

@@ -12,8 +12,8 @@ from app.k8s_transform.transformer_base import TransformerBase
 from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
-from app.metric_transform.node_metric_transformer import NodeMetricToGraphTransformer
-from app.metric_transform.pod_metric_transformer import PodMetricToGraphTransformer
+from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
+from app.transform.metrics.pod_metric_transformer import PodMetricToGraphTransformer
 
 
 class KGSliceAssembler:
