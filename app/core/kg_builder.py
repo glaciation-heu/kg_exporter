@@ -21,7 +21,6 @@ from app.util.clock import Clock
 class QuerySettings(BaseSettings):
     pod_queries: List[MetricQuery] = []
     node_queries: List[MetricQuery] = []
-    workload_queries: List[MetricQuery] = []
 
 
 class KGBuilderSettings(BaseSettings):
