@@ -24,6 +24,10 @@ securityContext: {}
 
 resources: {}
 
+service:
+  type: ClusterIP
+  port: 8080
+
 settings:
   builder:
     builder_tick_seconds: 60
