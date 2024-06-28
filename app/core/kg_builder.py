@@ -104,21 +104,16 @@ class KGBuilder:
             cluster_snapshot,
             pod_metrics,
             node_metrics,
-            workload_metrics,
         ) = await asyncio.gather(
             self.k8s_client.fetch_snapshot(),
             self.influxdb_repository.query_many(now, self.settings.queries.pod_queries),
             self.influxdb_repository.query_many(
                 now, self.settings.queries.node_queries
             ),
-            self.influxdb_repository.query_many(
-                now, self.settings.queries.workload_queries
-            ),
         )
         metric_snapshot = MetricSnapshot(
             list(zip(self.settings.queries.pod_queries, pod_metrics)),
             list(zip(self.settings.queries.node_queries, node_metrics)),
-            list(zip(self.settings.queries.workload_queries, workload_metrics)),
         )
         logger.debug("Cluster snapshot: {size}", size=len(cluster_snapshot.cluster))
         logger.debug("Nodes: {size}", size=len(cluster_snapshot.nodes))

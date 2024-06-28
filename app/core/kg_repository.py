@@ -7,7 +7,6 @@ from app.core.kg_result_parser import KGResultParser
 from app.core.types import KGSliceId
 from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
-from app.kg.iri import IRI
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 
@@ -42,11 +41,10 @@ class KGRepository:
         return JsonLDConfiguration(
             {JsonLDConfiguration.DEFAULT_CONTEXT_IRI: context},
             {
-                # TODO use IRIs from UpperOntologyBase
-                IRI(UpperOntologyBase.GLACIATION_PREFIX, "WorkProducingResource"),
-                IRI(UpperOntologyBase.GLACIATION_PREFIX, "Aspect"),
-                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementProperty"),
-                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasuringResource"),
-                IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementUnit"),
+                UpperOntologyBase.WORK_PRODUCING_RESOURCE,
+                UpperOntologyBase.ASPECT,
+                UpperOntologyBase.MEASUREMENT_PROPERTY,
+                UpperOntologyBase.MEASURING_RESOURCE,
+                UpperOntologyBase.MEASUREMENT_UNIT,
             },
         )

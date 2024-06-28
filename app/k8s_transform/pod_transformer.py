@@ -45,7 +45,6 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         start_time = self.get_opt_str_value(["status", "startTime"])
         status = self.get_opt_str_value(["status", "phase"])
         if status:
-            # TODO if start_time is None
             self.add_status(status_id, status, start_time or "", None)
 
     def add_containers_resources(self, pod_id: IRI, scheduler_name: str) -> None:

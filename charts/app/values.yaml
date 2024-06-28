@@ -46,7 +46,6 @@ settings:
   k8s:
     in_cluster: true
   metadata:
-    metadata_service_push_period_sec: 60
     metadata_service_url: metadata-service
   prometheus:
     endpoint_port: 8080

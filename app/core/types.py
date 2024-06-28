@@ -31,26 +31,10 @@ class DKGSlice:
     timestamp: int
 
 
-# TODO remove
-@dataclass
-class Metric:
-    identifier: str
-    kind: str
-    measurement_name: str
-    metric_name: str
-    value: float
-    timestamp: int
-    source: str
-
-
 @dataclass
 class MetricSnapshot:
     pod_metrics: List[Tuple[MetricQuery, MetricValue]] = field(default_factory=list)
     node_metrics: List[Tuple[MetricQuery, MetricValue]] = field(default_factory=list)
-    # TODO remove workload_metrics
-    workload_metrics: List[Tuple[MetricQuery, MetricValue]] = field(
-        default_factory=list
-    )
 
     def get_metric_names(self) -> Set[str]:
         names: Set[str] = set()

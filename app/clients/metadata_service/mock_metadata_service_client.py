@@ -74,22 +74,7 @@ class MockMetadataServiceClient(MetadataServiceClient):
             self.hosts[host_and_port] = HostInteractions()
         self.hosts[host_and_port].add_insert(message)
 
-    # TODO remove
     def wait_for_inserts(
-        self, seconds: int, count: int
-    ) -> List[Tuple[HostId, SerializedGraph]]:
-        start = datetime.datetime.now()
-        result = []
-        while start + datetime.timedelta(seconds=seconds) > datetime.datetime.now():
-            graphs = self.take_all_inserts()
-            print(len(graphs))
-            result.extend(graphs)
-            if len(graphs) == count:
-                return graphs
-            asyncio.run(asyncio.sleep(0.5))
-        raise AssertionError("time is up.")
-
-    def wait_for_inserts2(
         self, runner: asyncio.Runner, seconds: int, count: int
     ) -> List[Tuple[HostId, SerializedGraph]]:
         start = datetime.datetime.now()

@@ -33,7 +33,7 @@ class MetadataServiceClientImpl(MetadataServiceClient):
                     headers=[("Content-Type", "application/json")],
                 )
                 response.raise_for_status()
-                # TODO parse response
+                # TODO parse response when it is clear what Metadata Service query API is
                 return []
             except HTTPError as e:
                 raise ClientError(e.args[0]) from e

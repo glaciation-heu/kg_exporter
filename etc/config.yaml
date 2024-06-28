@@ -15,7 +15,6 @@ influxdb:
 k8s:
   in_cluster: false
 metadata:
-  metadata_service_push_period_sec: 60
   metadata_service_url: metadata.integration
   use_single_url: true
 prometheus:
