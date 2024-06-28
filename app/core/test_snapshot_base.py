@@ -14,11 +14,11 @@ from app.core.kg_builder import QuerySettings
 from app.core.metric_repository import MetricQuery, ResultParserId
 from app.core.metric_value import MetricValue
 from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
-from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.id_base import IdBase
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer
+from app.transform.k8s.upper_ontology_base import UpperOntologyBase
 
 
 class SnapshotTestBase:

@@ -3,12 +3,12 @@ from typing import Any, Dict, Tuple
 import json
 from io import FileIO
 
-from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.id_base import IdBase
 from app.kg.inmemory_graph import InMemoryGraph
 from app.kg.iri import IRI
 from app.serialize.jsonld_configuration import JsonLDConfiguration
+from app.transform.k8s.upper_ontology_base import UpperOntologyBase
 
 
 class TestTransformer(UpperOntologyBase):

@@ -2,12 +2,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import re
 
-from app.k8s_transform.transformation_context import TransformationContext
-from app.k8s_transform.transformer_base import TransformerBase
-from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
+from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.k8s.transformer_base import TransformerBase
+from app.transform.k8s.upper_ontology_base import UpperOntologyBase
 
 
 class PodToRDFTransformer(TransformerBase, UpperOntologyBase):

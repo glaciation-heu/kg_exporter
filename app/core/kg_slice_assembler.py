@@ -4,14 +4,14 @@ from urllib.parse import urlparse
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.core.types import DKGSlice, KGSliceId, MetricSnapshot, SliceInputs
-from app.k8s_transform.cluster_transformer import ClusterToRDFTransformer
-from app.k8s_transform.node_transformer import NodesToRDFTransformer
-from app.k8s_transform.pod_transformer import PodToRDFTransformer
-from app.k8s_transform.transformation_context import TransformationContext
-from app.k8s_transform.transformer_base import TransformerBase
-from app.k8s_transform.workload_transformer import WorkloadToRDFTransformer
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
+from app.transform.k8s.cluster_transformer import ClusterToRDFTransformer
+from app.transform.k8s.node_transformer import NodesToRDFTransformer
+from app.transform.k8s.pod_transformer import PodToRDFTransformer
+from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.k8s.transformer_base import TransformerBase
+from app.transform.k8s.workload_transformer import WorkloadToRDFTransformer
 from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
 from app.transform.metrics.pod_metric_transformer import PodMetricToGraphTransformer
 

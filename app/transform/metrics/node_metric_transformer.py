@@ -2,11 +2,11 @@ from typing import List, Tuple
 
 from app.core.metric_repository import MetricQuery
 from app.core.metric_value import MetricValue
-from app.k8s_transform.transformation_context import TransformationContext
-from app.k8s_transform.transformer_base import TransformerBase
-from app.k8s_transform.upper_ontology_base import UpperOntologyBase
 from app.kg.graph import Graph
 from app.kg.iri import IRI
+from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.k8s.transformer_base import TransformerBase
+from app.transform.k8s.upper_ontology_base import UpperOntologyBase
 from app.transform.metrics.metric_transformer import MetricToGraphTransformerBase
 
 

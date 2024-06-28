@@ -3,10 +3,10 @@ from io import StringIO
 
 from app.core.metric_repository import MetricQuery, ResultParserId
 from app.core.metric_value import MetricValue
-from app.k8s_transform.transformation_context import TransformationContext
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
+from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.metrics.pod_metric_transformer import PodMetricToGraphTransformer
 from app.transform.metrics.test_base import MetricTransformTestBase
 
