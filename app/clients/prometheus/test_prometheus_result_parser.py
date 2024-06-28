@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 from unittest import TestCase
 
 from app.clients.prometheus.prometheus_result_parser import PrometheusResultParser
-from app.core.metric_value import MetricValue
+from app.core.types import MetricValue
 
 
 class PrometheusResultParserTest(TestCase):

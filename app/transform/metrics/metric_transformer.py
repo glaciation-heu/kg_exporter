@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-from app.core.metric_repository import MetricQuery
-from app.core.metric_value import MetricValue
+from app.core.repository.types import MetricQuery
+from app.core.types import MetricValue
 from app.kg.graph import Graph
 from app.transform.k8s.transformation_context import TransformationContext
 

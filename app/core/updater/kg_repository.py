@@ -3,8 +3,8 @@ from typing import Any, Dict
 from io import StringIO
 
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
-from app.core.kg_result_parser import KGResultParser
 from app.core.types import KGSliceId
+from app.core.updater.kg_result_parser import KGResultParser
 from app.kg.graph import Graph
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer

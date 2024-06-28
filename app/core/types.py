@@ -1,12 +1,22 @@
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple, TypeAlias
 
 import urllib.parse
 from dataclasses import dataclass, field
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
-from app.core.metric_repository import MetricQuery
-from app.core.metric_value import MetricValue
+from app.core.repository.types import MetricQuery
 from app.kg.graph import Graph
+
+MetricId: TypeAlias = str
+ResourceId: TypeAlias = str
+
+
+@dataclass
+class MetricValue:
+    metric_id: MetricId
+    resource_id: ResourceId
+    timestamp: int
+    value: float
 
 
 @dataclass(frozen=True)

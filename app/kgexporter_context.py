@@ -6,15 +6,15 @@ from wsgiref.simple_server import WSGIServer
 from loguru import logger
 from prometheus_client import start_http_server
 
-from app.clients.influxdb.metricstore_client import MetricStoreClient
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
 from app.core.async_queue import AsyncQueue
 from app.core.builder.kg_builder import KGBuilder
-from app.core.kg_repository import KGRepository
-from app.core.kg_updater import KGUpdater
-from app.core.metric_repository import MetricRepository
+from app.core.repository.metric_repository import MetricRepository
+from app.core.repository.metricstore_client import MetricStoreClient
 from app.core.types import DKGSlice
+from app.core.updater.kg_repository import KGRepository
+from app.core.updater.kg_updater import KGUpdater
 from app.kgexporter_settings import KGExporterSettings
 from app.util.clock import Clock
 

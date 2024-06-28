@@ -1,8 +1,8 @@
 from typing import Dict, List
 
-from app.clients.influxdb.metricstore_client import MetricStoreClient
-from app.clients.influxdb.query_result_parser import QueryResultParser
-from app.core.metric_value import MetricValue
+from app.core.repository.metricstore_client import MetricStoreClient
+from app.core.repository.query_result_parser import QueryResultParser
+from app.core.types import MetricValue
 
 
 class MockPrometheusClient(MetricStoreClient):

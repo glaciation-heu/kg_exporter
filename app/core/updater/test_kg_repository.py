@@ -4,10 +4,10 @@ from unittest import TestCase
 from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
 )
-from app.core.kg_repository import KGRepository
-from app.core.kg_tuple_parser import KGTupleParser
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.types import KGSliceId
+from app.core.updater.kg_repository import KGRepository
+from app.core.updater.kg_tuple_parser import KGTupleParser
 from app.kg.inmemory_graph import InMemoryGraph
 
 

@@ -2,7 +2,7 @@ from typing import Any, Dict, List
 
 from datetime import datetime
 
-from app.core.metric_value import MetricValue
+from app.core.types import MetricValue
 
 
 class QueryResultParser:

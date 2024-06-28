@@ -1,8 +1,8 @@
 import json
 from io import StringIO
 
-from app.core.metric_repository import MetricQuery, ResultParserId
-from app.core.metric_value import MetricValue
+from app.core.repository.types import MetricQuery, ResultParserId
+from app.core.types import MetricValue
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer

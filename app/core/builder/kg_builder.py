@@ -12,9 +12,10 @@ from app.core.builder.kg_slice_assembler import KGSliceAssembler
 from app.core.builder.slice_strategy.single_slice_strategy import SingleSliceStrategy
 from app.core.builder.slice_strategy.slice_for_node_strategy import SliceForNodeStrategy
 from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
-from app.core.kg_repository import KGRepository
-from app.core.metric_repository import MetricQuery, MetricRepository
+from app.core.repository.metric_repository import MetricRepository
+from app.core.repository.types import MetricQuery
 from app.core.types import DKGSlice, MetricSnapshot
+from app.core.updater.kg_repository import KGRepository
 from app.util.clock import Clock
 
 

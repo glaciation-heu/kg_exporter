@@ -2,10 +2,10 @@ from typing import List
 
 from aioprometheus_api_client import PrometheusConnect
 
-from app.clients.influxdb.metricstore_client import MetricStoreClient
-from app.clients.influxdb.query_result_parser import QueryResultParser
 from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
-from app.core.metric_value import MetricValue
+from app.core.repository.metricstore_client import MetricStoreClient
+from app.core.repository.query_result_parser import QueryResultParser
+from app.core.types import MetricValue
 
 
 class PrometheusClient(MetricStoreClient):

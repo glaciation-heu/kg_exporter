@@ -1,7 +1,7 @@
 from typing import List
 
-from app.clients.influxdb.query_result_parser import QueryResultParser
-from app.core.metric_value import MetricValue
+from app.core.repository.query_result_parser import QueryResultParser
+from app.core.types import MetricValue
 
 
 class MetricStoreClient:

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from app.core.kg_tuple_parser import KGTupleParser
+from app.core.updater.kg_tuple_parser import KGTupleParser
 from app.kg.inmemory_graph import InMemoryGraph
 
 

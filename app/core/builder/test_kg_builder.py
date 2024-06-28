@@ -9,11 +9,11 @@ from app.clients.metadata_service.mock_metadata_service_client import (
 )
 from app.core.async_queue import AsyncQueue
 from app.core.builder.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
-from app.core.kg_repository import KGRepository
-from app.core.metric_repository import MetricRepository
+from app.core.repository.metric_repository import MetricRepository
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import DKGSlice, KGSliceId
+from app.core.updater.kg_repository import KGRepository
 from app.kg.inmemory_graph import InMemoryGraph
 from app.util.clock import Clock
 from app.util.mock_clock import MockClock

@@ -2,8 +2,9 @@ import asyncio
 from unittest import TestCase
 
 from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
-from app.core.metric_repository import MetricQuery, MetricRepository, ResultParserId
-from app.core.metric_value import MetricValue
+from app.core.repository.metric_repository import MetricRepository
+from app.core.repository.types import MetricQuery, ResultParserId
+from app.core.types import MetricValue
 
 
 class MetricRepositoryTest(TestCase):

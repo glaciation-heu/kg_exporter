@@ -11,9 +11,8 @@ from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
 from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.clients.k8s.mock_k8s_client import MockK8SClient
 from app.core.builder.kg_builder import QuerySettings
-from app.core.metric_repository import MetricQuery, ResultParserId
-from app.core.metric_value import MetricValue
-from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
+from app.core.repository.types import MetricQuery, ResultParserId
+from app.core.types import KGSliceId, MetricSnapshot, MetricValue, SliceInputs
 from app.kg.graph import Graph
 from app.kg.id_base import IdBase
 from app.serialize.jsonld_configuration import JsonLDConfiguration

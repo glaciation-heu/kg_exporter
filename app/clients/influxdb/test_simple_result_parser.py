@@ -4,7 +4,7 @@ from unittest import TestCase
 from dateutil.tz import tzutc
 
 from app.clients.influxdb.simple_result_parser import SimpleResultParser
-from app.core.metric_value import MetricValue
+from app.core.types import MetricValue
 
 
 class SimpleResultParserTest(TestCase):

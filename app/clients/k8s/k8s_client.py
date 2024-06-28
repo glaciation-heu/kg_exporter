@@ -54,6 +54,7 @@ class ResourceSnapshot:
         else:
             return []
 
+    # TODO remove
     def get_resource_name(self, node: Dict[str, Any]) -> str:
         for match in parse("$.metadata.name").find(node):
             return str(match.value)
