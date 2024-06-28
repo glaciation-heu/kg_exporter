@@ -7,7 +7,7 @@ from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
 from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
-from app.core.kg_builder import KGBuilderSettings, QuerySettings
+from app.core.builder.kg_builder import KGBuilderSettings, QuerySettings
 from app.kgexporter_settings import KGExporterSettings, PrometheusSettings
 from app.pydantic_yaml import from_yaml, to_yaml
 

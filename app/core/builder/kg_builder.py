@@ -8,12 +8,12 @@ from pydantic_settings import BaseSettings
 
 from app.clients.k8s.k8s_client import K8SClient
 from app.core.async_queue import AsyncQueue
+from app.core.builder.kg_slice_assembler import KGSliceAssembler
+from app.core.builder.slice_strategy.single_slice_strategy import SingleSliceStrategy
+from app.core.builder.slice_strategy.slice_for_node_strategy import SliceForNodeStrategy
+from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
 from app.core.kg_repository import KGRepository
-from app.core.kg_slice_assembler import KGSliceAssembler
 from app.core.metric_repository import MetricQuery, MetricRepository
-from app.core.single_slice_strategy import SingleSliceStrategy
-from app.core.slice_for_node_strategy import SliceForNodeStrategy
-from app.core.slice_strategy import SliceStrategy
 from app.core.types import DKGSlice, MetricSnapshot
 from app.util.clock import Clock
 

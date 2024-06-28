@@ -14,7 +14,7 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     SerializedGraph,
 )
 from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
-from app.core.kg_builder import KGBuilderSettings, QuerySettings
+from app.core.builder.kg_builder import KGBuilderSettings, QuerySettings
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
 from app.kgexporter_context import KGExporterContext

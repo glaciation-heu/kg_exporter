@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from app.core.slice_for_node_strategy import SliceForNodeStrategy
+from app.core.builder.slice_strategy.slice_for_node_strategy import SliceForNodeStrategy
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
 

@@ -8,7 +8,7 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
 )
 from app.core.async_queue import AsyncQueue
-from app.core.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
+from app.core.builder.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
 from app.core.kg_repository import KGRepository
 from app.core.metric_repository import MetricRepository
 from app.core.test_graph_fixture import TestGraphFixture

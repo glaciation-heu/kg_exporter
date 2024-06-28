@@ -6,7 +6,7 @@ from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
 from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
-from app.core.kg_builder import KGBuilderSettings
+from app.core.builder.kg_builder import KGBuilderSettings
 
 
 class PrometheusSettings(BaseSettings):

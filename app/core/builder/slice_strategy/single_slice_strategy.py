@@ -3,7 +3,7 @@ from typing import Dict
 from urllib.parse import urlparse
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
-from app.core.slice_strategy import SliceStrategy
+from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
 from app.core.types import KGSliceId, MetricSnapshot, SliceInputs
 
 

@@ -10,7 +10,7 @@ from app.clients.influxdb.metricstore_client import MetricStoreClient
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
 from app.core.async_queue import AsyncQueue
-from app.core.kg_builder import KGBuilder
+from app.core.builder.kg_builder import KGBuilder
 from app.core.kg_repository import KGRepository
 from app.core.kg_updater import KGUpdater
 from app.core.metric_repository import MetricRepository

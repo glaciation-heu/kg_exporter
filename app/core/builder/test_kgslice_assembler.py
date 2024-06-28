@@ -2,7 +2,7 @@ from typing import List, Set
 
 from unittest import TestCase
 
-from app.core.kg_slice_assembler import KGSliceAssembler
+from app.core.builder.kg_slice_assembler import KGSliceAssembler
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
 from app.kg.iri import IRI
