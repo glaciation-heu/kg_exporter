@@ -38,7 +38,11 @@ class SliceForNodeStrategy(SliceStrategy):
         node_hostname = self.get_resource_name(node)
         slice_id = KGSliceId(node_hostname, self.node_port)
 
-        slice_resources = ResourceSnapshot(cluster=src_resources.cluster, nodes=[node])
+        slice_resources = ResourceSnapshot(
+            cluster=src_resources.cluster,
+            versions_info=src_resources.versions_info,
+            nodes=[node],
+        )
         slice_metrics = MetricSnapshot()
         self.add_workloads(node_hostname, index, slice_resources, src_resources)
         self.add_metrics(slice_resources, slice_metrics, src_metrics)

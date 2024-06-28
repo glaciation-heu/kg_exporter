@@ -1,4 +1,4 @@
-from typing import List, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple
 
 import urllib.parse
 from dataclasses import dataclass, field
@@ -27,6 +27,7 @@ class KGSliceId:
 class DKGSlice:
     slice_id: KGSliceId
     graph: Graph
+    context: Dict[str, Any]
     timestamp: int
 
 

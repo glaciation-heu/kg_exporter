@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Type
 
+from urllib.parse import urlparse
+
 from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.core.types import DKGSlice, KGSliceId, MetricSnapshot, SliceInputs
 from app.k8s_transform.cluster_transformer import ClusterToRDFTransformer
@@ -25,8 +27,9 @@ class KGSliceAssembler:
 
         self.transform_resources(now, inputs.resource, sink)
         self.transform_metrics(now, inputs.metrics, sink)
+        context = self.get_context(inputs.resource.versions_info)
 
-        slice = DKGSlice(slice_id, sink, now)
+        slice = DKGSlice(slice_id, sink, context, now)
         return slice
 
     def transform_resources(
@@ -82,3 +85,29 @@ class KGSliceAssembler:
         node_transformer.transform(context)
         pod_transformer = PodMetricToGraphTransformer(snapshot.pod_metrics, sink)
         pod_transformer.transform(context)
+
+    def get_context(self, versions_info: Dict[str, Any]) -> Dict[str, Any]:
+        server_address_by_client_cid_rs_list = (
+            versions_info.get("server_address_by_client_cid_rs") or []
+        )
+        server_address_url = "https://kubernetes.local/"
+        for server_address_by_client_cid_rs in server_address_by_client_cid_rs_list:
+            server_address = server_address_by_client_cid_rs.get("server_address")
+            if server_address:
+                server_address_url = server_address
+                break
+
+        context = {
+            "k8s": "http://glaciation-project.eu/model/k8s/",
+            "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+            "cluster": self.unify_url(server_address_url),
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        }
+        return context
+
+    def unify_url(self, server_address_url: str) -> str:
+        parse_result = urlparse(server_address_url)
+        if not parse_result.scheme:
+            return f"https://{server_address_url}/"
+        else:
+            return server_address_url

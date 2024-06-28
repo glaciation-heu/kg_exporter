@@ -14,18 +14,18 @@ from app.kg.inmemory_graph import InMemoryGraph
 class KGRepositoryTest(TestCase, TestGraphFixture):
     def test_update(self) -> None:
         client = MockMetadataServiceClient()
-        repository = KGRepository(client, self.get_jsonld_config())
+        repository = KGRepository(client)
         slice_id = KGSliceId("127.0.0.1", 80)
 
         graph, expected = self.simple_node()
-        asyncio.run(repository.update(slice_id, graph))
+        asyncio.run(repository.update(slice_id, graph, self.get_test_context()))
 
         graphs = client.take_inserts(slice_id.get_host_port())
         self.assertEqual(expected, graphs[0])
 
     def test_query(self) -> None:
         client = MockMetadataServiceClient()
-        repository = KGRepository(client, self.get_jsonld_config())
+        repository = KGRepository(client)
         slice_id = KGSliceId("127.0.0.1", 80)
         query_str = "sparql query"
         result_parser = KGTupleParser()

@@ -62,7 +62,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         self.assert_graph(slice.graph, "minimal", slice.slice_id)
 
     def create_builder(self) -> KGBuilder:
-        repository = KGRepository(self.client, self.get_jsonld_config())
+        repository = KGRepository(self.client)
         influxdb_repository = MetricRepository(self.influxdb_client)
         return KGBuilder(
             self.running_event,

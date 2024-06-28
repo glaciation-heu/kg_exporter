@@ -85,7 +85,7 @@ class KGBuilder:
                 await self.run_cycle(now_seconds)
                 self.successes_metric.inc()
             except Exception as e:
-                logger.error(f"Builder error: {e}")
+                logger.error(f"Builder error: {type(e)}, {e}")
                 self.errors_metric.inc()
 
             sleep_seconds = (

@@ -31,7 +31,7 @@ class KGUpdaterTest(TestCase, TestGraphFixture):
 
         graph, serialized = self.simple_node()
         slice_id = KGSliceId("127.0.0.1", 80)
-        slice = DKGSlice(slice_id, graph, 1)
+        slice = DKGSlice(slice_id, graph, self.get_test_context(), 1)
         self.queue.put_nowait(slice)
 
         graph_str = self.wait_for_graph(slice_id, 5)
@@ -49,7 +49,7 @@ class KGUpdaterTest(TestCase, TestGraphFixture):
         raise AssertionError("time is up.")
 
     def create_updater(self) -> KGUpdater:
-        repository = KGRepository(self.client, self.get_jsonld_config())
+        repository = KGRepository(self.client)
         return KGUpdater(self.running_event, self.queue, repository)
 
     async def run_updater(self, updater: KGUpdater) -> None:

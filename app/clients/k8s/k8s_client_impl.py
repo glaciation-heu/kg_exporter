@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 
-from kubernetes import config, dynamic
+from kubernetes import client, config, dynamic
 from kubernetes.client import api_client
 
 from app.clients.k8s.k8s_client import K8SClient
@@ -46,6 +46,13 @@ class K8SClientImpl(K8SClient):
         results = configmap_api.get(namespace="kube-system", name="kubeadm-config")
         if results:
             return results.to_dict()  # type: ignore
+        else:
+            return {}
+
+    async def get_api_versions(self) -> Dict[str, Any]:
+        versions = client.CoreApi().get_api_versions()
+        if versions:
+            return versions.to_dict()  # type: ignore
         else:
             return {}
 

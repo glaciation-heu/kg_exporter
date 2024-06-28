@@ -12,6 +12,8 @@ class SingleSliceStrategy(SliceStrategy):
     metadata_port: int
 
     def __init__(self, metadata_url: str):
+        # TODO parse
+        # result = urllib.parse.urlsplit(f"//{host_and_port}")
         parse_result = urlparse(metadata_url)
         self.metadata_host = parse_result.hostname or "unknown"
         self.metadata_port = parse_result.port or 80

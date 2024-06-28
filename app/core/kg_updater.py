@@ -60,7 +60,9 @@ class KGUpdater:
                     slice=slice.slice_id,
                     timestamp=slice.timestamp,
                 )
-                await self.kg_repository.update(slice.slice_id, slice.graph)
+                await self.kg_repository.update(
+                    slice.slice_id, slice.graph, slice.context
+                )
                 self.updates_metric.inc()
         else:
             await asyncio.sleep(0.5)

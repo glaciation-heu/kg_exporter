@@ -12,6 +12,7 @@ class MockK8SClient(K8SClient):
     statefullsets: List[Dict[str, Any]]
     jobs: List[Dict[str, Any]]
     cluster: Dict[str, Any]
+    api_versions: Dict[str, Any]
 
     def __init__(self):
         self.nodes = []
@@ -22,6 +23,13 @@ class MockK8SClient(K8SClient):
         self.statefullsets = []
         self.jobs = []
         self.cluster = {}
+        self.api_versions = {}
+
+    def mock_api_versions(self, api_versions: Dict[str, Any]) -> None:
+        self.api_versions = api_versions
+
+    async def get_api_versions(self) -> Dict[str, Any]:
+        return self.api_versions
 
     def mock_cluster(self, cluster: Dict[str, Any]) -> None:
         self.cluster = cluster

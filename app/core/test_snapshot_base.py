@@ -33,8 +33,9 @@ class SnapshotTestBase:
         settings: QuerySettings,
     ) -> None:
         resources = self.load_k8s_snapshot(identity)
-
+        print(resources.versions_info)
         k8s_client.mock_cluster(resources.cluster)
+        k8s_client.mock_api_versions(resources.versions_info)
         k8s_client.mock_daemonsets(resources.daemonsets)
         k8s_client.mock_deployments(resources.deployments)
         k8s_client.mock_jobs(resources.jobs)
@@ -60,14 +61,15 @@ class SnapshotTestBase:
 
     def load_k8s_snapshot(self, snapshot_id: str) -> ResourceSnapshot:
         return ResourceSnapshot(
-            cluster=self.load_yaml(snapshot_id, "k8s_cluster"),  # type: ignore
-            pods=self.load_yaml(snapshot_id, "k8s_pods"),
-            nodes=self.load_yaml(snapshot_id, "k8s_nodes"),
-            deployments=self.load_yaml(snapshot_id, "k8s_deployments"),
-            jobs=self.load_yaml(snapshot_id, "k8s_jobs"),
-            statefullsets=self.load_yaml(snapshot_id, "k8s_statefullsets"),
-            daemonsets=self.load_yaml(snapshot_id, "k8s_daemonsets"),
-            replicasets=self.load_yaml(snapshot_id, "k8s_replicasets"),
+            cluster=self.load_yaml(snapshot_id, "k8s_cluster", {}),  # type: ignore
+            versions_info=self.load_yaml(snapshot_id, "k8s_api_versions", {}),  # type: ignore
+            pods=self.load_yaml(snapshot_id, "k8s_pods", []),
+            nodes=self.load_yaml(snapshot_id, "k8s_nodes", []),
+            deployments=self.load_yaml(snapshot_id, "k8s_deployments", []),
+            jobs=self.load_yaml(snapshot_id, "k8s_jobs", []),
+            statefullsets=self.load_yaml(snapshot_id, "k8s_statefullsets", []),
+            daemonsets=self.load_yaml(snapshot_id, "k8s_daemonsets", []),
+            replicasets=self.load_yaml(snapshot_id, "k8s_replicasets", []),
         )
 
     def load_metric_snapshot(self, snapshot_id: str) -> MetricSnapshot:
@@ -76,10 +78,12 @@ class SnapshotTestBase:
             node_metrics=self.load_metrics(snapshot_id, "metric_nodes"),
         )
 
-    def load_yaml(self, snapshot_id: str, file_id: str) -> List[Dict[str, Any]]:
+    def load_yaml(
+        self, snapshot_id: str, file_id: str, default: Any
+    ) -> List[Dict[str, Any]]:
         file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/{file_id}.yaml"
         if not os.path.exists(file_path):
-            return []
+            return default  # type: ignore
         return self.safe_load_yaml(file_path)  # type: ignore
 
     def load_metrics(
@@ -134,13 +138,14 @@ class SnapshotTestBase:
             JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
                 "k8s": "http://glaciation-project.eu/model/k8s/",
                 "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
-                "cluster": "https://127.0.0.1:6443/",
+                "cluster": "https://10.14.1.160:6443/",
                 "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             }
         }
         return JsonLDConfiguration(
             contexts,
             {
+                # TODO use IRIs
                 IRI(UpperOntologyBase.GLACIATION_PREFIX, "WorkProducingResource"),
                 IRI(UpperOntologyBase.GLACIATION_PREFIX, "Aspect"),
                 IRI(UpperOntologyBase.GLACIATION_PREFIX, "MeasurementProperty"),

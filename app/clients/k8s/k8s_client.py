@@ -9,6 +9,7 @@ from jsonpath_ng.ext import parse
 @dataclass
 class ResourceSnapshot:
     cluster: Dict[str, Any] = field(default_factory=dict)
+    versions_info: Dict[str, Any] = field(default_factory=dict)
     pods: List[Dict[str, Any]] = field(default_factory=list)
     nodes: List[Dict[str, Any]] = field(default_factory=list)
     deployments: List[Dict[str, Any]] = field(default_factory=list)
@@ -112,9 +113,13 @@ class K8SClient:
             daemonsets,
             replicasets,
         ) = resources
-        cluster_info = await self.get_cluster_info()
+        general_info = await asyncio.gather(
+            self.get_cluster_info(), self.get_api_versions()
+        )
+        (cluster_info, versions_info) = general_info
         return ResourceSnapshot(
             cluster=cluster_info,
+            versions_info=versions_info,
             pods=pods,
             nodes=nodes,
             deployments=deployments,
@@ -146,4 +151,7 @@ class K8SClient:
         raise NotImplementedError
 
     async def get_cluster_info(self) -> Dict[str, Any]:
+        raise NotImplementedError
+
+    async def get_api_versions(self) -> Dict[str, Any]:
         raise NotImplementedError

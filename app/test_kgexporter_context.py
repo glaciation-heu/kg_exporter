@@ -38,14 +38,12 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         self.metadata_client = MockMetadataServiceClient()
         self.k8s_client = MockK8SClient()
         self.influxdb_client = MockInfluxDBClient()
-        self.jsonld_config = self.get_test_jsonld_config()
         self.settings = self.test_kg_exporter_settings()
         self.context = KGExporterContext(
             self.clock,
             self.metadata_client,
             self.k8s_client,
             self.influxdb_client,
-            self.jsonld_config,
             self.settings,
         )
 

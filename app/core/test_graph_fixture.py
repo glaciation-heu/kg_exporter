@@ -42,12 +42,7 @@ class TestGraphFixture:
 
     def get_jsonld_config(self) -> JsonLDConfiguration:
         contexts: Dict[IdBase, Dict[str, Any]] = {
-            JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
-                "k8s": "http://glaciation-project.eu/model/k8s/",
-                "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
-                "cluster": "https://127.0.0.1:6443/",
-                "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-            }
+            JsonLDConfiguration.DEFAULT_CONTEXT_IRI: self.get_test_context()
         }
         return JsonLDConfiguration(
             contexts,
@@ -60,6 +55,15 @@ class TestGraphFixture:
                 UpperOntologyBase.MEASUREMENT_UNIT,
             },
         )
+
+    def get_test_context(self) -> Dict[str, Any]:
+        context = {
+            "k8s": "http://glaciation-project.eu/model/k8s/",
+            "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+            "cluster": "https://127.0.0.1:6443/",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        }
+        return context
 
     def load_json(self, name: str) -> Dict[str, Any]:
         with FileIO(f"app/core/__fixture__/{name}.jsonld") as f:
