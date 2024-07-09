@@ -3,13 +3,13 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 import re
 
 from jsonpath_ng.ext import parse
-from kubernetes.utils.quantity import parse_quantity
 
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
 from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.util.quantity import parse_quantity
 
 
 class TransformerBase:

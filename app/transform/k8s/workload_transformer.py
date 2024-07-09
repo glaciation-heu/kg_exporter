@@ -1,12 +1,11 @@
 from typing import Any, Dict, List, Optional
 
-from kubernetes.utils.quantity import parse_quantity
-
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.transformer_base import TransformerBase
 from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.util.quantity import parse_quantity
 
 
 class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
