@@ -6,7 +6,7 @@
     unit: coreseconds
     property: CPU.Usage
     query: pods1
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_cpu_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -19,7 +19,7 @@
     unit: bytes
     property: RAM.Usage
     query: pods2
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_ram_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -32,7 +32,7 @@
     unit: bytes
     property: Storage.Usage
     query: pods3
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_eph_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -45,7 +45,7 @@
     unit: bytes
     property: Network.Usage
     query: pods4
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_net_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -59,7 +59,7 @@
     unit: coreseconds
     property: CPU.Usage
     query: pods5
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_cpu_usage
     resource_id: kube-flannel.kube-flannel-ds-848v8
@@ -72,7 +72,7 @@
     unit: bytes
     property: RAM.Usage
     query: pods6
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_ram_usage
     resource_id: kube-flannel.kube-flannel-ds-848v8
@@ -85,7 +85,7 @@
     unit: bytes
     property: Storage.Usage
     query: pods7
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_eph_usage
     resource_id: kube-flannel.kube-flannel-ds-848v8
@@ -98,7 +98,7 @@
     unit: bytes
     property: Network.Usage
     query: pods8
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_net_usage
     resource_id: kube-flannel.kube-flannel-ds-848v8
@@ -112,7 +112,7 @@
     unit: coreseconds
     property: CPU.Usage
     query: pods9
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_cpu_usage
     resource_id: vault.init-vault-cluster-cbqhq
@@ -125,7 +125,7 @@
     unit: bytes
     property: RAM.Usage
     query: pods10
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_ram_usage
     resource_id: vault.init-vault-cluster-cbqhq
@@ -138,7 +138,7 @@
     unit: bytes
     property: Storage.Usage
     query: pods11
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_eph_usage
     resource_id: vault.init-vault-cluster-cbqhq
@@ -151,7 +151,7 @@
     unit: bytes
     property: Network.Usage
     query: pods12
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_net_usage
     resource_id: vault.init-vault-cluster-cbqhq
@@ -165,7 +165,7 @@
     unit: coreseconds
     property: CPU.Usage
     query: pods13
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_cpu_usage
     resource_id: minio-tenant.glaciation-pool-0-0
@@ -178,7 +178,7 @@
     unit: bytes
     property: RAM.Usage
     query: pods14
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_ram_usage
     resource_id: minio-tenant.glaciation-pool-0-0
@@ -191,7 +191,7 @@
     unit: bytes
     property: Storage.Usage
     query: pods15
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_eph_usage
     resource_id: minio-tenant.glaciation-pool-0-0
@@ -204,7 +204,7 @@
     unit: bytes
     property: Network.Usage
     query: pods16
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_net_usage
     resource_id: minio-tenant.glaciation-pool-0-0

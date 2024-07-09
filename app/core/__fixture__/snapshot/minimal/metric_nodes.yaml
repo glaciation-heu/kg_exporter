@@ -5,7 +5,7 @@
     unit: coreseconds
     property: CPU.Usage
     query: test1
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: cpu_usage
     resource_id: glaciation-test-master01
@@ -18,7 +18,7 @@
     unit: bytes
     property: RAM.Usage
     query: test2
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: ram_usage
     resource_id: glaciation-test-master01
@@ -31,7 +31,7 @@
     unit: bytes
     property: Storage.Usage
     query: test3
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: eph_usage
     resource_id: glaciation-test-master01
@@ -44,7 +44,7 @@
     unit: bytes
     property: Network.Usage
     query: test4
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: net_usage
     resource_id: glaciation-test-master01

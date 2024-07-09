@@ -7,10 +7,10 @@ from io import FileIO, StringIO
 
 import yaml
 
-from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
 from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.clients.k8s.mock_k8s_client import MockK8SClient
-from app.core.builder.kg_builder import QuerySettings
+from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
+from app.core.repository.query_settings import QuerySettings
 from app.core.repository.types import MetricQuery, ResultParserId
 from app.core.types import KGSliceId, MetricSnapshot, MetricValue, SliceInputs
 from app.kg.graph import Graph
@@ -27,7 +27,7 @@ class SnapshotTestBase:
         self,
         identity: str,
         k8s_client: MockK8SClient,
-        influxdb_client: MockInfluxDBClient,
+        metric_client: MockPrometheusClient,
         settings: QuerySettings,
     ) -> None:
         resources = self.load_k8s_snapshot(identity)
@@ -44,11 +44,11 @@ class SnapshotTestBase:
 
         metrics = self.load_metric_snapshot(identity)
         for query, value in metrics.node_metrics:
-            influxdb_client.mock_query(query.query, [value])
+            metric_client.mock_query(query.query, [value])
             settings.node_queries.append(query)
 
         for query, value in metrics.pod_metrics:
-            influxdb_client.mock_query(query.query, [value])
+            metric_client.mock_query(query.query, [value])
             settings.pod_queries.append(query)
 
     def get_inputs(self, identity: str) -> SliceInputs:
@@ -94,7 +94,7 @@ class SnapshotTestBase:
         result = []
         for query_and_value in query_and_values:
             query = self.dataclass_from_dict(MetricQuery, query_and_value["query"])
-            query.result_parser = ResultParserId.SIMPLE_RESULT_PARSER  # TODO parse
+            query.result_parser = ResultParserId.PROMETHEUS_PARSER  # TODO parse
             value = self.dataclass_from_dict(MetricValue, query_and_value["value"])
             result.append((query, value))
         return result

@@ -37,11 +37,6 @@ settings:
     queries:
       node_queries: []
       pod_queries: []
-  influxdb:
-    org: org
-    timeout: 60000
-    token: token
-    url: test
   k8s:
     in_cluster: true
   metadata:

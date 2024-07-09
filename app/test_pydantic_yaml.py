@@ -1,13 +1,13 @@
 from tempfile import TemporaryDirectory
 from unittest import TestCase
 
-from app.clients.influxdb.influxdb_settings import InfluxDBSettings
 from app.clients.k8s.k8s_settings import K8SSettings
 from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
 from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
-from app.core.builder.kg_builder import KGBuilderSettings, QuerySettings
+from app.core.builder.kg_builder import KGBuilderSettings
+from app.core.repository.query_settings import QuerySettings
 from app.kgexporter_settings import KGExporterSettings, PrometheusSettings
 from app.pydantic_yaml import from_yaml, to_yaml
 
@@ -23,9 +23,6 @@ class PyDanticYamlTest(TestCase):
                 single_slice_url="metadata-service:80",
             ),
             k8s=K8SSettings(in_cluster=True),
-            influxdb=InfluxDBSettings(
-                url="test", token="token", org="org", timeout=60000
-            ),
             metadata=MetadataServiceSettings(),
             prometheus=PrometheusSettings(endpoint_port=8080),
             prometheus_client=PrometheusClientSettings(url="prometheus.integration"),

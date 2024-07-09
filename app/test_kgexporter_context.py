@@ -2,8 +2,6 @@ from typing import List, Tuple
 
 from unittest import TestCase
 
-from app.clients.influxdb.influxdb_settings import InfluxDBSettings
-from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
 from app.clients.k8s.k8s_settings import K8SSettings
 from app.clients.k8s.mock_k8s_client import MockK8SClient
 from app.clients.metadata_service.metadata_service_settings import (
@@ -13,8 +11,10 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
     SerializedGraph,
 )
+from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
 from app.clients.prometheus.prometheus_client_settings import PrometheusClientSettings
-from app.core.builder.kg_builder import KGBuilderSettings, QuerySettings
+from app.core.builder.kg_builder import KGBuilderSettings
+from app.core.repository.query_settings import QuerySettings
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import KGSliceId
 from app.kgexporter_context import KGExporterContext
@@ -28,7 +28,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
     clock: Clock
     metadata_client: MockMetadataServiceClient
     k8s_client: MockK8SClient
-    influxdb_client: MockInfluxDBClient
+    metric_client: MockPrometheusClient
     jsonld_config: JsonLDConfiguration
     settings: KGExporterSettings
     context: KGExporterContext
@@ -37,13 +37,13 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         self.clock = MockClock()
         self.metadata_client = MockMetadataServiceClient()
         self.k8s_client = MockK8SClient()
-        self.influxdb_client = MockInfluxDBClient()
+        self.metric_client = MockPrometheusClient()
         self.settings = self.test_kg_exporter_settings()
         self.context = KGExporterContext(
             self.clock,
             self.metadata_client,
             self.k8s_client,
-            self.influxdb_client,
+            self.metric_client,
             self.settings,
         )
 
@@ -51,7 +51,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         self.mock_inputs(
             "minimal",
             self.k8s_client,
-            self.influxdb_client,
+            self.metric_client,
             self.settings.builder.queries,
         )
         self.context.start()
@@ -67,7 +67,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         self.mock_inputs(
             "multinode",
             self.k8s_client,
-            self.influxdb_client,
+            self.metric_client,
             self.settings.builder.queries,
         )
         self.context.start()
@@ -96,9 +96,6 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
                 single_slice_url="http://metadata-service:80",
             ),
             k8s=K8SSettings(in_cluster=True),
-            influxdb=InfluxDBSettings(
-                url="test", token="token", org="org", timeout=60000
-            ),
             metadata=MetadataServiceSettings(),
             prometheus=PrometheusSettings(endpoint_port=8080),
             prometheus_client=PrometheusClientSettings(url="prometheus.integration"),

@@ -21,7 +21,7 @@ class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
                 unit="coreseconds",
                 property="CPU.Usage",
                 query="query",
-                result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+                result_parser=ResultParserId.PROMETHEUS_PARSER,
             ),
             MetricValue(
                 metric_id="my_metric",
@@ -38,7 +38,7 @@ class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
                 unit="milliwatt",
                 property="Energy.Usage",
                 query="query",
-                result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+                result_parser=ResultParserId.PROMETHEUS_PARSER,
             ),
             MetricValue(
                 metric_id="my_metric",

@@ -6,13 +6,13 @@ from enum import StrEnum
 
 
 class ResultParserId(StrEnum):
-    SIMPLE_RESULT_PARSER = (
-        "app.clients.influxdb.simple_result_parser.SimpleResultParser"
-    )
+    PROMETHEUS_PARSER = "PROMETHEUS_PARSER"
 
     def get_by_name(self) -> Any:
-        if self.name == "SIMPLE_RESULT_PARSER":
-            return self.instantiate(self.value)
+        if self.name == ResultParserId.PROMETHEUS_PARSER:
+            return self.instantiate(
+                "app.clients.prometheus.prometheus_result_parser.PrometheusResultParser"
+            )
         else:
             raise Exception(f"Unknown parser for {self}")
 

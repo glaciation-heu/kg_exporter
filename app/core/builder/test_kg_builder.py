@@ -2,14 +2,15 @@ import asyncio
 import datetime
 from unittest import TestCase
 
-from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
 from app.clients.k8s.mock_k8s_client import MockK8SClient
 from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
 )
+from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
 from app.core.async_queue import AsyncQueue
-from app.core.builder.kg_builder import KGBuilder, KGBuilderSettings, QuerySettings
+from app.core.builder.kg_builder import KGBuilder, KGBuilderSettings
 from app.core.repository.metric_repository import MetricRepository
+from app.core.repository.query_settings import QuerySettings
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import DKGSlice, KGSliceId
@@ -23,7 +24,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
     clock: Clock
     client: MockMetadataServiceClient
     k8s_client: MockK8SClient
-    influxdb_client: MockInfluxDBClient
+    metric_client: MockPrometheusClient
     queue: AsyncQueue[DKGSlice]
     running_event: asyncio.Event
     runner: asyncio.Runner
@@ -33,7 +34,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         self.maxDiff = None
         self.clock = MockClock()
         self.client = MockMetadataServiceClient()
-        self.influxdb_client = MockInfluxDBClient()
+        self.metric_client = MockPrometheusClient()
         self.queue = AsyncQueue()
         self.k8s_client = MockK8SClient()
         self.running_event = asyncio.Event()
@@ -48,7 +49,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
 
     def test_build_minimal(self) -> None:
         self.mock_inputs(
-            "minimal", self.k8s_client, self.influxdb_client, self.settings.queries
+            "minimal", self.k8s_client, self.metric_client, self.settings.queries
         )
 
         builder = self.create_builder()
@@ -63,7 +64,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
 
     def create_builder(self) -> KGBuilder:
         repository = KGRepository(self.client)
-        influxdb_repository = MetricRepository(self.influxdb_client)
+        influxdb_repository = MetricRepository(self.metric_client)
         return KGBuilder(
             self.running_event,
             self.clock,

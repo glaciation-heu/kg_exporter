@@ -5,7 +5,7 @@
     unit: coreseconds
     property: CPU.Usage
     query: test5
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_cpu_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -18,7 +18,7 @@
     unit: bytes
     property: RAM.Usage
     query: test6
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_ram_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -31,7 +31,7 @@
     unit: bytes
     property: Storage.Usage
     query: test7
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_eph_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5
@@ -44,7 +44,7 @@
     unit: bytes
     property: Network.Usage
     query: test8
-    result_parser: SimpleResultParser
+    result_parser: PROMETHEUS_PARSER
   value:
     metric_id: pod_net_usage
     resource_id: kube-system.coredns-787d4945fb-l85r5

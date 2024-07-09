@@ -1,18 +1,18 @@
 import asyncio
 from unittest import TestCase
 
-from app.clients.influxdb.mock_infuxdbclient import MockInfluxDBClient
+from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
 from app.core.repository.metric_repository import MetricRepository
 from app.core.repository.types import MetricQuery, ResultParserId
 from app.core.types import MetricValue
 
 
 class MetricRepositoryTest(TestCase):
-    client: MockInfluxDBClient
+    client: MockPrometheusClient
     repository: MetricRepository
 
     def setUp(self) -> None:
-        self.client = MockInfluxDBClient()
+        self.client = MockPrometheusClient()
         self.repository = MetricRepository(self.client)
 
     def test_query_one(self) -> None:
@@ -26,11 +26,11 @@ class MetricRepositoryTest(TestCase):
             query="test_query",
             unit="bytes",
             property="property",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            result_parser=ResultParserId.PROMETHEUS_PARSER,
         )
 
         actual = asyncio.run(self.repository.query_one(now, query))
-        self.assertEqual([expected], actual)
+        self.assertEqual([(query, expected)], actual)
 
     def test_query_many(self) -> None:
         expected1 = MetricValue("id1", "pod1", 100500, 41.0)
@@ -47,7 +47,7 @@ class MetricRepositoryTest(TestCase):
             unit="bytes",
             property="property",
             query="test_query1",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            result_parser=ResultParserId.PROMETHEUS_PARSER,
         )
         query2 = MetricQuery(
             measurement_id="measurement",
@@ -56,7 +56,7 @@ class MetricRepositoryTest(TestCase):
             query="test_query2",
             unit="bytes",
             property="property",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            result_parser=ResultParserId.PROMETHEUS_PARSER,
         )
         query3 = MetricQuery(
             measurement_id="measurement",
@@ -65,8 +65,10 @@ class MetricRepositoryTest(TestCase):
             query="test_query3",
             unit="bytes",
             property="property",
-            result_parser=ResultParserId.SIMPLE_RESULT_PARSER,
+            result_parser=ResultParserId.PROMETHEUS_PARSER,
         )
 
         actual = asyncio.run(self.repository.query_many(now, [query1, query2, query3]))
-        self.assertEqual([expected1, expected2, expected3], actual)
+        self.assertEqual(
+            [(query1, expected1), (query2, expected2), (query3, expected3)], actual
+        )

@@ -1,5 +1,3 @@
-from typing import List
-
 import asyncio
 
 from loguru import logger
@@ -13,15 +11,10 @@ from app.core.builder.slice_strategy.slice_per_cluster import SlicePerCluster
 from app.core.builder.slice_strategy.slice_per_node import SlicePerNode
 from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
 from app.core.repository.metric_repository import MetricRepository
-from app.core.repository.types import MetricQuery
-from app.core.types import DKGSlice, MetricSnapshot
+from app.core.repository.query_settings import QuerySettings
+from app.core.types import DKGSlice
 from app.core.updater.kg_repository import KGRepository
 from app.util.clock import Clock
-
-
-class QuerySettings(BaseSettings):
-    pod_queries: List[MetricQuery] = []
-    node_queries: List[MetricQuery] = []
 
 
 class KGBuilderSettings(BaseSettings):
@@ -58,7 +51,7 @@ class KGBuilder:
         queue: AsyncQueue[DKGSlice],
         k8s_client: K8SClient,
         kg_repository: KGRepository,
-        influxdb_repository: MetricRepository,
+        metric_repository: MetricRepository,
         settings: KGBuilderSettings,
     ):
         self.terminated = terminated
@@ -66,7 +59,7 @@ class KGBuilder:
         self.k8s_client = k8s_client
         self.queue = queue
         self.kg_repository = kg_repository
-        self.influxdb_repository = influxdb_repository
+        self.metric_repository = metric_repository
         self.settings = settings
         self.slice_strategy = (
             SlicePerCluster(settings.single_slice_url)
@@ -100,21 +93,11 @@ class KGBuilder:
 
     async def run_cycle(self, now_seconds: int) -> None:
         now = now_seconds * 1000
-        (
-            cluster_snapshot,
-            pod_metrics,
-            node_metrics,
-        ) = await asyncio.gather(
+        (cluster_snapshot, metric_snapshot) = await asyncio.gather(
             self.k8s_client.fetch_snapshot(),
-            self.influxdb_repository.query_many(now, self.settings.queries.pod_queries),
-            self.influxdb_repository.query_many(
-                now, self.settings.queries.node_queries
-            ),
+            self.metric_repository.metric_snapshot(now, self.settings.queries),
         )
-        metric_snapshot = MetricSnapshot(
-            list(zip(self.settings.queries.pod_queries, pod_metrics)),
-            list(zip(self.settings.queries.node_queries, node_metrics)),
-        )
+
         logger.debug("Cluster snapshot: {size}", size=len(cluster_snapshot.cluster))
         logger.debug("Nodes: {size}", size=len(cluster_snapshot.nodes))
         logger.debug("Pods: {size}", size=len(cluster_snapshot.pods))
