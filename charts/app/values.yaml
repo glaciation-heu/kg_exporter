@@ -24,5 +24,24 @@ securityContext: {}
 
 resources: {}
 
+service:
+  type: ClusterIP
+  port: 8080
+
 settings:
-  metadata_service_url: "http://metadata-service.knowledge-graph.svc.cluster.local/api/v0/graph"
+  builder:
+    builder_tick_seconds: 60
+    node_port: 80
+    single_slice_url: http://metadata-service:80
+    is_single_slice: False
+    queries:
+      node_queries: []
+      pod_queries: []
+  k8s:
+    in_cluster: true
+  metadata:
+    metadata_service_url: metadata-service
+  prometheus:
+    endpoint_port: 8080
+  prometheus_client:
+    url: prometheus.integration

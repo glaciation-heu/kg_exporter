@@ -1,0 +1,25 @@
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    name: coredns-787d4945fb
+    namespace: kube-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: coredns
+  spec:
+    template:
+      metadata:
+        labels:
+          k8s-app: kube-dns
+          pod-template-hash: 787d4945fb
+      spec:
+        containers:
+        - name: coredns
+          resources:
+            limits:
+              memory: 170Mi
+            requests:
+              cpu: 100m
+              memory: 70Mi
+  status:

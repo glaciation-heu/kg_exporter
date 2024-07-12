@@ -1,0 +1,61 @@
+- apiVersion: v1
+  kind: Node
+  metadata:
+    name: glaciation-test-master01
+    annotations:
+      glaciation-project.eu/metric/node-energy-index: '1001'
+  spec:
+  status:
+    allocatable:
+      cpu: '4'
+      ephemeral-storage: '47266578354'
+      hugepages-1Gi: '0'
+      hugepages-2Mi: '0'
+      memory: 16283144Ki
+      pods: '110'
+    capacity:
+      cpu: '4'
+      ephemeral-storage: 51287520Ki
+      hugepages-1Gi: '0'
+      hugepages-2Mi: '0'
+      memory: 16385544Ki
+      pods: '110'
+    conditions:
+    - lastHeartbeatTime: '2024-02-27T10:37:54Z'
+      lastTransitionTime: '2024-02-13T13:53:43Z'
+      message: kubelet is posting ready status. AppArmor enabled
+      reason: KubeletReady
+      status: 'True'
+      type: Ready
+    nodeInfo:
+- apiVersion: v1
+  kind: Node
+  metadata:
+    name: glaciation-test-worker01
+    annotations:
+      glaciation-project.eu/metric/node-energy-index: '1001'
+  spec:
+  status:
+    allocatable:
+      cpu: '4'
+      ephemeral-storage: '47266578354'
+      hugepages-1Gi: '0'
+      hugepages-2Mi: '0'
+      memory: 16283152Ki
+      pods: '110'
+    capacity:
+      cpu: '4'
+      ephemeral-storage: 51287520Ki
+      hugepages-1Gi: '0'
+      hugepages-2Mi: '0'
+      memory: 16385552Ki
+      pods: '110'
+    conditions:
+    - lastHeartbeatTime: '2024-02-27T10:36:23Z'
+      lastTransitionTime: '2024-02-23T06:11:02Z'
+      message: kubelet is posting ready status. AppArmor enabled
+      reason: KubeletReady
+      status: 'True'
+      type: Ready
+    images:
+    nodeInfo:

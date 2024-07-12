@@ -14,12 +14,13 @@ class GraphNode:
 
     def __init__(self, node_id: IRI):
         self.id = node_id
-        self.properties = {}
-        self.meta_properties = {}
+        self.properties = dict()
+        self.meta_properties = dict()
 
     def add_property(self, predicate: IRI, value: Literal) -> None:
         if predicate in self.properties:
-            self.add_property_collection(predicate, {value})
+            if self.properties[predicate] != value:
+                self.add_property_collection(predicate, {value})
         else:
             self.properties[predicate] = value
 
@@ -43,6 +44,16 @@ class GraphNode:
     def get_meta_properties(self) -> Dict[IRI, IdBase]:
         return self.meta_properties
 
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, GraphNode):
+            return (
+                self.id == other.id
+                and self.properties == other.properties
+                and self.meta_properties == other.meta_properties
+            )
+        else:
+            raise NotImplementedError
+
 
 class GraphEdge:
     subject_id: IRI
@@ -59,6 +70,16 @@ class GraphEdge:
 
     def get_objects(self) -> Set[IRI]:
         return self.objects
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, GraphEdge):
+            return (
+                self.subject_id == other.subject_id
+                and self.predicate == other.predicate
+                and self.objects == other.objects
+            )
+        else:
+            raise NotImplementedError
 
 
 class InMemoryGraph(Graph):
@@ -108,6 +129,9 @@ class InMemoryGraph(Graph):
             self.get_or_add_node(object_id)
             edge.add_object_id(object_id)
 
+    def has_node(self, node_id: IRI) -> bool:
+        return node_id in self.nodes
+
     def get_ids(self) -> Set[IRI]:
         return set(self.nodes.keys())
 
@@ -134,3 +158,9 @@ class InMemoryGraph(Graph):
             }
         else:
             return {}
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, InMemoryGraph):
+            return self.nodes == other.nodes and self.edges == other.edges
+        else:
+            raise NotImplementedError

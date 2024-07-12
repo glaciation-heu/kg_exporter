@@ -11,7 +11,8 @@ RUN pip install --no-cache-dir poetry \
     && poetry install --no-root --without dev,test \
     && rm -rf $(poetry config cache-dir)/{cache,artifacts}
 
+COPY ./etc/config.yaml /code
 COPY ./app /code/app
 WORKDIR /code
 
-CMD ["python", "-m", "app.kg_exporter", "--incluster"]
+CMD ["python", "-m", "app.main", "--config", "./config.yaml"]

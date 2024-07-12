@@ -1,0 +1,74 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "glc:Bytes",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Bytes"
+        },
+        {
+            "@id": "glc:Core",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:Core"
+        },
+        {
+            "@id": "glc:Performance",
+            "@type": "glc:Aspect",
+            "glc:hasID": "glc:Performance"
+        },
+        {
+            "@id": "cluster:coredns",
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "Deployment",
+            "glc:hasID": "cluster:coredns",
+            "glc:hasSubTask": {
+                "@id": "cluster:coredns-787d4945fb",
+                "@type": "glc:AssignedTask",
+                "glc:hasDescription": "ReplicaSet",
+                "glc:hasConstraint": {
+                    "@set": [
+                        {
+                            "@id": "cluster:coredns-787d4945fb.CPU.Allocated",
+                            "@type": "glc:SoftConstraint",
+                            "glc:hasDescription": "CPU.Allocated",
+                            "glc:maxValue": 0.1,
+                            "glc:hasAspect": "glc:Performance",
+                            "glc:hasID": "cluster:coredns-787d4945fb.CPU.Allocated",
+                            "glc:measuredIn": "glc:Core"
+                        },
+                        {
+                            "@id": "cluster:coredns-787d4945fb.RAM.Allocated",
+                            "@type": "glc:SoftConstraint",
+                            "glc:hasDescription": "RAM.Allocated",
+                            "glc:maxValue": 73400320.0,
+                            "glc:hasAspect": "glc:Performance",
+                            "glc:hasID": "cluster:coredns-787d4945fb.RAM.Allocated",
+                            "glc:measuredIn": "glc:Bytes"
+                        },
+                        {
+                            "@id": "cluster:coredns-787d4945fb.RAM.Capacity",
+                            "@type": "glc:HardConstraint",
+                            "glc:hasDescription": "RAM.Capacity",
+                            "glc:maxValue": 178257920.0,
+                            "glc:hasAspect": "glc:Performance",
+                            "glc:hasID": "cluster:coredns-787d4945fb.RAM.Capacity",
+                            "glc:measuredIn": "glc:Bytes"
+                        }
+                    ]
+                },
+                "glc:hasID": "cluster:coredns-787d4945fb"
+            }
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:assigns": "cluster:coredns-787d4945fb",
+            "glc:hasID": "glc:default-scheduler"
+        }
+    ]
+}

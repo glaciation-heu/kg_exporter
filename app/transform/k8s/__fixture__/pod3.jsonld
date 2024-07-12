@@ -1,0 +1,105 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:glaciation-worker04",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": "cluster:glaciation-worker04"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "k8s:hasName": "kube-flannel-ds-848v8",
+            "glc:consumes": "cluster:glaciation-worker04",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8",
+            "glc:hasSubResource": {
+                "@set": [
+                    "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni",
+                    "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin",
+                    "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel"
+                ]
+            }
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "k8s:hasContainerID": "containerd://b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f",
+            "k8s:hasContainerName": "install-cni",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "k8s:hasContainerID": "containerd://c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74",
+            "k8s:hasContainerName": "install-cni-plugin",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "k8s:hasContainerID": "containerd://b23fcc9919d7e58fdeb4a729ccf2363c31429e9906a836f55e7d3bf61c908cdb",
+            "k8s:hasContainerName": "kube-flannel",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel"
+        },
+        {
+            "@id": "cluster:kube-flannel-ds",
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "DaemonSet",
+            "glc:hasID": "cluster:kube-flannel-ds",
+            "glc:makes": "cluster:kube-flannel.kube-flannel-ds-848v8"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Status",
+            "@type": "glc:Status",
+            "glc:hasDescription": "Running",
+            "glc:startTime": "2023-10-20T11:01:50Z",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.Status"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status",
+            "@type": "glc:Status",
+            "glc:endTime": "2023-12-11T11:10:14Z",
+            "glc:hasDescription": "terminated",
+            "glc:startTime": "2023-12-11T11:10:14Z",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin.Status"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status",
+            "@type": "glc:Status",
+            "glc:endTime": "2023-12-11T11:10:15Z",
+            "glc:hasDescription": "terminated",
+            "glc:startTime": "2023-12-11T11:10:15Z",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni.Status"
+        },
+        {
+            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status",
+            "@type": "glc:Status",
+            "glc:hasDescription": "running",
+            "glc:startTime": "2023-12-11T11:10:16Z",
+            "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel.Status"
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:hasID": "glc:default-scheduler",
+            "glc:manages": {
+                "@set": [
+                    "cluster:kube-flannel.kube-flannel-ds-848v8",
+                    "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni",
+                    "cluster:kube-flannel.kube-flannel-ds-848v8.install-cni-plugin",
+                    "cluster:kube-flannel.kube-flannel-ds-848v8.kube-flannel"
+                ]
+            }
+        }
+    ]
+}

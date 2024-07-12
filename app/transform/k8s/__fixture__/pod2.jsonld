@@ -1,0 +1,36 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:tenant1.tenant1-pool-0-1",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "k8s:hasName": "tenant1-pool-0-1",
+            "glc:hasID": "cluster:tenant1.tenant1-pool-0-1"
+        },
+        {
+            "@id": "cluster:tenant1-pool-0",
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "StatefulSet",
+            "glc:hasID": "cluster:tenant1-pool-0",
+            "glc:makes": "cluster:tenant1.tenant1-pool-0-1"
+        },
+        {
+            "@id": "cluster:tenant1.tenant1-pool-0-1.Status",
+            "@type": "glc:Status",
+            "glc:hasDescription": "Pending",
+            "glc:hasID": "cluster:tenant1.tenant1-pool-0-1.Status"
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:hasID": "glc:default-scheduler",
+            "glc:manages": "cluster:tenant1.tenant1-pool-0-1"
+        }
+    ]
+}

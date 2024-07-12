@@ -39,6 +39,10 @@ class Graph:
         raise NotImplementedError
 
     @abstractmethod
+    def has_node(self, node_id: IRI) -> bool:
+        raise NotImplementedError
+
+    @abstractmethod
     def get_ids(self) -> Set[IRI]:
         raise NotImplementedError
 

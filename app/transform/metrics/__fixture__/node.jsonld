@@ -1,0 +1,72 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:worker1",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasID": "cluster:worker1",
+            "glc:hasMeasurement": {
+                "@id": "cluster:worker1.Energy.Usage",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "Energy.Usage",
+                "glc:hasTimestamp": 17100500,
+                "glc:hasValue": 42.0,
+                "glc:hasID": "cluster:worker1.Energy.Usage",
+                "glc:measuredIn": "glc:milliwatt",
+                "glc:relatesToMeasurementProperty": "glc:Energy.Usage"
+            }
+        },
+        {
+            "@id": "cluster:worker1.CPU",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasID": "cluster:worker1.CPU",
+            "glc:hasMeasurement": {
+                "@id": "cluster:worker1.CPU.Usage",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "Usage",
+                "glc:hasTimestamp": 17100500,
+                "glc:hasValue": 42.0,
+                "glc:hasID": "cluster:worker1.CPU.Usage",
+                "glc:measuredIn": "glc:coreseconds",
+                "glc:relatesToMeasurementProperty": "glc:CPU.Usage"
+            }
+        },
+        {
+            "@id": "glc:CPU.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:CPU.Usage"
+        },
+        {
+            "@id": "glc:Energy.Usage",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": "glc:Energy.Usage"
+        },
+        {
+            "@id": "glc:cAdvisor",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
+            "glc:hasID": "glc:cAdvisor",
+            "glc:makes": {
+                "@set": [
+                    "cluster:worker1.CPU.Usage",
+                    "cluster:worker1.Energy.Usage"
+                ]
+            }
+        },
+        {
+            "@id": "glc:coreseconds",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:coreseconds"
+        },
+        {
+            "@id": "glc:milliwatt",
+            "@type": "glc:MeasurementUnit",
+            "glc:hasID": "glc:milliwatt"
+        }
+    ]
+}

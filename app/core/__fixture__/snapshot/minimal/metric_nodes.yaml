@@ -1,0 +1,52 @@
+- query:
+    measurement_id: Usage
+    subresource: CPU
+    source: cAdvisor
+    unit: coreseconds
+    property: CPU.Usage
+    query: test1
+    result_parser: PROMETHEUS_PARSER
+  value:
+    metric_id: cpu_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 41.0
+- query:
+    measurement_id: Usage
+    subresource: RAM
+    source: cAdvisor
+    unit: bytes
+    property: RAM.Usage
+    query: test2
+    result_parser: PROMETHEUS_PARSER
+  value:
+    metric_id: ram_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 42.0
+- query:
+    measurement_id: Usage
+    subresource: Storage
+    source: cAdvisor
+    unit: bytes
+    property: Storage.Usage
+    query: test3
+    result_parser: PROMETHEUS_PARSER
+  value:
+    metric_id: eph_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 43.0
+- query:
+    measurement_id: Usage
+    subresource: Network
+    source: cAdvisor
+    unit: bytes
+    property: Network.Usage
+    query: test4
+    result_parser: PROMETHEUS_PARSER
+  value:
+    metric_id: net_usage
+    resource_id: glaciation-test-master01
+    timestamp: 17100500
+    value: 43.0

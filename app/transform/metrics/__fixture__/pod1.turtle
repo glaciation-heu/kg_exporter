@@ -1,0 +1,29 @@
+cluster:pod1 rdf:type glc:WorkProducingResource .
+cluster:pod1 glc:hasID cluster:pod1 .
+cluster:pod1 glc:hasMeasurement (cluster:pod1.CPU.Usage cluster:pod1.Energy.Usage) .
+cluster:pod1.CPU.Usage rdf:type glc:Measurement .
+cluster:pod1.CPU.Usage glc:hasDescription "CPU.Usage" .
+cluster:pod1.CPU.Usage glc:hasTimestamp 17100500^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.CPU.Usage glc:hasValue 42.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.CPU.Usage glc:hasID cluster:pod1.CPU.Usage .
+cluster:pod1.CPU.Usage glc:measuredIn glc:coreseconds .
+cluster:pod1.CPU.Usage glc:relatesToMeasurementProperty glc:CPU.Usage .
+cluster:pod1.Energy.Usage rdf:type glc:Measurement .
+cluster:pod1.Energy.Usage glc:hasDescription "Energy.Usage" .
+cluster:pod1.Energy.Usage glc:hasTimestamp 17100500^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.Energy.Usage glc:hasValue 42.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.Energy.Usage glc:hasID cluster:pod1.Energy.Usage .
+cluster:pod1.Energy.Usage glc:measuredIn glc:milliwatt .
+cluster:pod1.Energy.Usage glc:relatesToMeasurementProperty glc:Energy.Usage .
+glc:CPU.Usage rdf:type glc:MeasurementProperty .
+glc:CPU.Usage glc:hasID glc:CPU.Usage .
+glc:Energy.Usage rdf:type glc:MeasurementProperty .
+glc:Energy.Usage glc:hasID glc:Energy.Usage .
+glc:cAdvisor rdf:type glc:MeasuringResource .
+glc:cAdvisor glc:hasDescription "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md" .
+glc:cAdvisor glc:hasID glc:cAdvisor .
+glc:cAdvisor glc:makes (cluster:pod1.CPU.Usage cluster:pod1.Energy.Usage) .
+glc:coreseconds rdf:type glc:MeasurementUnit .
+glc:coreseconds glc:hasID glc:coreseconds .
+glc:milliwatt rdf:type glc:MeasurementUnit .
+glc:milliwatt glc:hasID glc:milliwatt .

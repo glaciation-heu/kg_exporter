@@ -1,8 +1,11 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: kg-exporter-role
+  name: {{ include "app.fullname" . }}-role
 rules:
 - apiGroups: ["apps", "batch"]
-  resources: ["deployments", "statefulsets", "jobs"]
-  verbs: ["list", "watch"]
+  resources: ["deployments", "jobs", "statefulsets", "daemonsets", "replicasets"]
+  verbs: ["list", "watch", "get"]
+- apiGroups: [""]
+  resources: ["configmaps", "deployments", "statefulsets", "jobs", "nodes", "daemonsets", "replicasets", "pods"]
+  verbs: ["get", "list"]

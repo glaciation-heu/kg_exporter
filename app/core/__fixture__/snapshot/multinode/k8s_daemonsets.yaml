@@ -1,0 +1,38 @@
+- apiVersion: apps/v1
+  kind: DaemonSet
+  metadata:
+    name: kube-flannel-ds
+    namespace: monitoring
+  spec:
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/component: exporter
+          app.kubernetes.io/name: kepler
+      spec:
+        containers:
+        - name: kube-flannel
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 200m
+            requests:
+              cpu: 50m
+              memory: 100Mi
+        - name: install-cni-plugin
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 200m
+            requests:
+              cpu: 50m
+              memory: 100Mi
+        - name: install-cni
+          resources:
+            limits:
+              memory: 500Mi
+              cpu: 200m
+            requests:
+              cpu: 50m
+              memory: 100Mi
+  status:

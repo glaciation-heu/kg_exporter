@@ -1,0 +1,30 @@
+- apiVersion: apps/v1
+  kind: StatefulSet
+  metadata:
+    name: glaciation-pool-0
+    namespace: tenant1
+    ownerReferences:
+    - apiVersion: minio.min.io/v2
+      kind: Tenant
+      name: tenant1
+  spec:
+    template:
+      metadata:
+      spec:
+        containers:
+        - name: minio
+          resources:
+            requests:
+              cpu: '3'
+              memory: 7Gi
+        - name: sidecar
+          resources:
+            requests:
+              cpu: '0.5'
+              memory: 1Gi
+        initContainers:
+        - name: validate-arguments
+          resources:
+        schedulerName: default-scheduler
+    volumeClaimTemplates: []
+  status:

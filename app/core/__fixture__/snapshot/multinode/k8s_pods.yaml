@@ -1,0 +1,292 @@
+- kind: Pod
+  metadata:
+    name: coredns-787d4945fb-l85r5
+    namespace: kube-system
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: coredns-787d4945fb
+  spec:
+    containers:
+    - name: coredns
+      resources:
+        limits:
+          memory: 170Mi
+        requests:
+          cpu: 100m
+          memory: 70Mi
+    nodeName: glaciation-test-master01
+    schedulerName: default-scheduler
+  status:
+    conditions:
+    - lastProbeTime:
+      lastTransitionTime: '2024-02-13T13:53:43Z'
+      status: 'True'
+      type: Initialized
+    - lastProbeTime:
+      lastTransitionTime: '2024-02-13T15:09:49Z'
+      status: 'True'
+      type: Ready
+    - lastProbeTime:
+      lastTransitionTime: '2024-02-13T15:09:49Z'
+      status: 'True'
+      type: ContainersReady
+    - lastProbeTime:
+      lastTransitionTime: '2024-02-13T13:53:43Z'
+      status: 'True'
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963
+      lastState: {}
+      name: coredns
+      ready: true
+      started: true
+      state:
+        running:
+          startedAt: '2024-02-13T13:53:44Z'
+    hostIP: 10.14.1.150
+    phase: Running
+    startTime: '2024-02-13T13:53:43Z'
+- kind: Pod
+  metadata:
+    name: tenant1-pool-0-1
+    namespace: tenant1
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: StatefulSet
+      name: tenant1-pool-0
+  spec:
+    containers:
+    - name: minio
+      resources:
+        requests:
+          cpu: '3'
+          memory: 7Gi
+    - name: sidecar
+      resources: {}
+    initContainers:
+    - name: validate-arguments
+      resources: {}
+    schedulerName: default-scheduler
+  status:
+    conditions:
+    - lastProbeTime:
+      lastTransitionTime: '2024-02-29T10:27:58Z'
+      message: '0/5 nodes are available: 5 node(s) didn''t find available persistent
+        volumes to bind. preemption: 0/5 nodes are available: 5 Preemption is not helpful
+        for scheduling..'
+      reason: Unschedulable
+      status: 'False'
+      type: PodScheduled
+    phase: Pending
+- kind: Pod
+  metadata:
+    name: kube-flannel-ds-848v8
+    namespace: kube-flannel
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: DaemonSet
+      name: kube-flannel-ds
+  spec:
+    containers:
+    - name: kube-flannel
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+    initContainers:
+    - name: install-cni-plugin
+      resources: {}
+    - name: install-cni
+      resources: {}
+    nodeName: glaciation-test-worker01
+    schedulerName: default-scheduler
+  status:
+    conditions:
+    - lastProbeTime:
+      lastTransitionTime: '2023-10-20T11:02:00Z'
+      status: 'True'
+      type: Initialized
+    - lastProbeTime:
+      lastTransitionTime: '2023-12-11T11:10:17Z'
+      status: 'True'
+      type: Ready
+    - lastProbeTime:
+      lastTransitionTime: '2023-12-11T11:10:17Z'
+      status: 'True'
+      type: ContainersReady
+    - lastProbeTime:
+      lastTransitionTime: '2023-10-20T11:01:49Z'
+      status: 'True'
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://b23fcc9919d7e58fdeb4a729ccf2363c31429e9906a836f55e7d3bf61c908cdb
+      lastState:
+        terminated:
+          containerID: containerd://b516bf9221202a26438901dde36ae814743f9acad63006be2a37ab69f69b4747
+          exitCode: 255
+          finishedAt: '2023-12-11T11:07:10Z'
+          reason: Unknown
+          startedAt: '2023-10-24T11:40:54Z'
+      name: kube-flannel
+      ready: true
+      started: true
+      state:
+        running:
+          startedAt: '2023-12-11T11:10:16Z'
+    initContainerStatuses:
+    - containerID: containerd://c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74
+      lastState: {}
+      name: install-cni-plugin
+      ready: true
+      started: false
+      state:
+        terminated:
+          containerID: containerd://c45d8a7c2b94d7bfd07f9343366b27b7bdced1cb6b07c0f36d4e813bc7f48a74
+          exitCode: 0
+          finishedAt: '2023-12-11T11:10:14Z'
+          reason: Completed
+          startedAt: '2023-12-11T11:10:14Z'
+    - containerID: containerd://b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f
+      lastState: {}
+      name: install-cni
+      ready: true
+      started: false
+      state:
+        terminated:
+          containerID: containerd://b3e5761de29cd8e7a2612a59c48e49882907acca959c9dc54721a43d86c4c69f
+          exitCode: 0
+          finishedAt: '2023-12-11T11:10:15Z'
+          reason: Completed
+          startedAt: '2023-12-11T11:10:15Z'
+    phase: Running
+    startTime: '2023-10-20T11:01:50Z'
+- kind: Pod
+  metadata:
+    name: init-vault-cluster-cbqhq
+    namespace: vault
+    ownerReferences:
+    - apiVersion: batch/v1
+      kind: Job
+      name: init-vault-cluster
+  spec:
+    containers:
+    - name: vault
+      resources: {}
+    nodeName: glaciation-test-worker01
+    schedulerName: default-scheduler
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:37:57Z"
+      reason: PodCompleted
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:39:02Z"
+      reason: PodCompleted
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:39:02Z"
+      reason: PodCompleted
+      status: "False"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:37:57Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://8d6b55a900568fce8346a5fffb66e7d5dca809f676a15fb6d0f54feb8399ea39
+      lastState: {}
+      name: vault
+      ready: false
+      started: false
+      state:
+        terminated:
+          containerID: containerd://8d6b55a900568fce8346a5fffb66e7d5dca809f676a15fb6d0f54feb8399ea39
+          exitCode: 0
+          finishedAt: "2024-05-17T11:39:02Z"
+          reason: Completed
+          startedAt: "2024-05-17T11:38:09Z"
+    phase: Succeeded
+    startTime: "2024-05-17T11:37:57Z"
+- kind: Pod
+  metadata:
+    name: glaciation-pool-0-0
+    namespace: minio-tenant
+    ownerReferences:
+    - kind: StatefulSet
+      name: glaciation-pool-0
+  spec:
+    containers:
+    - name: minio
+      resources:
+        limits:
+          cpu: "2"
+          memory: 4Gi
+        requests:
+          cpu: "1"
+          memory: 2Gi
+    - name: sidecar
+      resources: {}
+    hostname: glaciation-pool-0-0
+    initContainers:
+    - name: validate-arguments
+      resources: {}
+    nodeName: glaciation-test-master01
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:54:19Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:55:54Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:55:54Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2024-05-17T11:53:14Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://cd294ba419c33b64d33b24583c0f64ef320560942872cf206750d69a11db7ba6
+      lastState:
+        terminated:
+          containerID: containerd://930db39b4c91e0ed274fac866713039ed0e12ed8d179bbb39c428d5581555252
+          exitCode: 1
+          finishedAt: "2024-05-17T11:55:06Z"
+          reason: Error
+          startedAt: "2024-05-17T11:55:05Z"
+      name: minio
+      ready: true
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-17T11:55:54Z"
+    - containerID: containerd://68ecab8b10b91093bfd72f40c93b9b1545f9b5963e5a4b9b0bcea887be36f7fc
+      lastState: {}
+      name: sidecar
+      ready: true
+      started: true
+      state:
+        running:
+          startedAt: "2024-05-17T11:54:19Z"
+    initContainerStatuses:
+    - containerID: containerd://1b107c003c626739a964d4489f8aa7c8eeba5c9df22f7779ca7bd0ea6957ad6d
+      lastState: {}
+      name: validate-arguments
+      ready: true
+      state:
+        terminated:
+          containerID: containerd://1b107c003c626739a964d4489f8aa7c8eeba5c9df22f7779ca7bd0ea6957ad6d
+          exitCode: 0
+          finishedAt: "2024-05-17T11:54:19Z"
+          reason: Completed
+          startedAt: "2024-05-17T11:54:19Z"
+    phase: Running
+    startTime: "2024-05-17T11:53:14Z"

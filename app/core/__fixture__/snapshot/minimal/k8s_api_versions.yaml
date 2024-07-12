@@ -1,0 +1,7 @@
+api_version:
+kind: APIVersions
+server_address_by_client_cid_rs:
+  - client_cidr: 0.0.0.0/0
+    server_address: 10.14.1.160:6443
+versions:
+  - v1

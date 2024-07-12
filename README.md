@@ -91,7 +91,7 @@ poetry run pytest
 
 5. Launch the service:
 ```bash
-poetry run python app/kg_exporter.py
+poetry run python -m app.main --config ./etc/config.yaml
 ```
 
 ## Integration tests

@@ -1,0 +1,25 @@
+builder:
+  builder_tick_seconds: 10
+  node_port: 80
+  is_single_slice: True
+  single_slice_url: http://metadata.integration:80
+  queries:
+    node_queries:
+      - measurement_id: Energy
+        subresource: Energy
+        source: Kepler
+        unit: milliwatts
+        property: Energy.Usage
+        query: label_replace(kepler_node_platform_joules_total, "resource", "$1", "exported_instance", "(.+)")
+        result_parser: PROMETHEUS_PARSER
+
+    pod_queries: []
+k8s:
+  in_cluster: false
+metadata:
+  metadata_service_url: metadata.integration
+  use_single_url: true
+prometheus:
+  endpoint_port: 8080
+prometheus_client:
+  url: http://prometheus.integration
