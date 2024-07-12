@@ -1,10 +1,9 @@
 from typing import Any, List
 
 import asyncio
-from wsgiref.simple_server import WSGIServer
 
 from loguru import logger
-from prometheus_client import start_http_server
+from prometheus_async.aio.web import MetricsHTTPServer, start_http_server
 
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
@@ -25,7 +24,7 @@ class KGExporterContext:
     queue: AsyncQueue[DKGSlice]
     runner: asyncio.Runner
     terminated: asyncio.Event
-    prometheus_server: WSGIServer
+    prometheus_server: MetricsHTTPServer
     tasks: List[asyncio.Task[Any]]
     settings: KGExporterSettings
 
@@ -60,16 +59,17 @@ class KGExporterContext:
             return
         self.terminated.clear()
         self.runner.run(self.run_tasks())
-        server, _ = start_http_server(self.settings.prometheus.endpoint_port)
-        self.prometheus_server = server
 
     async def run_tasks(self) -> None:
         self.tasks.append(asyncio.create_task(self.builder.run()))
         self.tasks.append(asyncio.create_task(self.updater.run()))
+        self.prometheus_server = await start_http_server(
+            port=self.settings.prometheus.endpoint_port
+        )
 
     def stop(self) -> None:
         self.terminated.set()
-        self.prometheus_server.shutdown()
+        self.runner.run(self.prometheus_server.close())
 
     def wait_for_termination(self) -> None:
         self.runner.run(self.terminated.wait())
