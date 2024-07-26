@@ -5,7 +5,7 @@ cluster:worker1.CPU rdf:type glc:WorkProducingResource .
 cluster:worker1.CPU glc:hasID cluster:worker1.CPU .
 cluster:worker1.CPU glc:hasMeasurement cluster:worker1.CPU.Usage .
 cluster:worker1.CPU.Usage rdf:type glc:Measurement .
-cluster:worker1.CPU.Usage glc:hasDescription "Usage" .
+cluster:worker1.CPU.Usage glc:hasDescription "CPU.Usage" .
 cluster:worker1.CPU.Usage glc:hasTimestamp 17100500^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:worker1.CPU.Usage glc:hasValue 42.0^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:worker1.CPU.Usage glc:hasID cluster:worker1.CPU.Usage .

@@ -21,6 +21,11 @@ class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBas
             parent_resource_id = (
                 pod_id.dot(query.subresource) if query.subresource else pod_id
             )
+            description = (
+                f"{query.subresource}.{query.measurement_id}"
+                if query.subresource
+                else query.measurement_id
+            )
             measurement_id = parent_resource_id.dot(query.measurement_id)
             property_id = IRI(self.GLACIATION_PREFIX, query.property)
             unit_id = IRI(self.GLACIATION_PREFIX, query.unit)
@@ -28,7 +33,7 @@ class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBas
             self.add_work_producing_resource(pod_id, None)
             self.add_measurement(
                 measurement_id,
-                query.measurement_id,
+                description,
                 result.value,
                 result.timestamp,
                 unit_id,

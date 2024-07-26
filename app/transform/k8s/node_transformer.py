@@ -35,7 +35,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             cpu_capacity_id = cpu_id.dot("Capacity")
             self.add_measurement(
                 cpu_id.dot("Capacity"),
-                "Capacity CPU",
+                "CPU.Capacity",
                 cpu_capacity_value,
                 timestamp,
                 self.UNIT_CPU_CORE_ID,
@@ -56,7 +56,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             ram_capacity_id = ram_id.dot("Capacity")
             self.add_measurement(
                 ram_capacity_id,
-                "Capacity",
+                "RAM.Capacity",
                 ram_capacity_value,
                 timestamp,
                 self.UNIT_BYTES_ID,
@@ -77,7 +77,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             storage_capacity_id = storage_id.dot("Capacity")
             self.add_measurement(
                 storage_capacity_id,
-                "Capacity",
+                "Storage.Capacity",
                 storage_capacity_value,
                 timestamp,
                 self.UNIT_BYTES_ID,

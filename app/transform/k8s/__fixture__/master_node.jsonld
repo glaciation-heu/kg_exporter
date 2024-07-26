@@ -46,7 +46,7 @@
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-master01.CPU.Capacity",
                 "@type": "glc:Measurement",
-                "glc:hasDescription": "Capacity CPU",
+                "glc:hasDescription": "CPU.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 4,
                 "glc:hasID": "cluster:glaciation-test-master01.CPU.Capacity",
@@ -74,7 +74,7 @@
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-master01.RAM.Capacity",
                 "@type": "glc:Measurement",
-                "glc:hasDescription": "Capacity",
+                "glc:hasDescription": "RAM.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 16673939456,
                 "glc:hasID": "cluster:glaciation-test-master01.RAM.Capacity",
@@ -90,7 +90,7 @@
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-master01.Storage.Capacity",
                 "@type": "glc:Measurement",
-                "glc:hasDescription": "Capacity",
+                "glc:hasDescription": "Storage.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 47266578354,
                 "glc:hasID": "cluster:glaciation-test-master01.Storage.Capacity",
