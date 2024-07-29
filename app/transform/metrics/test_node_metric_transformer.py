@@ -1,7 +1,7 @@
 import json
 from io import StringIO
 
-from app.core.repository.types import MetricQuery, ResultParserId
+from app.core.repository.types import Aggregation, MetricQuery, ResultParserId
 from app.core.types import MetricValue
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
@@ -17,6 +17,7 @@ class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
             MetricQuery(
                 measurement_id="Usage",
                 subresource="CPU",
+                aggregation=None,
                 source="cAdvisor",
                 unit="coreseconds",
                 property="CPU.Usage",
@@ -34,6 +35,10 @@ class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
             MetricQuery(
                 measurement_id="Energy.Usage",
                 subresource=None,
+                aggregation=Aggregation(
+                    function="average",
+                    period_seconds=300,
+                ),
                 source="cAdvisor",
                 unit="milliwatt",
                 property="Energy.Usage",

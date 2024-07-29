@@ -1,7 +1,7 @@
 import json
 from io import StringIO
 
-from app.core.repository.types import MetricQuery, ResultParserId
+from app.core.repository.types import Aggregation, MetricQuery, ResultParserId
 from app.core.types import MetricValue
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
@@ -19,6 +19,7 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
                 subresource=None,
                 source="cAdvisor",
                 unit="coreseconds",
+                aggregation=None,
                 property="CPU.Usage",
                 query="query",
                 result_parser=ResultParserId.PROMETHEUS_PARSER,
@@ -37,6 +38,7 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
                 source="cAdvisor",
                 unit="milliwatt",
                 property="Energy.Usage",
+                aggregation=Aggregation(function="average", period_seconds=300),
                 query="query",
                 result_parser=ResultParserId.PROMETHEUS_PARSER,
             ),

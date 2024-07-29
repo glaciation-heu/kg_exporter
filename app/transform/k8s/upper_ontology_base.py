@@ -1,8 +1,17 @@
 from typing import Dict, List, Optional
 
+from dataclasses import dataclass
+
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
+
+
+@dataclass
+class Aggregation:
+    function: str
+    starting_interval: int
+    ending_interval: int
 
 
 class UpperOntologyBase:
@@ -17,6 +26,7 @@ class UpperOntologyBase:
     MEASUREMENT_PROPERTY = IRI(GLACIATION_PREFIX, "MeasurementProperty")
     STATUS = IRI(GLACIATION_PREFIX, "Status")
     MEASUREMENT = IRI(GLACIATION_PREFIX, "Measurement")
+    AGGREGATED_MEASUREMENT = IRI(GLACIATION_PREFIX, "AggregatedMeasurement")
     MEASURING_RESOURCE = IRI(GLACIATION_PREFIX, "MeasuringResource")
     MEASUREMENT_UNIT = IRI(GLACIATION_PREFIX, "MeasurementUnit")
     SOFT_CONSTRAINT = IRI(GLACIATION_PREFIX, "SoftConstraint")
@@ -45,6 +55,10 @@ class UpperOntologyBase:
     RELATES_TO_MEASUREMENT_PROPERTY = IRI(
         GLACIATION_PREFIX, "relatesToMeasurementProperty"
     )
+    TIMESTEP_RESOLUTION = IRI(GLACIATION_PREFIX, "timestepResolution")
+    HAS_AGGREGATED_FUNCTION = IRI(GLACIATION_PREFIX, "hasAggregatedFunction")
+    STARTING_INTERVAL = IRI(GLACIATION_PREFIX, "startingInterval")
+    ENDING_INTERVAL = IRI(GLACIATION_PREFIX, "endingInterval")
 
     # Measuring Resources
     MEASURING_RESOURCE_KEPLER_ID = IRI(GLACIATION_PREFIX, "Kepler")
@@ -174,11 +188,16 @@ class UpperOntologyBase:
         description: str,
         value: float,
         timestamp: int,
+        aggregation: Optional[Aggregation],
         unit: IRI,
         related_to_property: IRI,
         measuring_resource: IRI,
     ) -> None:
-        self.add_common_info(identifier, self.MEASUREMENT, description)
+        if aggregation:
+            self.add_common_info(identifier, self.AGGREGATED_MEASUREMENT, description)
+            self.add_aggregation_properties(identifier, aggregation)
+        else:
+            self.add_common_info(identifier, self.MEASUREMENT, description)
 
         if not self.sink.has_node(unit):
             self.add_unit(unit, None)
@@ -290,4 +309,23 @@ class UpperOntologyBase:
         description = self.MEASURING_RESOURCE_DESCRIPTIONS.get(measuring_resource_id)
         self.add_common_info(
             measuring_resource_id, self.MEASURING_RESOURCE, description
+        )
+
+    def add_aggregation_properties(
+        self, identifier: IRI, aggregation: Aggregation
+    ) -> None:
+        self.sink.add_property(
+            identifier,
+            self.HAS_AGGREGATED_FUNCTION,
+            Literal(aggregation.function, Literal.TYPE_STRING),
+        )
+        self.sink.add_property(
+            identifier,
+            self.STARTING_INTERVAL,
+            Literal(aggregation.starting_interval, Literal.TYPE_INT),
+        )
+        self.sink.add_property(
+            identifier,
+            self.ENDING_INTERVAL,
+            Literal(aggregation.ending_interval, Literal.TYPE_INT),
         )

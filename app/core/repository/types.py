@@ -24,9 +24,15 @@ class ResultParserId(StrEnum):
         return ClassObj()
 
 
+class Aggregation(BaseSettings):
+    period_seconds: int
+    function: str
+
+
 class MetricQuery(BaseSettings):
     measurement_id: str
     subresource: Optional[str] = None
+    aggregation: Optional[Aggregation] = None
     source: str
     unit: str
     property: str

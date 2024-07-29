@@ -34,6 +34,6 @@ class MetricRepository:
         self, now: int, query: MetricQuery
     ) -> List[Tuple[MetricQuery, MetricValue]]:
         result_parser = query.result_parser.get_by_name()
-        query_str = query.query.replace("{{now}}", str(now))
+        query_str = query.query.replace("{{now}}", str(now / 1000))
         results = await self.client.query(query_str, result_parser)
         return [(query, result) for result in results]

@@ -24,10 +24,13 @@
                     },
                     {
                         "@id": "cluster:pod1.Energy.Usage",
-                        "@type": "glc:Measurement",
+                        "@type": "glc:AggregatedMeasurement",
+                        "glc:endingInterval": 123,
+                        "glc:hasAggregatedFunction": "average",
                         "glc:hasDescription": "Energy.Usage",
-                        "glc:hasTimestamp": 17100500,
+                        "glc:hasTimestamp": 123,
                         "glc:hasValue": 42.0,
+                        "glc:startingInterval": -299877,
                         "glc:hasID": "cluster:pod1.Energy.Usage",
                         "glc:measuredIn": "glc:milliwatt",
                         "glc:relatesToMeasurementProperty": "glc:Energy.Usage"
