@@ -1,8 +1,9 @@
 from typing import Any, Optional
 
 import importlib
-from dataclasses import dataclass
 from enum import StrEnum
+
+from pydantic_settings import BaseSettings
 
 
 class ResultParserId(StrEnum):
@@ -23,10 +24,15 @@ class ResultParserId(StrEnum):
         return ClassObj()
 
 
-@dataclass
-class MetricQuery:
+class Aggregation(BaseSettings):
+    period_seconds: int
+    function: str
+
+
+class MetricQuery(BaseSettings):
     measurement_id: str
-    subresource: Optional[str]
+    subresource: Optional[str] = None
+    aggregation: Optional[Aggregation] = None
     source: str
     unit: str
     property: str

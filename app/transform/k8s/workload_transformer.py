@@ -5,6 +5,7 @@ from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.transformer_base import TransformerBase
 from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.measurement import Measurement
 from app.util.quantity import parse_quantity
 
 
@@ -26,7 +27,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
     def add_soft_constraints(self, workload_id: IRI) -> None:
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "CPU.Allocated",
+            Measurement.CPU_ALLOCATED,
             True,
             [
                 [
@@ -82,7 +83,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "Storage.Allocated",
+            Measurement.STORAGE_ALLOCATED,
             True,
             [
                 [
@@ -110,7 +111,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "GPU.Allocated",
+            Measurement.GPU_ALLOCATED,
             True,
             [
                 [
@@ -127,7 +128,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "Network.Allocated",
+            Measurement.NETWORK_ALLOCATED,
             True,
             [
                 [
@@ -144,7 +145,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "Energy.Allocated",
+            Measurement.ENERGY_ALLOCATED,
             True,
             [
                 [
@@ -162,7 +163,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
     def add_hard_constraints(self, workload_id: IRI) -> None:
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "CPU.Capacity",
+            Measurement.CPU_CAPACITY,
             False,
             [
                 [
@@ -190,7 +191,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "RAM.Capacity",
+            Measurement.RAM_CAPACITY,
             False,
             [
                 [
@@ -218,7 +219,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "Storage.Capacity",
+            Measurement.STORAGE_CAPACITY,
             False,
             [
                 [
@@ -246,7 +247,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "GPU.Capacity",
+            Measurement.GPU_CAPACITY,
             False,
             [
                 [
@@ -263,7 +264,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "Network.Capacity",
+            Measurement.NETWORK_CAPACITY,
             False,
             [
                 [
@@ -280,7 +281,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
 
         self.add_resource_constraint_by_jpath(
             workload_id,
-            "Energy.Capacity",
+            Measurement.ENERGY_CAPACITY,
             False,
             [
                 [

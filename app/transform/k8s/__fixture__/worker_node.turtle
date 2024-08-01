@@ -8,7 +8,7 @@ cluster:glaciation-test-worker01.CPU glc:hasDescription "CPU" .
 cluster:glaciation-test-worker01.CPU glc:hasID cluster:glaciation-test-worker01.CPU .
 cluster:glaciation-test-worker01.CPU glc:hasMeasurement cluster:glaciation-test-worker01.CPU.Capacity .
 cluster:glaciation-test-worker01.CPU.Capacity rdf:type glc:Measurement .
-cluster:glaciation-test-worker01.CPU.Capacity glc:hasDescription "Capacity CPU" .
+cluster:glaciation-test-worker01.CPU.Capacity glc:hasDescription "CPU.Capacity" .
 cluster:glaciation-test-worker01.CPU.Capacity glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:glaciation-test-worker01.CPU.Capacity glc:hasValue 4^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:glaciation-test-worker01.CPU.Capacity glc:hasID cluster:glaciation-test-worker01.CPU.Capacity .
@@ -25,7 +25,7 @@ cluster:glaciation-test-worker01.RAM glc:hasDescription "RAM" .
 cluster:glaciation-test-worker01.RAM glc:hasID cluster:glaciation-test-worker01.RAM .
 cluster:glaciation-test-worker01.RAM glc:hasMeasurement cluster:glaciation-test-worker01.RAM.Capacity .
 cluster:glaciation-test-worker01.RAM.Capacity rdf:type glc:Measurement .
-cluster:glaciation-test-worker01.RAM.Capacity glc:hasDescription "Capacity" .
+cluster:glaciation-test-worker01.RAM.Capacity glc:hasDescription "RAM.Capacity" .
 cluster:glaciation-test-worker01.RAM.Capacity glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:glaciation-test-worker01.RAM.Capacity glc:hasValue 16673947648^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:glaciation-test-worker01.RAM.Capacity glc:hasID cluster:glaciation-test-worker01.RAM.Capacity .
@@ -40,7 +40,7 @@ cluster:glaciation-test-worker01.Storage glc:hasDescription "EphemeralStorage" .
 cluster:glaciation-test-worker01.Storage glc:hasID cluster:glaciation-test-worker01.Storage .
 cluster:glaciation-test-worker01.Storage glc:hasMeasurement cluster:glaciation-test-worker01.Storage.Capacity .
 cluster:glaciation-test-worker01.Storage.Capacity rdf:type glc:Measurement .
-cluster:glaciation-test-worker01.Storage.Capacity glc:hasDescription "Capacity" .
+cluster:glaciation-test-worker01.Storage.Capacity glc:hasDescription "Storage.Capacity" .
 cluster:glaciation-test-worker01.Storage.Capacity glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:glaciation-test-worker01.Storage.Capacity glc:hasValue 47266578354^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:glaciation-test-worker01.Storage.Capacity glc:hasID cluster:glaciation-test-worker01.Storage.Capacity .

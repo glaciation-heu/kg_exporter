@@ -48,7 +48,7 @@
                     {
                         "@id": "cluster:glaciation-test-worker01.CPU.Capacity",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Capacity CPU",
+                        "glc:hasDescription": "CPU.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 4,
                         "glc:hasID": "cluster:glaciation-test-worker01.CPU.Capacity",
@@ -58,7 +58,7 @@
                     {
                         "@id": "cluster:glaciation-test-worker01.CPU.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 41.0,
                         "glc:hasID": "cluster:glaciation-test-worker01.CPU.Usage",
@@ -82,7 +82,7 @@
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-worker01.Network.Usage",
                 "@type": "glc:Measurement",
-                "glc:hasDescription": "Usage",
+                "glc:hasDescription": "Network.Usage",
                 "glc:hasTimestamp": 17100500,
                 "glc:hasValue": 43.0,
                 "glc:hasID": "cluster:glaciation-test-worker01.Network.Usage",
@@ -105,7 +105,7 @@
                     {
                         "@id": "cluster:glaciation-test-worker01.RAM.Capacity",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Capacity",
+                        "glc:hasDescription": "RAM.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 16673947648,
                         "glc:hasID": "cluster:glaciation-test-worker01.RAM.Capacity",
@@ -115,7 +115,7 @@
                     {
                         "@id": "cluster:glaciation-test-worker01.RAM.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 42.0,
                         "glc:hasID": "cluster:glaciation-test-worker01.RAM.Usage",
@@ -135,7 +135,7 @@
                     {
                         "@id": "cluster:glaciation-test-worker01.Storage.Capacity",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Capacity",
+                        "glc:hasDescription": "Storage.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 47266578354,
                         "glc:hasID": "cluster:glaciation-test-worker01.Storage.Capacity",
@@ -145,7 +145,7 @@
                     {
                         "@id": "cluster:glaciation-test-worker01.Storage.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
                         "glc:hasID": "cluster:glaciation-test-worker01.Storage.Usage",
@@ -167,7 +167,7 @@
                     {
                         "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 51.0,
                         "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage",
@@ -177,7 +177,7 @@
                     {
                         "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "Network.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 54.0,
                         "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage",
@@ -187,7 +187,7 @@
                     {
                         "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 52.0,
                         "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage",
@@ -197,7 +197,7 @@
                     {
                         "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 53.0,
                         "glc:hasID": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage",
@@ -257,7 +257,7 @@
                     {
                         "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 61.0,
                         "glc:hasID": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage",
@@ -267,7 +267,7 @@
                     {
                         "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "Network.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 64.0,
                         "glc:hasID": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage",
@@ -277,7 +277,7 @@
                     {
                         "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 62.0,
                         "glc:hasID": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage",
@@ -287,7 +287,7 @@
                     {
                         "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage",
                         "@type": "glc:Measurement",
-                        "glc:hasDescription": "Usage",
+                        "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 63.0,
                         "glc:hasID": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage",

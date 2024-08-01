@@ -5,6 +5,7 @@ from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.transformer_base import TransformerBase
 from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.measurement import Measurement
 
 
 class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
@@ -35,9 +36,10 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             cpu_capacity_id = cpu_id.dot("Capacity")
             self.add_measurement(
                 cpu_id.dot("Capacity"),
-                "Capacity CPU",
+                Measurement.CPU_CAPACITY,
                 cpu_capacity_value,
                 timestamp,
+                None,
                 self.UNIT_CPU_CORE_ID,
                 self.PROPERTY_CPU_CAPACITY,
                 self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
@@ -56,9 +58,10 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             ram_capacity_id = ram_id.dot("Capacity")
             self.add_measurement(
                 ram_capacity_id,
-                "Capacity",
+                Measurement.RAM_CAPACITY,
                 ram_capacity_value,
                 timestamp,
+                None,
                 self.UNIT_BYTES_ID,
                 self.PROPERTY_RAM_CAPACITY,
                 self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
@@ -77,9 +80,10 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             storage_capacity_id = storage_id.dot("Capacity")
             self.add_measurement(
                 storage_capacity_id,
-                "Capacity",
+                Measurement.STORAGE_CAPACITY,
                 storage_capacity_value,
                 timestamp,
+                None,
                 self.UNIT_BYTES_ID,
                 self.PROPERTY_STORAGE_CAPACITY,
                 self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,
@@ -110,9 +114,10 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             energy_index_id = node_id.dot("Energy.Index")
             self.add_measurement(
                 energy_index_id,
-                "Energy.Index",
+                Measurement.ENERGY_INDEX,
                 energy_index_value,
                 timestamp,
+                None,
                 self.UNIT_MILLIWATT_ID,
                 self.PROPERTY_ENERGY_INDEX,
                 self.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,

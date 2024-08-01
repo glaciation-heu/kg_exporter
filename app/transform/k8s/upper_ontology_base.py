@@ -1,8 +1,18 @@
 from typing import Dict, List, Optional
 
+from dataclasses import dataclass
+
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
+from app.transform.measurement import Measurement
+
+
+@dataclass
+class Aggregation:
+    function: str
+    starting_interval: int
+    ending_interval: int
 
 
 class UpperOntologyBase:
@@ -17,6 +27,7 @@ class UpperOntologyBase:
     MEASUREMENT_PROPERTY = IRI(GLACIATION_PREFIX, "MeasurementProperty")
     STATUS = IRI(GLACIATION_PREFIX, "Status")
     MEASUREMENT = IRI(GLACIATION_PREFIX, "Measurement")
+    AGGREGATED_MEASUREMENT = IRI(GLACIATION_PREFIX, "AggregatedMeasurement")
     MEASURING_RESOURCE = IRI(GLACIATION_PREFIX, "MeasuringResource")
     MEASUREMENT_UNIT = IRI(GLACIATION_PREFIX, "MeasurementUnit")
     SOFT_CONSTRAINT = IRI(GLACIATION_PREFIX, "SoftConstraint")
@@ -45,6 +56,10 @@ class UpperOntologyBase:
     RELATES_TO_MEASUREMENT_PROPERTY = IRI(
         GLACIATION_PREFIX, "relatesToMeasurementProperty"
     )
+    TIMESTEP_RESOLUTION = IRI(GLACIATION_PREFIX, "timestepResolution")
+    HAS_AGGREGATED_FUNCTION = IRI(GLACIATION_PREFIX, "hasAggregatedFunction")
+    STARTING_INTERVAL = IRI(GLACIATION_PREFIX, "startingInterval")
+    ENDING_INTERVAL = IRI(GLACIATION_PREFIX, "endingInterval")
 
     # Measuring Resources
     MEASURING_RESOURCE_KEPLER_ID = IRI(GLACIATION_PREFIX, "Kepler")
@@ -75,24 +90,24 @@ class UpperOntologyBase:
     ASPECT_PERFORMANCE_ID = IRI(GLACIATION_PREFIX, "Performance")
 
     # Properties
-    PROPERTY_CPU_CAPACITY = IRI(GLACIATION_PREFIX, "CPU.Capacity")
-    PROPERTY_CPU_AVAILABLE = IRI(GLACIATION_PREFIX, "CPU.Available")
-    PROPERTY_CPU_USAGE = IRI(GLACIATION_PREFIX, "CPU.Usage")
-    PROPERTY_GPU_CAPACITY = IRI(GLACIATION_PREFIX, "GPU.Capacity")
-    PROPERTY_GPU_AVAILABLE = IRI(GLACIATION_PREFIX, "GPU.Available")
-    PROPERTY_GPU_USAGE = IRI(GLACIATION_PREFIX, "GPU.Usage")
-    PROPERTY_RAM_CAPACITY = IRI(GLACIATION_PREFIX, "RAM.Capacity")
-    PROPERTY_RAM_AVAILABLE = IRI(GLACIATION_PREFIX, "RAM.Available")
-    PROPERTY_RAM_USAGE = IRI(GLACIATION_PREFIX, "RAM.Usage")
-    PROPERTY_STORAGE_CAPACITY = IRI(GLACIATION_PREFIX, "Storage.Capacity")
-    PROPERTY_STORAGE_AVAILABLE = IRI(GLACIATION_PREFIX, "Storage.Available")
-    PROPERTY_STORAGE_USAGE = IRI(GLACIATION_PREFIX, "Storage.Usage")
-    PROPERTY_NETWORK_CAPACITY = IRI(GLACIATION_PREFIX, "Network.Capacity")
-    PROPERTY_NETWORK_AVAILABLE = IRI(GLACIATION_PREFIX, "Network.Available")
-    PROPERTY_NETWORK_USAGE = IRI(GLACIATION_PREFIX, "Network.Usage")
-    PROPERTY_ENERGY_INDEX = IRI(GLACIATION_PREFIX, "Energy.Index")
-    PROPERTY_ENERGY_AVAILABLE = IRI(GLACIATION_PREFIX, "Energy.Available")
-    PROPERTY_ENERGY_USAGE = IRI(GLACIATION_PREFIX, "Energy.Usage")
+    PROPERTY_CPU_CAPACITY = IRI(GLACIATION_PREFIX, Measurement.CPU_CAPACITY)
+    PROPERTY_CPU_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.CPU_AVAILABLE)
+    PROPERTY_CPU_USAGE = IRI(GLACIATION_PREFIX, Measurement.CPU_USAGE)
+    PROPERTY_GPU_CAPACITY = IRI(GLACIATION_PREFIX, Measurement.GPU_CAPACITY)
+    PROPERTY_GPU_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.GPU_AVAILABLE)
+    PROPERTY_GPU_USAGE = IRI(GLACIATION_PREFIX, Measurement.GPU_USAGE)
+    PROPERTY_RAM_CAPACITY = IRI(GLACIATION_PREFIX, Measurement.RAM_CAPACITY)
+    PROPERTY_RAM_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.RAM_AVAILABLE)
+    PROPERTY_RAM_USAGE = IRI(GLACIATION_PREFIX, Measurement.RAM_USAGE)
+    PROPERTY_STORAGE_CAPACITY = IRI(GLACIATION_PREFIX, Measurement.STORAGE_CAPACITY)
+    PROPERTY_STORAGE_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.STORAGE_AVAILABLE)
+    PROPERTY_STORAGE_USAGE = IRI(GLACIATION_PREFIX, Measurement.STORAGE_USAGE)
+    PROPERTY_NETWORK_CAPACITY = IRI(GLACIATION_PREFIX, Measurement.STORAGE_CAPACITY)
+    PROPERTY_NETWORK_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.NETWORK_AVAILABLE)
+    PROPERTY_NETWORK_USAGE = IRI(GLACIATION_PREFIX, Measurement.NETWORK_USAGE)
+    PROPERTY_ENERGY_INDEX = IRI(GLACIATION_PREFIX, Measurement.ENERGY_INDEX)
+    PROPERTY_ENERGY_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.ENERGY_AVAILABLE)
+    PROPERTY_ENERGY_USAGE = IRI(GLACIATION_PREFIX, Measurement.ENERGY_USAGE)
 
     units: List[IRI]
     aspects: List[IRI]
@@ -174,11 +189,16 @@ class UpperOntologyBase:
         description: str,
         value: float,
         timestamp: int,
+        aggregation: Optional[Aggregation],
         unit: IRI,
         related_to_property: IRI,
         measuring_resource: IRI,
     ) -> None:
-        self.add_common_info(identifier, self.MEASUREMENT, description)
+        if aggregation:
+            self.add_common_info(identifier, self.AGGREGATED_MEASUREMENT, description)
+            self.add_aggregation_properties(identifier, aggregation)
+        else:
+            self.add_common_info(identifier, self.MEASUREMENT, description)
 
         if not self.sink.has_node(unit):
             self.add_unit(unit, None)
@@ -290,4 +310,23 @@ class UpperOntologyBase:
         description = self.MEASURING_RESOURCE_DESCRIPTIONS.get(measuring_resource_id)
         self.add_common_info(
             measuring_resource_id, self.MEASURING_RESOURCE, description
+        )
+
+    def add_aggregation_properties(
+        self, identifier: IRI, aggregation: Aggregation
+    ) -> None:
+        self.sink.add_property(
+            identifier,
+            self.HAS_AGGREGATED_FUNCTION,
+            Literal(aggregation.function, Literal.TYPE_STRING),
+        )
+        self.sink.add_property(
+            identifier,
+            self.STARTING_INTERVAL,
+            Literal(aggregation.starting_interval, Literal.TYPE_INT),
+        )
+        self.sink.add_property(
+            identifier,
+            self.ENDING_INTERVAL,
+            Literal(aggregation.ending_interval, Literal.TYPE_INT),
         )

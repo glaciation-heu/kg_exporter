@@ -32,6 +32,7 @@ class TestGraphFixture:
             "CPU.MAX",
             42.0,
             1700000000,
+            None,
             UpperOntologyBase.UNIT_CPU_CORE_ID,
             UpperOntologyBase.PROPERTY_CPU_CAPACITY,
             UpperOntologyBase.MEASURING_RESOURCE_NODE_K8S_SPEC_ID,

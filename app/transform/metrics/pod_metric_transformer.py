@@ -6,7 +6,7 @@ from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.transformer_base import TransformerBase
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.k8s.upper_ontology_base import Aggregation, UpperOntologyBase
 from app.transform.metrics.metric_transformer import MetricToGraphTransformerBase
 
 
@@ -16,21 +16,40 @@ class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBas
         UpperOntologyBase.__init__(self, sink)
 
     def transform(self, context: TransformationContext) -> None:
+        now = context.get_timestamp()
         for query, result in self.metrics:
             pod_id = self.get_pod_id(result.resource_id)
             parent_resource_id = (
                 pod_id.dot(query.subresource) if query.subresource else pod_id
+            )
+            description = (
+                f"{query.subresource}.{query.measurement_id}"
+                if query.subresource
+                else query.measurement_id
             )
             measurement_id = parent_resource_id.dot(query.measurement_id)
             property_id = IRI(self.GLACIATION_PREFIX, query.property)
             unit_id = IRI(self.GLACIATION_PREFIX, query.unit)
             source_id = IRI(self.GLACIATION_PREFIX, query.source)
             self.add_work_producing_resource(pod_id, None)
+
+            aggregation = (
+                None
+                if not query.aggregation
+                else Aggregation(
+                    function=query.aggregation.function,
+                    starting_interval=now - (query.aggregation.period_seconds * 1000),
+                    ending_interval=now,
+                )
+            )
+            timestamp = result.timestamp if not query.aggregation else now
+
             self.add_measurement(
                 measurement_id,
-                query.measurement_id,
+                description,
                 result.value,
-                result.timestamp,
+                timestamp,
+                aggregation,
                 unit_id,
                 property_id,
                 source_id,

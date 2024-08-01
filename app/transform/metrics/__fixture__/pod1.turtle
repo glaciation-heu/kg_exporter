@@ -8,10 +8,13 @@ cluster:pod1.CPU.Usage glc:hasValue 42.0^^<http://www.w3.org/2001/XMLSchema#inte
 cluster:pod1.CPU.Usage glc:hasID cluster:pod1.CPU.Usage .
 cluster:pod1.CPU.Usage glc:measuredIn glc:coreseconds .
 cluster:pod1.CPU.Usage glc:relatesToMeasurementProperty glc:CPU.Usage .
-cluster:pod1.Energy.Usage rdf:type glc:Measurement .
+cluster:pod1.Energy.Usage rdf:type glc:AggregatedMeasurement .
+cluster:pod1.Energy.Usage glc:endingInterval 123^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.Energy.Usage glc:hasAggregatedFunction "average" .
 cluster:pod1.Energy.Usage glc:hasDescription "Energy.Usage" .
-cluster:pod1.Energy.Usage glc:hasTimestamp 17100500^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.Energy.Usage glc:hasTimestamp 123^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:pod1.Energy.Usage glc:hasValue 42.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:pod1.Energy.Usage glc:startingInterval -299877^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:pod1.Energy.Usage glc:hasID cluster:pod1.Energy.Usage .
 cluster:pod1.Energy.Usage glc:measuredIn glc:milliwatt .
 cluster:pod1.Energy.Usage glc:relatesToMeasurementProperty glc:Energy.Usage .
