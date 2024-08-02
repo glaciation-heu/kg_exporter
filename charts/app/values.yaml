@@ -111,15 +111,15 @@ settings:
 
         - measurement_id: Available
           subresource: Storage
-          source: cAdvisor
+          source: k8s-ephemeral-storage-metrics
           unit: bytes
           property: Storage.Available
           query: |
             label_replace(
-              container_fs_usage_bytes{device="/dev/sda2"} @{{now}},
+              ephemeral_storage_node_available @{{now}},
               "resource",
               "$1",
-              "instance",
+              "node_name",
               "(.+)"
             )
           result_parser: PROMETHEUS_PARSER
@@ -155,7 +155,7 @@ settings:
 
         - measurement_id: Usage
           subresource: Storage
-          source: cAdvisor
+          source: k8s-ephemeral-storage-metrics
           unit: bytes
           property: Storage.Usage
           aggregation:
@@ -163,20 +163,10 @@ settings:
             function: average
           query: |
             label_replace(
-              sum(
-                rate(
-                  container_fs_reads_bytes_total{device="/dev/sda"}[5m] @{{now}}
-                )
-              ) by (pod)
-                +
-              sum(
-                rate(
-                  container_fs_writes_bytes_total{device="/dev/sda"}[5m] @{{now}}
-                )
-              ) by (pod),
+              ephemeral_storage_pod_usage @{{now}},
               "resource",
               "$1",
-              "pod",
+              "pod_name",
               "(.+)"
             )
           result_parser: PROMETHEUS_PARSER
