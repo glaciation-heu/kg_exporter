@@ -201,6 +201,13 @@
                     }
                 ]
             },
+            "glc:hasStatus": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "Running",
+                "glc:startTime": "2024-02-13T13:53:43Z",
+                "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
+            },
             "glc:hasSubResource": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
         },
         {
@@ -209,7 +216,14 @@
             "glc:hasDescription": "Container",
             "k8s:hasContainerID": "containerd://0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
             "k8s:hasContainerName": "coredns",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns",
+            "glc:hasStatus": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "running",
+                "glc:startTime": "2024-02-13T13:53:44Z",
+                "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
+            }
         },
         {
             "@id": "cluster:kubernetes",
@@ -269,6 +283,13 @@
                     }
                 ]
             },
+            "glc:hasStatus": {
+                "@id": "cluster:minio-tenant.glaciation-pool-0-0.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "Running",
+                "glc:startTime": "2024-05-17T11:53:14Z",
+                "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.Status"
+            },
             "glc:hasSubResource": {
                 "@set": [
                     "cluster:minio-tenant.glaciation-pool-0-0.minio",
@@ -283,7 +304,14 @@
             "glc:hasDescription": "Container",
             "k8s:hasContainerID": "containerd://cd294ba419c33b64d33b24583c0f64ef320560942872cf206750d69a11db7ba6",
             "k8s:hasContainerName": "minio",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.minio"
+            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.minio",
+            "glc:hasStatus": {
+                "@id": "cluster:minio-tenant.glaciation-pool-0-0.minio.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "running",
+                "glc:startTime": "2024-05-17T11:55:54Z",
+                "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.minio.Status"
+            }
         },
         {
             "@id": "cluster:minio-tenant.glaciation-pool-0-0.sidecar",
@@ -291,7 +319,14 @@
             "glc:hasDescription": "Container",
             "k8s:hasContainerID": "containerd://68ecab8b10b91093bfd72f40c93b9b1545f9b5963e5a4b9b0bcea887be36f7fc",
             "k8s:hasContainerName": "sidecar",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.sidecar"
+            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.sidecar",
+            "glc:hasStatus": {
+                "@id": "cluster:minio-tenant.glaciation-pool-0-0.sidecar.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "running",
+                "glc:startTime": "2024-05-17T11:54:19Z",
+                "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.sidecar.Status"
+            }
         },
         {
             "@id": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments",
@@ -299,7 +334,15 @@
             "glc:hasDescription": "Container",
             "k8s:hasContainerID": "containerd://1b107c003c626739a964d4489f8aa7c8eeba5c9df22f7779ca7bd0ea6957ad6d",
             "k8s:hasContainerName": "validate-arguments",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments"
+            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments",
+            "glc:hasStatus": {
+                "@id": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "2024-05-17T11:54:19Z",
+                "glc:hasDescription": "terminated",
+                "glc:startTime": "2024-05-17T11:54:19Z",
+                "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments.Status"
+            }
         },
         {
             "@id": "glc:Bytes",
@@ -595,49 +638,6 @@
             },
             "glc:hasID": "cluster:glaciation-pool-0",
             "glc:makes": "cluster:minio-tenant.glaciation-pool-0-0"
-        },
-        {
-            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "Running",
-            "glc:startTime": "2024-02-13T13:53:43Z",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
-        },
-        {
-            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "running",
-            "glc:startTime": "2024-02-13T13:53:44Z",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
-        },
-        {
-            "@id": "cluster:minio-tenant.glaciation-pool-0-0.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "Running",
-            "glc:startTime": "2024-05-17T11:53:14Z",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.Status"
-        },
-        {
-            "@id": "cluster:minio-tenant.glaciation-pool-0-0.minio.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "running",
-            "glc:startTime": "2024-05-17T11:55:54Z",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.minio.Status"
-        },
-        {
-            "@id": "cluster:minio-tenant.glaciation-pool-0-0.sidecar.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "running",
-            "glc:startTime": "2024-05-17T11:54:19Z",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.sidecar.Status"
-        },
-        {
-            "@id": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments.Status",
-            "@type": "glc:Status",
-            "glc:endTime": "2024-05-17T11:54:19Z",
-            "glc:hasDescription": "terminated",
-            "glc:startTime": "2024-05-17T11:54:19Z",
-            "glc:hasID": "cluster:minio-tenant.glaciation-pool-0-0.validate-arguments.Status"
         },
         {
             "@id": "cluster:tenant1",
