@@ -46,6 +46,7 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         status = self.get_opt_str_value(["status", "phase"])
         if status:
             self.add_status(status_id, status, start_time or "", None)
+            self.sink.add_relation(pod_id, self.HAS_STATUS, status_id)
 
     def add_containers_resources(self, pod_id: IRI, scheduler_name: str) -> None:
         self.add_container_resources_by_query(
@@ -94,6 +95,7 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
             start_time = state_struct.get("startedAt")
             end_time = state_struct.get("finishedAt")
             self.add_status(status_id, state_literal, start_time or "", end_time)
+            self.sink.add_relation(container_id, self.HAS_STATUS, status_id)
 
     def get_state_struct(
         self, state: Dict[str, Any]

@@ -19,6 +19,13 @@
             "k8s:hasName": "coredns-787d4945fb-l85r5",
             "glc:consumes": "cluster:glaciation-test-master01",
             "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5",
+            "glc:hasStatus": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "Running",
+                "glc:startTime": "2024-02-13T13:53:43Z",
+                "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
+            },
             "glc:hasSubResource": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
         },
         {
@@ -27,7 +34,14 @@
             "glc:hasDescription": "Container",
             "k8s:hasContainerID": "containerd://0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
             "k8s:hasContainerName": "coredns",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns",
+            "glc:hasStatus": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status",
+                "@type": "glc:Status",
+                "glc:hasDescription": "running",
+                "glc:startTime": "2024-02-13T13:53:44Z",
+                "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
+            }
         },
         {
             "@id": "cluster:coredns-787d4945fb",
@@ -35,20 +49,6 @@
             "glc:hasDescription": "ReplicaSet",
             "glc:hasID": "cluster:coredns-787d4945fb",
             "glc:makes": "cluster:kube-system.coredns-787d4945fb-l85r5"
-        },
-        {
-            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "Running",
-            "glc:startTime": "2024-02-13T13:53:43Z",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
-        },
-        {
-            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status",
-            "@type": "glc:Status",
-            "glc:hasDescription": "running",
-            "glc:startTime": "2024-02-13T13:53:44Z",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
         },
         {
             "@id": "glc:default-scheduler",

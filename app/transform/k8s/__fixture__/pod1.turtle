@@ -10,6 +10,7 @@ cluster:kube-system.coredns-787d4945fb-l85r5 glc:hasDescription "Pod" .
 cluster:kube-system.coredns-787d4945fb-l85r5 k8s:hasName "coredns-787d4945fb-l85r5" .
 cluster:kube-system.coredns-787d4945fb-l85r5 glc:consumes cluster:glaciation-test-master01 .
 cluster:kube-system.coredns-787d4945fb-l85r5 glc:hasID cluster:kube-system.coredns-787d4945fb-l85r5 .
+cluster:kube-system.coredns-787d4945fb-l85r5 glc:hasStatus cluster:kube-system.coredns-787d4945fb-l85r5.Status .
 cluster:kube-system.coredns-787d4945fb-l85r5 glc:hasSubResource cluster:kube-system.coredns-787d4945fb-l85r5.coredns .
 cluster:kube-system.coredns-787d4945fb-l85r5.Status rdf:type glc:Status .
 cluster:kube-system.coredns-787d4945fb-l85r5.Status glc:hasDescription "Running" .
@@ -20,6 +21,7 @@ cluster:kube-system.coredns-787d4945fb-l85r5.coredns glc:hasDescription "Contain
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns k8s:hasContainerID "containerd://0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963" .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns k8s:hasContainerName "coredns" .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns glc:hasID cluster:kube-system.coredns-787d4945fb-l85r5.coredns .
+cluster:kube-system.coredns-787d4945fb-l85r5.coredns glc:hasStatus cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status rdf:type glc:Status .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status glc:hasDescription "running" .
 cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status glc:startTime "2024-02-13T13:53:44Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
