@@ -3,10 +3,8 @@ from typing import Dict, List, Optional, Tuple, TypeAlias
 import asyncio
 import datetime
 
-from app.clients.metadata_service.metadata_service_client import (
-    MetadataServiceClient,
-    Triple,
-)
+from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
+from app.kg.id_base import IdBase
 
 HostId: TypeAlias = str
 SparQLQuery: TypeAlias = str
@@ -14,17 +12,19 @@ SerializedGraph: TypeAlias = str
 
 
 class HostInteractions:
-    query_to_response: Dict[SparQLQuery, List[Triple]]
+    query_to_response: Dict[SparQLQuery, List[Dict[str, IdBase]]]
     inserts: List[SerializedGraph]
 
     def __init__(self):
         self.query_to_response = dict()
         self.inserts = []
 
-    def add_query(self, sparql: SparQLQuery, result: List[Triple]) -> None:
+    def add_query(self, sparql: SparQLQuery, result: List[Dict[str, IdBase]]) -> None:
         self.query_to_response[sparql] = result
 
-    def get_query_result(self, sparql: SparQLQuery) -> Optional[List[Triple]]:
+    def get_query_result(
+        self, sparql: SparQLQuery
+    ) -> Optional[List[Dict[str, IdBase]]]:
         return self.query_to_response.get(sparql)
 
     def add_insert(self, result: SerializedGraph) -> None:
@@ -43,13 +43,15 @@ class MockMetadataServiceClient(MetadataServiceClient):
         self.hosts = dict()
 
     def mock_query(
-        self, host_id: HostId, sparql: SparQLQuery, result: List[Triple]
+        self, host_id: HostId, sparql: SparQLQuery, result: List[Dict[str, IdBase]]
     ) -> None:
         if host_id not in self.hosts:
             self.hosts[host_id] = HostInteractions()
         self.hosts[host_id].add_query(sparql, result)
 
-    async def query(self, host_and_port: HostId, sparql: SparQLQuery) -> List[Triple]:
+    async def query(
+        self, host_and_port: HostId, sparql: SparQLQuery
+    ) -> List[Dict[str, IdBase]]:
         host_queries = self.hosts.get(host_and_port)
         if host_queries:
             return host_queries.get_query_result(sparql) or []

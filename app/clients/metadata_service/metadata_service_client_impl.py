@@ -1,15 +1,14 @@
-from typing import List
+from typing import Dict, List
 
 import httpx
 from httpx import HTTPError
 
-from app.clients.metadata_service.metadata_service_client import (
-    MetadataServiceClient,
-    Triple,
-)
+from app.clients.metadata_service.metadata_service_client import MetadataServiceClient
 from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
+from app.clients.metadata_service.query_response_parser import QueryResponseParser
+from app.kg.id_base import IdBase
 
 
 class ClientError(Exception):
@@ -18,11 +17,13 @@ class ClientError(Exception):
 
 class MetadataServiceClientImpl(MetadataServiceClient):
     settings: MetadataServiceSettings
+    query_reponse_parser: QueryResponseParser
 
     def __init__(self, settings: MetadataServiceSettings):
         self.settings = settings
+        self.query_reponse_parser = QueryResponseParser()
 
-    async def query(self, host_and_port: str, sparql: str) -> List[Triple]:
+    async def query(self, host_and_port: str, sparql: str) -> List[Dict[str, IdBase]]:
         base_url = self.get_base_url(host_and_port)
         url = f"{base_url}/api/v0/graph/search"
         async with httpx.AsyncClient() as client:
@@ -33,8 +34,7 @@ class MetadataServiceClientImpl(MetadataServiceClient):
                     headers=[("Content-Type", "application/json")],
                 )
                 response.raise_for_status()
-                # TODO parse response when it is clear what Metadata Service query API is
-                return []
+                return self.query_reponse_parser.parse(response.text)
             except HTTPError as e:
                 raise ClientError(e.args[0]) from e
 

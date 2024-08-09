@@ -1,17 +1,10 @@
-from typing import List
+from typing import Dict, List
 
-from dataclasses import dataclass
-
-
-@dataclass
-class Triple:
-    subject: str
-    relation: str
-    object: str
+from app.kg.id_base import IdBase
 
 
 class MetadataServiceClient:
-    async def query(self, host_and_port: str, sparql: str) -> List[Triple]:
+    async def query(self, host_and_port: str, sparql: str) -> List[Dict[str, IdBase]]:
         raise NotImplementedError
 
     async def insert(self, host_and_port: str, message: str) -> None:
