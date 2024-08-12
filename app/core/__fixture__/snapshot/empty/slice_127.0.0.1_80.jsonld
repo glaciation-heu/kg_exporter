@@ -10,7 +10,7 @@
       "@id": "cluster:Unknown",
       "@type": "glc:WorkProducingResource",
       "glc:hasDescription": "KubernetesCluster",
-      "glc:hasID": "cluster:Unknown"
+      "glc:hasID": {"@id": "cluster:Unknown"}
     }
   ]
 }

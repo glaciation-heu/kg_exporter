@@ -10,44 +10,66 @@
             "@id": "cluster:glaciation-mast01",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-mast01"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-mast01"
+            }
         },
         {
             "@id": "cluster:glaciation-worker01",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-worker01"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-worker01"
+            }
         },
         {
             "@id": "cluster:glaciation-worker02",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-worker02"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-worker02"
+            }
         },
         {
             "@id": "cluster:glaciation-worker03",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-worker03"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-worker03"
+            }
         },
         {
             "@id": "cluster:glaciation-worker04",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-worker04"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-worker04"
+            }
         },
         {
             "@id": "cluster:kubernetes",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesCluster",
-            "glc:hasID": "cluster:kubernetes",
+            "glc:hasID": {
+                "@id": "cluster:kubernetes"
+            },
             "glc:hasSubResource": {
                 "@set": [
-                    "cluster:glaciation-mast01",
-                    "cluster:glaciation-worker01",
-                    "cluster:glaciation-worker02",
-                    "cluster:glaciation-worker03",
-                    "cluster:glaciation-worker04"
+                    {
+                        "@id": "cluster:glaciation-mast01"
+                    },
+                    {
+                        "@id": "cluster:glaciation-worker01"
+                    },
+                    {
+                        "@id": "cluster:glaciation-worker02"
+                    },
+                    {
+                        "@id": "cluster:glaciation-worker03"
+                    },
+                    {
+                        "@id": "cluster:glaciation-worker04"
+                    }
                 ]
             }
         }

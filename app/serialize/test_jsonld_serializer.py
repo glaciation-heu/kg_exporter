@@ -98,7 +98,10 @@ class JsonLDSerializerTest(TestCase):
                     },
                     "pref:rel1": "val11",
                     "pref:rel2": {"@set": ["val21", "val22", "val23"]},
-                    "pref:connects": "pref:id2",
+                    "pref:connects": {"@id": "pref:id2"},
+                    "pref:relation_set": {
+                        "@set": [{"@id": "pref:id1"}, {"@id": "pref:id2"}]
+                    },
                 },
             ]
         }
@@ -254,6 +257,12 @@ class JsonLDSerializerTest(TestCase):
         graph.add_relation(
             IRI("pref", "id1"), IRI("pref", "connects"), IRI("pref", "id2")
         )
+        graph.add_relation_collection(
+            IRI("pref", "id1"),
+            IRI("pref", "relation_set"),
+            {IRI("pref", "id1"), IRI("pref", "id2")},
+        )
+
         graph.add_meta_property(
             IRI("pref", "id2"), Graph.RDF_TYPE_IRI, IRI("pref", "MyNode2")
         )

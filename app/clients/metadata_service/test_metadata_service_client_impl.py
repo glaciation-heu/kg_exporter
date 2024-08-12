@@ -9,6 +9,8 @@ from app.clients.metadata_service.metadata_service_client_impl import (
 from app.clients.metadata_service.metadata_service_settings import (
     MetadataServiceSettings,
 )
+from app.kg.iri import IRI
+from app.kg.literal import Literal
 
 
 class MetadataServiceClientTest(VCRTestCase):
@@ -31,4 +33,17 @@ class MetadataServiceClientTest(VCRTestCase):
     def test_query_success(self):
         settings = MetadataServiceSettings()
         client = MetadataServiceClientImpl(settings)
-        asyncio.run(client.query("metadata-service", "query"))
+        results = asyncio.run(client.query("metadata-service", "query"))
+        self.assertEqual(
+            results,
+            [
+                {
+                    "obj": Literal("Halloumi", Literal.TYPE_STRING),
+                    "pred": IRI("glc", "property"),
+                    "sub": IRI(
+                        "https://kubernetes.local",
+                        "kafka.kafka-broker-1.kafka-init.Status",
+                    ),
+                },
+            ],
+        )

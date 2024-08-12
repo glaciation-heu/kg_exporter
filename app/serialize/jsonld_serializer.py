@@ -3,6 +3,8 @@ from typing import Any, Dict, List, Set
 import json
 from io import IOBase
 
+from sortedcontainers import SortedDict
+
 from app.kg.graph import Graph
 from app.kg.id_base import IdBase
 from app.kg.iri import IRI
@@ -122,7 +124,7 @@ class JsonLDSerialializer(GraphSerializer):
                     )
                 else:
                     self.validate_prefix(relation_iri, default_context, local_context)
-                    result_node[predicate.render()] = relation_iri.render()
+                    result_node[predicate.render()] = self.get_value(relation_iri)
             else:
                 relation_nodes: List[Any] = list()
                 for value_id in sorted(list(relation_object)):
@@ -138,7 +140,7 @@ class JsonLDSerialializer(GraphSerializer):
                         )
                     else:
                         self.validate_prefix(value_id, default_context, local_context)
-                        relation_nodes.append(value_id.render())
+                        relation_nodes.append(self.get_value(value_id))
                 result_node[predicate.render()] = {"@set": relation_nodes}
 
         return result_node
@@ -149,11 +151,11 @@ class JsonLDSerialializer(GraphSerializer):
             return dict()
         return self.config.contexts.get(rdf_type, dict())
 
-    def get_value(self, base: IdBase) -> PropertyValue:
+    def get_value(self, base: IdBase) -> SortedDict | PropertyValue:
         if isinstance(base, Literal):
             return base.value
         elif isinstance(base, IRI):
-            return base.render()
+            return SortedDict({"@id": base.render()})
         else:
             raise Exception(f"Unexpected type {type(base)}, must one of (Literal, IRI)")
 
