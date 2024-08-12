@@ -9,23 +9,31 @@
         {
             "@id": "glc:Bytes",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Bytes"
+            "glc:hasID": {
+                "@id": "glc:Bytes"
+            }
         },
         {
             "@id": "glc:Core",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Core"
+            "glc:hasID": {
+                "@id": "glc:Core"
+            }
         },
         {
             "@id": "glc:Performance",
             "@type": "glc:Aspect",
-            "glc:hasID": "glc:Performance"
+            "glc:hasID": {
+                "@id": "glc:Performance"
+            }
         },
         {
             "@id": "cluster:coredns",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "Deployment",
-            "glc:hasID": "cluster:coredns",
+            "glc:hasID": {
+                "@id": "cluster:coredns"
+            },
             "glc:hasSubTask": {
                 "@id": "cluster:coredns-787d4945fb",
                 "@type": "glc:AssignedTask",
@@ -37,38 +45,62 @@
                             "@type": "glc:SoftConstraint",
                             "glc:hasDescription": "CPU.Allocated",
                             "glc:maxValue": 0.1,
-                            "glc:hasAspect": "glc:Performance",
-                            "glc:hasID": "cluster:coredns-787d4945fb.CPU.Allocated",
-                            "glc:measuredIn": "glc:Core"
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:coredns-787d4945fb.CPU.Allocated"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Core"
+                            }
                         },
                         {
                             "@id": "cluster:coredns-787d4945fb.RAM.Allocated",
                             "@type": "glc:SoftConstraint",
                             "glc:hasDescription": "RAM.Allocated",
                             "glc:maxValue": 73400320.0,
-                            "glc:hasAspect": "glc:Performance",
-                            "glc:hasID": "cluster:coredns-787d4945fb.RAM.Allocated",
-                            "glc:measuredIn": "glc:Bytes"
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:coredns-787d4945fb.RAM.Allocated"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Bytes"
+                            }
                         },
                         {
                             "@id": "cluster:coredns-787d4945fb.RAM.Capacity",
                             "@type": "glc:HardConstraint",
                             "glc:hasDescription": "RAM.Capacity",
                             "glc:maxValue": 178257920.0,
-                            "glc:hasAspect": "glc:Performance",
-                            "glc:hasID": "cluster:coredns-787d4945fb.RAM.Capacity",
-                            "glc:measuredIn": "glc:Bytes"
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:coredns-787d4945fb.RAM.Capacity"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Bytes"
+                            }
                         }
                     ]
                 },
-                "glc:hasID": "cluster:coredns-787d4945fb"
+                "glc:hasID": {
+                    "@id": "cluster:coredns-787d4945fb"
+                }
             }
         },
         {
             "@id": "glc:default-scheduler",
             "@type": "glc:Scheduler",
-            "glc:assigns": "cluster:coredns-787d4945fb",
-            "glc:hasID": "glc:default-scheduler"
+            "glc:assigns": {
+                "@id": "cluster:coredns-787d4945fb"
+            },
+            "glc:hasID": {
+                "@id": "glc:default-scheduler"
+            }
         }
     ]
 }

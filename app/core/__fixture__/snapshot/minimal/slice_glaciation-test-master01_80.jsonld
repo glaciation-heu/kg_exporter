@@ -10,31 +10,51 @@
             "@id": "cluster:glaciation-test-master01",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-test-master01",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-master01"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-master01.Energy.Index",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Energy.Index",
                 "glc:hasTimestamp": 1000,
                 "glc:hasValue": 1001,
-                "glc:hasID": "cluster:glaciation-test-master01.Energy.Index",
-                "glc:measuredIn": "glc:Milliwatt",
-                "glc:relatesToMeasurementProperty": "glc:Energy.Index"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-master01.Energy.Index"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:Milliwatt"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:Energy.Index"
+                }
             },
             "glc:hasStatus": {
                 "@id": "cluster:glaciation-test-master01.Status",
                 "@type": "glc:Status",
                 "glc:hasDescription": "Ready",
                 "glc:startTime": "2024-02-13T13:53:43Z",
-                "glc:hasID": "cluster:glaciation-test-master01.Status"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-master01.Status"
+                }
             },
             "glc:hasSubResource": {
                 "@set": [
-                    "cluster:glaciation-test-master01.CPU",
-                    "cluster:glaciation-test-master01.GPU",
-                    "cluster:glaciation-test-master01.Network",
-                    "cluster:glaciation-test-master01.RAM",
-                    "cluster:glaciation-test-master01.Storage"
+                    {
+                        "@id": "cluster:glaciation-test-master01.CPU"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.GPU"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.Network"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.RAM"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.Storage"
+                    }
                 ]
             }
         },
@@ -42,7 +62,9 @@
             "@id": "cluster:glaciation-test-master01.CPU",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "CPU",
-            "glc:hasID": "cluster:glaciation-test-master01.CPU",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-master01.CPU"
+            },
             "glc:hasMeasurement": {
                 "@set": [
                     {
@@ -51,9 +73,15 @@
                         "glc:hasDescription": "CPU.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 4,
-                        "glc:hasID": "cluster:glaciation-test-master01.CPU.Capacity",
-                        "glc:measuredIn": "glc:Core",
-                        "glc:relatesToMeasurementProperty": "glc:CPU.Capacity"
+                        "glc:hasID": {
+                            "@id": "cluster:glaciation-test-master01.CPU.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Core"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:CPU.Capacity"
+                        }
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.CPU.Usage",
@@ -61,9 +89,15 @@
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 41.0,
-                        "glc:hasID": "cluster:glaciation-test-master01.CPU.Usage",
-                        "glc:measuredIn": "glc:coreseconds",
-                        "glc:relatesToMeasurementProperty": "glc:CPU.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:glaciation-test-master01.CPU.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:coreseconds"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:CPU.Usage"
+                        }
                     }
                 ]
             }
@@ -72,29 +106,41 @@
             "@id": "cluster:glaciation-test-master01.GPU",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "GPU",
-            "glc:hasID": "cluster:glaciation-test-master01.GPU"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-master01.GPU"
+            }
         },
         {
             "@id": "cluster:glaciation-test-master01.Network",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "Network",
-            "glc:hasID": "cluster:glaciation-test-master01.Network",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-master01.Network"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-master01.Network.Usage",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Network.Usage",
                 "glc:hasTimestamp": 17100500,
                 "glc:hasValue": 43.0,
-                "glc:hasID": "cluster:glaciation-test-master01.Network.Usage",
-                "glc:measuredIn": "glc:bytes",
-                "glc:relatesToMeasurementProperty": "glc:Network.Usage"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-master01.Network.Usage"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:bytes"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:Network.Usage"
+                }
             }
         },
         {
             "@id": "cluster:glaciation-test-master01.RAM",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "RAM",
-            "glc:hasID": "cluster:glaciation-test-master01.RAM",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-master01.RAM"
+            },
             "glc:hasMeasurement": {
                 "@set": [
                     {
@@ -103,9 +149,15 @@
                         "glc:hasDescription": "RAM.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 16673939456,
-                        "glc:hasID": "cluster:glaciation-test-master01.RAM.Capacity",
-                        "glc:measuredIn": "glc:Bytes",
-                        "glc:relatesToMeasurementProperty": "glc:RAM.Capacity"
+                        "glc:hasID": {
+                            "@id": "cluster:glaciation-test-master01.RAM.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:RAM.Capacity"
+                        }
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.RAM.Usage",
@@ -113,9 +165,15 @@
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 42.0,
-                        "glc:hasID": "cluster:glaciation-test-master01.RAM.Usage",
-                        "glc:measuredIn": "glc:bytes",
-                        "glc:relatesToMeasurementProperty": "glc:RAM.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:glaciation-test-master01.RAM.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:RAM.Usage"
+                        }
                     }
                 ]
             }
@@ -124,7 +182,9 @@
             "@id": "cluster:glaciation-test-master01.Storage",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "EphemeralStorage",
-            "glc:hasID": "cluster:glaciation-test-master01.Storage",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-master01.Storage"
+            },
             "glc:hasMeasurement": {
                 "@set": [
                     {
@@ -133,9 +193,15 @@
                         "glc:hasDescription": "Storage.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 47266578354,
-                        "glc:hasID": "cluster:glaciation-test-master01.Storage.Capacity",
-                        "glc:measuredIn": "glc:Bytes",
-                        "glc:relatesToMeasurementProperty": "glc:Storage.Capacity"
+                        "glc:hasID": {
+                            "@id": "cluster:glaciation-test-master01.Storage.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:Storage.Capacity"
+                        }
                     },
                     {
                         "@id": "cluster:glaciation-test-master01.Storage.Usage",
@@ -143,9 +209,15 @@
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
-                        "glc:hasID": "cluster:glaciation-test-master01.Storage.Usage",
-                        "glc:measuredIn": "glc:bytes",
-                        "glc:relatesToMeasurementProperty": "glc:Storage.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:glaciation-test-master01.Storage.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:Storage.Usage"
+                        }
                     }
                 ]
             }
@@ -155,8 +227,12 @@
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "Pod",
             "k8s:hasName": "coredns-787d4945fb-l85r5",
-            "glc:consumes": "cluster:glaciation-test-master01",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5",
+            "glc:consumes": {
+                "@id": "cluster:glaciation-test-master01"
+            },
+            "glc:hasID": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5"
+            },
             "glc:hasMeasurement": {
                 "@set": [
                     {
@@ -165,9 +241,15 @@
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 41.0,
-                        "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage",
-                        "glc:measuredIn": "glc:coreseconds",
-                        "glc:relatesToMeasurementProperty": "glc:CPU.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:coreseconds"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:CPU.Usage"
+                        }
                     },
                     {
                         "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage",
@@ -175,9 +257,15 @@
                         "glc:hasDescription": "Network.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
-                        "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage",
-                        "glc:measuredIn": "glc:bytes",
-                        "glc:relatesToMeasurementProperty": "glc:Network.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:Network.Usage"
+                        }
                     },
                     {
                         "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage",
@@ -185,9 +273,15 @@
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 42.0,
-                        "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage",
-                        "glc:measuredIn": "glc:bytes",
-                        "glc:relatesToMeasurementProperty": "glc:RAM.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:RAM.Usage"
+                        }
                     },
                     {
                         "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage",
@@ -195,9 +289,15 @@
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
-                        "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage",
-                        "glc:measuredIn": "glc:bytes",
-                        "glc:relatesToMeasurementProperty": "glc:Storage.Usage"
+                        "glc:hasID": {
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:bytes"
+                        },
+                        "glc:relatesToMeasurementProperty": {
+                            "@id": "glc:Storage.Usage"
+                        }
                     }
                 ]
             },
@@ -206,9 +306,13 @@
                 "@type": "glc:Status",
                 "glc:hasDescription": "Running",
                 "glc:startTime": "2024-02-13T13:53:43Z",
-                "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
+                "glc:hasID": {
+                    "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Status"
+                }
             },
-            "glc:hasSubResource": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+            "glc:hasSubResource": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+            }
         },
         {
             "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns",
@@ -216,128 +320,194 @@
             "glc:hasDescription": "Container",
             "k8s:hasContainerID": "containerd://0ce09d1e8fdff70a58902bb3e73efafa76035dddbe9cec8b4115ac80d09f9963",
             "k8s:hasContainerName": "coredns",
-            "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns",
+            "glc:hasID": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+            },
             "glc:hasStatus": {
                 "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status",
                 "@type": "glc:Status",
                 "glc:hasDescription": "running",
                 "glc:startTime": "2024-02-13T13:53:44Z",
-                "glc:hasID": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
+                "glc:hasID": {
+                    "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns.Status"
+                }
             }
         },
         {
             "@id": "cluster:kubernetes",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesCluster",
-            "glc:hasID": "cluster:kubernetes",
-            "glc:hasSubResource": "cluster:glaciation-test-master01"
+            "glc:hasID": {
+                "@id": "cluster:kubernetes"
+            },
+            "glc:hasSubResource": {
+                "@id": "cluster:glaciation-test-master01"
+            }
         },
         {
             "@id": "glc:Bytes",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Bytes"
+            "glc:hasID": {
+                "@id": "glc:Bytes"
+            }
         },
         {
             "@id": "glc:CPU.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Capacity"
+            "glc:hasID": {
+                "@id": "glc:CPU.Capacity"
+            }
         },
         {
             "@id": "glc:CPU.Usage",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Usage"
+            "glc:hasID": {
+                "@id": "glc:CPU.Usage"
+            }
         },
         {
             "@id": "glc:Core",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Core"
+            "glc:hasID": {
+                "@id": "glc:Core"
+            }
         },
         {
             "@id": "glc:Energy.Index",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Energy.Index"
+            "glc:hasID": {
+                "@id": "glc:Energy.Index"
+            }
         },
         {
             "@id": "glc:Milliwatt",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Milliwatt"
+            "glc:hasID": {
+                "@id": "glc:Milliwatt"
+            }
         },
         {
             "@id": "glc:Network.Usage",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Network.Usage"
+            "glc:hasID": {
+                "@id": "glc:Network.Usage"
+            }
         },
         {
             "@id": "glc:Performance",
             "@type": "glc:Aspect",
-            "glc:hasID": "glc:Performance"
+            "glc:hasID": {
+                "@id": "glc:Performance"
+            }
         },
         {
             "@id": "glc:Power",
             "@type": "glc:Aspect",
-            "glc:hasID": "glc:Power"
+            "glc:hasID": {
+                "@id": "glc:Power"
+            }
         },
         {
             "@id": "glc:RAM.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:RAM.Capacity"
+            "glc:hasID": {
+                "@id": "glc:RAM.Capacity"
+            }
         },
         {
             "@id": "glc:RAM.Usage",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:RAM.Usage"
+            "glc:hasID": {
+                "@id": "glc:RAM.Usage"
+            }
         },
         {
             "@id": "glc:ResourceSpecification",
             "@type": "glc:MeasuringResource",
             "glc:hasDescription": "ResourceSpecification",
-            "glc:hasID": "glc:ResourceSpecification",
+            "glc:hasID": {
+                "@id": "glc:ResourceSpecification"
+            },
             "glc:makes": {
                 "@set": [
-                    "cluster:glaciation-test-master01.CPU.Capacity",
-                    "cluster:glaciation-test-master01.Energy.Index",
-                    "cluster:glaciation-test-master01.RAM.Capacity",
-                    "cluster:glaciation-test-master01.Storage.Capacity"
+                    {
+                        "@id": "cluster:glaciation-test-master01.CPU.Capacity"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.Energy.Index"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.RAM.Capacity"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.Storage.Capacity"
+                    }
                 ]
             }
         },
         {
             "@id": "glc:Storage.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Storage.Capacity"
+            "glc:hasID": {
+                "@id": "glc:Storage.Capacity"
+            }
         },
         {
             "@id": "glc:Storage.Usage",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Storage.Usage"
+            "glc:hasID": {
+                "@id": "glc:Storage.Usage"
+            }
         },
         {
             "@id": "glc:bytes",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:bytes"
+            "glc:hasID": {
+                "@id": "glc:bytes"
+            }
         },
         {
             "@id": "glc:cAdvisor",
             "@type": "glc:MeasuringResource",
             "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
-            "glc:hasID": "glc:cAdvisor",
+            "glc:hasID": {
+                "@id": "glc:cAdvisor"
+            },
             "glc:makes": {
                 "@set": [
-                    "cluster:glaciation-test-master01.CPU.Usage",
-                    "cluster:glaciation-test-master01.Network.Usage",
-                    "cluster:glaciation-test-master01.RAM.Usage",
-                    "cluster:glaciation-test-master01.Storage.Usage",
-                    "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage",
-                    "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage",
-                    "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage",
-                    "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage"
+                    {
+                        "@id": "cluster:glaciation-test-master01.CPU.Usage"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.Network.Usage"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.RAM.Usage"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-master01.Storage.Usage"
+                    },
+                    {
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage"
+                    },
+                    {
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage"
+                    },
+                    {
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage"
+                    },
+                    {
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage"
+                    }
                 ]
             }
         },
         {
             "@id": "glc:coreseconds",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:coreseconds"
+            "glc:hasID": {
+                "@id": "glc:coreseconds"
+            }
         },
         {
             "@id": "cluster:coredns",
@@ -350,94 +520,156 @@
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "CPU.Allocated",
                         "glc:maxValue": 0.30000000000000004,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.CPU.Allocated",
-                        "glc:measuredIn": "glc:Core"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.CPU.Allocated"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Core"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.Energy.Allocated",
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "Energy.Allocated",
                         "glc:maxValue": 100.0,
-                        "glc:hasAspect": "glc:Power",
-                        "glc:hasID": "cluster:coredns.Energy.Allocated",
-                        "glc:measuredIn": "glc:Milliwatt"
+                        "glc:hasAspect": {
+                            "@id": "glc:Power"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.Energy.Allocated"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Milliwatt"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.Energy.Capacity",
                         "@type": "glc:HardConstraint",
                         "glc:hasDescription": "Energy.Capacity",
                         "glc:maxValue": 100.0,
-                        "glc:hasAspect": "glc:Power",
-                        "glc:hasID": "cluster:coredns.Energy.Capacity",
-                        "glc:measuredIn": "glc:Milliwatt"
+                        "glc:hasAspect": {
+                            "@id": "glc:Power"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.Energy.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Milliwatt"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.GPU.Allocated",
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "GPU.Allocated",
                         "glc:maxValue": 101.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.GPU.Allocated",
-                        "glc:measuredIn": "glc:Core"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.GPU.Allocated"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Core"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.GPU.Capacity",
                         "@type": "glc:HardConstraint",
                         "glc:hasDescription": "GPU.Capacity",
                         "glc:maxValue": 101.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.GPU.Capacity",
-                        "glc:measuredIn": "glc:Core"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.GPU.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Core"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.Network.Allocated",
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "Network.Allocated",
                         "glc:maxValue": 1010.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.Network.Allocated",
-                        "glc:measuredIn": "glc:Bytes"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.Network.Allocated"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.Network.Capacity",
                         "@type": "glc:HardConstraint",
                         "glc:hasDescription": "Network.Capacity",
                         "glc:maxValue": 1010.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.Network.Capacity",
-                        "glc:measuredIn": "glc:Bytes"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.Network.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.RAM.Allocated",
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "RAM.Allocated",
                         "glc:maxValue": 220200960.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.RAM.Allocated",
-                        "glc:measuredIn": "glc:Bytes"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.RAM.Allocated"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.RAM.Capacity",
                         "@type": "glc:HardConstraint",
                         "glc:hasDescription": "RAM.Capacity",
                         "glc:maxValue": 534773760.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.RAM.Capacity",
-                        "glc:measuredIn": "glc:Bytes"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.RAM.Capacity"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        }
                     },
                     {
                         "@id": "cluster:coredns.Storage.Allocated",
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "Storage.Allocated",
                         "glc:maxValue": 100500.0,
-                        "glc:hasAspect": "glc:Performance",
-                        "glc:hasID": "cluster:coredns.Storage.Allocated",
-                        "glc:measuredIn": "glc:Bytes"
+                        "glc:hasAspect": {
+                            "@id": "glc:Performance"
+                        },
+                        "glc:hasID": {
+                            "@id": "cluster:coredns.Storage.Allocated"
+                        },
+                        "glc:measuredIn": {
+                            "@id": "glc:Bytes"
+                        }
                     }
                 ]
             },
-            "glc:hasID": "cluster:coredns",
+            "glc:hasID": {
+                "@id": "cluster:coredns"
+            },
             "glc:hasSubTask": {
                 "@id": "cluster:coredns-787d4945fb",
                 "@type": "glc:AssignedTask",
@@ -449,55 +681,91 @@
                             "@type": "glc:SoftConstraint",
                             "glc:hasDescription": "CPU.Allocated",
                             "glc:maxValue": 0.1,
-                            "glc:hasAspect": "glc:Performance",
-                            "glc:hasID": "cluster:coredns-787d4945fb.CPU.Allocated",
-                            "glc:measuredIn": "glc:Core"
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:coredns-787d4945fb.CPU.Allocated"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Core"
+                            }
                         },
                         {
                             "@id": "cluster:coredns-787d4945fb.RAM.Allocated",
                             "@type": "glc:SoftConstraint",
                             "glc:hasDescription": "RAM.Allocated",
                             "glc:maxValue": 73400320.0,
-                            "glc:hasAspect": "glc:Performance",
-                            "glc:hasID": "cluster:coredns-787d4945fb.RAM.Allocated",
-                            "glc:measuredIn": "glc:Bytes"
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:coredns-787d4945fb.RAM.Allocated"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Bytes"
+                            }
                         },
                         {
                             "@id": "cluster:coredns-787d4945fb.RAM.Capacity",
                             "@type": "glc:HardConstraint",
                             "glc:hasDescription": "RAM.Capacity",
                             "glc:maxValue": 178257920.0,
-                            "glc:hasAspect": "glc:Performance",
-                            "glc:hasID": "cluster:coredns-787d4945fb.RAM.Capacity",
-                            "glc:measuredIn": "glc:Bytes"
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:coredns-787d4945fb.RAM.Capacity"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Bytes"
+                            }
                         }
                     ]
                 },
-                "glc:hasID": "cluster:coredns-787d4945fb",
-                "glc:makes": "cluster:kube-system.coredns-787d4945fb-l85r5"
+                "glc:hasID": {
+                    "@id": "cluster:coredns-787d4945fb"
+                },
+                "glc:makes": {
+                    "@id": "cluster:kube-system.coredns-787d4945fb-l85r5"
+                }
             }
         },
         {
             "@id": "cluster:crd-resource",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "CRD",
-            "glc:hasID": "cluster:crd-resource",
-            "glc:makes": "cluster:coredns"
+            "glc:hasID": {
+                "@id": "cluster:crd-resource"
+            },
+            "glc:makes": {
+                "@id": "cluster:coredns"
+            }
         },
         {
             "@id": "glc:default-scheduler",
             "@type": "glc:Scheduler",
             "glc:assigns": {
                 "@set": [
-                    "cluster:coredns",
-                    "cluster:coredns-787d4945fb"
+                    {
+                        "@id": "cluster:coredns"
+                    },
+                    {
+                        "@id": "cluster:coredns-787d4945fb"
+                    }
                 ]
             },
-            "glc:hasID": "glc:default-scheduler",
+            "glc:hasID": {
+                "@id": "glc:default-scheduler"
+            },
             "glc:manages": {
                 "@set": [
-                    "cluster:kube-system.coredns-787d4945fb-l85r5",
-                    "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+                    {
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5"
+                    },
+                    {
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.coredns"
+                    }
                 ]
             }
         }

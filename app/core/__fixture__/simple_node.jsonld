@@ -9,41 +9,59 @@
         {
             "@id": "glc:CPU.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Capacity"
+            "glc:hasID": {
+                "@id": "glc:CPU.Capacity"
+            }
         },
         {
             "@id": "glc:Core",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Core"
+            "glc:hasID": {
+                "@id": "glc:Core"
+            }
         },
         {
             "@id": "glc:ResourceSpecification",
             "@type": "glc:MeasuringResource",
             "glc:hasDescription": "ResourceSpecification",
-            "glc:hasID": "glc:ResourceSpecification",
+            "glc:hasID": {
+                "@id": "glc:ResourceSpecification"
+            },
             "glc:makes": {
                 "@id": "glc:measurement1",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "CPU.MAX",
                 "glc:hasTimestamp": 1700000000,
                 "glc:hasValue": 42.0,
-                "glc:hasID": "glc:measurement1",
-                "glc:measuredIn": "glc:Core",
-                "glc:relatesToMeasurementProperty": "glc:CPU.Capacity"
+                "glc:hasID": {
+                    "@id": "glc:measurement1"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:Core"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:CPU.Capacity"
+                }
             }
         },
         {
             "@id": "glc:cpu",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "CPU",
-            "glc:hasID": "glc:cpu"
+            "glc:hasID": {
+                "@id": "glc:cpu"
+            }
         },
         {
             "@id": "glc:node1",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "Node",
-            "glc:hasID": "glc:node1",
-            "glc:hasSubResource": "glc:cpu"
+            "glc:hasID": {
+                "@id": "glc:node1"
+            },
+            "glc:hasSubResource": {
+                "@id": "glc:cpu"
+            }
         }
     ]
 }

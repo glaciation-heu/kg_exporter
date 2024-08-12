@@ -19,7 +19,25 @@ interactions:
     method: POST
     uri: http://metadata-service/api/v0/graph/search
   response:
-    content: '[]'
+    content: |
+      {
+        "head": {"vars": ["sub", "pred", "obj"]},
+        "results": {
+            "bindings": [
+                {
+                    "obj": {"type": "literal", "value": "Halloumi"},
+                    "pred": {
+                        "type": "uri",
+                        "value": "glc:property"
+                    },
+                    "sub": {
+                        "type": "uri",
+                        "value": "https://kubernetes.local/kafka.kafka-broker-1.kafka-init.Status"
+                    }
+                }
+            ]
+        }
+      }
     headers:
       Connection:
       - keep-alive

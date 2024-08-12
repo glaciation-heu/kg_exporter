@@ -54,17 +54,25 @@ class QueryResponseParser:
     def parse_uri(self, field: Dict[str, Any]) -> IRI:
         value = field.get("value")
 
-        addressing, location, path, query, fragment_identifier = urlsplit(value)
+        # TODO fixme this is not generic parsing of IRIs
+        schema, location, path, query, fragment_identifier = urlsplit(value)
         if len(fragment_identifier) != 0:
-            prefix = urlunsplit((addressing, location, path, query, ""))  # type: ignore
+            prefix = urlunsplit((schema, location, path, query, ""))  # type: ignore
             return IRI(str(prefix), str(fragment_identifier))
 
-        path_tokens = str(path.split("/"))  # type: ignore
-        if len(path_tokens) > 0:
-            new_path, identifier = path_tokens[:-1], path_tokens[-1]
-            prefix = urlunsplit((addressing, location, "/".join(new_path), query, ""))  # type: ignore
-            if prefix[-1] == ":":  # type: ignore
-                prefix = prefix[:-1]  # type: ignore
-            return IRI(prefix, identifier)  # type: ignore
+        last_path_segment_start = str(path).rfind("/")
+        if last_path_segment_start >= 0:
+            new_path, identifier = (
+                path[:last_path_segment_start],
+                path[last_path_segment_start + 1 :],
+            )
+            if len(identifier) > 0:
+                prefix = urlunsplit((schema, location, new_path, query, ""))  # type: ignore
+                if prefix[-1] == ":":  # type: ignore
+                    prefix = prefix[:-1]  # type: ignore
+                return IRI(prefix, identifier)  # type: ignore
+
+        if str(schema) not in ("https", "http") and len(location) == 0:
+            return IRI(str(schema), str(path))
 
         raise Exception(f"unrecognized IRI {value}")

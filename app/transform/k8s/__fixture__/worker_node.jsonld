@@ -10,21 +10,35 @@
             "@id": "cluster:glaciation-test-worker01",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
-            "glc:hasID": "cluster:glaciation-test-worker01",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker01"
+            },
             "glc:hasStatus": {
                 "@id": "cluster:glaciation-test-worker01.Status",
                 "@type": "glc:Status",
                 "glc:hasDescription": "Ready",
                 "glc:startTime": "2024-02-23T06:11:02Z",
-                "glc:hasID": "cluster:glaciation-test-worker01.Status"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-worker01.Status"
+                }
             },
             "glc:hasSubResource": {
                 "@set": [
-                    "cluster:glaciation-test-worker01.CPU",
-                    "cluster:glaciation-test-worker01.GPU",
-                    "cluster:glaciation-test-worker01.Network",
-                    "cluster:glaciation-test-worker01.RAM",
-                    "cluster:glaciation-test-worker01.Storage"
+                    {
+                        "@id": "cluster:glaciation-test-worker01.CPU"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-worker01.GPU"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-worker01.Network"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-worker01.RAM"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-worker01.Storage"
+                    }
                 ]
             }
         },
@@ -32,99 +46,145 @@
             "@id": "cluster:glaciation-test-worker01.CPU",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "CPU",
-            "glc:hasID": "cluster:glaciation-test-worker01.CPU",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker01.CPU"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-worker01.CPU.Capacity",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "CPU.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 4,
-                "glc:hasID": "cluster:glaciation-test-worker01.CPU.Capacity",
-                "glc:measuredIn": "glc:Core",
-                "glc:relatesToMeasurementProperty": "glc:CPU.Capacity"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-worker01.CPU.Capacity"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:Core"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:CPU.Capacity"
+                }
             }
         },
         {
             "@id": "cluster:glaciation-test-worker01.GPU",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "GPU",
-            "glc:hasID": "cluster:glaciation-test-worker01.GPU"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker01.GPU"
+            }
         },
         {
             "@id": "cluster:glaciation-test-worker01.Network",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "Network",
-            "glc:hasID": "cluster:glaciation-test-worker01.Network"
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker01.Network"
+            }
         },
         {
             "@id": "cluster:glaciation-test-worker01.RAM",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "RAM",
-            "glc:hasID": "cluster:glaciation-test-worker01.RAM",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker01.RAM"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-worker01.RAM.Capacity",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "RAM.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 16673947648,
-                "glc:hasID": "cluster:glaciation-test-worker01.RAM.Capacity",
-                "glc:measuredIn": "glc:Bytes",
-                "glc:relatesToMeasurementProperty": "glc:RAM.Capacity"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-worker01.RAM.Capacity"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:Bytes"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:RAM.Capacity"
+                }
             }
         },
         {
             "@id": "cluster:glaciation-test-worker01.Storage",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "EphemeralStorage",
-            "glc:hasID": "cluster:glaciation-test-worker01.Storage",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker01.Storage"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:glaciation-test-worker01.Storage.Capacity",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Storage.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 47266578354,
-                "glc:hasID": "cluster:glaciation-test-worker01.Storage.Capacity",
-                "glc:measuredIn": "glc:Bytes",
-                "glc:relatesToMeasurementProperty": "glc:Storage.Capacity"
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-worker01.Storage.Capacity"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:Bytes"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:Storage.Capacity"
+                }
             }
         },
         {
             "@id": "glc:Bytes",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Bytes"
+            "glc:hasID": {
+                "@id": "glc:Bytes"
+            }
         },
         {
             "@id": "glc:CPU.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Capacity"
+            "glc:hasID": {
+                "@id": "glc:CPU.Capacity"
+            }
         },
         {
             "@id": "glc:Core",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:Core"
+            "glc:hasID": {
+                "@id": "glc:Core"
+            }
         },
         {
             "@id": "glc:RAM.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:RAM.Capacity"
+            "glc:hasID": {
+                "@id": "glc:RAM.Capacity"
+            }
         },
         {
             "@id": "glc:ResourceSpecification",
             "@type": "glc:MeasuringResource",
             "glc:hasDescription": "ResourceSpecification",
-            "glc:hasID": "glc:ResourceSpecification",
+            "glc:hasID": {
+                "@id": "glc:ResourceSpecification"
+            },
             "glc:makes": {
                 "@set": [
-                    "cluster:glaciation-test-worker01.CPU.Capacity",
-                    "cluster:glaciation-test-worker01.RAM.Capacity",
-                    "cluster:glaciation-test-worker01.Storage.Capacity"
+                    {
+                        "@id": "cluster:glaciation-test-worker01.CPU.Capacity"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-worker01.RAM.Capacity"
+                    },
+                    {
+                        "@id": "cluster:glaciation-test-worker01.Storage.Capacity"
+                    }
                 ]
             }
         },
         {
             "@id": "glc:Storage.Capacity",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Storage.Capacity"
+            "glc:hasID": {
+                "@id": "glc:Storage.Capacity"
+            }
         }
     ]
 }

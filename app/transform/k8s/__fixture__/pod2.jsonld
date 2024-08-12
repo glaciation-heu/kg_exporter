@@ -11,26 +11,38 @@
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "Pod",
             "k8s:hasName": "tenant1-pool-0-1",
-            "glc:hasID": "cluster:tenant1.tenant1-pool-0-1",
+            "glc:hasID": {
+                "@id": "cluster:tenant1.tenant1-pool-0-1"
+            },
             "glc:hasStatus": {
                 "@id": "cluster:tenant1.tenant1-pool-0-1.Status",
                 "@type": "glc:Status",
                 "glc:hasDescription": "Pending",
-                "glc:hasID": "cluster:tenant1.tenant1-pool-0-1.Status"
+                "glc:hasID": {
+                    "@id": "cluster:tenant1.tenant1-pool-0-1.Status"
+                }
             }
         },
         {
             "@id": "cluster:tenant1-pool-0",
             "@type": "glc:AssignedTask",
             "glc:hasDescription": "StatefulSet",
-            "glc:hasID": "cluster:tenant1-pool-0",
-            "glc:makes": "cluster:tenant1.tenant1-pool-0-1"
+            "glc:hasID": {
+                "@id": "cluster:tenant1-pool-0"
+            },
+            "glc:makes": {
+                "@id": "cluster:tenant1.tenant1-pool-0-1"
+            }
         },
         {
             "@id": "glc:default-scheduler",
             "@type": "glc:Scheduler",
-            "glc:hasID": "glc:default-scheduler",
-            "glc:manages": "cluster:tenant1.tenant1-pool-0-1"
+            "glc:hasID": {
+                "@id": "glc:default-scheduler"
+            },
+            "glc:manages": {
+                "@id": "cluster:tenant1.tenant1-pool-0-1"
+            }
         }
     ]
 }

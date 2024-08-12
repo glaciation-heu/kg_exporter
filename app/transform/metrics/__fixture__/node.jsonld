@@ -9,7 +9,9 @@
         {
             "@id": "cluster:worker1",
             "@type": "glc:WorkProducingResource",
-            "glc:hasID": "cluster:worker1",
+            "glc:hasID": {
+                "@id": "cluster:worker1"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:worker1.Energy.Usage",
                 "@type": "glc:AggregatedMeasurement",
@@ -19,57 +21,85 @@
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 42.0,
                 "glc:startingInterval": -299877,
-                "glc:hasID": "cluster:worker1.Energy.Usage",
-                "glc:measuredIn": "glc:milliwatt",
-                "glc:relatesToMeasurementProperty": "glc:Energy.Usage"
+                "glc:hasID": {
+                    "@id": "cluster:worker1.Energy.Usage"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:milliwatt"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:Energy.Usage"
+                }
             }
         },
         {
             "@id": "cluster:worker1.CPU",
             "@type": "glc:WorkProducingResource",
-            "glc:hasID": "cluster:worker1.CPU",
+            "glc:hasID": {
+                "@id": "cluster:worker1.CPU"
+            },
             "glc:hasMeasurement": {
                 "@id": "cluster:worker1.CPU.Usage",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "CPU.Usage",
                 "glc:hasTimestamp": 17100500,
                 "glc:hasValue": 42.0,
-                "glc:hasID": "cluster:worker1.CPU.Usage",
-                "glc:measuredIn": "glc:coreseconds",
-                "glc:relatesToMeasurementProperty": "glc:CPU.Usage"
+                "glc:hasID": {
+                    "@id": "cluster:worker1.CPU.Usage"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:coreseconds"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:CPU.Usage"
+                }
             }
         },
         {
             "@id": "glc:CPU.Usage",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:CPU.Usage"
+            "glc:hasID": {
+                "@id": "glc:CPU.Usage"
+            }
         },
         {
             "@id": "glc:Energy.Usage",
             "@type": "glc:MeasurementProperty",
-            "glc:hasID": "glc:Energy.Usage"
+            "glc:hasID": {
+                "@id": "glc:Energy.Usage"
+            }
         },
         {
             "@id": "glc:cAdvisor",
             "@type": "glc:MeasuringResource",
             "glc:hasDescription": "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",
-            "glc:hasID": "glc:cAdvisor",
+            "glc:hasID": {
+                "@id": "glc:cAdvisor"
+            },
             "glc:makes": {
                 "@set": [
-                    "cluster:worker1.CPU.Usage",
-                    "cluster:worker1.Energy.Usage"
+                    {
+                        "@id": "cluster:worker1.CPU.Usage"
+                    },
+                    {
+                        "@id": "cluster:worker1.Energy.Usage"
+                    }
                 ]
             }
         },
         {
             "@id": "glc:coreseconds",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:coreseconds"
+            "glc:hasID": {
+                "@id": "glc:coreseconds"
+            }
         },
         {
             "@id": "glc:milliwatt",
             "@type": "glc:MeasurementUnit",
-            "glc:hasID": "glc:milliwatt"
+            "glc:hasID": {
+                "@id": "glc:milliwatt"
+            }
         }
     ]
 }
