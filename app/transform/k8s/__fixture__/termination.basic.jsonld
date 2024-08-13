@@ -1,0 +1,61 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:glaciation-testm1w5-worker02",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-testm1w5-worker02"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:glaciation-testm1w5-worker02.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:hasDescription": "Unknown",
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-testm1w5-worker02.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "glc:hasID": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:hasDescription": "Unknown",
+                "glc:hasID": {
+                    "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "glc:hasID": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:hasDescription": "Terminated",
+                "glc:hasID": {
+                    "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns.Status"
+                }
+            }
+        }
+    ]
+}

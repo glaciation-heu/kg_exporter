@@ -11,5 +11,7 @@ class TransformationContext:
         return self.timestamp
 
     def get_timestamp_as_str(self, format: str) -> str:
-        now_datetime = datetime.datetime.fromtimestamp(self.timestamp / 1000)
+        now_datetime = datetime.datetime.fromtimestamp(
+            self.timestamp / 1000, tz=datetime.UTC
+        )
         return now_datetime.strftime("%Y-%m-%dT%H:%M:%S%z")

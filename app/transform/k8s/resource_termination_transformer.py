@@ -42,6 +42,7 @@ class ResourceTerminationTransformer(UpperOntologyBase):
                 self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
                 status_id = node_id.dot("Status")
                 self.add_status(status_id, "Unknown", None, now_date)
+                self.sink.add_relation(node_id, self.HAS_STATUS, status_id)
 
     def get_node_id(self, node_resource: Dict[str, Any]) -> IRI:
         name = node_resource["metadata"]["name"]
@@ -58,6 +59,7 @@ class ResourceTerminationTransformer(UpperOntologyBase):
                 status_id = pod_id.dot("Status")
                 self.add_work_producing_resource(pod_id, "Pod")
                 self.add_status(status_id, "Unknown", None, now_date)
+                self.sink.add_relation(pod_id, self.HAS_STATUS, status_id)
 
     def get_pod_id(self, pod_resource: Dict[str, Any]) -> IRI:
         name = pod_resource["metadata"]["name"]
@@ -83,6 +85,7 @@ class ResourceTerminationTransformer(UpperOntologyBase):
                 status_id = container_id.dot("Status")
                 self.add_work_producing_resource(container_id, "Container")
                 self.add_status(status_id, "Terminated", None, now_date)
+                self.sink.add_relation(container_id, self.HAS_STATUS, status_id)
 
     def get_container_ids(self, pod: Dict[str, Any]) -> Set[IRI]:
         container_ids: Set[IRI] = self.get_container_ids_from_status(
