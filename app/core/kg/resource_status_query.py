@@ -5,11 +5,12 @@ from enum import StrEnum
 
 from app.core.kg.kg_query import KGQuery
 from app.kg.id_base import IdBase
+from app.kg.iri import IRI
 
 
 @dataclass
 class ResourceStatus:
-    identifier: str
+    identifier: IRI
     status: str
     resource_type: str
 
@@ -45,7 +46,7 @@ class ResourceStatusQuery(KGQuery[List[ResourceStatus]]):
     ) -> List[ResourceStatus]:
         nodes = []
         for result in query_result:
-            identifier = result["resource"].get_value()
+            identifier: IRI = result["resource"]  # type: ignore
             status = result["statusValue"].get_value()
             node = ResourceStatus(
                 identifier=identifier, status=status, resource_type=self.resource_type

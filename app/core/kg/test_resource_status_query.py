@@ -47,12 +47,15 @@ class ResourceStatusQueryTest(TestCase):
             actual,
             [
                 ResourceStatus(
-                    identifier="uc2.uc2-workload-service-28725480-cz9mg",
+                    identifier=IRI(
+                        "https://kubernetes.local/",
+                        "uc2.uc2-workload-service-28725480-cz9mg",
+                    ),
                     status="running",
                     resource_type=ResourceType.POD,
                 ),
                 ResourceStatus(
-                    identifier="vault.vault-0",
+                    identifier=IRI("https://kubernetes.local", "vault.vault-0"),
                     status="running",
                     resource_type=ResourceType.POD,
                 ),

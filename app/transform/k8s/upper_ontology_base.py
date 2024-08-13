@@ -109,6 +109,8 @@ class UpperOntologyBase:
     PROPERTY_ENERGY_AVAILABLE = IRI(GLACIATION_PREFIX, Measurement.ENERGY_AVAILABLE)
     PROPERTY_ENERGY_USAGE = IRI(GLACIATION_PREFIX, Measurement.ENERGY_USAGE)
 
+    DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z"
+
     units: List[IRI]
     aspects: List[IRI]
     properties: List[IRI]
@@ -174,13 +176,13 @@ class UpperOntologyBase:
             self.sink.add_property(
                 identifier,
                 self.START_TIME,
-                Literal(start_time, Literal.TYPE_DATE, "%Y-%m-%dT%H:%M:%S%z"),
+                Literal(start_time, Literal.TYPE_DATE, self.DATETIME_FORMAT),
             )
         if end_time:
             self.sink.add_property(
                 identifier,
                 self.END_TIME,
-                Literal(end_time, Literal.TYPE_DATE, "%Y-%m-%dT%H:%M:%S%z"),
+                Literal(end_time, Literal.TYPE_DATE, self.DATETIME_FORMAT),
             )
 
     def add_measurement(

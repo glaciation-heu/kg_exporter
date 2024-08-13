@@ -10,6 +10,9 @@ from app.kg.inmemory_graph import InMemoryGraph
 from app.transform.k8s.cluster_transformer import ClusterToRDFTransformer
 from app.transform.k8s.node_transformer import NodesToRDFTransformer
 from app.transform.k8s.pod_transformer import PodToRDFTransformer
+from app.transform.k8s.resource_termination_transformer import (
+    ResourceTerminationTransformer,
+)
 from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.transformer_base import TransformerBase
 from app.transform.k8s.workload_transformer import WorkloadToRDFTransformer
@@ -29,7 +32,7 @@ class KGSliceAssembler:
 
         self.transform_resources(now, inputs.resource, sink)
         self.transform_metrics(now, inputs.metrics, sink)
-        self.terminate_existing_resources(now, existing_metadata, sink)
+        self.terminate_existing_resources(now, inputs.resource, existing_metadata, sink)
         context = self.get_context(inputs.resource.versions_info)
 
         slice = DKGSlice(slice_id, sink, context, now)
@@ -116,6 +119,12 @@ class KGSliceAssembler:
             return server_address_url
 
     def terminate_existing_resources(
-        self, now: int, snapshot: KGSnapshot, sink: Graph
+        self,
+        now: int,
+        resources: ResourceSnapshot,
+        existing_metadata: KGSnapshot,
+        sink: Graph,
     ) -> None:
-        pass
+        context = TransformationContext(now)
+        transformer = ResourceTerminationTransformer(resources, existing_metadata, sink)
+        transformer.transform(context)

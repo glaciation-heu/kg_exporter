@@ -59,7 +59,9 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
     def add_container_resources_by_query(
         self, pod_id: IRI, scheduler_name: str, jsonpath: List[str]
     ) -> None:
-        container_status_matches = self.get_opt_list(jsonpath) or []
+        container_status_matches = (
+            TransformerBase.get_opt_list(self.source, jsonpath) or []
+        )
         for container_match in container_status_matches:
             self.add_container_resource(pod_id, container_match, scheduler_name)
 
