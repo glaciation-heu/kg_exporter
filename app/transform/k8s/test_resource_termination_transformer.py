@@ -28,65 +28,122 @@ class ResourceTerminationTransformerTest(TransformBaseTest):
                     "metadata": {
                         "name": "glaciation-test-master01",
                     }
-                }
+                },
+                {
+                    "metadata": {
+                        "name": "glaciation-test-worker01",
+                    }
+                },
             ],
             pods=[
                 {
                     "metadata": {
-                        "name": "kube-flannel-ds-848v8",
-                        "namespace": "kube-flannel",
+                        "name": "coredns-1",
+                        "namespace": "system",
                     },
                     "status": {
                         "containerStatuses": [
                             {
+                                "name": "coredns",
                                 "state": {
                                     "running": {"startedAt": "2023-12-11T11:10:16Z"}
-                                }
+                                },
                             }
                         ],
                         "initContainerStatuses": [
                             {
+                                "name": "coredns2",
                                 "state": {
                                     "terminated": {
                                         "finishedAt": "2023-12-11T11:10:14Z",
                                         "startedAt": "2023-12-11T11:10:14Z",
                                     }
-                                }
+                                },
                             }
                         ],
                         "phase": "Running",
                         "startTime": "2023-10-20T11:01:50Z",
                     },
-                }
+                },
+                {
+                    "metadata": {
+                        "name": "coredns-2",
+                        "namespace": "system",
+                    },
+                    "status": {
+                        "containerStatuses": [
+                            {
+                                "name": "coredns",
+                                "state": {
+                                    "running": {"startedAt": "2023-12-11T11:10:16Z"}
+                                },
+                            }
+                        ],
+                        "initContainerStatuses": [
+                            {
+                                "name": "coredns2",
+                                "state": {
+                                    "terminated": {
+                                        "finishedAt": "2023-12-11T11:10:14Z",
+                                        "startedAt": "2023-12-11T11:10:14Z",
+                                    }
+                                },
+                            }
+                        ],
+                        "phase": "Running",
+                        "startTime": "2023-10-20T11:01:50Z",
+                    },
+                },
             ],
         )
         existing_metadata = KGSnapshot(
             nodes=[
                 ResourceStatus(
-                    IRI("cluster", "glaciation-testm1w5-worker02"),
+                    IRI("realprefix", "glaciation-test-worker-dangling"),
                     "Ready",
                     "KubernetesWorkerNode",
-                )
+                ),
+                ResourceStatus(
+                    IRI("realprefix", "glaciation-test-master01"),
+                    "Ready",
+                    "KubernetesWorkerNode",
+                ),
             ],
             pods=[
                 ResourceStatus(
                     IRI(
-                        "cluster",
-                        "kube-system.coredns-787d4945fb-bfv2k",
+                        "realprefix",
+                        "system.coredns-dangling",
                     ),
                     "running",
                     "Pod",
-                )
+                ),
+                ResourceStatus(
+                    IRI(
+                        "realprefix",
+                        "system.coredns-1",
+                    ),
+                    "running",
+                    "Pod",
+                ),
             ],
             containers=[
                 ResourceStatus(
                     IRI(
-                        "cluster",
-                        "kube-system.coredns-787d4945fb-bfv2k.coredns",
+                        "realprefix",
+                        "system.coredns-2.coredns",
                     ),
                     "running",
                     "Container",
-                )
+                ),
+                ResourceStatus(
+                    IRI(
+                        "realprefix",
+                        "system.coredns-2.coredns-dangling",
+                    ),
+                    "running",
+                    "Container",
+                ),
             ],
         )
         self.transform_jsonld(resources, existing_metadata, "termination.basic")

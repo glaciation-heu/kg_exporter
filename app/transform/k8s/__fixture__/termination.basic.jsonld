@@ -7,53 +7,53 @@
     },
     "@graph": [
         {
-            "@id": "cluster:glaciation-testm1w5-worker02",
+            "@id": "cluster:glaciation-test-worker-dangling",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "KubernetesWorkerNode",
             "glc:hasID": {
-                "@id": "cluster:glaciation-testm1w5-worker02"
+                "@id": "cluster:glaciation-test-worker-dangling"
             },
             "glc:hasStatus": {
-                "@id": "cluster:glaciation-testm1w5-worker02.Status",
+                "@id": "cluster:glaciation-test-worker-dangling.Status",
                 "@type": "glc:Status",
                 "glc:endTime": "1970-01-01T00:00:00+0000",
                 "glc:hasDescription": "Unknown",
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-testm1w5-worker02.Status"
+                    "@id": "cluster:glaciation-test-worker-dangling.Status"
                 }
             }
         },
         {
-            "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k",
-            "@type": "glc:WorkProducingResource",
-            "glc:hasDescription": "Pod",
-            "glc:hasID": {
-                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k"
-            },
-            "glc:hasStatus": {
-                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.Status",
-                "@type": "glc:Status",
-                "glc:endTime": "1970-01-01T00:00:00+0000",
-                "glc:hasDescription": "Unknown",
-                "glc:hasID": {
-                    "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.Status"
-                }
-            }
-        },
-        {
-            "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns",
+            "@id": "cluster:system.coredns-2.coredns-dangling",
             "@type": "glc:WorkProducingResource",
             "glc:hasDescription": "Container",
             "glc:hasID": {
-                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns"
+                "@id": "cluster:system.coredns-2.coredns-dangling"
             },
             "glc:hasStatus": {
-                "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns.Status",
+                "@id": "cluster:system.coredns-2.coredns-dangling.Status",
                 "@type": "glc:Status",
                 "glc:endTime": "1970-01-01T00:00:00+0000",
                 "glc:hasDescription": "Terminated",
                 "glc:hasID": {
-                    "@id": "cluster:kube-system.coredns-787d4945fb-bfv2k.coredns.Status"
+                    "@id": "cluster:system.coredns-2.coredns-dangling.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:system.coredns-dangling",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "glc:hasID": {
+                "@id": "cluster:system.coredns-dangling"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:system.coredns-dangling.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:hasDescription": "Unknown",
+                "glc:hasID": {
+                    "@id": "cluster:system.coredns-dangling.Status"
                 }
             }
         }

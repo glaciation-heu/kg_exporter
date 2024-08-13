@@ -34,11 +34,10 @@ class ResourceTerminationTransformer(UpperOntologyBase):
     def terminate_nodes(self, now_date: str) -> None:
         ids_from_resources = {self.get_node_id(node) for node in self.resources.nodes}
         for node_status in self.existing_metadata.nodes:
-            if (
-                node_status.identifier not in ids_from_resources
-                and node_status.status != "Unknown"
-            ):
-                node_id = node_status.identifier
+            node_id = IRI(
+                TransformerBase.CLUSTER_PREFIX, node_status.identifier.get_value()
+            )
+            if node_id not in ids_from_resources and node_status.status != "Unknown":
                 self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
                 status_id = node_id.dot("Status")
                 self.add_status(status_id, "Unknown", None, now_date)
@@ -52,10 +51,12 @@ class ResourceTerminationTransformer(UpperOntologyBase):
     def terminate_pods(self, now_date: str) -> None:
         ids_from_resources = {self.get_pod_id(pod) for pod in self.resources.pods}
         for pod_status in self.existing_metadata.pods:
-            if pod_status.identifier not in ids_from_resources and not (
+            pod_id = IRI(
+                TransformerBase.CLUSTER_PREFIX, pod_status.identifier.get_value()
+            )
+            if pod_id not in ids_from_resources and not (
                 pod_status.status in self.POD_TERMINATED_STATES
             ):
-                pod_id = pod_status.identifier
                 status_id = pod_id.dot("Status")
                 self.add_work_producing_resource(pod_id, "Pod")
                 self.add_status(status_id, "Unknown", None, now_date)
@@ -77,11 +78,13 @@ class ResourceTerminationTransformer(UpperOntologyBase):
             for container_id in container_ids
         }
         for container_status in self.existing_metadata.containers:
+            container_id = IRI(
+                TransformerBase.CLUSTER_PREFIX, container_status.identifier.get_value()
+            )
             if (
-                container_status.identifier not in all_container_ids
+                container_id not in all_container_ids
                 and container_status.status != "Terminated"
             ):
-                container_id = container_status.identifier
                 status_id = container_id.dot("Status")
                 self.add_work_producing_resource(container_id, "Container")
                 self.add_status(status_id, "Terminated", None, now_date)
