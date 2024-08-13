@@ -117,3 +117,6 @@ class Literal(IdBase):
 
     def get_format(self) -> Optional[str]:
         return self.format
+
+    def get_value(self) -> str:
+        return f"{self.value}"

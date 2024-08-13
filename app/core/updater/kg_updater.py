@@ -5,8 +5,8 @@ from prometheus_client import Counter
 
 from app.core.async_queue import AsyncQueue
 from app.core.dkg_slice_store import DKGSliceStore
+from app.core.kg.kg_repository import KGRepository
 from app.core.types import DKGSlice
-from app.core.updater.kg_repository import KGRepository
 
 
 class KGUpdater:

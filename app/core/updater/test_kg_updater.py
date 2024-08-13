@@ -7,9 +7,9 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     SerializedGraph,
 )
 from app.core.async_queue import AsyncQueue
+from app.core.kg.kg_repository import KGRepository
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.types import DKGSlice, KGSliceId
-from app.core.updater.kg_repository import KGRepository
 from app.core.updater.kg_updater import KGUpdater
 
 
