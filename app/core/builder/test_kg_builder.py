@@ -9,12 +9,12 @@ from app.clients.metadata_service.mock_metadata_service_client import (
 from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
 from app.core.async_queue import AsyncQueue
 from app.core.builder.kg_builder import KGBuilder, KGBuilderSettings
+from app.core.kg.kg_repository import KGRepository
 from app.core.repository.metric_repository import MetricRepository
 from app.core.repository.query_settings import QuerySettings
 from app.core.test_graph_fixture import TestGraphFixture
 from app.core.test_snapshot_base import SnapshotTestBase
 from app.core.types import DKGSlice, KGSliceId
-from app.core.updater.kg_repository import KGRepository
 from app.kg.inmemory_graph import InMemoryGraph
 from app.util.clock import Clock
 from app.util.mock_clock import MockClock
@@ -49,7 +49,11 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
 
     def test_build_minimal(self) -> None:
         self.mock_inputs(
-            "minimal", self.k8s_client, self.metric_client, self.settings.queries
+            "minimal",
+            self.k8s_client,
+            self.metric_client,
+            self.client,
+            self.settings.queries,
         )
 
         builder = self.create_builder()

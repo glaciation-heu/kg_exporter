@@ -28,7 +28,7 @@ class ResourceStatusQueryTest(TestCase):
 
     def test_parse_results(self) -> None:
         query = ResourceStatusQuery(ResourceType.POD)
-        actual = query.parse(
+        actual = query.parse_results(
             [
                 {
                     "resource": IRI(

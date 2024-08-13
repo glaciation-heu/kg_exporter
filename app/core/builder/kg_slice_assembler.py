@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Type
 from urllib.parse import urlparse
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
+from app.core.kg.kg_snapshot import KGSnapshot
 from app.core.types import DKGSlice, KGSliceId, MetricSnapshot, SliceInputs
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
@@ -22,11 +23,13 @@ class KGSliceAssembler:
         now: int,
         slice_id: KGSliceId,
         inputs: SliceInputs,
+        existing_metadata: KGSnapshot,
     ) -> DKGSlice:
         sink = InMemoryGraph()
 
         self.transform_resources(now, inputs.resource, sink)
         self.transform_metrics(now, inputs.metrics, sink)
+        self.terminate_existing_resources(now, existing_metadata, sink)
         context = self.get_context(inputs.resource.versions_info)
 
         slice = DKGSlice(slice_id, sink, context, now)
@@ -111,3 +114,8 @@ class KGSliceAssembler:
             return f"https://{server_address_url}/"
         else:
             return server_address_url
+
+    def terminate_existing_resources(
+        self, now: int, snapshot: KGSnapshot, sink: Graph
+    ) -> None:
+        pass

@@ -9,7 +9,11 @@ import yaml
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.clients.k8s.mock_k8s_client import MockK8SClient
+from app.clients.metadata_service.mock_metadata_service_client import (
+    MockMetadataServiceClient,
+)
 from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
+from app.core.kg.kg_snapshot import KGSnapshot
 from app.core.repository.query_settings import QuerySettings
 from app.core.repository.types import MetricQuery
 from app.core.types import KGSliceId, MetricSnapshot, MetricValue, SliceInputs
@@ -28,6 +32,7 @@ class SnapshotTestBase:
         identity: str,
         k8s_client: MockK8SClient,
         metric_client: MockPrometheusClient,
+        metadata_service_client: MockMetadataServiceClient,
         settings: QuerySettings,
     ) -> None:
         resources = self.load_k8s_snapshot(identity)
@@ -49,6 +54,9 @@ class SnapshotTestBase:
         for query, value in metrics.pod_metrics:
             metric_client.mock_query(query.query, [value])
             settings.pod_queries.append(query)
+
+    def get_existing_metadata(self, identity: str) -> KGSnapshot:
+        return KGSnapshot(nodes=[], pods=[], containers=[])
 
     def get_inputs(self, identity: str) -> SliceInputs:
         resource_snapshot = self.load_k8s_snapshot(identity)

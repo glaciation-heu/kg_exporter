@@ -16,13 +16,10 @@ class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
         now = 1000
         slice_id = KGSliceId("127.0.0.1", 80)
         inputs = self.get_inputs("empty")
+        existing_metadata = self.get_existing_metadata("empty")
         assembler = KGSliceAssembler()
 
-        actual = assembler.assemble(
-            now,
-            slice_id,
-            inputs,
-        )
+        actual = assembler.assemble(now, slice_id, inputs, existing_metadata)
         self.assertEqual(slice_id, actual.slice_id)
         self.assertEqual(now, actual.timestamp)
         self.assert_graph(actual.graph, "empty", slice_id)
@@ -31,13 +28,11 @@ class KGSliceAssemblerTest(TestCase, SnapshotTestBase):
         now = 1000
         slice_id = KGSliceId("glaciation-test-master01", 80)
         inputs = self.get_inputs("minimal")
+        existing_metadata = self.get_existing_metadata("minimal")
+
         assembler = KGSliceAssembler()
 
-        actual = assembler.assemble(
-            now,
-            slice_id,
-            inputs,
-        )
+        actual = assembler.assemble(now, slice_id, inputs, existing_metadata)
         self.assertEqual(slice_id, actual.slice_id)
         self.assertEqual(now, actual.timestamp)
         self.assert_graph(actual.graph, "minimal", slice_id)

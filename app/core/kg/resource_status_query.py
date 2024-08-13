@@ -40,7 +40,9 @@ class ResourceStatusQuery(KGQuery[List[ResourceStatus]]):
     def get_query(self) -> str:
         return self.query
 
-    def parse(self, query_result: List[Dict[str, IdBase]]) -> List[ResourceStatus]:
+    def parse_results(
+        self, query_result: List[Dict[str, IdBase]]
+    ) -> List[ResourceStatus]:
         nodes = []
         for result in query_result:
             identifier = result["resource"].get_value()
