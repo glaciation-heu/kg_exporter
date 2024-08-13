@@ -63,7 +63,7 @@ class QueryResponseParser:
         last_path_segment_start = str(path).rfind("/")
         if last_path_segment_start >= 0:
             new_path, identifier = (
-                path[:last_path_segment_start],
+                path[: last_path_segment_start + 1],
                 path[last_path_segment_start + 1 :],
             )
             if len(identifier) > 0:

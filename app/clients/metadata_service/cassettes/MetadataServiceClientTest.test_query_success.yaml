@@ -16,8 +16,8 @@ interactions:
       - metadata-service
       user-agent:
       - python-httpx/0.27.0
-    method: POST
-    uri: http://metadata-service/api/v0/graph/search
+    method: GET
+    uri: http://metadata-service/api/v0/graph?query=query
   response:
     content: |
       {

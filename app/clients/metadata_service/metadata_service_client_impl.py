@@ -25,12 +25,12 @@ class MetadataServiceClientImpl(MetadataServiceClient):
 
     async def query(self, host_and_port: str, sparql: str) -> List[Dict[str, IdBase]]:
         base_url = self.get_base_url(host_and_port)
-        url = f"{base_url}/api/v0/graph/search"
+        url = f"{base_url}/api/v0/graph"
         async with httpx.AsyncClient() as client:
             try:
-                response = await client.post(
+                response = await client.get(
                     url,
-                    content=sparql,
+                    params=[("query", sparql)],
                     headers=[("Content-Type", "application/json")],
                 )
                 response.raise_for_status()

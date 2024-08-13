@@ -41,7 +41,7 @@ class MetadataServiceClientTest(VCRTestCase):
                     "obj": Literal("Halloumi", Literal.TYPE_STRING),
                     "pred": IRI("glc", "property"),
                     "sub": IRI(
-                        "https://kubernetes.local",
+                        "https://kubernetes.local/",
                         "kafka.kafka-broker-1.kafka-init.Status",
                     ),
                 },
