@@ -15,19 +15,18 @@ class ResourceStatusQueryTest(TestCase):
         self.assertEqual(
             """
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            SELECT ?status (GROUP_CONCAT(DISTINCT ?statusValue; SEPARATOR=", ") AS ?statuses)
+            SELECT ?subject ?statusValue
             WHERE {
                 ?subject rdf:type <glc:WorkProducingResource>.
                 ?subject <glc:hasDescription> "Pod".
                 ?subject <glc:hasStatus> ?status.
                 ?status <glc:hasDescription> ?statusValue.
-                    MINUS{ ?status <glc:hasDescription> 'Succeeded' }.
-                    MINUS{ ?status <glc:hasDescription> 'Failed' }.
-                    MINUS{ ?status <glc:hasDescription> 'Unknown' }.
-                    MINUS{ ?status <glc:hasDescription> 'NotReady' }.
-                    MINUS{ ?status <glc:hasDescription> 'terminated' }.
+                FILTER NOT EXISTS{ ?status <glc:hasDescription> 'Succeeded' }.
+                FILTER NOT EXISTS{ ?status <glc:hasDescription> 'Failed' }.
+                FILTER NOT EXISTS{ ?status <glc:hasDescription> 'Unknown' }.
+                FILTER NOT EXISTS{ ?status <glc:hasDescription> 'NotReady' }.
+                FILTER NOT EXISTS{ ?status <glc:hasDescription> 'terminated' }.
             }
-            GROUP BY ?status
         """,
             query.get_query(),
         )
