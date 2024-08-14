@@ -47,21 +47,21 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
             self.settings,
         )
 
-    # def test_end_to_end_minimal(self) -> None:
-    #     self.mock_inputs(
-    #         "minimal",
-    #         self.k8s_client,
-    #         self.metric_client,
-    #         self.metadata_client,
-    #         self.settings.builder.queries,
-    #     )
-    #     self.context.start()
+    def test_end_to_end_minimal(self) -> None:
+        self.mock_inputs(
+            "minimal",
+            self.k8s_client,
+            self.metric_client,
+            self.metadata_client,
+            self.settings.builder.queries,
+        )
+        self.context.start()
 
-    #     inserts = self.metadata_client.wait_for_inserts(self.context.runner, 5, 1)
+        inserts = self.metadata_client.wait_for_inserts(self.context.runner, 5, 1)
 
-    #     self.assert_graphs("minimal", inserts)
+        self.assert_graphs("minimal", inserts)
 
-    #     self.context.stop()
+        self.context.stop()
 
     def test_end_to_end_multinode(self) -> None:
         self.settings.prometheus.endpoint_port = 8081
