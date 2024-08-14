@@ -16,7 +16,7 @@
             "glc:hasStatus": {
                 "@id": "cluster:glaciation-test-worker-dangling.Status",
                 "@type": "glc:Status",
-                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:endTime": "1970-01-01T00:00:00Z",
                 "glc:hasDescription": "Unknown",
                 "glc:hasID": {
                     "@id": "cluster:glaciation-test-worker-dangling.Status"
@@ -33,7 +33,7 @@
             "glc:hasStatus": {
                 "@id": "cluster:system.coredns-2.coredns-dangling.Status",
                 "@type": "glc:Status",
-                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:endTime": "1970-01-01T00:00:00Z",
                 "glc:hasDescription": "Terminated",
                 "glc:hasID": {
                     "@id": "cluster:system.coredns-2.coredns-dangling.Status"
@@ -50,7 +50,7 @@
             "glc:hasStatus": {
                 "@id": "cluster:system.coredns-dangling.Status",
                 "@type": "glc:Status",
-                "glc:endTime": "1970-01-01T00:00:00+0000",
+                "glc:endTime": "1970-01-01T00:00:00Z",
                 "glc:hasDescription": "Unknown",
                 "glc:hasID": {
                     "@id": "cluster:system.coredns-dangling.Status"
