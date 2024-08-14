@@ -14,13 +14,13 @@
                 "@id": "cluster:glaciation-test-master01"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-master01.Energy.Index",
+                "@id": "cluster:glaciation-test-master01.Energy.Index.123",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Energy.Index",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 1001,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-master01.Energy.Index"
+                    "@id": "cluster:glaciation-test-master01.Energy.Index.123"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:Milliwatt"
@@ -66,13 +66,13 @@
                 "@id": "cluster:glaciation-test-master01.CPU"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-master01.CPU.Capacity",
+                "@id": "cluster:glaciation-test-master01.CPU.Capacity.123",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "CPU.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 4,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-master01.CPU.Capacity"
+                    "@id": "cluster:glaciation-test-master01.CPU.Capacity.123"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:Core"
@@ -106,13 +106,13 @@
                 "@id": "cluster:glaciation-test-master01.RAM"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-master01.RAM.Capacity",
+                "@id": "cluster:glaciation-test-master01.RAM.Capacity.123",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "RAM.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 16673939456,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-master01.RAM.Capacity"
+                    "@id": "cluster:glaciation-test-master01.RAM.Capacity.123"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:Bytes"
@@ -130,13 +130,13 @@
                 "@id": "cluster:glaciation-test-master01.Storage"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-master01.Storage.Capacity",
+                "@id": "cluster:glaciation-test-master01.Storage.Capacity.123",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Storage.Capacity",
                 "glc:hasTimestamp": 123,
                 "glc:hasValue": 47266578354,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-master01.Storage.Capacity"
+                    "@id": "cluster:glaciation-test-master01.Storage.Capacity.123"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:Bytes"
@@ -198,16 +198,16 @@
             "glc:makes": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-master01.CPU.Capacity"
+                        "@id": "cluster:glaciation-test-master01.CPU.Capacity.123"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Energy.Index"
+                        "@id": "cluster:glaciation-test-master01.Energy.Index.123"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.RAM.Capacity"
+                        "@id": "cluster:glaciation-test-master01.RAM.Capacity.123"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Storage.Capacity"
+                        "@id": "cluster:glaciation-test-master01.Storage.Capacity.123"
                     }
                 ]
             }

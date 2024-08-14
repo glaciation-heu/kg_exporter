@@ -13,7 +13,7 @@
                 "@id": "cluster:worker1"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:worker1.Energy.Usage",
+                "@id": "cluster:worker1.Energy.Usage.123",
                 "@type": "glc:AggregatedMeasurement",
                 "glc:endingInterval": 123,
                 "glc:hasAggregatedFunction": "average",
@@ -22,7 +22,7 @@
                 "glc:hasValue": 42.0,
                 "glc:startingInterval": -299877,
                 "glc:hasID": {
-                    "@id": "cluster:worker1.Energy.Usage"
+                    "@id": "cluster:worker1.Energy.Usage.123"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:milliwatt"
@@ -39,13 +39,13 @@
                 "@id": "cluster:worker1.CPU"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:worker1.CPU.Usage",
+                "@id": "cluster:worker1.CPU.Usage.17100500",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "CPU.Usage",
                 "glc:hasTimestamp": 17100500,
                 "glc:hasValue": 42.0,
                 "glc:hasID": {
-                    "@id": "cluster:worker1.CPU.Usage"
+                    "@id": "cluster:worker1.CPU.Usage.17100500"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:coreseconds"
@@ -79,10 +79,10 @@
             "glc:makes": {
                 "@set": [
                     {
-                        "@id": "cluster:worker1.CPU.Usage"
+                        "@id": "cluster:worker1.CPU.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:worker1.Energy.Usage"
+                        "@id": "cluster:worker1.Energy.Usage.123"
                     }
                 ]
             }
