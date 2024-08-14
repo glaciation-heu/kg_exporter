@@ -14,10 +14,10 @@ from app.transform.k8s.resource_termination_transformer import (
     ResourceTerminationTransformer,
 )
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.transformer_base import TransformerBase
 from app.transform.k8s.workload_transformer import WorkloadToRDFTransformer
 from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
 from app.transform.metrics.pod_metric_transformer import PodMetricToGraphTransformer
+from app.transform.transformer_base import TransformerBase
 
 
 class KGSliceAssembler:

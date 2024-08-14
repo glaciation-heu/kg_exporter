@@ -8,7 +8,7 @@ from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 from app.util.quantity import parse_quantity
 
 

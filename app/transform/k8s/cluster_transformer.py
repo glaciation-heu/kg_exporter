@@ -6,8 +6,8 @@ from jsonpath_ng.ext import parse
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.transformer_base import TransformerBase
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.transformer_base import TransformerBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class ClusterToRDFTransformer(TransformerBase, UpperOntologyBase):

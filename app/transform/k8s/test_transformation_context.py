@@ -1,7 +1,7 @@
 import unittest
 
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class TransformationContextTest(unittest.TestCase):

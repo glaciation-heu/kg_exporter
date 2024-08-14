@@ -21,7 +21,7 @@ from app.kg.graph import Graph
 from app.kg.id_base import IdBase
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class SnapshotTestBase:
