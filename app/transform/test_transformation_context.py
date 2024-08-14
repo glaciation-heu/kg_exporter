@@ -1,6 +1,6 @@
 import unittest
 
-from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.transformation_context import TransformationContext
 from app.transform.upper_ontology_base import UpperOntologyBase
 
 

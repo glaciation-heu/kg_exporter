@@ -3,7 +3,7 @@ from typing import List, Tuple
 from app.core.repository.types import MetricQuery
 from app.core.types import MetricValue
 from app.kg.graph import Graph
-from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.transformation_context import TransformationContext
 
 
 class MetricToGraphTransformerBase:

@@ -6,9 +6,9 @@ from app.core.types import MetricValue
 from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
-from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
 from app.transform.metrics.test_base import MetricTransformTestBase
+from app.transform.transformation_context import TransformationContext
 
 
 class NodeMetricToGraphTransformerTest(MetricTransformTestBase):

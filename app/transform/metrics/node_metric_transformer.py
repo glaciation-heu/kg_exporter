@@ -4,8 +4,8 @@ from app.core.repository.types import MetricQuery
 from app.core.types import MetricValue
 from app.kg.graph import Graph
 from app.kg.iri import IRI
-from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.metrics.metric_transformer import MetricToGraphTransformerBase
+from app.transform.transformation_context import TransformationContext
 from app.transform.transformer_base import TransformerBase
 from app.transform.upper_ontology_base import Aggregation, UpperOntologyBase
 

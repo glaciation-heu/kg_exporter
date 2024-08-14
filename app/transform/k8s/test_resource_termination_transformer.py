@@ -11,7 +11,7 @@ from app.transform.k8s.resource_termination_transformer import (
     ResourceTerminationTransformer,
 )
 from app.transform.k8s.test_base import TransformBaseTest
-from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.transformation_context import TransformationContext
 
 
 class ResourceTerminationTransformerTest(TransformBaseTest):

@@ -4,7 +4,7 @@ from app.clients.k8s.k8s_client import ResourceSnapshot
 from app.core.kg.kg_snapshot import KGSnapshot
 from app.kg.graph import Graph
 from app.kg.iri import IRI
-from app.transform.k8s.transformation_context import TransformationContext
+from app.transform.transformation_context import TransformationContext
 from app.transform.transformer_base import TransformerBase
 from app.transform.upper_ontology_base import UpperOntologyBase
 
@@ -83,11 +83,11 @@ class ResourceTerminationTransformer(UpperOntologyBase):
             )
             if (
                 container_id not in all_container_ids
-                and container_status.status != "Terminated"
+                and container_status.status != "terminated"
             ):
                 status_id = container_id.dot("Status")
                 self.add_work_producing_resource(container_id, "Container")
-                self.add_status(status_id, "Terminated", None, now_date)
+                self.add_status(status_id, "terminated", None, now_date)
                 self.sink.add_relation(container_id, self.HAS_STATUS, status_id)
 
     def get_container_ids(self, pod: Dict[str, Any]) -> Set[IRI]:
