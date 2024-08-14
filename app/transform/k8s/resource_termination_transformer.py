@@ -83,11 +83,11 @@ class ResourceTerminationTransformer(UpperOntologyBase):
             )
             if (
                 container_id not in all_container_ids
-                and container_status.status != "Terminated"
+                and container_status.status != "terminated"
             ):
                 status_id = container_id.dot("Status")
                 self.add_work_producing_resource(container_id, "Container")
-                self.add_status(status_id, "Terminated", None, now_date)
+                self.add_status(status_id, "terminated", None, now_date)
                 self.sink.add_relation(container_id, self.HAS_STATUS, status_id)
 
     def get_container_ids(self, pod: Dict[str, Any]) -> Set[IRI]:

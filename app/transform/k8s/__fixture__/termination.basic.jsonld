@@ -34,7 +34,7 @@
                 "@id": "cluster:system.coredns-2.coredns-dangling.Status",
                 "@type": "glc:Status",
                 "glc:endTime": "1970-01-01T00:00:00Z",
-                "glc:hasDescription": "Terminated",
+                "glc:hasDescription": "terminated",
                 "glc:hasID": {
                     "@id": "cluster:system.coredns-2.coredns-dangling.Status"
                 }
