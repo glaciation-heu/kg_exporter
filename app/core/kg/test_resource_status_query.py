@@ -15,11 +15,11 @@ class ResourceStatusQueryTest(TestCase):
         self.assertEqual(
             """
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            SELECT ?subject ?statusValue
+            SELECT ?resource ?statusValue
             WHERE {
-                ?subject rdf:type <glc:WorkProducingResource>.
-                ?subject <glc:hasDescription> "Pod".
-                ?subject <glc:hasStatus> ?status.
+                ?resource rdf:type <glc:WorkProducingResource>.
+                ?resource <glc:hasDescription> "Pod".
+                ?resource <glc:hasStatus> ?status.
                 ?status <glc:hasDescription> ?statusValue.
                 FILTER NOT EXISTS{ ?status <glc:hasDescription> 'Succeeded' }.
                 FILTER NOT EXISTS{ ?status <glc:hasDescription> 'Failed' }.
