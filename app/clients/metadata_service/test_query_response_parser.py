@@ -72,21 +72,21 @@ class QueryResponseParserTest(unittest.TestCase):
             [
                 {
                     "obj": IRI(
-                        "http://data.kasabi.com/dataset/cheese/schema", "Cheese"
+                        "http://data.kasabi.com/dataset/cheese/schema/", "Cheese"
                     ),
                     "pred": IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns", "type"),
-                    "sub": IRI("http://data.kasabi.com/dataset/cheese", "halloumi"),
+                    "sub": IRI("http://data.kasabi.com/dataset/cheese/", "halloumi"),
                 },
                 {
                     "obj": Literal("Halloumi", Literal.TYPE_STRING),
                     "pred": IRI("http://www.w3.org/2000/01/rdf-schema", "label"),
-                    "sub": IRI("http://data.kasabi.com/dataset/cheese", "halloumi"),
+                    "sub": IRI("http://data.kasabi.com/dataset/cheese/", "halloumi"),
                 },
                 {
                     "obj": Literal("Halloumi", Literal.TYPE_STRING),
                     "pred": IRI("glc", "property"),
                     "sub": IRI(
-                        "https://kubernetes.local",
+                        "https://kubernetes.local/",
                         "kafka.kafka-broker-1.kafka-init.Status",
                     ),
                 },

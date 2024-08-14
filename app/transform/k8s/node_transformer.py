@@ -3,9 +3,9 @@ from typing import Any, Dict
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.transformer_base import TransformerBase
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
 from app.transform.measurement import Measurement
+from app.transform.transformer_base import TransformerBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
@@ -33,9 +33,9 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             ["status", "allocatable", "cpu"]
         )
         if cpu_capacity_value:
-            cpu_capacity_id = cpu_id.dot("Capacity")
+            cpu_capacity_id = cpu_id.dot("Capacity").dot(f"{timestamp}")
             self.add_measurement(
-                cpu_id.dot("Capacity"),
+                cpu_capacity_id,
                 Measurement.CPU_CAPACITY,
                 cpu_capacity_value,
                 timestamp,
@@ -55,7 +55,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             ["status", "allocatable", "memory"]
         )
         if ram_capacity_value:
-            ram_capacity_id = ram_id.dot("Capacity")
+            ram_capacity_id = ram_id.dot("Capacity").dot(f"{timestamp}")
             self.add_measurement(
                 ram_capacity_id,
                 Measurement.RAM_CAPACITY,
@@ -77,7 +77,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             ["status", "allocatable", "ephemeral-storage"]
         )
         if storage_capacity_value:
-            storage_capacity_id = storage_id.dot("Capacity")
+            storage_capacity_id = storage_id.dot("Capacity").dot(f"{timestamp}")
             self.add_measurement(
                 storage_capacity_id,
                 Measurement.STORAGE_CAPACITY,
@@ -111,7 +111,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
             ]
         )
         if energy_index_value:
-            energy_index_id = node_id.dot("Energy.Index")
+            energy_index_id = node_id.dot("Energy.Index").dot(f"{timestamp}")
             self.add_measurement(
                 energy_index_id,
                 Measurement.ENERGY_INDEX,

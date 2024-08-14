@@ -52,6 +52,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
             "minimal",
             self.k8s_client,
             self.metric_client,
+            self.metadata_client,
             self.settings.builder.queries,
         )
         self.context.start()
@@ -68,6 +69,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
             "multinode",
             self.k8s_client,
             self.metric_client,
+            self.metadata_client,
             self.settings.builder.queries,
         )
         self.context.start()

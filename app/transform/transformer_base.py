@@ -8,7 +8,7 @@ from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 from app.util.quantity import parse_quantity
 
 
@@ -191,10 +191,13 @@ class TransformerBase:
             current = next
         return current
 
-    def get_opt_list(self, query_path: List[str]) -> Optional[List[Dict[str, Any]]]:
+    @staticmethod
+    def get_opt_list(
+        source: Dict[str, Any], query_path: List[str]
+    ) -> Optional[List[Dict[str, Any]]]:
         if len(query_path) == 0:
             return None
-        current: Dict[str, Any] = self.source
+        current: Dict[str, Any] = source
         result: List[Dict[str, Any]] = []
         for subpath in query_path:
             next = current.get(subpath)

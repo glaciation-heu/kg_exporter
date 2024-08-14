@@ -5,6 +5,10 @@ from abc import abstractmethod
 
 class IdBase:
     @abstractmethod
+    def get_value(self) -> str:
+        raise NotImplementedError
+
+    @abstractmethod
     def is_string_type(self) -> bool:
         raise NotImplementedError
 

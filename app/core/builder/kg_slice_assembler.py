@@ -3,17 +3,21 @@ from typing import Any, Dict, List, Type
 from urllib.parse import urlparse
 
 from app.clients.k8s.k8s_client import ResourceSnapshot
+from app.core.kg.kg_snapshot import KGSnapshot
 from app.core.types import DKGSlice, KGSliceId, MetricSnapshot, SliceInputs
 from app.kg.graph import Graph
 from app.kg.inmemory_graph import InMemoryGraph
 from app.transform.k8s.cluster_transformer import ClusterToRDFTransformer
 from app.transform.k8s.node_transformer import NodesToRDFTransformer
 from app.transform.k8s.pod_transformer import PodToRDFTransformer
+from app.transform.k8s.resource_termination_transformer import (
+    ResourceTerminationTransformer,
+)
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.transformer_base import TransformerBase
 from app.transform.k8s.workload_transformer import WorkloadToRDFTransformer
 from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
 from app.transform.metrics.pod_metric_transformer import PodMetricToGraphTransformer
+from app.transform.transformer_base import TransformerBase
 
 
 class KGSliceAssembler:
@@ -22,11 +26,13 @@ class KGSliceAssembler:
         now: int,
         slice_id: KGSliceId,
         inputs: SliceInputs,
+        existing_metadata: KGSnapshot,
     ) -> DKGSlice:
         sink = InMemoryGraph()
 
         self.transform_resources(now, inputs.resource, sink)
         self.transform_metrics(now, inputs.metrics, sink)
+        self.terminate_existing_resources(now, inputs.resource, existing_metadata, sink)
         context = self.get_context(inputs.resource.versions_info)
 
         slice = DKGSlice(slice_id, sink, context, now)
@@ -111,3 +117,14 @@ class KGSliceAssembler:
             return f"https://{server_address_url}/"
         else:
             return server_address_url
+
+    def terminate_existing_resources(
+        self,
+        now: int,
+        resources: ResourceSnapshot,
+        existing_metadata: KGSnapshot,
+        sink: Graph,
+    ) -> None:
+        context = TransformationContext(now)
+        transformer = ResourceTerminationTransformer(resources, existing_metadata, sink)
+        transformer.transform(context)

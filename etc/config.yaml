@@ -181,6 +181,7 @@ k8s:
 metadata:
   metadata_service_url: metadata.integration
   use_single_url: true
+  timeout_seconds: 20
 prometheus:
   endpoint_port: 8080
 prometheus_client:

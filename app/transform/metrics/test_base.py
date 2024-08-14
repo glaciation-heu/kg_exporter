@@ -7,7 +7,7 @@ from unittest import TestCase
 from app.kg.id_base import IdBase
 from app.kg.iri import IRI
 from app.serialize.jsonld_configuration import JsonLDConfiguration
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class MetricTransformTestBase(TestCase):

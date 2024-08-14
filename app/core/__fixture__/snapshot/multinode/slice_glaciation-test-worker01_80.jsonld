@@ -14,13 +14,13 @@
                 "@id": "cluster:glaciation-test-worker01"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-worker01.Energy.Index",
+                "@id": "cluster:glaciation-test-worker01.Energy.Index.1000",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Energy.Index",
                 "glc:hasTimestamp": 1000,
                 "glc:hasValue": 1001,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-worker01.Energy.Index"
+                    "@id": "cluster:glaciation-test-worker01.Energy.Index.1000"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:Milliwatt"
@@ -68,13 +68,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-worker01.CPU.Capacity",
+                        "@id": "cluster:glaciation-test-worker01.CPU.Capacity.1000",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 4,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-worker01.CPU.Capacity"
+                            "@id": "cluster:glaciation-test-worker01.CPU.Capacity.1000"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:Core"
@@ -84,13 +84,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.CPU.Usage",
+                        "@id": "cluster:glaciation-test-worker01.CPU.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 41.0,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-worker01.CPU.Usage"
+                            "@id": "cluster:glaciation-test-worker01.CPU.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:coreseconds"
@@ -118,13 +118,13 @@
                 "@id": "cluster:glaciation-test-worker01.Network"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-worker01.Network.Usage",
+                "@id": "cluster:glaciation-test-worker01.Network.Usage.17100500",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Network.Usage",
                 "glc:hasTimestamp": 17100500,
                 "glc:hasValue": 43.0,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-worker01.Network.Usage"
+                    "@id": "cluster:glaciation-test-worker01.Network.Usage.17100500"
                 },
                 "glc:measuredIn": {
                     "@set": [
@@ -151,13 +151,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-worker01.RAM.Capacity",
+                        "@id": "cluster:glaciation-test-worker01.RAM.Capacity.1000",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 16673947648,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-worker01.RAM.Capacity"
+                            "@id": "cluster:glaciation-test-worker01.RAM.Capacity.1000"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:Bytes"
@@ -167,13 +167,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.RAM.Usage",
+                        "@id": "cluster:glaciation-test-worker01.RAM.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 42.0,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-worker01.RAM.Usage"
+                            "@id": "cluster:glaciation-test-worker01.RAM.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -195,13 +195,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-worker01.Storage.Capacity",
+                        "@id": "cluster:glaciation-test-worker01.Storage.Capacity.1000",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 47266578354,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-worker01.Storage.Capacity"
+                            "@id": "cluster:glaciation-test-worker01.Storage.Capacity.1000"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:Bytes"
@@ -211,13 +211,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.Storage.Usage",
+                        "@id": "cluster:glaciation-test-worker01.Storage.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-worker01.Storage.Usage"
+                            "@id": "cluster:glaciation-test-worker01.Storage.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -243,13 +243,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage",
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 51.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage"
+                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:coreseconds"
@@ -259,13 +259,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage",
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Network.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 54.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage"
+                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -275,13 +275,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage",
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 52.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage"
+                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -291,13 +291,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage",
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 53.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage"
+                            "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -415,13 +415,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage",
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 61.0,
                         "glc:hasID": {
-                            "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage"
+                            "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:coreseconds"
@@ -431,13 +431,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage",
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Network.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 64.0,
                         "glc:hasID": {
-                            "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage"
+                            "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -447,13 +447,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage",
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 62.0,
                         "glc:hasID": {
-                            "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage"
+                            "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -463,13 +463,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage",
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 63.0,
                         "glc:hasID": {
-                            "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage"
+                            "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -593,16 +593,16 @@
             "glc:makes": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-worker01.CPU.Capacity"
+                        "@id": "cluster:glaciation-test-worker01.CPU.Capacity.1000"
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.Energy.Index"
+                        "@id": "cluster:glaciation-test-worker01.Energy.Index.1000"
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.RAM.Capacity"
+                        "@id": "cluster:glaciation-test-worker01.RAM.Capacity.1000"
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.Storage.Capacity"
+                        "@id": "cluster:glaciation-test-worker01.Storage.Capacity.1000"
                     }
                 ]
             }
@@ -652,40 +652,40 @@
             "glc:makes": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-worker01.CPU.Usage"
+                        "@id": "cluster:glaciation-test-worker01.CPU.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.Network.Usage"
+                        "@id": "cluster:glaciation-test-worker01.Network.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.RAM.Usage"
+                        "@id": "cluster:glaciation-test-worker01.RAM.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:glaciation-test-worker01.Storage.Usage"
+                        "@id": "cluster:glaciation-test-worker01.Storage.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage"
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.CPU.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage"
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Network.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage"
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.RAM.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage"
+                        "@id": "cluster:kube-flannel.kube-flannel-ds-848v8.Storage.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage"
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.CPU.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage"
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Network.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage"
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.RAM.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage"
+                        "@id": "cluster:vault.init-vault-cluster-cbqhq.Storage.Usage.17100500"
                     }
                 ]
             }

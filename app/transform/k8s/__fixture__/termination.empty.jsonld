@@ -1,0 +1,9 @@
+{
+    "@context": {
+        "cluster": "https://127.0.0.1:6443/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": []
+}

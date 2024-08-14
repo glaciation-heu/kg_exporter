@@ -232,6 +232,7 @@ settings:
     in_cluster: true
   metadata:
     metadata_service_url: metadata-service
+    timeout_seconds: 20
   prometheus:
     endpoint_port: 8080
   prometheus_client:

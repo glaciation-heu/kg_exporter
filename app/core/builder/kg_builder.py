@@ -10,10 +10,10 @@ from app.core.builder.kg_slice_assembler import KGSliceAssembler
 from app.core.builder.slice_strategy.slice_per_cluster import SlicePerCluster
 from app.core.builder.slice_strategy.slice_per_node import SlicePerNode
 from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
+from app.core.kg.kg_repository import KGRepository
 from app.core.repository.metric_repository import MetricRepository
 from app.core.repository.query_settings import QuerySettings
 from app.core.types import DKGSlice
-from app.core.updater.kg_repository import KGRepository
 from app.util.clock import Clock
 
 
@@ -110,11 +110,16 @@ class KGBuilder:
         logger.debug("PodMetrics: {size}", size=len(metric_snapshot.pod_metrics))
 
         slices = self.slice_strategy.get_slices(cluster_snapshot, metric_snapshot)
+
         logger.info("Slices produced: {size}", size=len(slices))
         logger.debug("Slices: {slices}", slices=set(slices.keys()))
         for slice_id, slice_inputs in slices.items():
+            existing_metadata = await self.kg_repository.query_snapshot(slice_id)
             logger.debug("Assembling slice: {slice_id}", slice_id=slice_id)
             slice = self.slice_assembler.assemble(
-                now=now, slice_id=slice_id, inputs=slice_inputs
+                now=now,
+                slice_id=slice_id,
+                inputs=slice_inputs,
+                existing_metadata=existing_metadata,
             )
             self.queue.put_nowait(slice)

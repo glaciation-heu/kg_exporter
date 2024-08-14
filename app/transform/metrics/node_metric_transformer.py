@@ -5,9 +5,9 @@ from app.core.types import MetricValue
 from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.transformer_base import TransformerBase
-from app.transform.k8s.upper_ontology_base import Aggregation, UpperOntologyBase
 from app.transform.metrics.metric_transformer import MetricToGraphTransformerBase
+from app.transform.transformer_base import TransformerBase
+from app.transform.upper_ontology_base import Aggregation, UpperOntologyBase
 
 
 class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBase):
@@ -19,6 +19,8 @@ class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBa
         now = context.get_timestamp()
         for query, result in self.metrics:
             node_id = self.get_node_id(result.resource_id)
+            timestamp = result.timestamp if not query.aggregation else now
+
             parent_resource_id = (
                 node_id.dot(query.subresource) if query.subresource else node_id
             )
@@ -27,11 +29,14 @@ class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBa
                 if query.subresource
                 else query.measurement_id
             )
-            measurement_id = parent_resource_id.dot(query.measurement_id)
+            measurement_id = parent_resource_id.dot(query.measurement_id).dot(
+                f"{timestamp}"
+            )
             property_id = IRI(self.GLACIATION_PREFIX, query.property)
             unit_id = IRI(self.GLACIATION_PREFIX, query.unit)
             source_id = IRI(self.GLACIATION_PREFIX, query.source)
             self.add_work_producing_resource(parent_resource_id, None)
+
             aggregation = (
                 None
                 if not query.aggregation
@@ -41,7 +46,6 @@ class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBa
                     ending_interval=now,
                 )
             )
-            timestamp = result.timestamp if not query.aggregation else now
 
             self.add_measurement(
                 measurement_id,

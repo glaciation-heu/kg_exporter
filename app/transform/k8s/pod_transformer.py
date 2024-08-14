@@ -6,8 +6,8 @@ from app.kg.graph import Graph
 from app.kg.iri import IRI
 from app.kg.literal import Literal
 from app.transform.k8s.transformation_context import TransformationContext
-from app.transform.k8s.transformer_base import TransformerBase
-from app.transform.k8s.upper_ontology_base import UpperOntologyBase
+from app.transform.transformer_base import TransformerBase
+from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
@@ -59,7 +59,9 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
     def add_container_resources_by_query(
         self, pod_id: IRI, scheduler_name: str, jsonpath: List[str]
     ) -> None:
-        container_status_matches = self.get_opt_list(jsonpath) or []
+        container_status_matches = (
+            TransformerBase.get_opt_list(self.source, jsonpath) or []
+        )
         for container_match in container_status_matches:
             self.add_container_resource(pod_id, container_match, scheduler_name)
 

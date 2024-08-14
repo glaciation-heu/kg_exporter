@@ -14,13 +14,13 @@
                 "@id": "cluster:glaciation-test-master01"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-master01.Energy.Index",
+                "@id": "cluster:glaciation-test-master01.Energy.Index.1000",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Energy.Index",
                 "glc:hasTimestamp": 1000,
                 "glc:hasValue": 1001,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-master01.Energy.Index"
+                    "@id": "cluster:glaciation-test-master01.Energy.Index.1000"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:Milliwatt"
@@ -68,13 +68,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-master01.CPU.Capacity",
+                        "@id": "cluster:glaciation-test-master01.CPU.Capacity.1000",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 4,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-master01.CPU.Capacity"
+                            "@id": "cluster:glaciation-test-master01.CPU.Capacity.1000"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:Core"
@@ -84,13 +84,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.CPU.Usage",
+                        "@id": "cluster:glaciation-test-master01.CPU.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 41.0,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-master01.CPU.Usage"
+                            "@id": "cluster:glaciation-test-master01.CPU.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:coreseconds"
@@ -118,13 +118,13 @@
                 "@id": "cluster:glaciation-test-master01.Network"
             },
             "glc:hasMeasurement": {
-                "@id": "cluster:glaciation-test-master01.Network.Usage",
+                "@id": "cluster:glaciation-test-master01.Network.Usage.17100500",
                 "@type": "glc:Measurement",
                 "glc:hasDescription": "Network.Usage",
                 "glc:hasTimestamp": 17100500,
                 "glc:hasValue": 43.0,
                 "glc:hasID": {
-                    "@id": "cluster:glaciation-test-master01.Network.Usage"
+                    "@id": "cluster:glaciation-test-master01.Network.Usage.17100500"
                 },
                 "glc:measuredIn": {
                     "@id": "glc:bytes"
@@ -144,13 +144,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-master01.RAM.Capacity",
+                        "@id": "cluster:glaciation-test-master01.RAM.Capacity.1000",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 16673939456,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-master01.RAM.Capacity"
+                            "@id": "cluster:glaciation-test-master01.RAM.Capacity.1000"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:Bytes"
@@ -160,13 +160,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.RAM.Usage",
+                        "@id": "cluster:glaciation-test-master01.RAM.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 42.0,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-master01.RAM.Usage"
+                            "@id": "cluster:glaciation-test-master01.RAM.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -188,13 +188,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-master01.Storage.Capacity",
+                        "@id": "cluster:glaciation-test-master01.Storage.Capacity.1000",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Capacity",
                         "glc:hasTimestamp": 1000,
                         "glc:hasValue": 47266578354,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-master01.Storage.Capacity"
+                            "@id": "cluster:glaciation-test-master01.Storage.Capacity.1000"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:Bytes"
@@ -204,13 +204,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Storage.Usage",
+                        "@id": "cluster:glaciation-test-master01.Storage.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
                         "glc:hasID": {
-                            "@id": "cluster:glaciation-test-master01.Storage.Usage"
+                            "@id": "cluster:glaciation-test-master01.Storage.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -236,13 +236,13 @@
             "glc:hasMeasurement": {
                 "@set": [
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage",
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "CPU.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 41.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage"
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:coreseconds"
@@ -252,13 +252,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage",
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Network.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage"
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -268,13 +268,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage",
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "RAM.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 42.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage"
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -284,13 +284,13 @@
                         }
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage",
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage.17100500",
                         "@type": "glc:Measurement",
                         "glc:hasDescription": "Storage.Usage",
                         "glc:hasTimestamp": 17100500,
                         "glc:hasValue": 43.0,
                         "glc:hasID": {
-                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage"
+                            "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage.17100500"
                         },
                         "glc:measuredIn": {
                             "@id": "glc:bytes"
@@ -431,16 +431,16 @@
             "glc:makes": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-master01.CPU.Capacity"
+                        "@id": "cluster:glaciation-test-master01.CPU.Capacity.1000"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Energy.Index"
+                        "@id": "cluster:glaciation-test-master01.Energy.Index.1000"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.RAM.Capacity"
+                        "@id": "cluster:glaciation-test-master01.RAM.Capacity.1000"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Storage.Capacity"
+                        "@id": "cluster:glaciation-test-master01.Storage.Capacity.1000"
                     }
                 ]
             }
@@ -476,28 +476,28 @@
             "glc:makes": {
                 "@set": [
                     {
-                        "@id": "cluster:glaciation-test-master01.CPU.Usage"
+                        "@id": "cluster:glaciation-test-master01.CPU.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Network.Usage"
+                        "@id": "cluster:glaciation-test-master01.Network.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.RAM.Usage"
+                        "@id": "cluster:glaciation-test-master01.RAM.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:glaciation-test-master01.Storage.Usage"
+                        "@id": "cluster:glaciation-test-master01.Storage.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage"
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.CPU.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage"
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Network.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage"
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.RAM.Usage.17100500"
                     },
                     {
-                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage"
+                        "@id": "cluster:kube-system.coredns-787d4945fb-l85r5.Storage.Usage.17100500"
                     }
                 ]
             }

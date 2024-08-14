@@ -1,0 +1,61 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:glaciation-test-worker-dangling",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-test-worker-dangling"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:glaciation-test-worker-dangling.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00Z",
+                "glc:hasDescription": "Unknown",
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-worker-dangling.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:system.coredns-2.coredns-dangling",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "glc:hasID": {
+                "@id": "cluster:system.coredns-2.coredns-dangling"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:system.coredns-2.coredns-dangling.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00Z",
+                "glc:hasDescription": "Terminated",
+                "glc:hasID": {
+                    "@id": "cluster:system.coredns-2.coredns-dangling.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:system.coredns-dangling",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "glc:hasID": {
+                "@id": "cluster:system.coredns-dangling"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:system.coredns-dangling.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "1970-01-01T00:00:00Z",
+                "glc:hasDescription": "Unknown",
+                "glc:hasID": {
+                    "@id": "cluster:system.coredns-dangling.Status"
+                }
+            }
+        }
+    ]
+}
