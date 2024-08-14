@@ -32,6 +32,7 @@ class MetadataServiceClientImpl(MetadataServiceClient):
                     url,
                     params=[("query", sparql)],
                     headers=[("Content-Type", "application/json")],
+                    timeout=self.settings.timeout_seconds,
                 )
                 response.raise_for_status()
                 return self.query_reponse_parser.parse(response.text)
@@ -47,6 +48,7 @@ class MetadataServiceClientImpl(MetadataServiceClient):
                     url,
                     content=graph,
                     headers=[("Content-Type", "application/json")],
+                    timeout=self.settings.timeout_seconds,
                 )
                 response.raise_for_status()
             except HTTPError as e:

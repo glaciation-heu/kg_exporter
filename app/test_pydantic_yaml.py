@@ -49,7 +49,7 @@ class PyDanticYamlTest(TestCase):
                 single_slice_url="metadata-service:80",
             ),
             k8s=K8SSettings(in_cluster=True),
-            metadata=MetadataServiceSettings(),
+            metadata=MetadataServiceSettings(timeout_seconds=20),
             prometheus=PrometheusSettings(endpoint_port=8080),
             prometheus_client=PrometheusClientSettings(url="prometheus.integration"),
         )
