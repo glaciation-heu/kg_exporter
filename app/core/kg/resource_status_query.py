@@ -29,11 +29,11 @@ class ResourceStatusQuery(KGQuery[List[ResourceStatus]]):
         self.resource_type = resource_type
         self.query = f"""
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            SELECT ?subject ?statusValue
+            SELECT ?resource ?statusValue
             WHERE {{
-                ?subject rdf:type <glc:WorkProducingResource>.
-                ?subject <glc:hasDescription> "{resource_type}".
-                ?subject <glc:hasStatus> ?status.
+                ?resource rdf:type <glc:WorkProducingResource>.
+                ?resource <glc:hasDescription> "{resource_type}".
+                ?resource <glc:hasStatus> ?status.
                 ?status <glc:hasDescription> ?statusValue.
                 FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Succeeded' }}.
                 FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Failed' }}.
