@@ -5,8 +5,8 @@ from app.kg.inmemory_graph import InMemoryGraph
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
 from app.transform.k8s.test_base import TransformBaseTest
-from app.transform.k8s.transformation_context import TransformationContext
 from app.transform.k8s.workload_transformer import WorkloadToRDFTransformer
+from app.transform.transformation_context import TransformationContext
 
 
 class WorkloadTransformerTest(TransformBaseTest):
