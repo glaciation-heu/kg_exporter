@@ -1,0 +1,4 @@
+- resource:
+    prefix: cluster
+    id: kube-system.coredns-787d4945fb-l85r5.coredns
+  statusValue: Running

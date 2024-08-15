@@ -17,23 +17,20 @@ T = TypeVar("T")
 
 
 class KGRepository:
-    node_query: ResourceStatusQuery
-    pod_query: ResourceStatusQuery
-    container_query: ResourceStatusQuery
+    NODE_QUERY = ResourceStatusQuery(ResourceType.NODE)
+    POD_QUERY = ResourceStatusQuery(ResourceType.POD)
+    CONTAINER_QUERY = ResourceStatusQuery(ResourceType.CONTAINER)
 
     metadata_client: MetadataServiceClient
 
     def __init__(self, metadata_client: MetadataServiceClient):
         self.metadata_client = metadata_client
-        self.node_query = ResourceStatusQuery(ResourceType.NODE)
-        self.pod_query = ResourceStatusQuery(ResourceType.POD)
-        self.container_query = ResourceStatusQuery(ResourceType.CONTAINER)
 
     async def query_snapshot(self, slice_id: KGSliceId) -> KGSnapshot:
         (nodes, pods, containers) = await asyncio.gather(
-            self.query(slice_id, self.node_query),
-            self.query(slice_id, self.pod_query),
-            self.query(slice_id, self.container_query),
+            self.query(slice_id, self.NODE_QUERY),
+            self.query(slice_id, self.POD_QUERY),
+            self.query(slice_id, self.CONTAINER_QUERY),
         )
         return KGSnapshot(nodes, pods, containers)
 

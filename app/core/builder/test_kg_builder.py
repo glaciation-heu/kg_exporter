@@ -48,8 +48,10 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         )
 
     def test_build_minimal(self) -> None:
+        slice_id = KGSliceId("glaciation-test-master01", 80)
         self.mock_inputs(
             "minimal",
+            [slice_id],
             self.k8s_client,
             self.metric_client,
             self.client,
@@ -62,7 +64,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         slice = self.wait_for_slice(2)
 
         self.assertEqual(slice.timestamp, 1000)
-        self.assertEqual(slice.slice_id, KGSliceId("glaciation-test-master01", 80))
+        self.assertEqual(slice.slice_id, slice_id)
         self.assertNotEqual(slice.graph, InMemoryGraph())
         self.assert_graph(slice.graph, "minimal", slice.slice_id)
 
