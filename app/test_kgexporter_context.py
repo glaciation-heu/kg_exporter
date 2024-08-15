@@ -50,6 +50,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
     def test_end_to_end_minimal(self) -> None:
         self.mock_inputs(
             "minimal",
+            [KGSliceId("glaciation-test-master01", 80)],
             self.k8s_client,
             self.metric_client,
             self.metadata_client,
@@ -67,6 +68,10 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         self.settings.prometheus.endpoint_port = 8081
         self.mock_inputs(
             "multinode",
+            [
+                KGSliceId("glaciation-test-master01", 80),
+                KGSliceId("glaciation-test-worker01", 80),
+            ],
             self.k8s_client,
             self.metric_client,
             self.metadata_client,

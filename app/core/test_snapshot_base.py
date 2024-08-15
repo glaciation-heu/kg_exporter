@@ -13,12 +13,15 @@ from app.clients.metadata_service.mock_metadata_service_client import (
     MockMetadataServiceClient,
 )
 from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
+from app.core.kg.kg_repository import KGRepository
 from app.core.kg.kg_snapshot import KGSnapshot
 from app.core.repository.query_settings import QuerySettings
 from app.core.repository.types import MetricQuery
 from app.core.types import KGSliceId, MetricSnapshot, MetricValue, SliceInputs
 from app.kg.graph import Graph
 from app.kg.id_base import IdBase
+from app.kg.iri import IRI
+from app.kg.literal import Literal
 from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.transform.upper_ontology_base import UpperOntologyBase
@@ -30,6 +33,7 @@ class SnapshotTestBase:
     def mock_inputs(
         self,
         identity: str,
+        slices: List[KGSliceId],
         k8s_client: MockK8SClient,
         metric_client: MockPrometheusClient,
         metadata_service_client: MockMetadataServiceClient,
@@ -54,6 +58,21 @@ class SnapshotTestBase:
         for query, value in metrics.pod_metrics:
             metric_client.mock_query(query.query, [value])
             settings.pod_queries.append(query)
+
+        for slice_id in slices:
+            host_id = slice_id.get_host_port()
+            nodes = self.load_kg_statuses(identity, slice_id, "nodes")
+            pods = self.load_kg_statuses(identity, slice_id, "pods")
+            containers = self.load_kg_statuses(identity, slice_id, "containers")
+            metadata_service_client.mock_query(
+                host_id, KGRepository.NODE_QUERY.get_query(), nodes
+            )
+            metadata_service_client.mock_query(
+                host_id, KGRepository.POD_QUERY.get_query(), pods
+            )
+            metadata_service_client.mock_query(
+                host_id, KGRepository.CONTAINER_QUERY.get_query(), containers
+            )
 
     def get_existing_metadata(self, identity: str) -> KGSnapshot:
         return KGSnapshot(nodes=[], pods=[], containers=[])
@@ -121,6 +140,21 @@ class SnapshotTestBase:
             )
         except Exception:
             return d  # Not a dataclass field
+
+    def load_kg_statuses(
+        self, snapshot_id: str, slice_id: KGSliceId, file_id: str
+    ) -> List[Dict[str, Any]]:
+        file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/ms_{slice_id.node_ip}_{slice_id.port}.query.{file_id}.yaml"
+        if not os.path.exists(file_path):
+            return []
+        results = []
+        for status_object in self.safe_load_yaml(file_path):
+            resource = IRI(
+                status_object["resource"]["prefix"], status_object["resource"]["id"]
+            )
+            status_value = Literal(status_object["statusValue"], Literal.TYPE_STRING)
+            results.append({"resource": resource, "statusValue": status_value})
+        return results
 
     def assert_graph(self, graph: Graph, snapshot_id: str, slice_id: KGSliceId) -> None:
         file_path = f"{self.SNAPSHOT_ROOT}/{snapshot_id}/slice_{slice_id.node_ip}_{slice_id.port}.jsonld"
