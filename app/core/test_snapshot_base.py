@@ -174,9 +174,9 @@ class SnapshotTestBase:
     def get_test_jsonld_config(self) -> JsonLDConfiguration:
         contexts: Dict[IdBase, Dict[str, Any]] = {
             JsonLDConfiguration.DEFAULT_CONTEXT_IRI: {
-                "k8s": "http://glaciation-project.eu/model/k8s/",
+                "k8s": "http://glaciation-project.eu/model/k8s/#",
                 "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
-                "cluster": "https://10.14.1.160:6443/",
+                "cluster": "https://10.14.1.160:6443/#",
                 "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
             }
         }

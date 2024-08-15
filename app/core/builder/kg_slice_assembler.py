@@ -96,7 +96,7 @@ class KGSliceAssembler:
         server_address_by_client_cid_rs_list = (
             versions_info.get("server_address_by_client_cid_rs") or []
         )
-        server_address_url = "https://kubernetes.local/"
+        server_address_url = "https://kubernetes.local/#"
         for server_address_by_client_cid_rs in server_address_by_client_cid_rs_list:
             server_address = server_address_by_client_cid_rs.get("server_address")
             if server_address:
@@ -104,7 +104,7 @@ class KGSliceAssembler:
                 break
 
         context = {
-            "k8s": "http://glaciation-project.eu/model/k8s/",
+            "k8s": "http://glaciation-project.eu/model/k8s/#",
             "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
             "cluster": self.unify_url(server_address_url),
             "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -114,7 +114,7 @@ class KGSliceAssembler:
     def unify_url(self, server_address_url: str) -> str:
         parse_result = urlparse(server_address_url)
         if not parse_result.scheme:
-            return f"https://{server_address_url}/"
+            return f"https://{server_address_url}/#"
         else:
             return server_address_url
 
