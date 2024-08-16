@@ -11,14 +11,14 @@ class PrometheusResultParser(QueryResultParser):
         if metric and value:
             metric_name = metric.get("__name__") or "undefined"
             resource = metric.get("resource") or "undefined"
-            timestamp = int(value[0] * 1000)
-            metric_value = float(value[1])
-            value = MetricValue(
-                metric_name,
-                resource,
-                timestamp=timestamp,
-                value=metric_value,
-            )
-            return [value]
-        else:
-            return []
+            if resource not in ["", "."]:
+                timestamp = int(value[0] * 1000)
+                metric_value = float(value[1])
+                value = MetricValue(
+                    metric_name,
+                    resource,
+                    timestamp=timestamp,
+                    value=metric_value,
+                )
+                return [value]
+        return []
