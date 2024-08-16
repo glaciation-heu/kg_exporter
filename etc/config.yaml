@@ -20,7 +20,7 @@ builder:
           )
         result_parser: PROMETHEUS_PARSER
 
-      - measurement_id: CPU.Available
+      - measurement_id: Available
         subresource: CPU
         source: NodeExporter
         unit: Core
