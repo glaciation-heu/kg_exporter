@@ -124,111 +124,111 @@ settings:
             )
           result_parser: PROMETHEUS_PARSER
 
-    pod_queries:
+      pod_queries:
 
-      - measurement_id: Usage
-        subresource: Network
-        source: cAdvisor
-        unit: bytes
-        property: Network.Usage
-        aggregation:
-          period_seconds: 300
-          function: average
-        query: |
-          label_join(
-            sum(
-              rate(
-                container_network_receive_bytes_total[5m] @{{now}}
-              )
-            ) by (namespace, pod) +
-            sum(
-              rate(
-                container_network_transmit_bytes_total[5m] @{{now}}
-              )
-            ) by (namespace, pod),
-            "resource",
-            ".",
-            "namespace",
-            "pod"
-          )
-        result_parser: PROMETHEUS_PARSER
+        - measurement_id: Usage
+          subresource: Network
+          source: cAdvisor
+          unit: bytes
+          property: Network.Usage
+          aggregation:
+            period_seconds: 300
+            function: average
+          query: |
+            label_join(
+              sum(
+                rate(
+                  container_network_receive_bytes_total[5m] @{{now}}
+                )
+              ) by (namespace, pod) +
+              sum(
+                rate(
+                  container_network_transmit_bytes_total[5m] @{{now}}
+                )
+              ) by (namespace, pod),
+              "resource",
+              ".",
+              "namespace",
+              "pod"
+            )
+          result_parser: PROMETHEUS_PARSER
 
-      - measurement_id: Usage
-        subresource: Storage
-        source: k8s-ephemeral-storage-metrics
-        unit: bytes
-        property: Storage.Usage
-        aggregation:
-          period_seconds: 300
-          function: average
-        query: |
-          label_join(
-            ephemeral_storage_pod_usage @{{now}},
-            "resource",
-            ".",
-            "pod_namespace",
-            "pod_name"
-          )
-        result_parser: PROMETHEUS_PARSER
+        - measurement_id: Usage
+          subresource: Storage
+          source: k8s-ephemeral-storage-metrics
+          unit: bytes
+          property: Storage.Usage
+          aggregation:
+            period_seconds: 300
+            function: average
+          query: |
+            label_join(
+              ephemeral_storage_pod_usage @{{now}},
+              "resource",
+              ".",
+              "pod_namespace",
+              "pod_name"
+            )
+          result_parser: PROMETHEUS_PARSER
 
-      - measurement_id: Usage
-        subresource: CPU
-        source: cAdvisor
-        unit: bytes
-        property: CPU.Usage
-        aggregation:
-          period_seconds: 300
-          function: average
-        query: |
-          label_join(
-            sum(
-              rate(
-                container_cpu_usage_seconds_total[5m] @{{now}}
-              )
-            ) by (namespace, pod),
-            "resource",
-            ".",
-            "namespace",
-            "pod"
-          )
-        result_parser: PROMETHEUS_PARSER
+        - measurement_id: Usage
+          subresource: CPU
+          source: cAdvisor
+          unit: bytes
+          property: CPU.Usage
+          aggregation:
+            period_seconds: 300
+            function: average
+          query: |
+            label_join(
+              sum(
+                rate(
+                  container_cpu_usage_seconds_total[5m] @{{now}}
+                )
+              ) by (namespace, pod),
+              "resource",
+              ".",
+              "namespace",
+              "pod"
+            )
+          result_parser: PROMETHEUS_PARSER
 
-      - measurement_id: Usage
-        subresource: RAM
-        source: cAdvisor
-        unit: bytes
-        property: RAM.Usage
-        query: |
-          label_join(
-            sum(
-              rate(
-                container_memory_working_set_bytes[5m] @{{now}}
-              )
-            ) by (namespace, pod),
-            "resource",
-            ".",
-            "namespace",
-            "pod"
-          )
-        result_parser: PROMETHEUS_PARSER
+        - measurement_id: Usage
+          subresource: RAM
+          source: cAdvisor
+          unit: bytes
+          property: RAM.Usage
+          query: |
+            label_join(
+              sum(
+                rate(
+                  container_memory_working_set_bytes[5m] @{{now}}
+                )
+              ) by (namespace, pod),
+              "resource",
+              ".",
+              "namespace",
+              "pod"
+            )
+          result_parser: PROMETHEUS_PARSER
 
-      - measurement_id: Energy.Usage
-        source: Kepler
-        unit: milliwatt
-        property: Energy.Usage
-        query: |
-          label_join(
-            sum(
-              irate(
-                kepler_container_joules_total[5m] @{{now}}
-              )
-            ) by (container_namespace, pod_name),
-            "resource",
-            ".",
-            "container_namespace",
-            "pod_name"
-          )
-        result_parser: PROMETHEUS_PARSER
+        - measurement_id: Energy.Usage
+          source: Kepler
+          unit: milliwatt
+          property: Energy.Usage
+          query: |
+            label_join(
+              sum(
+                irate(
+                  kepler_container_joules_total[5m] @{{now}}
+                )
+              ) by (container_namespace, pod_name),
+              "resource",
+              ".",
+              "container_namespace",
+              "pod_name"
+            )
+          result_parser: PROMETHEUS_PARSER
 
   k8s:
     in_cluster: true
