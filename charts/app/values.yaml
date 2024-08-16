@@ -72,7 +72,7 @@ settings:
             )
           result_parser: PROMETHEUS_PARSER
 
-        - measurement_id: CPU.Available
+        - measurement_id: Available
           subresource: CPU
           source: NodeExporter
           unit: Core
@@ -135,21 +135,21 @@ settings:
             period_seconds: 300
             function: average
           query: |
-            label_replace(
+            label_join(
               sum(
                 rate(
                   container_network_receive_bytes_total[5m] @{{now}}
                 )
-              ) by (pod) +
+              ) by (namespace, pod) +
               sum(
                 rate(
                   container_network_transmit_bytes_total[5m] @{{now}}
                 )
-              ) by (pod),
+              ) by (namespace, pod),
               "resource",
-              "$1",
-              "pod",
-              "(.+)"
+              ".",
+              "namespace",
+              "pod"
             )
           result_parser: PROMETHEUS_PARSER
 
@@ -162,12 +162,12 @@ settings:
             period_seconds: 300
             function: average
           query: |
-            label_replace(
+            label_join(
               ephemeral_storage_pod_usage @{{now}},
               "resource",
-              "$1",
-              "pod_name",
-              "(.+)"
+              ".",
+              "pod_namespace",
+              "pod_name"
             )
           result_parser: PROMETHEUS_PARSER
 
@@ -180,16 +180,16 @@ settings:
             period_seconds: 300
             function: average
           query: |
-            label_replace(
+            label_join(
               sum(
                 rate(
                   container_cpu_usage_seconds_total[5m] @{{now}}
                 )
-              ) by (pod),
+              ) by (namespace, pod),
               "resource",
-              "$1",
-              "pod",
-              "(.+)"
+              ".",
+              "namespace",
+              "pod"
             )
           result_parser: PROMETHEUS_PARSER
 
@@ -199,14 +199,16 @@ settings:
           unit: bytes
           property: RAM.Usage
           query: |
-            label_replace(
+            label_join(
               sum(
-                container_memory_working_set_bytes @{{now}}
-              ) by (pod),
+                rate(
+                  container_memory_working_set_bytes[5m] @{{now}}
+                )
+              ) by (namespace, pod),
               "resource",
-              "$1",
-              "pod",
-              "(.+)"
+              ".",
+              "namespace",
+              "pod"
             )
           result_parser: PROMETHEUS_PARSER
 
@@ -215,16 +217,16 @@ settings:
           unit: milliwatt
           property: Energy.Usage
           query: |
-            label_replace(
+            label_join(
               sum(
                 irate(
                   kepler_container_joules_total[5m] @{{now}}
                 )
-              ) by (pod_name),
+              ) by (container_namespace, pod_name),
               "resource",
-              "$1",
-              "pod_name",
-              "(.+)"
+              ".",
+              "container_namespace",
+              "pod_name"
             )
           result_parser: PROMETHEUS_PARSER
 
