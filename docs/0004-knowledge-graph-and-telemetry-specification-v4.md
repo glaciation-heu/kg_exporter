@@ -27,14 +27,14 @@ Terminology:
 | Node CPU capacity max, cores | Node resource: <br/>$.status.allocatable.cpu | WN_CPU_MAX_CAPACITY | CPU.Capacity | $.worker_nodes.resources.cpu.max |
 | Node memory capacity max, Mb | Node resource: <br/>$.status.allocatable.memory | WN_MEM_MAX_CAPACITY | RAM.Capacity | $.worker_nodes.resources.memory.max |
 | Node gpu capacity max, unit | Node resource: <br/>$.status.capacity.”nvidia.com/gpu” | WN_GPU_MAX_CAPACITY | GPU.Capacity | $.worker_nodes.resources.gpu.max |
-| Node Storage capacity max (ephemeral storage), GB | TBD, (ephemeral storage helm chart) | WN_STR_MAX_CAPACITY | Storage.Capacity | $.worker_nodes.resources.storage.max |
-| Node network capacity max, GB per second | Not available yet | WN_NET_MAX_CAPACITY | Network.Capacity | $.worker_nodes.resource.network.max |
+| Node Storage capacity max, bytes | Not available | WN_STR_MAX_CAPACITY | Storage.Capacity | $.worker_nodes.resources.storage.max |
+| Node network capacity max, bytes | Not available | WN_NET_MAX_CAPACITY | Network.Capacity | $.worker_nodes.resource.network.max |
 | Node energy usage, joules | Source: kepler <br/>irate(kepler_node_platform_joules_total[5m]) |ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MEDIAN<br/>ENERGY_CONSUMPTION_MEAN | Energy.Usage | $.worker_nodes.resources.energy_index.available |
 | Node CPU available, core seconds | Source: node exporter <br/> sum(rate(node_cpu_seconds_total{mode="idle", service="monitoring-stack-prometheus-node-exporter"}[5m])) by (node) | WN_CPU_AVAILABLE | CPU.Available | $.worker_nodes.resources.cpu.available |
 | Node Memory available, Mb | Source: node exporter <br/>node_memory_MemFree_bytes{service="monitoring-stack-prometheus-node-exporter"} | WN_MEM_AVAILABLE  | RAM.Available | $.worker_nodes.resources.memory.available |
 | Node GPU available, unit | Node resource: <br/>$.status.allocatable.”nvidia.com/gpu” | WN_GPU_AVAILABLE | GPU.Available | $.worker_nodes.resources.gpu.available |
 | Node Storage available (ephemeral), bytes | k8s ephemeral metrics: <br/>ephemeral_storage_node_available | WN_STR_AVAILABLE | Storage.Available | $.worker_nodes.resources.storage.available |
-| Node Network available, Mb | TBD  | WN_NET_AVAILABLE | Network.Available | $.worker_nodes.resources.network.available |
+| Node Network available, bytes | Not Available  | WN_NET_AVAILABLE | Network.Available | $.worker_nodes.resources.network.available |
 
 # Workload
 
@@ -82,8 +82,7 @@ sum (
 
 | Metric description | Source (prometheus or k8s resource) | Synthetic Data Generator | Knowledge graph, value of "glc:hasDescription" attribute of glc:Measurement | Tradeoff Service |
 | --- | --- | --- | --- | --- |
-| Network usage (sent+received), bytes | cAdvisor: <br/>sum(rate(container_network_receive_bytes_total[5m])) by (namespace, pod) +
-sum(rate(container_network_transmit_bytes_total[5m])) by (namespace, pod) | WL_NET_REC_USG_AVG <br/>WL_NET_REC_USG_MED<br/>WL_NET_REC_USG_MAX<br/>WL_NET_REC_USG_MIN | Network.Usage | $.workloads.resources.network.used |
+| Network usage (sent+received), bytes | cAdvisor: <br/>sum(rate(container_network_receive_bytes_total[5m])) by (namespace, pod) + <br/>sum(rate(container_network_transmit_bytes_total[5m])) by (namespace, pod) | WL_NET_REC_USG_AVG <br/>WL_NET_REC_USG_MED<br/>WL_NET_REC_USG_MAX<br/>WL_NET_REC_USG_MIN | Network.Usage | $.workloads.resources.network.used |
 | Storage (ephemeral), bytes | cAdvisor:<br/>ephemeral_storage_pod_usage | WL_STR_RED_USG_AVG<br/>WL_STR_RED_USG_MAX<br/>WL_STR_RED_USG_MIN<br/>WL_STR_RED_USG_MED | Storage.Usage | $.workloads.resources.storage.used |
 | Cpu usage minimum, unit: cores seconds | cAdvisor:<br/>sum(rate(container_cpu_usage_seconds_total[5m])) by (namespace, pod) | WL_CPU_USG_MIN<br/>WL_CPU_USG_MAX<br/>WL_CPU_USG_MED<br/>WL_CPU_USG_AVG | CPU.Usage | $.workloads.resources.cpu.used |
 | Memory usage, bytes | cAdvisor:<br/>sum(rate(container_memory_working_set_bytes[5m])) by (namespace, pod) | WL_MEM_USG_MIN<br/>WL_MEM_USG_MAX<br/>WL_MEM_USG_MED<br/>WL_MEM_USG_AVG | RAM.Usage | $.workloads.resources.memory.used |
