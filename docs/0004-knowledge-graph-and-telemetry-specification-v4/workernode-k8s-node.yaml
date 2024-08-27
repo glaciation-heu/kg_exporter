@@ -1,0 +1,79 @@
+---
+apiVersion: v1
+kind: Node
+metadata:
+  annotations:
+    glaciation-project.eu/metric/node-energy-index: '1000'
+    flannel.alpha.coreos.com/kube-subnet-manager: 'true'
+    flannel.alpha.coreos.com/public-ip: 10.14.1.151
+    kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+    node.alpha.kubernetes.io/ttl: '0'
+    volumes.kubernetes.io/controller-managed-attach-detach: 'true'
+  creationTimestamp: '2024-02-13T14:05:06Z'
+  labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: glaciation-test-worker01
+    kubernetes.io/os: linux
+  name: glaciation-test-worker01
+  resourceVersion: '2219223'
+  uid: bdbde1cb-8a2d-4907-af95-b6834c29a9bf
+spec:
+  podCIDR: 10.244.1.0/24
+  podCIDRs:
+  - 10.244.1.0/24
+status:
+  addresses:
+  - address: 10.14.1.151
+    type: InternalIP
+  - address: glaciation-test-worker01
+    type: Hostname
+  allocatable:
+    cpu: '4'
+    ephemeral-storage: '47266578354'
+    hugepages-1Gi: '0'
+    hugepages-2Mi: '0'
+    memory: 16283152Ki
+    "nvidia.com/gpu": '1'
+    pods: '110'
+  capacity:
+    cpu: '4'
+    ephemeral-storage: 51287520Ki
+    hugepages-1Gi: '0'
+    hugepages-2Mi: '0'
+    memory: 16385552Ki
+    "nvidia.com/gpu": '1'
+    pods: '110'
+  conditions:
+  - lastHeartbeatTime: '2024-02-13T14:05:38Z'
+    lastTransitionTime: '2024-02-13T14:05:38Z'
+    message: Flannel is running on this node
+    reason: FlannelIsUp
+    status: 'False'
+    type: NetworkUnavailable
+  - lastHeartbeatTime: '2024-02-27T10:36:23Z'
+    lastTransitionTime: '2024-02-23T06:11:02Z'
+    message: kubelet has sufficient memory available
+    reason: KubeletHasSufficientMemory
+    status: 'False'
+    type: MemoryPressure
+  daemonEndpoints:
+    kubeletEndpoint:
+      Port: 10250
+  images:
+  - names:
+    - quay.io/cephcsi/cephcsi@sha256:5dd50ad6f3f9a1e8c8186fde0048ea241f056ca755acbeab42f5ebf723313e9c
+    - quay.io/cephcsi/cephcsi:v3.10.1
+    sizeBytes: 746084802
+  nodeInfo:
+    architecture: amd64
+    bootID: d6dd4518-eff0-416d-a6aa-f1cec097e5eb
+    containerRuntimeVersion: containerd://1.6.18
+    kernelVersion: 5.15.0-67-generic
+    kubeProxyVersion: v1.26.3
+    kubeletVersion: v1.26.3
+    machineID: b057678a09844d90b1596c053836ab36
+    operatingSystem: linux
+    osImage: Ubuntu 22.04.2 LTS
+    systemUUID: dd000942-702b-b9ab-71a7-ff172d755dff

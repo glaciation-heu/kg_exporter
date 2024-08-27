@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      annotations:
+        glaciation-project.eu/resource/limits/energy: "100"
+        glaciation-project.eu/resource/limits/network: "1010"
+        glaciation-project.eu/resource/requests/energy: "100"
+        glaciation-project.eu/resource/requests/network: "1010"
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+            ephemeral-storage: "2Gi"
+            nvidia.com/gpu: 1
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+            ephemeral-storage: "3Gi"
+            nvidia.com/gpu: 2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: ephemeral
+          mountPath: "/tmp"
