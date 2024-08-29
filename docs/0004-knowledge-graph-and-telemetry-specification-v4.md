@@ -27,9 +27,9 @@ Terminology:
 | Node CPU capacity max, cores | Node resource: <br/>$.status.allocatable.cpu | WN_CPU_MAX_CAPACITY | CPU.Capacity | $.worker_nodes.resources.cpu.max |
 | Node memory capacity max, Mb | Node resource: <br/>$.status.allocatable.memory | WN_MEM_MAX_CAPACITY | RAM.Capacity | $.worker_nodes.resources.memory.max |
 | Node gpu capacity max, unit | Node resource: <br/>$.status.capacity.”nvidia.com/gpu” | WN_GPU_MAX_CAPACITY | GPU.Capacity | $.worker_nodes.resources.gpu.max |
-| Node Storage capacity max, bytes | Not available | WN_STR_MAX_CAPACITY | Storage.Capacity | $.worker_nodes.resources.storage.max |
-| Node network capacity max, bytes | Not available | WN_NET_MAX_CAPACITY | Network.Capacity | $.worker_nodes.resource.network.max |
-| Node energy usage, joules | Source: kepler <br/>irate(kepler_node_platform_joules_total[5m]) |ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MEDIAN<br/>ENERGY_CONSUMPTION_MEAN | Energy.Usage | $.worker_nodes.resources.energy_index.available |
+| Node Storage capacity max, bytes | Node resource: <br/>$.status.allocatable.ephemeral-storage | WN_STR_MAX_CAPACITY | Storage.Capacity | $.worker_nodes.resources.storage.max |
+| Node Network capacity max, bytes | Not available | WN_NET_MAX_CAPACITY | Network.Capacity | $.worker_nodes.resource.network.max |
+| Node Energy usage, joules | Source: kepler <br/>irate(kepler_node_platform_joules_total[5m]) |ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MEDIAN<br/>ENERGY_CONSUMPTION_MEAN | Energy.Usage | $.worker_nodes.resources.energy_index.available |
 | Node CPU available, core seconds | Source: node exporter <br/> sum(rate(node_cpu_seconds_total{mode="idle", service="monitoring-stack-prometheus-node-exporter"}[5m])) by (node) | WN_CPU_AVAILABLE | CPU.Available | $.worker_nodes.resources.cpu.available |
 | Node Memory available, Mb | Source: node exporter <br/>node_memory_MemFree_bytes{service="monitoring-stack-prometheus-node-exporter"} | WN_MEM_AVAILABLE  | RAM.Available | $.worker_nodes.resources.memory.available |
 | Node GPU available, unit | Node resource: <br/>$.status.allocatable.”nvidia.com/gpu” | WN_GPU_AVAILABLE | GPU.Available | $.worker_nodes.resources.gpu.available |
