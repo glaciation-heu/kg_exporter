@@ -7,6 +7,7 @@
 | --- | --- |
 | 13 may 2024 | - TradeOff Service API Response for Worker Node is adjusted<br/>- TradeOffService API Response for Workload is adjusted<br/>- Metric “Node energy consumption” for node is changed into “Node Energy Available” which is calculated as benchmarked node energy - consumed node energy.<br/>- Metric “Energy Used” for workload is added<br/>- Refined PromQL query examples for workload cpu usage |
 | 17 Jul 2024 | - Knowledge graph measurement “descriptions” are aligned and unified<br/>- GPU resource constraints and allocations are set by GPU plugin |
+| 27 Aug 2024 | - Prometheus queries are updated |
 
 # Worker Node
 
@@ -26,15 +27,14 @@ Terminology:
 | Node CPU capacity max, cores | Node resource: <br/>$.status.allocatable.cpu | WN_CPU_MAX_CAPACITY | CPU.Capacity | $.worker_nodes.resources.cpu.max |
 | Node memory capacity max, Mb | Node resource: <br/>$.status.allocatable.memory | WN_MEM_MAX_CAPACITY | RAM.Capacity | $.worker_nodes.resources.memory.max |
 | Node gpu capacity max, unit | Node resource: <br/>$.status.capacity.”nvidia.com/gpu” | WN_GPU_MAX_CAPACITY | GPU.Capacity | $.worker_nodes.resources.gpu.max |
-| Node Storage capacity max (ephemeral storage), GB | TBD, (ephemeral storage helm chart) | WN_STR_MAX_CAPACITY | Storage.Capacity | $.worker_nodes.resources.storage.max |
-| Node network capacity max, GB per second | Not available yet | WN_NET_MAX_CAPACITY | Network.Capacity | $.worker_nodes.resource.network.max |
-| Node energy available, joules | Source: kepler <br/>node_energy_index - kepler_node_platform_joules_total{node=”glaciation-testm1w5-worker01”} |ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MEDIAN<br/>ENERGY_CONSUMPTION_MEAN | Energy.Available | $.worker_nodes.resources.energy_index.available |
-| Node CPU available, core seconds | Source: node exporter <br/> sum(rate(node_cpu_seconds_total{mode="idle", node="glaciation-testm1w5-worker01"}[5m])) | WN_CPU_AVAILABLE | CPU.Available | $.worker_nodes.resources.cpu.available |
-| Node Memory available, Mb | Source: node exporter <br/>node_memory_MemFree_bytes{instance="glaciation-testm1w5-worker01", app_kubernetes_io_component="metrics"} | WN_MEM_AVAILABLE  | RAM.Available | $.worker_nodes.resources.memory.available |
+| Node Storage capacity max, bytes | Node resource: <br/>$.status.allocatable.ephemeral-storage | WN_STR_MAX_CAPACITY | Storage.Capacity | $.worker_nodes.resources.storage.max |
+| Node Network capacity max, bytes | Not available | WN_NET_MAX_CAPACITY | Network.Capacity | $.worker_nodes.resource.network.max |
+| Node Energy usage, joules | Source: kepler <br/>irate(kepler_node_platform_joules_total[5m]) |ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MEDIAN<br/>ENERGY_CONSUMPTION_MEAN | Energy.Usage | $.worker_nodes.resources.energy_index.available |
+| Node CPU available, core seconds | Source: node exporter <br/> sum(rate(node_cpu_seconds_total{mode="idle", service="monitoring-stack-prometheus-node-exporter"}[5m])) by (node) | WN_CPU_AVAILABLE | CPU.Available | $.worker_nodes.resources.cpu.available |
+| Node Memory available, Mb | Source: node exporter <br/>node_memory_MemFree_bytes{service="monitoring-stack-prometheus-node-exporter"} | WN_MEM_AVAILABLE  | RAM.Available | $.worker_nodes.resources.memory.available |
 | Node GPU available, unit | Node resource: <br/>$.status.allocatable.”nvidia.com/gpu” | WN_GPU_AVAILABLE | GPU.Available | $.worker_nodes.resources.gpu.available |
-| Node Storage available (PVC), Mb | Kubernetes metric: <br/>kubelet_volume_stats_available_bytes{instance="glaciation-testm1w5-worker01"}/ (1024 * 1024) | WN_STR_AVAILABLE | Storage.Available | $.worker_nodes.resources.storage.available |
-| Network Storage available (ephemeral), Mb | cAdvisor metric: <br/>container_fs_usage_bytes{instance="glaciation-testm1w5-worker01"}/ (1024 * 1024) | WN_STR_AVAILABLE | Storage.Available | $.worker_nodes.resources.storage.available |
-| Node Network available, Mb | TBD  | WN_NET_AVAILABLE | Network.Available | $.worker_nodes.resources.network.available |
+| Node Storage available (ephemeral), bytes | k8s ephemeral metrics: <br/>ephemeral_storage_node_available | WN_STR_AVAILABLE | Storage.Available | $.worker_nodes.resources.storage.available |
+| Node Network available, bytes | Not Available  | WN_NET_AVAILABLE | Network.Available | $.worker_nodes.resources.network.available |
 
 # Workload
 
@@ -82,14 +82,12 @@ sum (
 
 | Metric description | Source (prometheus or k8s resource) | Synthetic Data Generator | Knowledge graph, value of "glc:hasDescription" attribute of glc:Measurement | Tradeoff Service |
 | --- | --- | --- | --- | --- |
-| Network received usage, Mb | cAdvisor: <br/>sum(rate(container_network_receive_bytes_total[2m])) by (pod) / (1024 * 1024) | WL_NET_REC_USG_AVG <br/>WL_NET_REC_USG_MED<br/>WL_NET_REC_USG_MAX<br/>WL_NET_REC_USG_MIN | Network.Usage | $.workloads.resources.network.used |
-| Network transfer usage, Mbit per second | cAdvisor: <br/>sum(rate(container_network_transmit_bytes_total[2m])) by (pod) | WL_NET_TRN_USG_MIN <br/>WL_NET_TRN_USG_MAX<br/>WL_NET_TRN_USG_MED <br/>WL_NET_TRN_USG_AVG | Network.Usage | $.workloads.resources.network.used |
-| Storage read usage, Mb per second | cAdvisor:<br/>sum(rate(container_fs_reads_bytes_total[2m])) by (pod,device) / (1024 * 1024) | WL_STR_RED_USG_AVG<br/>WL_STR_RED_USG_MAX<br/>WL_STR_RED_USG_MIN<br/>WL_STR_RED_USG_MED | Storage.Usage | $.workloads.resources.storage.used |
-| Storage write usage, MB per second |cAdvisor:<br/>sum(rate(container_fs_writes_bytes_total[2m])) by (pod,device) |WL_STR_WRT_USG_MIN<br/>WL_STR_WRT_USG_MAX<br/>WL_STR_WRT_USG_MED<br/>WL_STR_WRT_USG_AVG | Storage.Usage | $.workloads.resources.storage.used |
-| Cpu usage minimum, unit: cores seconds | cAdvisor:<br/>sum(rate(container_cpu_usage_seconds_total[2m])) by (pod) | WL_CPU_USG_MIN<br/>WL_CPU_USG_MAX<br/>WL_CPU_USG_MED<br/>WL_CPU_USG_AVG | CPU.Usage | $.workloads.resources.cpu.used |
-| Memory usage, Mb (and can be fractional) | cAdvisor:<br/>sum(container_memory_working_set_bytes) by (pod) /(1024*1024) | WL_MEM_USG_MIN<br/>WL_MEM_USG_MAX<br/>WL_MEM_USG_MED<br/>WL_MEM_USG_AVG | RAM.Usage | $.workloads.resources.memory.used |
+| Network usage (sent+received), bytes | cAdvisor: <br/>sum(rate(container_network_receive_bytes_total[5m])) by (namespace, pod) + <br/>sum(rate(container_network_transmit_bytes_total[5m])) by (namespace, pod) | WL_NET_REC_USG_AVG <br/>WL_NET_REC_USG_MED<br/>WL_NET_REC_USG_MAX<br/>WL_NET_REC_USG_MIN | Network.Usage | $.workloads.resources.network.used |
+| Storage (ephemeral), bytes | cAdvisor:<br/>ephemeral_storage_pod_usage | WL_STR_RED_USG_AVG<br/>WL_STR_RED_USG_MAX<br/>WL_STR_RED_USG_MIN<br/>WL_STR_RED_USG_MED | Storage.Usage | $.workloads.resources.storage.used |
+| Cpu usage minimum, unit: cores seconds | cAdvisor:<br/>sum(rate(container_cpu_usage_seconds_total[5m])) by (namespace, pod) | WL_CPU_USG_MIN<br/>WL_CPU_USG_MAX<br/>WL_CPU_USG_MED<br/>WL_CPU_USG_AVG | CPU.Usage | $.workloads.resources.cpu.used |
+| Memory usage, bytes | cAdvisor:<br/>sum(rate(container_memory_working_set_bytes[5m])) by (namespace, pod) | WL_MEM_USG_MIN<br/>WL_MEM_USG_MAX<br/>WL_MEM_USG_MED<br/>WL_MEM_USG_AVG | RAM.Usage | $.workloads.resources.memory.used |
 | GPU usage, % | dcgm-exporter:<br/>DCGM_FI_DEV_GPU_UTIL | WL_GPU_USG_MIN<br/>WL_GPU_USG_MAX<br/>WL_GPU_USG_MED<br/>WL_GPU_USG_AVG | GPU.Usage | $.workloads.resources.gpu.used |
-| Energy Used, milliwatt | Kepler<br/>sum (kepler_container_joules_total[2m]) by (pod_name) | ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MED<br/>ENERGY_CONSUMPTION_AVG | Energy.Usage | $.workloads.resources.energy_index.used |
+| Energy Used, milliwatt | Kepler<br/>sum(irate(kepler_container_joules_total[5m])) by (container_namespace, pod_name) | ENERGY_CONSUMPTION_MIN<br/>ENERGY_CONSUMPTION_MAX<br/>ENERGY_CONSUMPTION_MED<br/>ENERGY_CONSUMPTION_AVG | Energy.Usage | $.workloads.resources.energy_index.used |
 | CPU limit, cores | K8s Deployment Resource<br/>$.spec.containers[].resources.limits.cpu | WL_CPU_ALC | CPU.Capacity | $.workloads.resources.cpu.allocated |
 | GPU limit, unit | K8s Deployment Resource<br/>$.spec.containers[].resources.limits.”nvidia.com/gpu” | WL_GPU_ALC | GPU.Capacity | $.workloads.resources.gpu.allocated |
 | Network limit, megabyte | K8s Deployment Resource<br/>$.spec.metadata.annotations[name=”glaciation-project.eu/resource/limits/network”] | WL_NET_ALC | Network.Capacity | $.workloads.resources.network.allocated |
@@ -107,14 +105,14 @@ sum (
 # Sample K8S resources, Knowledge graphs and TradeOffService API
 
  - Worker Node
-    - [K8s worker node](./0003-knowledge-graph-and-telemetry-specification-v3/workernode-k8s-node.yaml)
-    - [Worker node metadata graph](./0003-knowledge-graph-and-telemetry-specification-v3/workernode-metadata-graph.jsonld)
-    - [TradeOffService Node API](./0003-knowledge-graph-and-telemetry-specification-v3/workernode-tradeoff-service-api.json)
+    - [K8s worker node](./0004-knowledge-graph-and-telemetry-specification-v4/workernode-k8s-node.yaml)
+    - [Worker node metadata graph](./0004-knowledge-graph-and-telemetry-specification-v4/workernode-metadata-graph.jsonld)
+    - [TradeOffService Node API](./0004-knowledge-graph-and-telemetry-specification-v4/workernode-tradeoff-service-api.json)
 
 - Workload
-    - [K8s Workload](./0003-knowledge-graph-and-telemetry-specification-v3/workload-k8s-deployment.yaml) (Deployment/ReplicaSet/Pod)
-    - [Workload metadata graph](./0003-knowledge-graph-and-telemetry-specification-v3/workload-metadata-graph.jsonld)
-    - [TradeOffService Workload API](./0003-knowledge-graph-and-telemetry-specification-v3/workload-tradeoff-service-api.json)
+    - [K8s Workload](./0004-knowledge-graph-and-telemetry-specification-v4/workload-k8s-deployment.yaml) (Deployment/ReplicaSet/Pod)
+    - [Workload metadata graph](./0004-knowledge-graph-and-telemetry-specification-v4/workload-metadata-graph.jsonld)
+    - [TradeOffService Workload API](./0004-knowledge-graph-and-telemetry-specification-v4/workload-tradeoff-service-api.json)
 
 ## References:
 
