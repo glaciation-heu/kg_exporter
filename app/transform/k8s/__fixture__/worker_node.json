@@ -46,7 +46,8 @@
             "hugepages-1Gi": "0",
             "hugepages-2Mi": "0",
             "memory": "16283152Ki",
-            "pods": "110"
+            "pods": "110",
+            "nvidia.com/gpu": "1"
         },
         "capacity": {
             "cpu": "4",
@@ -54,7 +55,8 @@
             "hugepages-1Gi": "0",
             "hugepages-2Mi": "0",
             "memory": "16385552Ki",
-            "pods": "110"
+            "pods": "110",
+            "nvidia.com/gpu": "1"
         },
         "conditions": [
             {

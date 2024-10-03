@@ -96,7 +96,7 @@
                         "@id": "cluster:coredns.GPU.Allocated",
                         "@type": "glc:SoftConstraint",
                         "glc:hasDescription": "GPU.Allocated",
-                        "glc:maxValue": 101.0,
+                        "glc:maxValue": 1.0,
                         "glc:hasAspect": {
                             "@id": "glc:Performance"
                         },
@@ -111,7 +111,7 @@
                         "@id": "cluster:coredns.GPU.Capacity",
                         "@type": "glc:HardConstraint",
                         "glc:hasDescription": "GPU.Capacity",
-                        "glc:maxValue": 101.0,
+                        "glc:maxValue": 1.0,
                         "glc:hasAspect": {
                             "@id": "glc:Performance"
                         },

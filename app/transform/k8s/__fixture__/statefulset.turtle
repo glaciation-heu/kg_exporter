@@ -4,7 +4,7 @@ cluster:tenant1 glc:hasID cluster:tenant1 .
 cluster:tenant1 glc:makes cluster:tenant1-pool-0 .
 cluster:tenant1-pool-0 rdf:type glc:AssignedTask .
 cluster:tenant1-pool-0 glc:hasDescription "StatefulSet" .
-cluster:tenant1-pool-0 glc:hasConstraint (cluster:tenant1-pool-0.CPU.Allocated cluster:tenant1-pool-0.RAM.Allocated) .
+cluster:tenant1-pool-0 glc:hasConstraint (cluster:tenant1-pool-0.CPU.Allocated cluster:tenant1-pool-0.GPU.Allocated cluster:tenant1-pool-0.RAM.Allocated) .
 cluster:tenant1-pool-0 glc:hasID cluster:tenant1-pool-0 .
 cluster:tenant1-pool-0.CPU.Allocated rdf:type glc:SoftConstraint .
 cluster:tenant1-pool-0.CPU.Allocated glc:hasDescription "CPU.Allocated" .
@@ -12,6 +12,12 @@ cluster:tenant1-pool-0.CPU.Allocated glc:maxValue 3.0^^<http://www.w3.org/2001/X
 cluster:tenant1-pool-0.CPU.Allocated glc:hasAspect glc:Performance .
 cluster:tenant1-pool-0.CPU.Allocated glc:hasID cluster:tenant1-pool-0.CPU.Allocated .
 cluster:tenant1-pool-0.CPU.Allocated glc:measuredIn glc:Core .
+cluster:tenant1-pool-0.GPU.Allocated rdf:type glc:SoftConstraint .
+cluster:tenant1-pool-0.GPU.Allocated glc:hasDescription "GPU.Allocated" .
+cluster:tenant1-pool-0.GPU.Allocated glc:maxValue 1.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:tenant1-pool-0.GPU.Allocated glc:hasAspect glc:Performance .
+cluster:tenant1-pool-0.GPU.Allocated glc:hasID cluster:tenant1-pool-0.GPU.Allocated .
+cluster:tenant1-pool-0.GPU.Allocated glc:measuredIn glc:Core .
 cluster:tenant1-pool-0.RAM.Allocated rdf:type glc:SoftConstraint .
 cluster:tenant1-pool-0.RAM.Allocated glc:hasDescription "RAM.Allocated" .
 cluster:tenant1-pool-0.RAM.Allocated glc:maxValue 7516192768.0^^<http://www.w3.org/2001/XMLSchema#integer> .

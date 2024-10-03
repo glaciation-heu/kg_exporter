@@ -4,7 +4,7 @@
     name: glaciation-test-master01
     uid: 1
     annotations:
-      glaciation-project.eu/metric/node-energy-index: '1001'
+      glaciation-project.eu/node-energy-index: '1001'
   spec:
   status:
     allocatable:
