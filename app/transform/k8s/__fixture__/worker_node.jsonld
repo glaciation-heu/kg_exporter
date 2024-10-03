@@ -72,6 +72,22 @@
             "glc:hasDescription": "GPU",
             "glc:hasID": {
                 "@id": "cluster:glaciation-test-worker01.GPU"
+            },
+            "glc:hasMeasurement": {
+                "@id": "cluster:glaciation-test-worker01.GPU.Capacity.123",
+                "@type": "glc:Measurement",
+                "glc:hasDescription": "GPU.Capacity",
+                "glc:hasTimestamp": 123,
+                "glc:hasValue": 1,
+                "glc:hasID": {
+                    "@id": "cluster:glaciation-test-worker01.GPU.Capacity.123"
+                },
+                "glc:measuredIn": {
+                    "@id": "glc:Core"
+                },
+                "glc:relatesToMeasurementProperty": {
+                    "@id": "glc:GPU.Capacity"
+                }
             }
         },
         {
@@ -149,6 +165,24 @@
             "@type": "glc:MeasurementUnit",
             "glc:hasID": {
                 "@id": "glc:Core"
+            }
+        },
+        {
+            "@id": "glc:GPU.Capacity",
+            "@type": "glc:MeasurementProperty",
+            "glc:hasID": {
+                "@id": "glc:GPU.Capacity"
+            }
+        },
+        {
+            "@id": "glc:NVidiaPlugin",
+            "@type": "glc:MeasuringResource",
+            "glc:hasDescription": "NVidia Plugin https://github.com/NVIDIA/k8s-device-plugin",
+            "glc:hasID": {
+                "@id": "glc:NVidiaPlugin"
+            },
+            "glc:makes": {
+                "@id": "cluster:glaciation-test-worker01.GPU.Capacity.123"
             }
         },
         {

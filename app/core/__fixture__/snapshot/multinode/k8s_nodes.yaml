@@ -3,7 +3,7 @@
   metadata:
     name: glaciation-test-master01
     annotations:
-      glaciation-project.eu/metric/node-energy-index: '1001'
+      glaciation-project.eu/node-energy-index: '1001'
   spec:
   status:
     allocatable:
@@ -33,7 +33,7 @@
   metadata:
     name: glaciation-test-worker01
     annotations:
-      glaciation-project.eu/metric/node-energy-index: '1001'
+      glaciation-project.eu/node-energy-index: '1001'
   spec:
   status:
     allocatable:

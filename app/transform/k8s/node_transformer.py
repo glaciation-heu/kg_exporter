@@ -97,17 +97,36 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         self.add_work_producing_resource(storage_id, "Network")
         self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
 
-    def add_gpu_resource(self, node_id: IRI, _: int) -> None:
-        storage_id = node_id.dot("GPU")
-        self.add_work_producing_resource(storage_id, "GPU")
-        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, storage_id)
+    def add_gpu_resource(self, node_id: IRI, timestamp: int) -> None:
+        gpu_id = node_id.dot("GPU")
+        self.add_work_producing_resource(gpu_id, "GPU")
+        self.sink.add_relation(node_id, self.HAS_SUBRESOURCE, gpu_id)
+        self.add_gpu_information(gpu_id, timestamp)
+
+    def add_gpu_information(self, resource_id: IRI, timestamp: int) -> None:
+        gpu_capacity_value = self.get_opt_int_quantity_value(
+            ["status", "allocatable", "nvidia.com/gpu"]
+        )
+        if gpu_capacity_value:
+            gpu_capacity_id = resource_id.dot("Capacity").dot(f"{timestamp}")
+            self.add_measurement(
+                gpu_capacity_id,
+                Measurement.GPU_CAPACITY,
+                gpu_capacity_value,
+                timestamp,
+                None,
+                self.UNIT_CPU_CORE_ID,
+                self.PROPERTY_GPU_CAPACITY,
+                self.MEASURING_RESOURCE_NVIDIA_PLUGIN,
+            )
+            self.sink.add_relation(resource_id, self.HAS_MEASUREMENT, gpu_capacity_id)
 
     def add_energy_information(self, node_id: IRI, timestamp: int) -> None:
         energy_index_value = self.get_opt_int_quantity_value(
             [
                 "metadata",
                 "annotations",
-                "glaciation-project.eu/metric/node-energy-index",
+                "glaciation-project.eu/node-energy-index",
             ]
         )
         if energy_index_value:

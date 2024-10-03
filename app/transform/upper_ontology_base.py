@@ -69,6 +69,7 @@ class UpperOntologyBase:
     )
     MEASURING_RESOURCE_NODE_CADVISOR_ID = IRI(GLACIATION_PREFIX, "cAdvisor")
     MEASURING_RESOURCE_NODE_ENERGY_BENCHMARK = IRI(GLACIATION_PREFIX, "EnergyBenchmark")
+    MEASURING_RESOURCE_NVIDIA_PLUGIN = IRI(GLACIATION_PREFIX, "NVidiaPlugin")
 
     MEASURING_RESOURCE_DESCRIPTIONS: Dict[IRI, str] = {
         MEASURING_RESOURCE_KEPLER_ID: "Kepler metrics https://sustainable-computing.io/",
@@ -76,6 +77,7 @@ class UpperOntologyBase:
         MEASURING_RESOURCE_NODE_K8S_SPEC_ID: "ResourceSpecification",
         MEASURING_RESOURCE_NODE_CADVISOR_ID: "cAdvisor metrics https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md",  # noqa: E501
         MEASURING_RESOURCE_NODE_ENERGY_BENCHMARK: "EnergyBenchmark",
+        MEASURING_RESOURCE_NVIDIA_PLUGIN: "NVidia Plugin https://github.com/NVIDIA/k8s-device-plugin",
     }
 
     # Units
