@@ -22,13 +22,13 @@ cluster:coredns.Energy.Capacity glc:hasID cluster:coredns.Energy.Capacity .
 cluster:coredns.Energy.Capacity glc:measuredIn glc:Milliwatt .
 cluster:coredns.GPU.Allocated rdf:type glc:SoftConstraint .
 cluster:coredns.GPU.Allocated glc:hasDescription "GPU.Allocated" .
-cluster:coredns.GPU.Allocated glc:maxValue 101.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:coredns.GPU.Allocated glc:maxValue 1.0^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:coredns.GPU.Allocated glc:hasAspect glc:Performance .
 cluster:coredns.GPU.Allocated glc:hasID cluster:coredns.GPU.Allocated .
 cluster:coredns.GPU.Allocated glc:measuredIn glc:Core .
 cluster:coredns.GPU.Capacity rdf:type glc:HardConstraint .
 cluster:coredns.GPU.Capacity glc:hasDescription "GPU.Capacity" .
-cluster:coredns.GPU.Capacity glc:maxValue 101.0^^<http://www.w3.org/2001/XMLSchema#integer> .
+cluster:coredns.GPU.Capacity glc:maxValue 1.0^^<http://www.w3.org/2001/XMLSchema#integer> .
 cluster:coredns.GPU.Capacity glc:hasAspect glc:Performance .
 cluster:coredns.GPU.Capacity glc:hasID cluster:coredns.GPU.Capacity .
 cluster:coredns.GPU.Capacity glc:measuredIn glc:Core .

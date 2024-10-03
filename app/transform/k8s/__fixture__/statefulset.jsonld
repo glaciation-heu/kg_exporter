@@ -56,6 +56,21 @@
                             }
                         },
                         {
+                            "@id": "cluster:tenant1-pool-0.GPU.Allocated",
+                            "@type": "glc:SoftConstraint",
+                            "glc:hasDescription": "GPU.Allocated",
+                            "glc:maxValue": 1.0,
+                            "glc:hasAspect": {
+                                "@id": "glc:Performance"
+                            },
+                            "glc:hasID": {
+                                "@id": "cluster:tenant1-pool-0.GPU.Allocated"
+                            },
+                            "glc:measuredIn": {
+                                "@id": "glc:Core"
+                            }
+                        },
+                        {
                             "@id": "cluster:tenant1-pool-0.RAM.Allocated",
                             "@type": "glc:SoftConstraint",
                             "glc:hasDescription": "RAM.Allocated",

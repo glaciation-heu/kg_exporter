@@ -20,12 +20,10 @@
         labels:
           k8s-app: kube-dns
         annotations:
-          glaciation-project.eu/resource/limits/energy: '100'
-          glaciation-project.eu/resource/limits/network: '1010'
-          glaciation-project.eu/resource/limits/gpu: '101'
-          glaciation-project.eu/resource/requests/energy: '100'
-          glaciation-project.eu/resource/requests/network: '1010'
-          glaciation-project.eu/resource/requests/gpu: '101'
+          glaciation-project.eu/energy-capacity: '100'
+          glaciation-project.eu/network-capacity: '1010'
+          glaciation-project.eu/energy-allocated: '100'
+          glaciation-project.eu/network-allocated: '1010'
       spec:
         initContainers:
         - name: init-coredns
@@ -40,9 +38,11 @@
           resources:
             limits:
               memory: 170Mi
+              nvidia.com/gpu: 101
             requests:
               cpu: 100m
               memory: 70Mi
+              nvidia.com/gpu: 101
         - name: coredns-other
           resources:
             limits:

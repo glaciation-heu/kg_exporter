@@ -117,10 +117,21 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
                 [
                     "spec",
                     "template",
-                    "metadata",
-                    "annotations",
-                    "glaciation-project.eu/resource/requests/gpu",
-                ]  # noqa: E501
+                    "spec",
+                    "containers",
+                    "resources",
+                    "requests",
+                    "nvidia.com/gpu",
+                ],  # noqa: E501
+                [
+                    "spec",
+                    "template",
+                    "spec",
+                    "initContainers",
+                    "resources",
+                    "requests",
+                    "nvidia.com/gpu",
+                ],  # noqa: E501
             ],
             self.UNIT_CPU_CORE_ID,
             self.ASPECT_PERFORMANCE_ID,
@@ -136,7 +147,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
                     "template",
                     "metadata",
                     "annotations",
-                    "glaciation-project.eu/resource/requests/network",
+                    "glaciation-project.eu/network-allocated",
                 ]  # noqa: E501
             ],
             self.UNIT_BYTES_ID,
@@ -153,7 +164,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
                     "template",
                     "metadata",
                     "annotations",
-                    "glaciation-project.eu/resource/requests/energy",
+                    "glaciation-project.eu/energy-allocated",
                 ]  # noqa: E501
             ],
             self.UNIT_MILLIWATT_ID,
@@ -253,9 +264,11 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
                 [
                     "spec",
                     "template",
-                    "metadata",
-                    "annotations",
-                    "glaciation-project.eu/resource/limits/gpu",
+                    "spec",
+                    "containers",
+                    "resources",
+                    "limits",
+                    "nvidia.com/gpu",
                 ]  # noqa: E501
             ],
             self.UNIT_CPU_CORE_ID,
@@ -272,7 +285,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
                     "template",
                     "metadata",
                     "annotations",
-                    "glaciation-project.eu/resource/limits/network",
+                    "glaciation-project.eu/network-capacity",
                 ]  # noqa: E501
             ],
             self.UNIT_BYTES_ID,
@@ -289,7 +302,7 @@ class WorkloadToRDFTransformer(TransformerBase, UpperOntologyBase):
                     "template",
                     "metadata",
                     "annotations",
-                    "glaciation-project.eu/resource/limits/energy",
+                    "glaciation-project.eu/energy-capacity",
                 ]  # noqa: E501
             ],
             self.UNIT_MILLIWATT_ID,

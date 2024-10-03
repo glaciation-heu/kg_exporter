@@ -130,7 +130,8 @@
                         "resources": {
                             "requests": {
                                 "cpu": "3",
-                                "memory": "7Gi"
+                                "memory": "7Gi",
+                                "nvidia.com/gpu": 1
                             }
                         },
                         "securityContext": {},
