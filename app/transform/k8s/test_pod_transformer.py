@@ -17,6 +17,7 @@ class PodTransformerTest(TransformBaseTest):
         self.transform_turtle("pod1")
         self.transform_turtle("pod2")
         self.transform_turtle("pod3")
+        self.transform_turtle("workload_pod")
 
     def transform_turtle(self, file_id: str) -> None:
         node_json = self.load_json(file_id)
@@ -33,6 +34,7 @@ class PodTransformerTest(TransformBaseTest):
         self.transform_jsonld("pod1")
         self.transform_jsonld("pod2")
         self.transform_jsonld("pod3")
+        self.transform_jsonld("workload_pod")
 
     def transform_jsonld(self, file_id: str) -> None:
         node_json = self.load_json(file_id)

@@ -11,6 +11,11 @@ from app.transform.upper_ontology_base import UpperOntologyBase
 
 
 class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
+    CONTAINER_STATUSES_PATH = ["status", "containerStatuses"]
+    INIT_CONTAINER_STATUSES_PATH = ["status", "initContainerStatuses"]
+    POD_TERMINATED_STATUSES = {"Succeeded", "Failed", "Unknown"}
+    CONTAINER_STATUSES = {"waiting", "running", "terminated"}
+
     def __init__(self, source: Dict[str, Any], sink: Graph):
         TransformerBase.__init__(self, source, sink)
         UpperOntologyBase.__init__(self, sink)
@@ -45,15 +50,20 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         start_time = self.get_opt_str_value(["status", "startTime"])
         status = self.get_opt_str_value(["status", "phase"])
         if status:
-            self.add_status(status_id, status, start_time or "", None)
+            end_time = (
+                self.get_container_last_finish_time()
+                if status in self.POD_TERMINATED_STATUSES
+                else None
+            )
+            self.add_status(status_id, status, start_time or "", end_time)
             self.sink.add_relation(pod_id, self.HAS_STATUS, status_id)
 
     def add_containers_resources(self, pod_id: IRI, scheduler_name: str) -> None:
         self.add_container_resources_by_query(
-            pod_id, scheduler_name, ["status", "containerStatuses"]
+            pod_id, scheduler_name, self.CONTAINER_STATUSES_PATH
         )
         self.add_container_resources_by_query(
-            pod_id, scheduler_name, ["status", "initContainerStatuses"]
+            pod_id, scheduler_name, self.INIT_CONTAINER_STATUSES_PATH
         )
 
     def add_container_resources_by_query(
@@ -102,8 +112,7 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
     def get_state_struct(
         self, state: Dict[str, Any]
     ) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
-        possible_statues = ["waiting", "running", "terminated"]
-        for status in possible_statues:
+        for status in self.CONTAINER_STATUSES:
             status_struct = state.get(status)
             if status_struct:
                 return status_struct, status
@@ -111,3 +120,28 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
 
     def normalize_container_id(self, container_id: str) -> str:
         return re.sub("[:/]+", "-", container_id)
+
+    def get_container_last_finish_time(self) -> Optional[str]:
+        result = []
+        container_status_matches = (
+            TransformerBase.get_opt_list(self.source, self.CONTAINER_STATUSES_PATH)
+            or []
+        )
+        init_container_status_matches = (
+            TransformerBase.get_opt_list(self.source, self.INIT_CONTAINER_STATUSES_PATH)
+            or []
+        )
+        for container in container_status_matches + init_container_status_matches:
+            finished_at = self.get_container_finish_at(container)
+            if finished_at:
+                result.append(finished_at)
+        result.sort(reverse=True)
+        return result[0] if result else None
+
+    def get_container_finish_at(self, container: Dict[str, Any]) -> Optional[str]:
+        container_state = container.get("state") or {}
+        state_struct, state_literal = self.get_state_struct(container_state)
+        if state_literal == "terminated" and state_struct:
+            return state_struct.get("finishedAt")
+        else:
+            return None

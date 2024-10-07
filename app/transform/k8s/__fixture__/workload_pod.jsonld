@@ -1,0 +1,121 @@
+{
+    "@context": {
+        "k8s": "http://glaciation-project.eu/model/k8s/",
+        "glc": "https://glaciation-heu.github.io/models/reference_model.turtle",
+        "cluster": "https://127.0.0.1:6443/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    },
+    "@graph": [
+        {
+            "@id": "cluster:glaciation-testm1w5-worker01",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "KubernetesWorkerNode",
+            "glc:hasID": {
+                "@id": "cluster:glaciation-testm1w5-worker01"
+            }
+        },
+        {
+            "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Pod",
+            "k8s:hasName": "uc2-workload-service-28804680-v5rk9",
+            "glc:consumes": {
+                "@id": "cluster:glaciation-testm1w5-worker01"
+            },
+            "glc:hasID": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "2024-10-07T06:30:05Z",
+                "glc:hasDescription": "Succeeded",
+                "glc:startTime": "2024-10-07T06:00:00Z",
+                "glc:hasID": {
+                    "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.Status"
+                }
+            },
+            "glc:hasSubResource": {
+                "@set": [
+                    {
+                        "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload"
+                    },
+                    {
+                        "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload2"
+                    }
+                ]
+            }
+        },
+        {
+            "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "k8s:hasContainerID": "containerd://7561c1f77723c7d3386af100d5e042abf50ba9ed8b4d5c8915c5072bc95716ab",
+            "k8s:hasContainerName": "uc2-workload",
+            "glc:hasID": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "2024-10-07T06:28:05Z",
+                "glc:hasDescription": "terminated",
+                "glc:startTime": "2024-10-07T06:00:00Z",
+                "glc:hasID": {
+                    "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload2",
+            "@type": "glc:WorkProducingResource",
+            "glc:hasDescription": "Container",
+            "k8s:hasContainerID": "containerd://7561c1f77723c7d3386af100d5e042abf50ba9ed8b4d5c8915c5072bc95716ab",
+            "k8s:hasContainerName": "uc2-workload2",
+            "glc:hasID": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload2"
+            },
+            "glc:hasStatus": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload2.Status",
+                "@type": "glc:Status",
+                "glc:endTime": "2024-10-07T06:30:05Z",
+                "glc:hasDescription": "terminated",
+                "glc:startTime": "2024-10-07T06:00:00Z",
+                "glc:hasID": {
+                    "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload2.Status"
+                }
+            }
+        },
+        {
+            "@id": "cluster:uc2-workload-service-28804680",
+            "@type": "glc:AssignedTask",
+            "glc:hasDescription": "Job",
+            "glc:hasID": {
+                "@id": "cluster:uc2-workload-service-28804680"
+            },
+            "glc:makes": {
+                "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9"
+            }
+        },
+        {
+            "@id": "glc:default-scheduler",
+            "@type": "glc:Scheduler",
+            "glc:hasID": {
+                "@id": "glc:default-scheduler"
+            },
+            "glc:manages": {
+                "@set": [
+                    {
+                        "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9"
+                    },
+                    {
+                        "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload"
+                    },
+                    {
+                        "@id": "cluster:uc2.uc2-workload-service-28804680-v5rk9.uc2-workload2"
+                    }
+                ]
+            }
+        }
+    ]
+}
