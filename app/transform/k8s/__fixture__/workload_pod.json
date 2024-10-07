@@ -1,0 +1,191 @@
+{
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+        "creationTimestamp": "2024-10-07T06:00:00Z",
+        "generateName": "uc2-workload-service-28804680-",
+        "labels": {
+            "controller-uid": "4781d7d1-ab49-4ae5-95dd-fef7dbab1f51",
+            "job-name": "uc2-workload-service-28804680"
+        },
+        "name": "uc2-workload-service-28804680-v5rk9",
+        "namespace": "uc2",
+        "ownerReferences": [
+            {
+                "apiVersion": "batch/v1",
+                "blockOwnerDeletion": true,
+                "controller": true,
+                "kind": "Job",
+                "name": "uc2-workload-service-28804680",
+                "uid": "4781d7d1-ab49-4ae5-95dd-fef7dbab1f51"
+            }
+        ],
+        "resourceVersion": "90237685",
+        "uid": "a359063f-5e1f-4fbf-89c3-d7d3d25a1f67"
+    },
+    "spec": {
+        "containers": [
+            {
+                "image": "ghcr.io/glaciation-heu/glaciation-uc2-workload-service:0.1.12-834e64a3",
+                "imagePullPolicy": "IfNotPresent",
+                "name": "uc2-workload",
+                "resources": {},
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                    {
+                        "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                        "name": "kube-api-access-chwj4",
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "glaciation-testm1w5-worker01",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "OnFailure",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "uc2-workload-service",
+        "serviceAccountName": "uc2-workload-service",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/not-ready",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            },
+            {
+                "effect": "NoExecute",
+                "key": "node.kubernetes.io/unreachable",
+                "operator": "Exists",
+                "tolerationSeconds": 300
+            }
+        ],
+        "volumes": [
+            {
+                "name": "kube-api-access-chwj4",
+                "projected": {
+                    "defaultMode": 420,
+                    "sources": [
+                        {
+                            "serviceAccountToken": {
+                                "expirationSeconds": 3607,
+                                "path": "token"
+                            }
+                        },
+                        {
+                            "configMap": {
+                                "items": [
+                                    {
+                                        "key": "ca.crt",
+                                        "path": "ca.crt"
+                                    }
+                                ],
+                                "name": "kube-root-ca.crt"
+                            }
+                        },
+                        {
+                            "downwardAPI": {
+                                "items": [
+                                    {
+                                        "fieldRef": {
+                                            "apiVersion": "v1",
+                                            "fieldPath": "metadata.namespace"
+                                        },
+                                        "path": "namespace"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2024-10-07T06:00:00Z",
+                "reason": "PodCompleted",
+                "status": "True",
+                "type": "Initialized"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2024-10-07T06:28:06Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "Ready"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2024-10-07T06:28:06Z",
+                "reason": "PodCompleted",
+                "status": "False",
+                "type": "ContainersReady"
+            },
+            {
+                "lastProbeTime": null,
+                "lastTransitionTime": "2024-10-07T06:00:00Z",
+                "status": "True",
+                "type": "PodScheduled"
+            }
+        ],
+        "containerStatuses": [
+            {
+                "containerID": "containerd://7561c1f77723c7d3386af100d5e042abf50ba9ed8b4d5c8915c5072bc95716ab",
+                "image": "ghcr.io/glaciation-heu/glaciation-uc2-workload-service:0.1.12-834e64a3",
+                "imageID": "ghcr.io/glaciation-heu/glaciation-uc2-workload-service@sha256:a8c52b764f301b17182cb7946564dbeadd9b655b548de4fd2ca60efbdc9ea8ca",
+                "lastState": {},
+                "name": "uc2-workload",
+                "ready": false,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://7561c1f77723c7d3386af100d5e042abf50ba9ed8b4d5c8915c5072bc95716ab",
+                        "exitCode": 0,
+                        "finishedAt": "2024-10-07T06:28:05Z",
+                        "reason": "Completed",
+                        "startedAt": "2024-10-07T06:00:00Z"
+                    }
+                }
+            },
+            {
+                "containerID": "containerd://7561c1f77723c7d3386af100d5e042abf50ba9ed8b4d5c8915c5072bc95716ab",
+                "image": "ghcr.io/glaciation-heu/glaciation-uc2-workload-service:0.1.12-834e64a3",
+                "imageID": "ghcr.io/glaciation-heu/glaciation-uc2-workload-service@sha256:a8c52b764f301b17182cb7946564dbeadd9b655b548de4fd2ca60efbdc9ea8ca",
+                "lastState": {},
+                "name": "uc2-workload2",
+                "ready": false,
+                "restartCount": 0,
+                "started": false,
+                "state": {
+                    "terminated": {
+                        "containerID": "containerd://7561c1f77723c7d3386af100d5e042abf50ba9ed8b4d5c8915c5072bc95716ab",
+                        "exitCode": 0,
+                        "finishedAt": "2024-10-07T06:30:05Z",
+                        "reason": "Completed",
+                        "startedAt": "2024-10-07T06:00:00Z"
+                    }
+                }
+            }
+        ],
+        "hostIP": "10.14.1.161",
+        "phase": "Succeeded",
+        "podIP": "10.244.1.13",
+        "podIPs": [
+            {
+                "ip": "10.244.1.13"
+            }
+        ],
+        "qosClass": "BestEffort",
+        "startTime": "2024-10-07T06:00:00Z"
+    }
+}

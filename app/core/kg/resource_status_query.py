@@ -29,17 +29,30 @@ class ResourceStatusQuery(KGQuery[List[ResourceStatus]]):
         self.resource_type = resource_type
         self.query = f"""
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
             SELECT ?resource ?statusValue
             WHERE {{
-                ?resource rdf:type <glc:WorkProducingResource>.
-                ?resource <glc:hasDescription> "{resource_type}".
-                ?resource <glc:hasStatus> ?status.
-                ?status <glc:hasDescription> ?statusValue.
-                FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Succeeded' }}.
-                FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Failed' }}.
-                FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Unknown' }}.
-                FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'NotReady' }}.
-                FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'terminated' }}.
+                {{
+                    SELECT ?graphURI WHERE {{
+                        GRAPH ?graphURI {{}}
+                        FILTER regex(str(?graphURI), "^timestamp:")
+                    }}
+                    ORDER BY DESC(xsd:integer(replace(str(?graphURI), "^timestamp:", "")))
+                    LIMIT 1
+                }}
+                GRAPH ?graphURI {{
+                    SELECT ?pod ?resource ?statusValue WHERE {{
+                        ?resource rdf:type <glc:WorkProducingResource>.
+                        ?resource <glc:hasDescription> "{resource_type}".
+                        ?resource <glc:hasStatus> ?status.
+                        ?status <glc:hasDescription> ?statusValue.
+                        FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Succeeded' }}.
+                        FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Failed' }}.
+                        FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'Unknown' }}.
+                        FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'NotReady' }}.
+                        FILTER NOT EXISTS{{ ?status <glc:hasDescription> 'terminated' }}.
+                    }}
+                }}
             }}
         """
 
