@@ -1,6 +1,8 @@
 from typing import Any, Dict, List
 
 from app.clients.k8s.k8s_client import K8SClient
+from app.clients.k8s.k8s_event import K8SEvent
+from app.core.async_queue import AsyncQueue
 
 
 class MockK8SClient(K8SClient):
@@ -14,6 +16,9 @@ class MockK8SClient(K8SClient):
     cluster: Dict[str, Any]
     api_versions: Dict[str, Any]
 
+    watched_pod_events: List[K8SEvent]
+    watched_node_events: List[K8SEvent]
+
     def __init__(self):
         self.nodes = []
         self.pods = []
@@ -24,6 +29,8 @@ class MockK8SClient(K8SClient):
         self.jobs = []
         self.cluster = {}
         self.api_versions = {}
+        self.watched_pod_events = []
+        self.watched_node_events = []
 
     def mock_api_versions(self, api_versions: Dict[str, Any]) -> None:
         self.api_versions = api_versions
@@ -78,3 +85,19 @@ class MockK8SClient(K8SClient):
 
     async def get_jobs(self) -> List[Dict[str, Any]]:
         return self.jobs
+
+    def mock_watched_pods(self, events: List[K8SEvent]) -> None:
+        self.watched_pod_events = events
+
+    async def watch_pods(self, queue: AsyncQueue[K8SEvent]) -> None:
+        events, self.watched_pod_events = self.watched_pod_events, []
+        for event in events:
+            queue.put_nowait(event)
+
+    def mock_watched_nodes(self, events: List[K8SEvent]) -> None:
+        self.watched_node_events = events
+
+    async def watch_nodes(self, queue: AsyncQueue[K8SEvent]) -> None:
+        events, self.watched_node_events = self.watched_node_events, []
+        for event in events:
+            queue.put_nowait(event)

@@ -5,9 +5,13 @@ from kubernetes_asyncio.client import ApiClient
 from kubernetes_asyncio.client.api.core_api import CoreApi
 from kubernetes_asyncio.client.configuration import Configuration
 from kubernetes_asyncio.dynamic import DynamicClient
+from kubernetes_asyncio.watch import Watch
+from loguru import logger
 
 from app.clients.k8s.k8s_client import K8SClient
+from app.clients.k8s.k8s_event import EventType, K8SEvent, Kind
 from app.clients.k8s.k8s_settings import K8SSettings
+from app.core.async_queue import AsyncQueue
 
 T = TypeVar("T")
 
@@ -79,8 +83,20 @@ class K8SClientImpl(K8SClient):
         return await self.execute(get_resource_internal)
 
     async def execute(
-        self, func: Callable[[DynamicClient], Coroutine[Any, Any, T]]
+        self,
+        func: Callable[[DynamicClient | ApiClient], Coroutine[Any, Any, T]],
+        is_dynamic_client: bool = True,
     ) -> T:
+        await self.init_configuration()
+
+        async with ApiClient(configuration=self.configuration) as client_api:
+            if is_dynamic_client:
+                async with DynamicClient(client_api) as dynamic_api:
+                    return await func(dynamic_api)
+            else:
+                return await func(client_api)
+
+    async def init_configuration(self) -> None:
         if not self.configuration:
             self.configuration = Configuration()
             if self.settings.in_cluster:
@@ -88,6 +104,48 @@ class K8SClientImpl(K8SClient):
             else:
                 await config.load_kube_config(client_configuration=self.configuration)
 
-        async with ApiClient(configuration=self.configuration) as client_api:
-            async with DynamicClient(client_api) as dynamic_api:
-                return await func(dynamic_api)
+    async def watch_pods(self, queue: AsyncQueue[K8SEvent]) -> None:
+        async def watch_internal(dyn_client: DynamicClient) -> None:
+            watcher = Watch()
+            v1_pods = await dyn_client.resources.get(api_version="v1", kind="Pod")
+
+            async for e in v1_pods.watch(watcher=watcher):
+                try:
+                    type = e["type"]
+                    object = e["object"]
+                    kind = object.kind
+                    version = object["metadata"]["resourceVersion"]
+                    event = K8SEvent(
+                        event=EventType[type],
+                        kind=Kind[kind.upper()],
+                        resource=object.to_dict(),
+                        version=version,
+                    )
+                    queue.put_nowait(event)
+                except Exception as e:
+                    logger.error("K8S pod watcher error {exception}", exception=str(e))
+
+        await self.execute(watch_internal, is_dynamic_client=True)
+
+    async def watch_nodes(self, queue: AsyncQueue[K8SEvent]) -> None:
+        async def watch_internal(dyn_client: DynamicClient) -> None:
+            watcher = Watch()
+            v1_nodes = await dyn_client.resources.get(api_version="v1", kind="Node")
+
+            async for e in v1_nodes.watch(watcher=watcher):
+                try:
+                    type = e["type"]
+                    object = e["object"]
+                    kind = object.kind
+                    version = object["metadata"]["resourceVersion"]
+                    event = K8SEvent(
+                        event=EventType[type],
+                        kind=Kind[kind.upper()],
+                        resource=object.to_dict(),
+                        version=version,
+                    )
+                    queue.put_nowait(event)
+                except Exception as e:
+                    logger.error("K8S node watcher error {exception}", exception=str(e))
+
+        await self.execute(watch_internal, is_dynamic_client=True)
