@@ -21,7 +21,7 @@ class PodToRDFTransformer(TransformerBase, UpperOntologyBase):
         UpperOntologyBase.__init__(self, sink)
 
     def transform(self, _: TransformationContext) -> None:
-        pod_id = self.get_pod_id()
+        pod_id = TransformerBase.get_pod_id(self.source)
         self.add_work_producing_resource(pod_id, "Pod")
         self.add_references(pod_id, "Pod")
         scheduler_name = (

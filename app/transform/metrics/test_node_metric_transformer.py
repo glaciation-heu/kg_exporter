@@ -4,11 +4,13 @@ from io import StringIO
 from app.core.repository.types import Aggregation, MetricQuery, ResultParserId
 from app.core.types import MetricValue
 from app.kg.inmemory_graph import InMemoryGraph
+from app.kg.iri import IRI
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
 from app.transform.metrics.node_metric_transformer import NodeMetricToGraphTransformer
 from app.transform.metrics.test_base import MetricTransformTestBase
 from app.transform.transformation_context import TransformationContext
+from app.transform.transformer_base import TransformerBase
 
 
 class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
@@ -63,7 +65,9 @@ class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        NodeMetricToGraphTransformer(self.test_metrics, graph).transform(context)
+        NodeMetricToGraphTransformer(
+            self.test_metrics, {IRI(TransformerBase.CLUSTER_PREFIX, "worker1")}, graph
+        ).transform(context)
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
 
@@ -73,7 +77,9 @@ class NodeMetricToGraphTransformerTest(MetricTransformTestBase):
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        transformer = NodeMetricToGraphTransformer(self.test_metrics, graph)
+        transformer = NodeMetricToGraphTransformer(
+            self.test_metrics, {IRI(TransformerBase.CLUSTER_PREFIX, "worker1")}, graph
+        )
         transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

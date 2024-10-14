@@ -32,7 +32,9 @@ class ResourceTerminationTransformer(UpperOntologyBase):
         self.terminate_containers(now_date)
 
     def terminate_nodes(self, now_date: str) -> None:
-        ids_from_resources = {self.get_node_id(node) for node in self.resources.nodes}
+        ids_from_resources = {
+            TransformerBase.get_node_id(node) for node in self.resources.nodes
+        }
         for node_status in self.existing_metadata.nodes:
             node_id = IRI(
                 TransformerBase.CLUSTER_PREFIX, node_status.identifier.get_value()
@@ -49,7 +51,9 @@ class ResourceTerminationTransformer(UpperOntologyBase):
         return resource_id
 
     def terminate_pods(self, now_date: str) -> None:
-        ids_from_resources = {self.get_pod_id(pod) for pod in self.resources.pods}
+        ids_from_resources = {
+            TransformerBase.get_pod_id(pod) for pod in self.resources.pods
+        }
         for pod_status in self.existing_metadata.pods:
             pod_id = IRI(
                 TransformerBase.CLUSTER_PREFIX, pod_status.identifier.get_value()
@@ -69,7 +73,7 @@ class ResourceTerminationTransformer(UpperOntologyBase):
 
     def terminate_containers(self, now_date: str) -> None:
         pod_containers = {
-            self.get_pod_id(pod): self.get_container_ids(pod)
+            TransformerBase.get_pod_id(pod): self.get_container_ids(pod)
             for pod in self.resources.pods
         }
         all_container_ids = {

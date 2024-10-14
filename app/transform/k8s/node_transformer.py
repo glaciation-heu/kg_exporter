@@ -14,7 +14,7 @@ class NodesToRDFTransformer(TransformerBase, UpperOntologyBase):
         UpperOntologyBase.__init__(self, sink)
 
     def transform(self, context: TransformationContext) -> None:
-        node_id = self.get_node_id(self.source)
+        node_id = TransformerBase.get_node_id(self.source)
         self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
 
         self.add_cpu_resource(node_id, context.get_timestamp())

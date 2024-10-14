@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Set, Tuple
 
 from app.core.repository.types import MetricQuery
 from app.core.types import MetricValue
@@ -11,14 +11,24 @@ from app.transform.upper_ontology_base import Aggregation, UpperOntologyBase
 
 
 class PodMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBase):
-    def __init__(self, metrics: List[Tuple[MetricQuery, MetricValue]], sink: Graph):
+    existing_pod_ids: Set[IRI]
+
+    def __init__(
+        self,
+        metrics: List[Tuple[MetricQuery, MetricValue]],
+        existing_pod_ids: Set[IRI],
+        sink: Graph,
+    ):
         MetricToGraphTransformerBase.__init__(self, metrics, sink)
         UpperOntologyBase.__init__(self, sink)
+        self.existing_pod_ids = existing_pod_ids
 
     def transform(self, context: TransformationContext) -> None:
         now = context.get_timestamp()
         for query, result in self.metrics:
             pod_id = self.get_pod_id(result.resource_id)
+            if pod_id not in self.existing_pod_ids:
+                continue
             self.add_work_producing_resource(pod_id, None)
 
             timestamp = result.timestamp if not query.aggregation else now
