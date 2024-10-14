@@ -2,6 +2,8 @@ from typing import Any, Dict, List
 
 import asyncio
 
+from loguru import logger
+
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.k8s.k8s_event import EventType, K8SEvent, Kind
 from app.core.async_queue import AsyncQueue
@@ -13,14 +15,30 @@ class K8SUpdatePoolImpl(K8SUpdatePool):
     last_pod_event: Dict[str, K8SEvent]
     last_node_event: Dict[str, K8SEvent]
     queue: AsyncQueue[K8SEvent]
+    terminated: asyncio.Event
 
-    def __init__(self, k8s_client: K8SClient):
+    def __init__(self, k8s_client: K8SClient, terminated: asyncio.Event):
+        self.terminated = terminated
         self.k8s_client = k8s_client
         self.last_pod_event = dict()
         self.last_node_event = dict()
         self.queue = AsyncQueue[K8SEvent]()
 
-    async def subscribe(self) -> None:
+    async def run(self) -> None:
+        logger.info("K8SUpdatePoolImpl started.")
+        while not self.terminated.is_set():
+            try:
+                await self.subscribe_internal()
+            except Exception as e:
+                logger.error(
+                    "exception while watching events: {exception_type} {exception}",
+                    exception_type=type(e),
+                    exception=str(e),
+                )
+            await asyncio.sleep(0.1)
+
+    async def subscribe_internal(self) -> None:
+        logger.info("Kubernetes watcher: attempt watching pods and nodes")
         await asyncio.gather(
             self.k8s_client.watch_pods(self.queue),
             self.k8s_client.watch_nodes(self.queue),

@@ -42,8 +42,8 @@ class KGExporterContext:
         self.settings = settings
         kg_repository = KGRepository(metadata_client)
         influxdb_repository = MetricRepository(metric_store_client)
-        self.k8s_pool = K8SUpdatePoolImpl(k8s_client)
         self.terminated = asyncio.Event()
+        self.k8s_pool = K8SUpdatePoolImpl(k8s_client, self.terminated)
         self.queue = AsyncQueue[DKGSlice]()
         self.builder = KGBuilder(
             self.terminated,
@@ -66,7 +66,7 @@ class KGExporterContext:
         self.runner.run(self.run_tasks())
 
     async def run_tasks(self) -> None:
-        self.tasks.append(asyncio.create_task(self.k8s_pool.subscribe()))
+        self.tasks.append(asyncio.create_task(self.k8s_pool.run()))
         self.tasks.append(asyncio.create_task(self.builder.run()))
         self.tasks.append(asyncio.create_task(self.updater.run()))
         self.prometheus_server = await start_http_server(
