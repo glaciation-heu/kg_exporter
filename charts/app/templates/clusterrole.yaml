@@ -9,3 +9,6 @@ rules:
 - apiGroups: [""]
   resources: ["configmaps", "deployments", "statefulsets", "jobs", "nodes", "daemonsets", "replicasets", "pods"]
   verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["nodes", "pods"]
+  verbs: ["watch"]
