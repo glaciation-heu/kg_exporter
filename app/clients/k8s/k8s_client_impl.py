@@ -109,7 +109,7 @@ class K8SClientImpl(K8SClient):
             watcher = Watch()
             v1_pods = await dyn_client.resources.get(api_version="v1", kind="Pod")
 
-            async for e in v1_pods.watch(watcher=watcher):
+            async for e in v1_pods.watch(watcher=watcher, timeout_seconds=7776000):
                 try:
                     type = e["type"]
                     object = e["object"]
@@ -132,7 +132,7 @@ class K8SClientImpl(K8SClient):
             watcher = Watch()
             v1_nodes = await dyn_client.resources.get(api_version="v1", kind="Node")
 
-            async for e in v1_nodes.watch(watcher=watcher):
+            async for e in v1_nodes.watch(watcher=watcher, timeout_seconds=7776000):
                 try:
                     type = e["type"]
                     object = e["object"]
