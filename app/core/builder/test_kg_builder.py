@@ -9,6 +9,7 @@ from app.clients.metadata_service.mock_metadata_service_client import (
 from app.clients.prometheus.mock_prometheus_client import MockPrometheusClient
 from app.core.async_queue import AsyncQueue
 from app.core.builder.kg_builder import KGBuilder, KGBuilderSettings
+from app.core.k8s_updates.mock_k8s_pool import MockK8SUpdatePool
 from app.core.kg.kg_repository import KGRepository
 from app.core.repository.metric_repository import MetricRepository
 from app.core.repository.query_settings import QuerySettings
@@ -25,6 +26,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
     client: MockMetadataServiceClient
     k8s_client: MockK8SClient
     metric_client: MockPrometheusClient
+    k8s_pool: MockK8SUpdatePool
     queue: AsyncQueue[DKGSlice]
     running_event: asyncio.Event
     runner: asyncio.Runner
@@ -35,6 +37,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
         self.clock = MockClock()
         self.client = MockMetadataServiceClient()
         self.metric_client = MockPrometheusClient()
+        self.k8s_pool = MockK8SUpdatePool()
         self.queue = AsyncQueue()
         self.k8s_client = MockK8SClient()
         self.running_event = asyncio.Event()
@@ -78,6 +81,7 @@ class KGBuilderTest(TestCase, TestGraphFixture, SnapshotTestBase):
             self.k8s_client,
             repository,
             influxdb_repository,
+            self.k8s_pool,
             self.settings,
         )
 

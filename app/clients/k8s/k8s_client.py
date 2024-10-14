@@ -3,6 +3,9 @@ from typing import Any, Dict, List, Optional, Set
 import asyncio
 from dataclasses import dataclass, field
 
+from app.clients.k8s.k8s_event import K8SEvent
+from app.core.async_queue import AsyncQueue
+
 
 @dataclass
 class ResourceSnapshot:
@@ -150,4 +153,10 @@ class K8SClient:
         raise NotImplementedError
 
     async def get_api_versions(self) -> Dict[str, Any]:
+        raise NotImplementedError
+
+    async def watch_pods(self, queue: AsyncQueue[K8SEvent]) -> None:
+        raise NotImplementedError
+
+    async def watch_nodes(self, queue: AsyncQueue[K8SEvent]) -> None:
         raise NotImplementedError

@@ -10,6 +10,7 @@ from app.core.builder.kg_slice_assembler import KGSliceAssembler
 from app.core.builder.slice_strategy.slice_per_cluster import SlicePerCluster
 from app.core.builder.slice_strategy.slice_per_node import SlicePerNode
 from app.core.builder.slice_strategy.slice_strategy import SliceStrategy
+from app.core.k8s_updates.k8s_update_pool import K8SUpdatePool
 from app.core.kg.kg_repository import KGRepository
 from app.core.repository.metric_repository import MetricRepository
 from app.core.repository.query_settings import QuerySettings
@@ -31,6 +32,7 @@ class KGBuilder:
     queue: AsyncQueue[DKGSlice]
     kg_repository: KGRepository
     influxdb_repository: MetricRepository
+    k8s_pool: K8SUpdatePool
     settings: KGBuilderSettings
     slice_strategy: SliceStrategy
     slice_assembler: KGSliceAssembler
@@ -52,6 +54,7 @@ class KGBuilder:
         k8s_client: K8SClient,
         kg_repository: KGRepository,
         metric_repository: MetricRepository,
+        k8s_pool: K8SUpdatePool,
         settings: KGBuilderSettings,
     ):
         self.terminated = terminated
@@ -60,6 +63,7 @@ class KGBuilder:
         self.queue = queue
         self.kg_repository = kg_repository
         self.metric_repository = metric_repository
+        self.k8s_pool = k8s_pool
         self.settings = settings
         self.slice_strategy = (
             SlicePerCluster(settings.single_slice_url)
@@ -98,9 +102,13 @@ class KGBuilder:
             self.metric_repository.metric_snapshot(now, self.settings.queries),
         )
 
+        terminated_pods = self.k8s_pool.drain_terminated()
+        cluster_snapshot.pods.extend(terminated_pods)
+
         logger.debug("Cluster snapshot: {size}", size=len(cluster_snapshot.cluster))
         logger.debug("Nodes: {size}", size=len(cluster_snapshot.nodes))
         logger.debug("Pods: {size}", size=len(cluster_snapshot.pods))
+        logger.debug("Terminated Pods: {size}", size=len(terminated_pods))
         logger.debug("Deployments: {size}", size=len(cluster_snapshot.deployments))
         logger.debug("ReplicaSets: {size}", size=len(cluster_snapshot.replicasets))
         logger.debug("DaemonSets: {size}", size=len(cluster_snapshot.daemonsets))
