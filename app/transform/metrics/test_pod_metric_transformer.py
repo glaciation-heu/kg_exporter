@@ -4,11 +4,13 @@ from io import StringIO
 from app.core.repository.types import Aggregation, MetricQuery, ResultParserId
 from app.core.types import MetricValue
 from app.kg.inmemory_graph import InMemoryGraph
+from app.kg.iri import IRI
 from app.serialize.jsonld_serializer import JsonLDSerialializer
 from app.serialize.turtle_serializer import TurtleSerialializer
 from app.transform.metrics.pod_metric_transformer import PodMetricToGraphTransformer
 from app.transform.metrics.test_base import MetricTransformTestBase
 from app.transform.transformation_context import TransformationContext
+from app.transform.transformer_base import TransformerBase
 
 
 class PodMetricToGraphTransformerTest(MetricTransformTestBase):
@@ -60,7 +62,9 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        PodMetricToGraphTransformer(self.test_metrics, graph).transform(context)
+        PodMetricToGraphTransformer(
+            self.test_metrics, {IRI(TransformerBase.CLUSTER_PREFIX, "pod1")}, graph
+        ).transform(context)
         TurtleSerialializer().write(buffer, graph)
         self.assertEqual(buffer.getvalue(), node_turtle)
 
@@ -70,7 +74,9 @@ class PodMetricToGraphTransformerTest(MetricTransformTestBase):
         buffer = StringIO()
         graph = InMemoryGraph()
         context = TransformationContext(123)
-        transformer = PodMetricToGraphTransformer(self.test_metrics, graph)
+        transformer = PodMetricToGraphTransformer(
+            self.test_metrics, {IRI(TransformerBase.CLUSTER_PREFIX, "pod1")}, graph
+        )
         transformer.transform(context)
         JsonLDSerialializer(self.get_jsonld_config()).write(buffer, graph)
         self.assertEqual(json.loads(buffer.getvalue()), node_jsonld)

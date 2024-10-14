@@ -42,6 +42,6 @@ class ClusterToRDFTransformer(TransformerBase, UpperOntologyBase):
         return IRI(self.CLUSTER_PREFIX, self.escape(cluster_name))
 
     def write_node_reference(self, cluster_id: IRI, node: Dict[str, Any]) -> None:
-        node_id = self.get_node_id(node)
+        node_id = TransformerBase.get_node_id(node)
         self.add_work_producing_resource(node_id, "KubernetesWorkerNode")
         self.sink.add_relation(cluster_id, self.HAS_SUBRESOURCE, node_id)

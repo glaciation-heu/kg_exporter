@@ -31,7 +31,7 @@ class KGSliceAssembler:
         sink = InMemoryGraph()
 
         self.transform_resources(now, inputs.resource, sink)
-        self.transform_metrics(now, inputs.metrics, sink)
+        self.transform_metrics(now, inputs.metrics, inputs.resource, sink)
         self.terminate_existing_resources(now, inputs.resource, existing_metadata, sink)
         context = self.get_context(inputs.resource.versions_info)
 
@@ -83,13 +83,21 @@ class KGSliceAssembler:
     def transform_metrics(
         self,
         now: int,
-        snapshot: MetricSnapshot,
+        metrics: MetricSnapshot,
+        resources: ResourceSnapshot,
         sink: Graph,
     ) -> None:
         context = TransformationContext(now)
-        node_transformer = NodeMetricToGraphTransformer(snapshot.node_metrics, sink)
+        node_ids = {TransformerBase.get_node_id(node) for node in resources.nodes}
+        node_transformer = NodeMetricToGraphTransformer(
+            metrics.node_metrics, node_ids, sink
+        )
         node_transformer.transform(context)
-        pod_transformer = PodMetricToGraphTransformer(snapshot.pod_metrics, sink)
+
+        pod_ids = {TransformerBase.get_pod_id(pod) for pod in resources.pods}
+        pod_transformer = PodMetricToGraphTransformer(
+            metrics.pod_metrics, pod_ids, sink
+        )
         pod_transformer.transform(context)
 
     def get_context(self, versions_info: Dict[str, Any]) -> Dict[str, Any]:

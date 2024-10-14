@@ -1,5 +1,7 @@
 from typing import Any, Dict, List
 
+import asyncio
+
 from app.clients.k8s.k8s_client import K8SClient
 from app.clients.k8s.k8s_event import K8SEvent
 from app.core.async_queue import AsyncQueue
@@ -93,6 +95,7 @@ class MockK8SClient(K8SClient):
         events, self.watched_pod_events = self.watched_pod_events, []
         for event in events:
             queue.put_nowait(event)
+        await asyncio.sleep(0.5)
 
     def mock_watched_nodes(self, events: List[K8SEvent]) -> None:
         self.watched_node_events = events
@@ -101,3 +104,4 @@ class MockK8SClient(K8SClient):
         events, self.watched_node_events = self.watched_node_events, []
         for event in events:
             queue.put_nowait(event)
+        await asyncio.sleep(0.5)

@@ -13,19 +13,23 @@ class K8SUpdatePoolImplTest(TestCase):
     k8s_client: MockK8SClient
     tasks: List[asyncio.Task[Any]]
     loop: asyncio.AbstractEventLoop
+    terminated: asyncio.Event
 
     def setUp(self) -> None:
         self.loop = asyncio.get_event_loop()
         self.k8s_client = MockK8SClient()
-        self.pool = K8SUpdatePoolImpl(self.k8s_client)
+        self.terminated = asyncio.Event()
+        self.pool = K8SUpdatePoolImpl(self.k8s_client, self.terminated)
         self.tasks = []
 
     def tearDown(self) -> None:
+        self.terminated.set()
         for task in self.tasks:
             task.cancel()
+        self.tasks = []
 
     def test_drain_empty(self) -> None:
-        self.tasks.append(self.loop.create_task(self.pool.subscribe()))
+        self.tasks.append(self.loop.create_task(self.pool.run()))
 
         result = self.pool.drain_terminated()
         self.assertEqual(result, [])
@@ -50,7 +54,7 @@ class K8SUpdatePoolImplTest(TestCase):
         ]
         self.k8s_client.mock_watched_pods(events)
 
-        self.tasks.append(self.loop.create_task(self.pool.subscribe()))
+        self.tasks.append(self.loop.create_task(self.pool.run()))
 
         result = self.wait_for_result(2, 1)
 
@@ -82,7 +86,7 @@ class K8SUpdatePoolImplTest(TestCase):
         ]
         self.k8s_client.mock_watched_pods(events)
 
-        self.tasks.append(self.loop.create_task(self.pool.subscribe()))
+        self.tasks.append(self.loop.create_task(self.pool.run()))
 
         result = self.wait_for_result(2, 1)
 

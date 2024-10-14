@@ -116,14 +116,16 @@ class TransformerBase:
         resource_id = IRI(self.CLUSTER_PREFIX, name)
         return resource_id
 
-    def get_pod_id(self) -> IRI:
-        name = self.source["metadata"]["name"]
-        namespace = self.source["metadata"]["namespace"]
-        return IRI(self.CLUSTER_PREFIX, namespace).dot(name)
+    @staticmethod
+    def get_pod_id(pod_resource: Dict[str, Any]) -> IRI:
+        name = pod_resource["metadata"]["name"]
+        namespace = pod_resource["metadata"]["namespace"]
+        return IRI(TransformerBase.CLUSTER_PREFIX, namespace).dot(name)
 
-    def get_node_id(self, node_resource: Dict[str, Any]) -> IRI:
+    @staticmethod
+    def get_node_id(node_resource: Dict[str, Any]) -> IRI:
         name = node_resource["metadata"]["name"]
-        resource_id = IRI(self.CLUSTER_PREFIX, name)
+        resource_id = IRI(TransformerBase.CLUSTER_PREFIX, name)
         return resource_id
 
     def get_str_value(self, query: str) -> Optional[str]:

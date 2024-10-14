@@ -5,7 +5,7 @@ class K8SUpdatePool:
     def __init__(self):
         pass
 
-    async def subscribe(self) -> None:
+    async def run(self) -> None:
         raise NotImplementedError
 
     def drain_terminated(self) -> List[Dict[str, Any]]:

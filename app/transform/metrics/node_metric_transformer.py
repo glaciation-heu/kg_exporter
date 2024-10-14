@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Set, Tuple
 
 from app.core.repository.types import MetricQuery
 from app.core.types import MetricValue
@@ -11,14 +11,25 @@ from app.transform.upper_ontology_base import Aggregation, UpperOntologyBase
 
 
 class NodeMetricToGraphTransformer(MetricToGraphTransformerBase, UpperOntologyBase):
-    def __init__(self, metrics: List[Tuple[MetricQuery, MetricValue]], sink: Graph):
+    existing_node_ids: Set[IRI]
+
+    def __init__(
+        self,
+        metrics: List[Tuple[MetricQuery, MetricValue]],
+        existing_node_ids: Set[IRI],
+        sink: Graph,
+    ):
         MetricToGraphTransformerBase.__init__(self, metrics, sink)
         UpperOntologyBase.__init__(self, sink)
+        self.existing_node_ids = existing_node_ids
 
     def transform(self, context: TransformationContext) -> None:
         now = context.get_timestamp()
         for query, result in self.metrics:
             node_id = self.get_node_id(result.resource_id)
+            if node_id not in self.existing_node_ids:
+                continue
+
             timestamp = result.timestamp if not query.aggregation else now
 
             parent_resource_id = (
