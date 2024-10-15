@@ -30,7 +30,7 @@ class K8SUpdatePoolImpl(K8SUpdatePool):
             try:
                 await self.subscribe_internal()
             except Exception as e:
-                logger.error(
+                logger.warning(
                     "exception while watching events: {exception_type} {exception}",
                     exception_type=type(e),
                     exception=str(e),
