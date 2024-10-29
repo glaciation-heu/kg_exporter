@@ -48,14 +48,26 @@ readinessProbe:
   initialDelaySeconds: 15
   periodSeconds: 10
   timeoutSeconds: 5
-
+# Knowledge graph exporter service settings
 settings:
+  # Knowledge graph builder
   builder:
+    # -- Periodicity of knolwedge graph building
     builder_tick_seconds: 60
+
+    # -- DKG Slice service node port
     node_port: 80
+
+    # -- In case single DKG slice is enabled, this is the url of the single DKG slice
     single_slice_url: http://metadata-service:80
+
+    # -- Enables/Disables single slice per cluster or daemon set
     is_single_slice: False
+
+    # Prometheus queries to collect metrics
     queries:
+      # -- Prometheus node specific metrics queries
+      # @default -- []
       node_queries:
 
         - measurement_id: Energy.Usage
@@ -124,6 +136,8 @@ settings:
             )
           result_parser: PROMETHEUS_PARSER
 
+      # -- Prometheus pod specific metrics queries
+      # @default -- []
       pod_queries:
 
         - measurement_id: Usage
@@ -230,12 +244,28 @@ settings:
             )
           result_parser: PROMETHEUS_PARSER
 
+  # Kubernetes configuration
   k8s:
+
+    # -- in cluster or out service cluster execution
     in_cluster: true
+
+  # Metadata service endpoing confguration
   metadata:
+    # -- Metadata Service endpoint service name
     metadata_service_url: metadata-service
+
+    # -- Metadata Service API timeout
     timeout_seconds: 20
+
+  # Prometheus metric exposure configuration
   prometheus:
+
+    # -- KG exporter '/metrics' API port
     endpoint_port: 8080
+
+  # Prometheus client configuration
   prometheus_client:
+
+    # -- Prometheus endpoint url
     url: prometheus.integration

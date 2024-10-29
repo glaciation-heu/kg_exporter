@@ -11,7 +11,7 @@ from app.serialize.jsonld_configuration import JsonLDConfiguration
 from app.transform.upper_ontology_base import UpperOntologyBase
 
 
-class TestTransformer(UpperOntologyBase):
+class ExampleTransformer(UpperOntologyBase):
     def __init__(self, graph: Graph):
         super().__init__(graph)
 
@@ -23,7 +23,7 @@ class TestGraphFixture:
         cpu = IRI("glc", "cpu")
         measurement_id = IRI("glc", "measurement1")
 
-        transformer = TestTransformer(graph)
+        transformer = ExampleTransformer(graph)
         transformer.add_work_producing_resource(node1, "Node")
         transformer.add_work_producing_resource(cpu, "CPU")
         transformer.add_subresource(node1, cpu)

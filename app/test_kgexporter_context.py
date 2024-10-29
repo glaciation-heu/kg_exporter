@@ -38,7 +38,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
         self.metadata_client = MockMetadataServiceClient()
         self.k8s_client = MockK8SClient()
         self.metric_client = MockPrometheusClient()
-        self.settings = self.test_kg_exporter_settings()
+        self.settings = self.kg_exporter_settings()
         self.context = KGExporterContext(
             self.clock,
             self.metadata_client,
@@ -93,7 +93,7 @@ class KGExporterContextTest(TestCase, SnapshotTestBase):
             slice_id = KGSliceId.from_host_port(host_and_port)
             self.assert_serialized_graph(snapshot_identity, slice_id, serialized_graph)
 
-    def test_kg_exporter_settings(self) -> KGExporterSettings:
+    def kg_exporter_settings(self) -> KGExporterSettings:
         settings = KGExporterSettings(
             builder=KGBuilderSettings(
                 builder_tick_seconds=60,

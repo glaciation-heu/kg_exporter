@@ -4,6 +4,14 @@ default_language_version:
 default_stages: [commit, push]
 
 repos:
+- repo: https://github.com/norwoodj/helm-docs
+  rev:  ""
+  hooks:
+    - id: helm-docs
+      args:
+        # Make the tool search for charts only under the `charts` directory
+        - --chart-search-root=./charts
+
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v3.4.0
   hooks:
